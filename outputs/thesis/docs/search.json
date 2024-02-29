@@ -1,0 +1,103 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ANU Thesis",
+    "section": "",
+    "text": "Preface\nThis thesis template is intended for honours, masters or PhD students at the Australian National University (ANU) who wish to write their thesis using the Quarto document format. It is highly recommended for students who code using Python, R or Julia and have many computational or analysis results in their thesis.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#benefits",
+    "href": "index.html#benefits",
+    "title": "ANU Thesis",
+    "section": "Benefits",
+    "text": "Benefits\nThe benefits of using Quarto document include:\n\nIt allows you to write your thesis in a simple markup language called Markdown. This means that you can focus on writing your thesis without having to worry about formatting.\nThe document can be output to a variety of formats including PDF, HTML, Word, and LaTeX.\nCode can be easily embedded in the document and executed. This means that you can include the results of your analysis in your thesis without having to manually copy and paste them. This is a good reproducible and scientific practice.\nYou can easily integrate with aspects of GitHub (edit, reporting an issue, etc).\n\nThe above outlined benefits can also be considered as best practice. Version controlling and collaborative writing (via Git and GitHub) are important in managing multiple versions of your thesis and in collaborating with your supervisory team. Embedding code in your thesis is a good practice in reproducible research. Making your thesis in HTML format can allow for interactive web elements to be embedded while PDF format can be for general distribution and printing.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "ANU Thesis",
+    "section": "Getting started",
+    "text": "Getting started\nThere are several systems that you are expected to know to use this template. These include:\n\nMarkdown syntax for writing\nQuarto or R Markdown syntax (note that these works for Python or Julia too) for embedding code\n(Optional) Git and GitHub for hosting",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#frequently-asked-questions",
+    "href": "index.html#frequently-asked-questions",
+    "title": "ANU Thesis",
+    "section": "Frequently asked questions",
+    "text": "Frequently asked questions\n\nWhat about Overleaf?\nANU has a professional account for Overleaf, which is great for those that use LaTeX regularly. Unfortunately, there is no equivalent system with track changes in Quarto. You can output the tex file from Quarto document and use this in Overleaf. The changes made in this tex document however has to be manually transferred back to the Quarto document. If your main output is mainly mathematical and you have little to no code outputs, Overleaf is probably a better choice.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "disclaimer.html",
+    "href": "disclaimer.html",
+    "title": "Disclaimer",
+    "section": "",
+    "text": "This thesis is composed of my original work, and contains no material previously published or written by another person except where due reference has been made in the text. I have clearly stated the contribution by others to jointly-authored works that I have included in my thesis.\nI have clearly stated the contribution of others to my thesis as a whole, including statistical assistance, study design, data analysis, significant technical procedures, professional editorial advice, financial support and any other original research work used or reported in my thesis. The content of my thesis is the result of work I have carried out since the commencement of my higher degree by research candidature and does not include a substantial part of work that has been submitted to qualify for the award of any other degree or diploma in any university or other tertiary institution. I have clearly stated which parts of my thesis, if any, have been submitted to qualify for another award.\n\nYour Name\n2024-01-24\n\n\nPublications\nAccepted or in-press publication in this thesis.\nSubmitted manuscripts included in this thesis.\nOther publications during candidature.",
+    "crumbs": [
+      "Disclaimer"
+    ]
+  },
+  {
+    "objectID": "acknowledgements.html",
+    "href": "acknowledgements.html",
+    "title": "Acknowledgements",
+    "section": "",
+    "text": "I would like to express my sincere gratitude to my dog, Chuckles, for eating my research notes multiple times. If it wasn’t for you, I would have finished this thesis earlier.",
+    "crumbs": [
+      "Acknowledgements"
+    ]
+  },
+  {
+    "objectID": "chapter1.html",
+    "href": "chapter1.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "Reproducible research is an essential paradigm that promotes the idea that scientific investigations should be transparent, verifiable, and accessible to others. In an era where the scientific community faces concerns about the replicability of research findings, adopting reproducible research practices becomes imperative.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "chapter2.html",
+    "href": "chapter2.html",
+    "title": "2  Method",
+    "section": "",
+    "text": "This report underscores the transformative impact of reproducible research on the scientific landscape, promoting a commitment to openness and accountability for the benefit of the entire research community.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Method</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Allaire, JJ. 2023. Quarto: R Interface to ’Quarto’ Markdown\nPublishing System. https://CRAN.R-project.org/package=quarto.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "tools.html",
+    "href": "tools.html",
+    "title": "Appendix A — Tools",
+    "section": "",
+    "text": "This thesis was written using Quarto 1.4.545 (Allaire 2023) and the following system and R packages:\n\n\n─ Session info ───────────────────────────────────────────────────────────────\n setting  value\n version  R version 4.3.1 (2023-06-16)\n os       macOS Sonoma 14.2.1\n system   aarch64, darwin20\n ui       X11\n language (EN)\n collate  en_US.UTF-8\n ctype    en_US.UTF-8\n tz       Australia/Sydney\n date     2024-01-24\n pandoc   3.1.1 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/ (via rmarkdown)\n\n─ Packages ───────────────────────────────────────────────────────────────────\n package     * version date (UTC) lib source\n cli           3.6.2   2023-12-11 [1] CRAN (R 4.3.1)\n digest        0.6.33  2023-07-07 [1] CRAN (R 4.3.0)\n evaluate      0.23    2023-11-01 [1] CRAN (R 4.3.1)\n fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.3.0)\n htmltools     0.5.7   2023-11-03 [1] CRAN (R 4.3.1)\n htmlwidgets   1.6.4   2023-12-06 [1] CRAN (R 4.3.1)\n jsonlite      1.8.8   2023-12-04 [1] CRAN (R 4.3.1)\n knitr         1.45    2023-10-30 [1] CRAN (R 4.3.1)\n later         1.3.2   2023-12-06 [1] CRAN (R 4.3.1)\n processx      3.8.3   2023-12-10 [1] CRAN (R 4.3.1)\n ps            1.7.5   2023-04-18 [1] CRAN (R 4.3.0)\n quarto        1.3     2023-09-19 [1] CRAN (R 4.3.1)\n Rcpp          1.0.12  2024-01-09 [1] CRAN (R 4.3.1)\n rlang         1.1.3   2024-01-10 [1] CRAN (R 4.3.1)\n rmarkdown     2.25    2023-09-18 [1] CRAN (R 4.3.1)\n rstudioapi    0.15.0  2023-07-07 [1] CRAN (R 4.3.0)\n sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.3.0)\n xfun          0.41    2023-11-01 [1] CRAN (R 4.3.1)\n yaml          2.3.8   2023-12-11 [1] CRAN (R 4.3.1)\n\n [1] /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library\n\n──────────────────────────────────────────────────────────────────────────────\n\n\n\n\n\n\nAllaire, JJ. 2023. Quarto: R Interface to ’Quarto’ Markdown Publishing System. https://CRAN.R-project.org/package=quarto.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Tools</span>"
+    ]
+  }
+]
