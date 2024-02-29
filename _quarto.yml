@@ -1,8 +1,6 @@
 project:
   title: "Master project"
-  reader:
-  -"*.qmd"
-  -"!outputs/*"
-
-editor: visual
+  render:
+   - "*.qmd"
+   - "!outputs/*"
 
