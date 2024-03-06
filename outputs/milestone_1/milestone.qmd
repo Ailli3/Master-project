@@ -1,9 +1,9 @@
 ---
-title: "Your project title"
-author: "Your name"
+title: "Opimization of Row-Column Designs"
+author: "Jingning Yao"
 supervisors:
   - "Dr. Emi Tanaka"
-  - "Your other supervisor"
+  - "Dr. Katharine Turner"
 date: today
 format: 
   pdf: 
@@ -18,5 +18,20 @@ format:
         \usepackage{enumitem}
 ---
 
+Row-Column Designs refer to a kind of statistical experimental design aiming to improve the efficiency of experiments and reducing the impact from external factors like environment and unexpected adjacency.
 
-Test
+We always want to ensure that when we are design experiments, they have good capability of detecting the any differences between different treatments. And we also want to know that whether these differences we found come from treatments we give instead of other causes. While we collect data from different treatments and replicates, we wish to find the ideal one among our experiments, which depends on our goal.
+
+The most easy way to do it is the completely randomized design. It doesn't have any restriction on allocation, so treatments are randomly assigned to any position in the trial. In this case, unexpected adjacency mentioned above may occur, which may be undesirable and cause bias in the result.
+
+So we need stratum to build the designs. A stratum is a restriction imposed on the layout of design. It helps to adjust and accommodate for field variation, and model its effect in a precise and theoretical way. Observations are usually modeled by linear model. A basic design widely discussed is randomized complete block design (RCB). The assumed model is followed. 
+$$Y_{ij} = \mu + p_i + \tau_j + \epsilon_{ij}$$
+Here $i=1,2,3,...,r$ and $r$ is the number of replicate. And $j=1,2,3,...,\nu$ where $\nu$ is the number of treatment. $\epsilon_{ij}$ is the the error of the model. It blocks every replicates and each blocks contain every kinds of treatment.
+
+It is possible to place all treatments in one replicate when the number of treatment is small. When it come to larger number, larger number of plot in a replicate is required, in which case resource limitation should be considered and physical differences cannot be ignored. Therefore it is necessary to consider incomplete block designs, which only some treatments are placed in one block. 
+
+In incomplete block design, for all treatment having same status, maximize the number of different pairwise comparisons in one block is the optimal design we wish to obtain. So for RCB model, we can rewrite in a matrices-vectors form as:
+$$Y=G\mu +R\rho+Z\beta+X\tau+\epsilon$$
+Here $R$ , $Z$ and $X$ are design matrices for replicates blocks and treatments. $G$ is a ones vector.
+
+Through this model we are trying to find a optimal design for a experiment.
