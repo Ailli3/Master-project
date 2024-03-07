@@ -16,6 +16,7 @@ format:
       text: |
         \usepackage{fullpage}
         \usepackage{enumitem}
+bibliography: ref.bib
 ---
 
 ## ET comments
@@ -47,3 +48,8 @@ Through this model we are trying to find a optimal design for a experiment.
 
 - Citations needed. 
 - For mathematical notations, use bold capital letters, e.g. $\textbf{G}$, for matrices and bold italic lower case for vectors, e.g. $\boldsymbol{b}$.
+
+
+Here is a citation @piephoNeighborBalanceEvenness2018. For a bracket citation [@piephoNeighborBalanceEvenness2018].
+
+# References
