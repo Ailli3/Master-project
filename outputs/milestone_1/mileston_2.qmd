@@ -21,25 +21,27 @@ bibliography: ref.bib
 
 # Introduction
 
-When researchers wish to explore the relationship between two or more variables, they usually need to conduct experiments to observe the relationship between the variable or to verify theories that have been deduced. A well-designed experiments is the key to obtaining reliable and accurate results. 
+When testing theories about the relationship between two or more variables, an experiment allows researchers to observe the relationship between the variables in a controlled environment that better allows them to infer validity of their theory. Not all experiments, however, yield valid results. A well-designed experiments is needed to obtain valid and efficient results. 
 
-Row-column design is a special kind of experimental design typically applied in rectangular experimental sites.The main idea of this design method lies in arranging and randomizing experimental units across two dimensions, that is rows and columns, allowing for efficient use of space and  analysis of rows and columns
+Row-column design is a special type of experimental design where the units have a rectangular array structure. This unit structure is common in the biological field, e.g. a crop field trial where the plots are laid out in a regular grid structure. The main idea of this design method lies in optimal allocation of experimental conditions (i.e. treatments) across two dimensions (namely rows and columns).
 
-We always want to ensure that when we are design experiments, they have good capability of detecting the any differences between different treatments. And we also want to know that whether these differences we found come from treatments we give instead of other causes. While we collect data from different treatments and replicates, we wish to find the ideal one among our experiments, which depends on our goal.
+
+In designing experiments, we want good capability of achieving our aim, e.g. 
+detecting any differences between treatments where there is a real difference. We also want to ensure these differences arise due to treatments instead of other causes. 
 
 # Background
 
 ## Completely randomised design
 
-Completely randomized design is the simplest model for row-column design, which doesn't have any restriction on allocation, so treatments are randomly assigned to any position in experiment unites. In this case, unexpected adjacency may occur, which may be undesirable and cause bias in the result, like the two-dimensional layout conducted by LFA[@piepho2018neighbor]
+Completely randomized design is the simplest model for row-column design, which does not have any restriction on allocation, so treatments are randomly assigned to any position in experiment units. In this case, unexpected adjacency may occur, which may be undesirable and cause bias in the result [@piepho2018neighbor].
 
 ## Randomised complete block design
 
-So we need stratum to build the designs. A stratum is a restriction imposed on the layout of design. Stratum helps to adjust and accommodate for field variation, and model the effect in a precise and theoretical way. Observations are usually modeled by linear model. A basic design widely discussed is randomized complete block design (RCB). The assumed model is followed. 
+We need stratum to build the designs. A stratum is a restriction imposed on the layout of design. Stratum helps to adjust and accommodate for field variation, and model the effect in a precise and theoretical way. Observations are usually modeled by linear model. A basic design widely discussed is randomized complete block design (RCB). The assumed model is followed. 
 $$Y_{ij} = \mu + \rho_i + \tau_j + \epsilon_{ij}$$
 Here $i=1,2,3,...,r$ and $r$ is the number of replicate. And $j=1,2,3,...,\nu$ where $\nu$ is the number of treatment. $Y_{ij}$ is the observation of $i$th replicate, $j$th treatment;$\rho$ are parameters for $r$ replicates; $\tau_j$ are parameters for the $\nu$ treatments;$\mu$ is the overall mean and $\epsilon_{ij}$ is the the error of the model.[@matheson2024experimental] RCB blocks every replicates and each blocks contain every kinds of treatment.
 
-Placing all treatments in one replicate is possible when the number of treatment is small. When it come to larger number, larger number of plots in a replicate is required, in which case resource limitation should be considered and physical differences cannot be ignored.Incomplete block designs should be considered, which only some treatments are placed in one block. 
+Placing all treatments in one replicate is possible when the number of treatment is small. When it come to larger number, larger number of plots in a replicate is required, in which case resource limitation should be considered and physical differences cannot be ignored. Incomplete block designs should be considered, which only some treatments are placed in one block. 
 
 ## Incomplete block design
 
@@ -48,7 +50,7 @@ $$Y_{igh}=\mu+\rho_i+\beta_{ig}+\tau_j+\epsilon_{igh}$$
 Here $Y_{igh}(i=1,2,\dots,r;g=1,2,\dots,s;h=1,2,\dots,k)$ refer to the observations come from  $r$ replicates with $s$ incomplete blocks containing $k$ plots.$\epsilon_{igh}$ is the the error of the model
 If we consider the design for every blocks, we can rewrite the incomplete block design model in a matrices-vectors form as:
 $$\boldsymbol{Y}=\textbf{G}\boldsymbol{\mu} +\textbf{R}\boldsymbol{\rho}+\textbf{Z}\boldsymbol{\beta}+\textbf{X}\boldsymbol{\tau}+\boldsymbol{\epsilon}$$
-Here $R$ , $Z$ and $X$ are design matrices for replicates blocks and treatments. $G$ is a ones vector. $\boldsymbol{Y}$ is the vector of all $Y_{igh}$ likewise $\boldsymbol{\mu}$, $\boldsymbol{\rho}$, $\boldsymbol{\beta}$, $\boldsymbol{\tau}$ and $\boldsymbol{\epsilon}$ are vectors of parameters.[@matheson2024experimental]Through this model we are trying to find a optimal design for a experiment.
+Here $R$ , $Z$ and $X$ are design matrices for replicates blocks and treatments. $G$ is a ones vector. $\boldsymbol{Y}$ is the vector of all $Y_{igh}$ likewise $\boldsymbol{\mu}$, $\boldsymbol{\rho}$, $\boldsymbol{\beta}$, $\boldsymbol{\tau}$ and $\boldsymbol{\epsilon}$ are vectors of parameters [@matheson2024experimental]. Through this model we are trying to find a optimal design for a experiment.
 
 ## A-optimality
 
