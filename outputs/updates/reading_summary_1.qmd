@@ -1,0 +1,105 @@
+---
+title: "Reading Summary 1--A-optimality"
+author: "Jingning Yao"
+
+format: 
+  pdf: 
+    fontsize: 12pt
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+bibliography: ref.bib
+---
+
+# Problem discussed
+
+- A-optimality for a linear regression model $y=X\beta + \epsilon$.
+
+- Consider the problem of determining optimal block designs in which $\nu$ treatments are to  be applied to experimental units arranged in $b$ blocks of size $k$. And A-optimality for such block design.
+
+# A-optimality for linear regression model
+Consider the linear regression model
+$$y=\textbf{X}\beta + \epsilon$$
+where $y$ is an $m\times 1$ vector of observations, $\textbf{X}$ is an $m\times n$ design matrix, $\beta$ is an $n\times 1$ vector of unknown parameters. $\epsilon$ is a an $m\times 1$ vector of random variables with mean the $m\times 1$ zero vector and known covariance matrix $\boldsymbol{\Lambda}$. Assume that $m\geqslant n$ and denote the eigenvalues of $\boldsymbol{\Lambda}$ in increasing order: 
+
+$$
+\lambda_1\leqslant\lambda_2\leqslant\dots\leqslant\lambda_n\dots\leqslant\lambda_m
+$$.
+
+For a design matrix $\textbf{X}$ if rank $n$, based on observation $y$, an unbiased simple least squares estimation of parameter $\beta$ is 
+$$
+(\textbf{X}'\textbf{X})^{-1}\textbf{X}'y
+$$
+and covariance matrix is given by
+$$
+(\textbf{X}'\textbf{X})^{-1}\textbf{X}'\boldsymbol{\Lambda}\textbf{X}(\textbf{X}'\textbf{X})^{-1}
+$$
+ To choose $\textbf{X}$ from a given experimental region, A-optimality try to find the minimum of the trace of covariance matrix.
+
+The experimental region under consideration is taken to be the set $H$ of all $m\times n$ real matrices of rank $n$ whose $i$th column has a Euclidean norm not exceeding given positive numbers $c_i, i=1,\dots,n$.
+
+## a basic inequality
+
+For matrix $\boldsymbol{\Lambda}$ there exists an orthogonal matrix $\boldsymbol{P}$ and a diagonal matrix $\boldsymbol{\Lambda_m}$ such that 
+$$
+\boldsymbol{\Lambda}=\boldsymbol{P}'\boldsymbol{\Lambda_m}\boldsymbol{P}
+$$
+and for any $X$ in $H$
+
+$$
+tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\}
+\geqslant
+(\sum_{i=1}^{n}c_i^{2})^{-1}(\sum_{i=1}^{n}\lambda_i^{1/2})^{2}
+$$
+and by the definition of the set $H$
+$$
+tr\{\boldsymbol{X}'\boldsymbol{X}\}\leqslant\sum_{i=1}^{n}c_i^{2}
+$$
+
+[@chan1982optimality]
+
+
+
+## $A$-Optimal designs
+So the main goal is to obtain the matrix in $H$ such that the lower bond is attained. the article only gives the theorem of existence:
+
+Suppose that the positive numbers $c_i,i=1,\dots,n$ are arranged in ascending order of magnitude and that the smallest eigenvalue $\lambda_1$ of the covariance matrix $\boldsymbol{\Lambda}$ is positive. Then there is an $\boldsymbol{X}$ in $H$ such that
+$$
+tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\}
+=
+(\sum_{i=1}^{n}c_i^{2})^{-1}(\sum_{i=1}^{n}\lambda_i^{1/2})^{2}
+$$
+if and only if 
+
+$$
+(\sum_{i=1}^{n}c_i^{2})^{-1}\sum_{i=1}^{k}c_i^{2}\geqslant(\sum_{i=1}^{n}\lambda_i^{2})^{-1}\sum_{i=1}^{k}\lambda_i^{2}, \quad k=1,\dots,n-1
+$$
+[@chan1982optimality]
+
+
+# A-optimality for block design
+Here size of blocks $k= \nu -1$ or $k= \nu +1$
+
+## Some notatinos
+
+Use $d$ to denote some particular block design that can be used. Let $N_d=(n_{dij})$ denote the treatment block incidence matrix of $d$; and $n_{dij}$ is the number of experimental units to which treatment $i$ is applied in block $j$. The $i$th row sum of $N_d$ is denoted by $r_{di}$ and represents the number of times treatment $i$ is replicated in $d$. $N_dN_d'$ is called the concurrence matrix of $d$.[@jacroux1989optimality].
+
+Now for observations $Y_{ijp}$ obtained by applying treatment $i$ to an experimental unit occurring in block j. Assumed model is:
+$$
+Y_{ijp}= \alpha_i+\beta_j+E_{ijp},\quad 0\leq i\leq\nu,\quad 1\leq j\leq b,\quad 0\leq p \leq n_{dij}
+$$
+
+where $\alpha_i$ is the effect of the $i$th treatment, $\beta_j$ in the effect of the $j$th block, and the $E_{ijp}$ are independent random variables having expectation 0 and constant variance $\sigma^2$
+
+The coefficient matrix of the reduced normal equation for obtaining the least squares estimates of the treatment effects in $d$ can be written as 
+$$
+C_d=diag(r_{d0},r_{d1},\dots,r_{d\nu})-(1/k)N_dN_d'
+$$
+where $diag(r_{d0},r_{d1},\dots,r_{d\nu})$ denotes a $(\nu +1)\times(\nu+1)$ diagonal matrix. The matrix $C_d$ is called the $C$-matrix of $d$ and is positive-semidefinite with zero row sums, having rank $\nu-1$
+
+Use $D(\nu,b,k)$ to denote the class of all connected block designs having $\nu$ treatments arranged in $b$ blocks of size $k$.
+
+For $d\in D(\nu,b,k)$ let $0=z_{d0} < z_{d1}\leqslant\dots\leqslant z_{d,\nu-1}$ denote the nonzero eigen values of $C_d$[@jacroux1992optimality]
+
+# References
