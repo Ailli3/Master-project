@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jingning Yao">
 
-<title>Reading Summary 1</title>
+<title>Reading Summary 1–A-optimality</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="reading_summary_1_files/libs/clipboard/clipboard.min.js"></script>
@@ -35,18 +55,48 @@ ul.task-list li input[type="checkbox"] {
 <link href="reading_summary_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="reading_summary_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="reading_summary_1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reading Summary 1</h1>
+<h1 class="title">Reading Summary 1–A-optimality</h1>
 </div>
 
 
@@ -69,9 +119,85 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="problem-discussed" class="level1">
+<h1>Problem discussed</h1>
+<ul>
+<li><p>A-optimality for a linear regression model <span class="math inline">\(y=X\beta + \epsilon\)</span>.</p></li>
+<li><p>Consider the problem of determining optimal block designs in which <span class="math inline">\(\nu\)</span> treatments are to be applied to experimental units arranged in <span class="math inline">\(b\)</span> blocks of size <span class="math inline">\(k\)</span>. And A-optimality for such block design.</p></li>
+</ul>
+</section>
+<section id="a-optimality-for-linear-regression-model" class="level1">
+<h1>A-optimality for linear regression model</h1>
+<p>Consider the linear regression model <span class="math display">\[y=\textbf{X}\beta + \epsilon\]</span> where <span class="math inline">\(y\)</span> is an <span class="math inline">\(m\times 1\)</span> vector of observations, <span class="math inline">\(\textbf{X}\)</span> is an <span class="math inline">\(m\times n\)</span> design matrix, <span class="math inline">\(\beta\)</span> is an <span class="math inline">\(n\times 1\)</span> vector of unknown parameters. <span class="math inline">\(\epsilon\)</span> is a an <span class="math inline">\(m\times 1\)</span> vector of random variables with mean the <span class="math inline">\(m\times 1\)</span> zero vector and known covariance matrix <span class="math inline">\(\boldsymbol{\Lambda}\)</span>. Assume that <span class="math inline">\(m\geqslant n\)</span> and denote the eigenvalues of <span class="math inline">\(\boldsymbol{\Lambda}\)</span> in increasing order:</p>
+<p><span class="math display">\[
+\lambda_1\leqslant\lambda_2\leqslant\dots\leqslant\lambda_n\dots\leqslant\lambda_m
+\]</span>.</p>
+<p>For a design matrix <span class="math inline">\(\textbf{X}\)</span> if rank <span class="math inline">\(n\)</span>, based on observation <span class="math inline">\(y\)</span>, an unbiased simple least squares estimation of parameter <span class="math inline">\(\beta\)</span> is <span class="math display">\[
+(\textbf{X}'\textbf{X})^{-1}\textbf{X}'y
+\]</span> and covariance matrix is given by <span class="math display">\[
+(\textbf{X}'\textbf{X})^{-1}\textbf{X}'\boldsymbol{\Lambda}\textbf{X}(\textbf{X}'\textbf{X})^{-1}
+\]</span> To choose <span class="math inline">\(\textbf{X}\)</span> from a given experimental region, A-optimality try to find the minimum of the trace of covariance matrix.</p>
+<p>The experimental region under consideration is taken to be the set <span class="math inline">\(H\)</span> of all <span class="math inline">\(m\times n\)</span> real matrices of rank <span class="math inline">\(n\)</span> whose <span class="math inline">\(i\)</span>th column has a Euclidean norm not exceeding given positive numbers <span class="math inline">\(c_i, i=1,\dots,n\)</span>.</p>
+<section id="a-basic-inequality" class="level2">
+<h2 class="anchored" data-anchor-id="a-basic-inequality">a basic inequality</h2>
+<p>For matrix <span class="math inline">\(\boldsymbol{\Lambda}\)</span> there exists an orthogonal matrix <span class="math inline">\(\boldsymbol{P}\)</span> and a diagonal matrix <span class="math inline">\(\boldsymbol{\Lambda_m}\)</span> such that <span class="math display">\[
+\boldsymbol{\Lambda}=\boldsymbol{P}'\boldsymbol{\Lambda_m}\boldsymbol{P}
+\]</span> and for any <span class="math inline">\(X\)</span> in <span class="math inline">\(H\)</span></p>
+<p><span class="math display">\[
+tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\}
+\geqslant
+(\sum_{i=1}^{n}c_i^{2})^{-1}(\sum_{i=1}^{n}\lambda_i^{1/2})^{2}
+\]</span> and by the definition of the set <span class="math inline">\(H\)</span> <span class="math display">\[
+tr\{\boldsymbol{X}'\boldsymbol{X}\}\leqslant\sum_{i=1}^{n}c_i^{2}
+\]</span></p>
+<p><span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref">Chan 1982</a>)</span></p>
+</section>
+<section id="a-optimal-designs" class="level2">
+<h2 class="anchored" data-anchor-id="a-optimal-designs"><span class="math inline">\(A\)</span>-Optimal designs</h2>
+<p>So the main goal is to obtain the matrix in <span class="math inline">\(H\)</span> such that the lower bond is attained. the article only gives the theorem of existence:</p>
+<p>Suppose that the positive numbers <span class="math inline">\(c_i,i=1,\dots,n\)</span> are arranged in ascending order of magnitude and that the smallest eigenvalue <span class="math inline">\(\lambda_1\)</span> of the covariance matrix <span class="math inline">\(\boldsymbol{\Lambda}\)</span> is positive. Then there is an <span class="math inline">\(\boldsymbol{X}\)</span> in <span class="math inline">\(H\)</span> such that <span class="math display">\[
+tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\}
+=
+(\sum_{i=1}^{n}c_i^{2})^{-1}(\sum_{i=1}^{n}\lambda_i^{1/2})^{2}
+\]</span> if and only if</p>
+<p><span class="math display">\[
+(\sum_{i=1}^{n}c_i^{2})^{-1}\sum_{i=1}^{k}c_i^{2}\geqslant(\sum_{i=1}^{n}\lambda_i^{2})^{-1}\sum_{i=1}^{k}\lambda_i^{2}, \quad k=1,\dots,n-1
+\]</span> <span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref">Chan 1982</a>)</span></p>
+</section>
+</section>
+<section id="a-optimality-for-block-design" class="level1">
+<h1>A-optimality for block design</h1>
+<p>Here size of blocks <span class="math inline">\(k= \nu -1\)</span> or <span class="math inline">\(k= \nu +1\)</span></p>
+<section id="some-notatinos" class="level2">
+<h2 class="anchored" data-anchor-id="some-notatinos">Some notatinos</h2>
+<p>Use <span class="math inline">\(d\)</span> to denote some particular block design that can be used. Let <span class="math inline">\(N_d=(n_{dij})\)</span> denote the treatment block incidence matrix of <span class="math inline">\(d\)</span>; and <span class="math inline">\(n_{dij}\)</span> is the number of experimental units to which treatment <span class="math inline">\(i\)</span> is applied in block <span class="math inline">\(j\)</span>. The <span class="math inline">\(i\)</span>th row sum of <span class="math inline">\(N_d\)</span> is denoted by <span class="math inline">\(r_{di}\)</span> and represents the number of times treatment <span class="math inline">\(i\)</span> is replicated in <span class="math inline">\(d\)</span>. <span class="math inline">\(N_dN_d'\)</span> is called the concurrence matrix of <span class="math inline">\(d\)</span>.<span class="citation" data-cites="jacroux1989optimality">(<a href="#ref-jacroux1989optimality" role="doc-biblioref">Jacroux 1989</a>)</span>.</p>
+<p>Now for observations <span class="math inline">\(Y_{ijp}\)</span> obtained by applying treatment <span class="math inline">\(i\)</span> to an experimental unit occurring in block j. Assumed model is: <span class="math display">\[
+Y_{ijp}= \alpha_i+\beta_j+E_{ijp},\quad 0\leq i\leq\nu,\quad 1\leq j\leq b,\quad 0\leq p \leq n_{dij}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th treatment, <span class="math inline">\(\beta_j\)</span> in the effect of the <span class="math inline">\(j\)</span>th block, and the <span class="math inline">\(E_{ijp}\)</span> are independent random variables having expectation 0 and constant variance <span class="math inline">\(\sigma^2\)</span></p>
+<p>The coefficient matrix of the reduced normal equation for obtaining the least squares estimates of the treatment effects in <span class="math inline">\(d\)</span> can be written as <span class="math display">\[
+C_d=diag(r_{d0},r_{d1},\dots,r_{d\nu})-(1/k)N_dN_d'
+\]</span> where <span class="math inline">\(diag(r_{d0},r_{d1},\dots,r_{d\nu})\)</span> denotes a <span class="math inline">\((\nu +1)\times(\nu+1)\)</span> diagonal matrix. The matrix <span class="math inline">\(C_d\)</span> is called the <span class="math inline">\(C\)</span>-matrix of <span class="math inline">\(d\)</span> and is positive-semidefinite with zero row sums, having rank <span class="math inline">\(\nu-1\)</span></p>
+<p>Use <span class="math inline">\(D(\nu,b,k)\)</span> to denote the class of all connected block designs having <span class="math inline">\(\nu\)</span> treatments arranged in <span class="math inline">\(b\)</span> blocks of size <span class="math inline">\(k\)</span>.</p>
+<p>For <span class="math inline">\(d\in D(\nu,b,k)\)</span> let <span class="math inline">\(0=z_{d0} &lt; z_{d1}\leqslant\dots\leqslant z_{d,\nu-1}\)</span> denote the nonzero eigen values of <span class="math inline">\(C_d\)</span><span class="citation" data-cites="jacroux1992optimality">(<a href="#ref-jacroux1992optimality" role="doc-biblioref">Jacroux 1992</a>)</span></p>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
 
 
-</main>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-chan1982optimality" class="csl-entry" role="listitem">
+Chan, NN. 1982. <span>“A-Optimality for Regression Designs.”</span> <em>Journal of Mathematical Analysis and Applications</em> 87 (1): 45–50.
+</div>
+<div id="ref-jacroux1989optimality" class="csl-entry" role="listitem">
+Jacroux, Mike. 1989. <span>“The a-Optimality of Block Designs for Comparing Test Treatments with a Control.”</span> <em>Journal of the American Statistical Association</em> 84 (405): 310–17.
+</div>
+<div id="ref-jacroux1992optimality" class="csl-entry" role="listitem">
+———. 1992. <span>“On the a-Optimality of Block Designs.”</span> <em>Journal of Statistical Planning and Inference</em> 32 (3): 401–15.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

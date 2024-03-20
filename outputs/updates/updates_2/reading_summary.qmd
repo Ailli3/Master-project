@@ -1,0 +1,98 @@
+---
+title: "Reading Summary 2--understanding of optimality criteria"
+author: "Jingning Yao"
+
+format: 
+  html: 
+    self-contained-math: true
+  pdf: 
+    fontsize: 12pt
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+bibliography: ref.bib
+---
+
+# A Criteria for a experient
+For a linear model, the variance of the estimated parameters is related to the experimental design. And a ideal design would provide small variance of both estimated parameters and predicted response.[@atkinson2007optimum]. A experiment result provided by Atkinson shows that a design is good for one property may do worse in another. Therefore, a design is optimal for some criteria may not be optimal under others. So a optimal design is decided by a chosen criteria.
+
+# Alphabet Optimality
+
+## A Brief Introduction of Alphabet Optimality
+Most criteria come under the heading of "alphabet optimality" because the criterion's name is letter form the alphabet.[@russell2018design] Here is some commonly use introduced by Russell:
+
+- $A$- minimises the average of variance of the parameter estimates,
+- $D$- minimises volume of a confidence hyperellipsoid for the parameters,(?)
+- $D_s$ minimises volume of a confidence hyperellipsoid for a subset of the parameters taking into account the presence of the remaining parameters.(?)
+
+## $A$-optimality
+A design denoted as $d$ is $A$-optimal among all possible designs if it has the minimum value of the average of the variances of the parameter estimates.
+
+It has little meaning  when we consider a linear model, and so it is unlikely that one would wish to choose a design that minimises this average.[@russell2018design]
+
+But if we are dealing with indicator variables indicating different level of treatment factor. Under the circumstance we want to compare the effect of several different treatments, $A$-optimality helps to minimise the average of the variance of the effect of the pairwise treatment differences.
+
+Now consider a randomized complete block design. The statistical model for the response variable $Y_ij$, from the plot in block $j$ that effected by treatment $i$ is 
+$$
+Y_{ij}= \mu+ \tau_i +\rho_j+E_{ij} \quad i=1,\dots,t;j=1,\dots,b
+$$
+where $\mu$ is the overall mean, $\tau_i$ is the effect of the $i$th treatment, $\rho_j$ is the effect of the $j$ block and $E_{ij}$ is random error.
+
+There are $t+b+1$ parameter for this model. So we may use indicator variables to rewrite it as a general linear model.
+
+$$
+Y_{ij}= \mu + \sum_{i=1}^{t}I_i^{t}\tau_i + \sum_{j=1}^{b}I_j^b\rho_j+E_{ij},\quad i=1,\dots,t;j=1,\dots,b
+$$
+
+Here $\mu$, $\tau_i$, $\rho_j$ and $E_{ij}$ are the same above. and for $I_i^{t}$ and $I_j^b$ we have
+
+$$
+I_i^{t}=\left\{
+
+\begin{array}{rcl}
+1 & given & ith & treatment\\
+0 & otherwise
+
+
+
+\end{array}
+\right.
+
+\quad
+I_j^{b}=\left\{
+
+\begin{array}{rcl}
+1 & in & jth & block\\
+0 & otherwise
+
+
+
+\end{array}
+\right.
+$$
+
+and the A-optimality criterion is 
+
+$$
+\frac{1}{t(t-1)}{\sum_{i=1}^{t}\sum_{j=1}^{t}}_{i\neq j}var(\hat{\tau_i}-\hat{\tau_j})^2 
+$$
+
+[@russell2018design]
+
+That is, The A-optimal design minimizes the average of the variance of the pair wise treatment differences.
+
+For $var(\hat{\tau_i}-\hat{\tau_j})^2$ we may use variance-covariance matrix of linear regression model. 
+$$
+Var(\hat{\beta})=\sigma^2(X^TX)^{-1}
+$$
+We are using notations from linear regression model. Here $\hat{\beta}=(\mu,\tau_1,\tau_2,\dots,\tau_t,\rho_1,\rho_2,\dots,\rho_b)$, and $X=(I_1^{t},I_2^{t},\dots,I_t^{t},I_1^{b},I_2^{b},\dots,I_b^{b})$
+
+$Var(\hat{\beta})$ is a variance-covariance in which the diagonal elements provide the variance of each coefficient, while the off-diagonal elements provide the covariance between different coefficients. so for calculating $var(\hat{\tau_i}-\hat{\tau_j})^2$
+we have
+$$
+var(\hat{\tau_i}-\hat{\tau_j})=var(\hat{\tau_i})+var(\hat{\tau_j})-2cov(\hat{\tau_i},\tau_j)
+$$
+
+
+# Referance
