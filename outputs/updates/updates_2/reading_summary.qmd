@@ -47,30 +47,19 @@ $$
 
 Here $\mu$, $\tau_i$, $\rho_j$ and $E_{ij}$ are the same above. and for $I_i^{t}$ and $I_j^b$ we have
 
-$$
-I_i^{t}=\left\{
-
+$$I_i^{t}=\left\{
 \begin{array}{rcl}
 1 & given & ith & treatment\\
 0 & otherwise
-
-
-
 \end{array}
 \right.
-
 \quad
 I_j^{b}=\left\{
-
 \begin{array}{rcl}
 1 & in & jth & block\\
 0 & otherwise
-
-
-
 \end{array}
-\right.
-$$
+\right.$$
 
 and the A-optimality criterion is 
 

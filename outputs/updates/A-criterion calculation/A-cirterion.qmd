@@ -1,0 +1,149 @@
+---
+title: "A-criterion"
+author: "Jingning Yao"
+
+format: 
+  html: 
+    self-contained-math: true
+  pdf: 
+    fontsize: 12pt
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+        \usepackage{bbold}
+bibliography: ref.bib
+---
+
+# Simple linear model and Fisher information matrix
+
+We first start with a simple linear model
+$$y=\textbf{X}\tau + \epsilon$$
+where $y$ is $N\times 1$ vector for $N$ observations, $\tau$ is  a $t\times 1$ vector contains parameters for $t$ effects, $\epsilon$ is the vector for error, and $\textbf{X}$ is a design matrix has size $N\times t$.
+
+Here our error vector $\epsilon$ follows a multivariate normal distribution $\epsilon \sim N(0, \sigma^2\textbf{I}_{n})$ so basic on the fact that $\epsilon=y-\textbf{X}\tau$ we can write out the log-likelihood function
+
+$$
+ln\ell(\tau;y) = -\frac{n}{2}ln(2\pi)-\frac{n}{2}ln(\sigma^2)-\frac{1}{2\sigma^2}(y-\textbf{X}\tau)^T(y-\textbf{X}\tau)
+$$
+and for Fisher information matrix, the $i$th column $j$ row of the matrix is 
+$$
+I_{ij}(\tau)=-E[\frac{\partial^2}{\partial\tau_i\partial\tau_j}ln\ell(\tau;y)]
+$$
+For simple linear model
+$$
+\frac{\partial^2}{\partial\tau\partial\tau^T}ln\ell(\tau;y)=-\frac{1}{\sigma^2}\textbf{X}^T\textbf{X}
+$$
+So we have the Fisher information matrix $\textbf{C}=\frac{1}{\sigma^2}\textbf{X}^T\textbf{X}$ and variance for predicted parameter $\hat{\tau}$ is $var(\tau)=\sigma^2(\textbf{X}^T\textbf{X})^{-1}$
+
+# Linear mixed model
+
+## General struture of linear mixed model for experimtal design
+
+For experimental design, linear mixed model is a more practical model for dividing effects into fixed and random. We now consider a linear mixed model
+$$
+y=\textbf{X}\tau+\textbf{Z}\mu+\epsilon
+$$
+here $y$ is $N\times 1$ vector for $N$ observations, $\tau$ is a $t\times1$ parameter vector for fixed effect, $\mu$ is a $\zeta \times1$ parameter vector for random effect, and $\epsilon$ is the error vector of the model, $\textbf{X}$ and $\textbf{Z}$ are design matrix having size $N\times t$ and $N\times \zeta$ for fixed effect and random effect respectively.
+
+$N$ is the number of observations. We have $t$ levels for fixed effect and $\zeta$ number of random effect, and we have assumption for random effect and error vector $\epsilon$
+$$
+\begin{bmatrix}
+\mu \\
+\epsilon 
+\end{bmatrix}
+\sim
+N(
+\begin{bmatrix}
+0 \\
+0 
+\end{bmatrix}
+,
+\begin{bmatrix}
+\textbf{G} & 0 \\
+0 & \textbf{R}
+\end{bmatrix}
+)
+$$
+Here $\textbf{G}$ is the $\zeta \times \zeta$ variance matrix for $\mu$ and $\textbf{R}$ is variance matrix for $\epsilon$ having size $N\times N$.
+
+## Derivation of A-criterion
+
+We first start with a simple example, that is, we are interesting in examine fixed effect part $\tau$, to elucidate the influence of A-criterion. 
+
+From Butler(2013), we conduct a maximum log likelihood by following objective function:
+$$
+logf_Y(y|\mu;\tau,\textbf{R})+logf_u(u;\textbf{G})
+$$
+basing on assumption, we have $y=\textbf{X}\tau+\textbf{Z}\mu+\epsilon\sim N(\textbf{X}\tau,\textbf{R}+\textbf{ZGZ}^T)$. So for objective function, we can write out the distributions 
+
+$$
+f_Y(y|\mu;\tau,\textbf{R})\sim N(\textbf{X}\tau+\textbf{Z}\mu,\textbf{R}) \\
+f_u(u;\textbf{G})\sim N(0,\textbf{G})
+$$
+So log likelihood function is
+$$
+\mathscr{L}=logf_Y(y|\mu;\tau,\textbf{R})+logf_u(u;\textbf{G})=-\frac{1}{2}[ln|\textbf{R}|+ln|\textbf{G}|+(y-(\textbf{X}\tau+\textbf{Z}\mu))^TR^{-1}(y-(\textbf{X}\tau+\textbf{Z}\mu))+\mu^T\textbf{G}^{-1}\mu]
+$$
+We determine that $\frac{\partial\mathscr{L}}{\partial\tau}=\frac{\partial\mathscr{L}}{\partial\mu}=0$, and write the equation into a matrix form
+$$
+\begin{bmatrix}
+\textbf{X}^T\textbf{R}^{-1}\textbf{X} & \textbf{X}^T\textbf{R}^{-1}\textbf{Z}\\
+\textbf{Z}^T\textbf{R}^{-1}\textbf{X} & \textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+ \textbf{G}^{-1}
+\end{bmatrix}
+\begin{bmatrix}
+\hat\tau\\
+\hat\mu
+\end{bmatrix}=
+\begin{bmatrix}
+\textbf{X}^T\textbf{R}^{-1}y\\
+\textbf{Z}^T\textbf{R}^{-1}y
+\end{bmatrix}
+$$
+Let
+$$
+\textbf{C}=
+\begin{bmatrix}
+\textbf{X}^T\textbf{R}^{-1}\textbf{X} & \textbf{X}^T\textbf{R}^{-1}\textbf{Z}\\
+\textbf{Z}^T\textbf{R}^{-1}\textbf{X} & \textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+ \textbf{G}^{-1}
+\end{bmatrix} 
+\quad
+\hat\beta=\begin{bmatrix}
+\hat\tau\\
+\hat\mu
+\end{bmatrix}
+\quad
+\textbf{W}=[\textbf{X},\textbf{Z}]
+$$
+
+We can rewrite the equation in a standard form $\textbf{C}\hat\beta=\textbf{W}^T\textbf{R}^{-1}y$. As we mentioned above, we are interesting in examine fixed effect part $\tau$ so we need a standard form only for $\tau$, we do this by cancelling $\mu$, We have
+$$
+\boldsymbol{X}^T\textbf{R}^{-1}\textbf{X}\tau+\textbf{X}^T\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})\textbf{Z}^T\textbf{R}^{-1}y=\textbf{X}^T\textbf{R}^{-1}y\\
+$$
+$$
+\Rightarrow \textbf{X}^{T}[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}]\textbf{X}\tau=\textbf{X}^{T}[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}]y\\
+$$
+$$
+\Rightarrow \textbf{X}^{T}\textbf{P}\textbf{X}\tau=\textbf{X}^{T}\textbf{P}y
+$$
+where $P=\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}$, let $\textbf{C}_{11}=\textbf{X}^{T}\textbf{P}\textbf{X}$ then we have the standard form for $\hat\tau$, which is $\textbf{C}_{11}\tau=\textbf{X}^T\textbf{P}y$, and $\textbf{C}_{11}$ is the corresponding Fisher information matrix.
+
+So we have $\tau-\hat\tau\sim N(0,\textbf{C}_{11}^{-1})$.To examine a specific form of $\tau$, we do linear transform on $\tau$: $\hat\pi=\textbf{D}\hat\tau$, where $\textbf{D}$ is some transform matrix, so we have $\textbf{D}(\tau-\hat\tau)=\pi-\hat\pi\sim N(0,\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^{T})$. We denote $\boldsymbol{\Lambda}=\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^{T}$.
+
+A-criterion is the mean of predicted error variance of the parameter. i.e. 
+$$
+\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}\sum_{i}\sum_{j<i} predicted\quad error\quad variance\quad of\quad(\hat\pi_i-\hat\pi_j)
+$$
+where $n_{\pi]$ is the row number of vector$\pi$.For error variance part, we have 
+$$
+\sum_{i}\sum_{j<i} predicted\quad error\quad variance\quad of\quad(\hat\pi_i-\hat\pi_j)=\sum_{i}\sum_{j<i}var(\hat\pi_i-\hat\pi_j)=\sum_{i}\sum_{j<i}[var(\hat\pi_i)+var(\hat\pi_j)-2cov(\hat\pi_i,\hat\pi_j)]
+$$
+from virance-covirance matrix $\boldsymbol{\Lambda}$, we can rewrite the sum part as $n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^{T}\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}$.So we have
+$$
+\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}[n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^{T}\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}]
+$$
+same result from [@butler2013model]
+
+Derivation above indicate that $\mathscr{A}\propto tr(\boldsymbol{\Lambda})$, A-criterion as the  mean of predicted error variance of the parameter, we prefer it as small as possible to obtain a accurate result from experiment, which means the trace of virance-covirance matrix $\boldsymbol{\Lambda}$ should be as small as possible. And this is our goal on optimal experimental design.
+
+# References

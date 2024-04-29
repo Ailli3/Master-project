@@ -147,24 +147,19 @@ Y_{ij}= \mu+ \tau_i +\rho_j+E_{ij} \quad i=1,\dots,t;j=1,\dots,b
 Y_{ij}= \mu + \sum_{i=1}^{t}I_i^{t}\tau_i + \sum_{j=1}^{b}I_j^b\rho_j+E_{ij},\quad i=1,\dots,t;j=1,\dots,b
 \]</span></p>
 <p>Here <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\tau_i\)</span>, <span class="math inline">\(\rho_j\)</span> and <span class="math inline">\(E_{ij}\)</span> are the same above. and for <span class="math inline">\(I_i^{t}\)</span> and <span class="math inline">\(I_j^b\)</span> we have</p>
-<p>$$ I_i^{t}={</p>
-<span class="math display">\[\begin{array}{rcl}
+<p><span class="math display">\[I_i^{t}=\left\{
+\begin{array}{rcl}
 1 &amp; given &amp; ith &amp; treatment\\
 0 &amp; otherwise
-
-
-
-\end{array}\]</span>
-<p>.</p>
-<p>I_j^{b}={</p>
-<span class="math display">\[\begin{array}{rcl}
+\end{array}
+\right.
+\quad
+I_j^{b}=\left\{
+\begin{array}{rcl}
 1 &amp; in &amp; jth &amp; block\\
 0 &amp; otherwise
-
-
-
-\end{array}\]</span>
-<p>. $$</p>
+\end{array}
+\right.\]</span></p>
 <p>and the A-optimality criterion is</p>
 <p><span class="math display">\[
 \frac{1}{t(t-1)}{\sum_{i=1}^{t}\sum_{j=1}^{t}}_{i\neq j}var(\hat{\tau_i}-\hat{\tau_j})^2

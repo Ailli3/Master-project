@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="reading_summary_1_files/libs/clipboard/clipboard.min.js"></script>
@@ -132,7 +112,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \lambda_1\leqslant\lambda_2\leqslant\dots\leqslant\lambda_n\dots\leqslant\lambda_m
 \]</span>.</p>
-<p>For a design matrix <span class="math inline">\(\textbf{X}\)</span> if rank <span class="math inline">\(n\)</span>, based on observation <span class="math inline">\(y\)</span>, an unbiased simple least squares estimation of parameter <span class="math inline">\(\beta\)</span> is <span class="math display">\[
+<p>For a design matrix <span class="math inline">\(\textbf{X}\)</span> of rank <span class="math inline">\(n\)</span>, based on observation <span class="math inline">\(y\)</span>, an unbiased simple least squares estimation of parameter <span class="math inline">\(\beta\)</span> is <span class="math display">\[
 (\textbf{X}'\textbf{X})^{-1}\textbf{X}'y
 \]</span> and covariance matrix is given by <span class="math display">\[
 (\textbf{X}'\textbf{X})^{-1}\textbf{X}'\boldsymbol{\Lambda}\textbf{X}(\textbf{X}'\textbf{X})^{-1}
@@ -150,7 +130,7 @@ tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\bold
 \]</span> and by the definition of the set <span class="math inline">\(H\)</span> <span class="math display">\[
 tr\{\boldsymbol{X}'\boldsymbol{X}\}\leqslant\sum_{i=1}^{n}c_i^{2}
 \]</span></p>
-<p><span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref">Chan 1982</a>)</span></p>
+<p><span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref"><strong>chan1982optimality?</strong></a>)</span></p>
 </section>
 <section id="a-optimal-designs" class="level2">
 <h2 class="anchored" data-anchor-id="a-optimal-designs"><span class="math inline">\(A\)</span>-Optimal designs</h2>
@@ -162,7 +142,7 @@ tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\bold
 \]</span> if and only if</p>
 <p><span class="math display">\[
 (\sum_{i=1}^{n}c_i^{2})^{-1}\sum_{i=1}^{k}c_i^{2}\geqslant(\sum_{i=1}^{n}\lambda_i^{2})^{-1}\sum_{i=1}^{k}\lambda_i^{2}, \quad k=1,\dots,n-1
-\]</span> <span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref">Chan 1982</a>)</span></p>
+\]</span> <span class="citation" data-cites="chan1982optimality">(<a href="#ref-chan1982optimality" role="doc-biblioref"><strong>chan1982optimality?</strong></a>)</span></p>
 </section>
 </section>
 <section id="a-optimality-for-block-design" class="level1">
@@ -170,7 +150,7 @@ tr\{(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{\Lambda}\bold
 <p>Here size of blocks <span class="math inline">\(k= \nu -1\)</span> or <span class="math inline">\(k= \nu +1\)</span></p>
 <section id="some-notatinos" class="level2">
 <h2 class="anchored" data-anchor-id="some-notatinos">Some notatinos</h2>
-<p>Use <span class="math inline">\(d\)</span> to denote some particular block design that can be used. Let <span class="math inline">\(N_d=(n_{dij})\)</span> denote the treatment block incidence matrix of <span class="math inline">\(d\)</span>; and <span class="math inline">\(n_{dij}\)</span> is the number of experimental units to which treatment <span class="math inline">\(i\)</span> is applied in block <span class="math inline">\(j\)</span>. The <span class="math inline">\(i\)</span>th row sum of <span class="math inline">\(N_d\)</span> is denoted by <span class="math inline">\(r_{di}\)</span> and represents the number of times treatment <span class="math inline">\(i\)</span> is replicated in <span class="math inline">\(d\)</span>. <span class="math inline">\(N_dN_d'\)</span> is called the concurrence matrix of <span class="math inline">\(d\)</span>.<span class="citation" data-cites="jacroux1989optimality">(<a href="#ref-jacroux1989optimality" role="doc-biblioref">Jacroux 1989</a>)</span>.</p>
+<p>Use <span class="math inline">\(d\)</span> to denote some particular block design that can be used. Let <span class="math inline">\(N_d=(n_{dij})\)</span> denote the treatment block incidence matrix of <span class="math inline">\(d\)</span>; and <span class="math inline">\(n_{dij}\)</span> is the number of experimental units to which treatment <span class="math inline">\(i\)</span> is applied in block <span class="math inline">\(j\)</span>. The <span class="math inline">\(i\)</span>th row sum of <span class="math inline">\(N_d\)</span> is denoted by <span class="math inline">\(r_{di}\)</span> and represents the number of times treatment <span class="math inline">\(i\)</span> is replicated in <span class="math inline">\(d\)</span>. <span class="math inline">\(N_dN_d'\)</span> is called the concurrence matrix of <span class="math inline">\(d\)</span>.<span class="citation" data-cites="jacroux1989optimality">(<a href="#ref-jacroux1989optimality" role="doc-biblioref"><strong>jacroux1989optimality?</strong></a>)</span>.</p>
 <p>Now for observations <span class="math inline">\(Y_{ijp}\)</span> obtained by applying treatment <span class="math inline">\(i\)</span> to an experimental unit occurring in block j. Assumed model is: <span class="math display">\[
 Y_{ijp}= \alpha_i+\beta_j+E_{ijp},\quad 0\leq i\leq\nu,\quad 1\leq j\leq b,\quad 0\leq p \leq n_{dij}
 \]</span></p>
@@ -179,25 +159,14 @@ Y_{ijp}= \alpha_i+\beta_j+E_{ijp},\quad 0\leq i\leq\nu,\quad 1\leq j\leq b,\quad
 C_d=diag(r_{d0},r_{d1},\dots,r_{d\nu})-(1/k)N_dN_d'
 \]</span> where <span class="math inline">\(diag(r_{d0},r_{d1},\dots,r_{d\nu})\)</span> denotes a <span class="math inline">\((\nu +1)\times(\nu+1)\)</span> diagonal matrix. The matrix <span class="math inline">\(C_d\)</span> is called the <span class="math inline">\(C\)</span>-matrix of <span class="math inline">\(d\)</span> and is positive-semidefinite with zero row sums, having rank <span class="math inline">\(\nu-1\)</span></p>
 <p>Use <span class="math inline">\(D(\nu,b,k)\)</span> to denote the class of all connected block designs having <span class="math inline">\(\nu\)</span> treatments arranged in <span class="math inline">\(b\)</span> blocks of size <span class="math inline">\(k\)</span>.</p>
-<p>For <span class="math inline">\(d\in D(\nu,b,k)\)</span> let <span class="math inline">\(0=z_{d0} &lt; z_{d1}\leqslant\dots\leqslant z_{d,\nu-1}\)</span> denote the nonzero eigen values of <span class="math inline">\(C_d\)</span><span class="citation" data-cites="jacroux1992optimality">(<a href="#ref-jacroux1992optimality" role="doc-biblioref">Jacroux 1992</a>)</span></p>
+<p>For <span class="math inline">\(d\in D(\nu,b,k)\)</span> let <span class="math inline">\(0=z_{d0} &lt; z_{d1}\leqslant\dots\leqslant z_{d,\nu-1}\)</span> denote the nonzero eigen values of <span class="math inline">\(C_d\)</span><span class="citation" data-cites="jacroux1992optimality">(<a href="#ref-jacroux1992optimality" role="doc-biblioref"><strong>jacroux1992optimality?</strong></a>)</span></p>
 </section>
 </section>
-<section id="references" class="level1 unnumbered">
-
-
+<section id="references" class="level1">
+<h1>References</h1>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chan1982optimality" class="csl-entry" role="listitem">
-Chan, NN. 1982. <span>“A-Optimality for Regression Designs.”</span> <em>Journal of Mathematical Analysis and Applications</em> 87 (1): 45–50.
-</div>
-<div id="ref-jacroux1989optimality" class="csl-entry" role="listitem">
-Jacroux, Mike. 1989. <span>“The a-Optimality of Block Designs for Comparing Test Treatments with a Control.”</span> <em>Journal of the American Statistical Association</em> 84 (405): 310–17.
-</div>
-<div id="ref-jacroux1992optimality" class="csl-entry" role="listitem">
-———. 1992. <span>“On the a-Optimality of Block Designs.”</span> <em>Journal of Statistical Planning and Inference</em> 32 (3): 401–15.
-</div>
-</div></section></div></main>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
