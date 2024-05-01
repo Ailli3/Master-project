@@ -1,0 +1,33 @@
+---
+title: "Algrithm"
+author: "Jingning Yao"
+
+format: 
+  html: 
+    self-contained-math: true
+  pdf: 
+    fontsize: 12pt
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+        \usepackage{bbold}
+---
+# Standard form for general analysis
+Recall that we have a standard form of linear mixed model $\textbf{C}\hat\beta=\textbf{W}^T\textbf{R}^{-1}y$, where 
+$$
+\textbf{C}=
+\begin{bmatrix}
+\textbf{X}^T\textbf{R}^{-1}\textbf{X} & \textbf{X}^T\textbf{R}^{-1}\textbf{Z}\\
+\textbf{Z}^T\textbf{R}^{-1}\textbf{X} & \textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+ \textbf{G}^{-1}
+\end{bmatrix} 
+\quad
+\hat\beta=\begin{bmatrix}
+\hat\tau\\
+\hat\mu
+\end{bmatrix}
+\quad
+\textbf{W}=[\textbf{X},\textbf{Z}]
+$$
+
+we previously consider simple form, that is divide $\textbf{W}$ into $[\textbf{X},\textbf{Z]}]$ and only consider the fixed effect. Now we consider a more general case, that is, we decide $$
