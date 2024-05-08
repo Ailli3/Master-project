@@ -73,7 +73,7 @@ We first start with a simple example, that is, we are interesting in examine fix
 
 From Butler(2013), we conduct a maximum log likelihood by following objective function:
 $$
-logf_Y(y|\mu;\tau,\textbf{R})+logf_u(u;\textbf{G})
+\log f_Y(y|\mu;\tau,\textbf{R})+\log f_u(u;\textbf{G})
 $$
 basing on assumption, we have $y=\textbf{X}\tau+\textbf{Z}\mu+\epsilon\sim N(\textbf{X}\tau,\textbf{R}+\textbf{ZGZ}^T)$. So for objective function, we can write out the distributions 
 

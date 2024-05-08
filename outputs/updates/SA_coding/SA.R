@@ -7,10 +7,10 @@ P_matrix <- function(Z, R, G) {
   return(P)
 }
 
-a_criterion<- function(X, D, P){
-  C <-t(X)%*%P%*%X
-  C_inv <-solve(C)
-  lambda <- D%*%C_inv%*%t(D)
+a_criterion <- function(X, D, P){
+  C <- t(X) %*% P %*% X
+  C_inv <- solve(C)
+  lambda <- D %*% C_inv %*% t(D)
   return(sum(diag(lambda)))
 }
 
@@ -46,7 +46,7 @@ simulated_annealing <- function(X_initial, Z, R, G, max_iter,cooling_rate, epsil
     temperature <- max_iter / (i * cooling_rate)
     X_candidate<-generate_all_neighbors(X_current)
     for(candidate in X_candidate ){
-      a_candidate<-a_criterion(candidate, D, P)
+      a_candidate <- a_criterion(candidate, D, P)
       if(a_candidate < a_current || runif(1) < exp((a_current - a_candidate) / temperature)){
         X_current <- candidate
         a_current <- a_candidate
@@ -54,7 +54,6 @@ simulated_annealing <- function(X_initial, Z, R, G, max_iter,cooling_rate, epsil
       }
     }
     a_values[[i]] <- a_current
-    
   }
   return(list(optimal_design = X_current, a_history = a_values))
 }
@@ -63,7 +62,7 @@ simulated_annealing <- function(X_initial, Z, R, G, max_iter,cooling_rate, epsil
 X_initial <- matrix(runif(40), nrow=10, ncol=4)
 Z <- matrix(runif(20), nrow=10, ncol=2)
 G <- matrix(c(1, 0, 0, 1), ncol=2, byrow=TRUE) 
-R <- diag(1, nrow=10, ncol=10)
+R <- diag(0.1, nrow=10, ncol=10)
 D <- diag(1, nrow=4, ncol=4)
 
 optimal_design_info <- simulated_annealing(X_initial, Z, R, G, 10000, 10, 0.05, D)
