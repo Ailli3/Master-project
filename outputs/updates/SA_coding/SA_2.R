@@ -27,6 +27,18 @@ a_criterion_f <- function(Xb, Xt){
   return(sum(diag(Xt_information_inv)))
 }
 #？
+
+a_criterion_f_2 <- function(Xb, Xt){
+  X <- cbind(1, Xb, Xt)
+  information_matrix <- t(X) %*% X
+  cols_Xt <- ncol(Xt)
+  Xt_information <- information_matrix
+  Xt_information_inv <- MASS::ginv(Xt_information)
+  return(sum(diag(Xt_information_inv)))
+}
+
+
+
 is_matrix_in_list <- function(matrix, list_of_matrices) {
   for (mat in list_of_matrices) {
     if (identical(matrix, mat)) {
@@ -96,14 +108,6 @@ simulated_annealing <- function(data,
                                 epsilon = 0.0000001,
                                 fixed_treatment = TRUE) {
   if (fixed_treatment == TRUE){
-    
-    
-    
-    
-    
-    
-    
-    
     X <- model.matrix(~ -1 + col + row + trt, data = data)
     Xb <- model.matrix(~ -1 + col + row, data = data)
     Xt <- model.matrix(~ -1 + trt, data = data)

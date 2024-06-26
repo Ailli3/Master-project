@@ -1,11 +1,10 @@
 #？
 a_criterion_f <- function(Xb, Xt){
-  X <- cbind(Xb, Xt)
+  X <- cbind(1, Xb, Xt)
   information_matrix <- t(X) %*% X
   cols_Xt <- ncol(Xt)
   Xt_information <- information_matrix
-  Xt_information_inv <- MASS::ginv(Xt_information)[(nrow(information_matrix) - cols_Xt + 1):nrow(information_matrix), 
-                                                   (ncol(information_matrix) - cols_Xt + 1):ncol(information_matrix)]
+  Xt_information_inv <- MASS::ginv(Xt_information)
   return(sum(diag(Xt_information_inv)))
 }
 #？
@@ -25,6 +24,7 @@ invalid_Xt <- model.matrix(~ -1 + trt, data = invalid_data_op)
 
 invalid_A_op <- a_criterion_f(invalid_Xb, invalid_Xt)
 print(invalid_A_op)  # 0.4375
+
 
 
 # valid_latin_square
