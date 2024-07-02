@@ -23,4 +23,3 @@ set_initial_temperature <- function(objective_function, initial_params, target_a
 
   return(initial_temperature)
 }
-

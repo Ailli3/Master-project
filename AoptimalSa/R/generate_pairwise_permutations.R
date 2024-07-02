@@ -4,9 +4,6 @@
 #'@param X is the matrix we need all its pairwise permutations
 #'@return A list of matrices that contains all pairwise permutations of X matrix
 
-
-
-
 generate_pairwise_permutations <- function(X) {
   n <- nrow(X)
   neighbors <- list()
@@ -25,6 +22,5 @@ generate_pairwise_permutations <- function(X) {
       index <- index + 1
     }
   }
-
   return(neighbors)
 }
