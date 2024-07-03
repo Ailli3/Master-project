@@ -20,11 +20,11 @@ a_criterion <- function(Xt, D, P = P_matrix(Z, R, G)){
 }
 
 a_criterion_calculation_from_data <- function(data,
-                                              D = NULL,
                                               blocking_factor = "~ col + row",
                                               treatment_factor = "~ 0 + trt",
                                               G.mat= NULL,
-                                              R.mat = NULL){
+                                              R.mat = NULL,
+                                              D = NULL){
   design <- model_information(data, blocking_factor, treatment_factor, G.mat, R.mat)
 
   if (is.null(D)) {
@@ -39,9 +39,9 @@ a_criterion_calculation_from_data <- function(data,
 
 a_criterion_calculation_for_iteration <- function(blocking_factor.mat,
                                                   treatment_factor.mat,
-                                                  D = NULL,
                                                   G.mat = NULL,
-                                                  R.mat = NULL){
+                                                  R.mat = NULL,
+                                                  D = NULL){
   #setting D if it is NULL
   if (is.null(D)) {
     D <- diag(1, nrow = ncol(treatment_factor.mat),

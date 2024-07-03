@@ -35,5 +35,9 @@ test_that("a_criterion_calculation_from_data", {
                                      "~ col + row",
                                      "~ 0 + trt")
   A_inv_it <- a_criterion_calculation_for_iteration(inv_model_info[["blocking_factor"]],
-                                                    inv_model_info[["treatment_factor"]])
+                                                    inv_model_info[["treatment_factor"]],
+                                                    inv_model_info[["G_mat"]],
+                                                    inv_model_info[["R_mat"]])
+  expect_equal(A_inv, A_inv_it)
+
 })

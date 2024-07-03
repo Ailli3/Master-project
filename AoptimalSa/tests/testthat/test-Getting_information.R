@@ -28,7 +28,7 @@ test_that( "model_information", {
   blocking_factor_formula <- "~ row + col"
   blocking_factor_design <- get_model_matrix(blocking_factor_formula, data)
 
-  treatment_factor_formula <- "treatment"
+  treatment_factor_formula <- "~ 0 + treatment"
   treatment_factor_design <- model.matrix(as.formula(paste("~", treatment_factor_formula)), data = data)
   colnames(treatment_factor_design) <- gsub(" ", ".", colnames(treatment_factor_design))
 

@@ -1,4 +1,7 @@
 get_model_matrix <- function(f, data) {
+  if (is.character(f)) {
+    f <- as.formula(f)
+  }
   factors <- all.vars(as.formula(f))
   design_matrices <- lapply(factors, function(factor_name) {
     model.matrix(as.formula(paste0("~ -1 + ", factor_name)), data = data)
@@ -8,7 +11,10 @@ get_model_matrix <- function(f, data) {
   return(design_matrix)
 }
 
-model_information <- function(data, blocking_factor = NULL, treatment_factor = NULL, G.mat = NULL, R.mat = NULL){
+model_information <- function(data, blocking_factor = NULL,
+                              treatment_factor = NULL,
+                              G.mat = NULL,
+                              R.mat = NULL){
 
   if (!is.data.frame(data)) {
     stop("Input 'data' must be a data frame.")
@@ -19,13 +25,18 @@ model_information <- function(data, blocking_factor = NULL, treatment_factor = N
   } else {
     blocking_factor.design <- NULL
   }
+
   # Create design matrix for treatment factor effects
   if (!is.null(treatment_factor)) {
-    treatment_factor.design <- model.matrix(as.formula(paste("~", treatment_factor)), data = data)
+
+    print(paste("Treatment factor formula:", treatment_factor))
+
+    treatment_factor.design <- model.matrix(as.formula(paste(treatment_factor)), data = data)
     colnames(treatment_factor.design) <- gsub(" ", ".", colnames(treatment_factor.design))
   } else {
     treatment_factor.design <- NULL
   }
+
   #setting G.mat
   if (is.null(G.mat) && !is.null(blocking_factor.design)){
     num_blocking_factor_cols <- ncol(blocking_factor.design)
@@ -39,7 +50,10 @@ model_information <- function(data, blocking_factor = NULL, treatment_factor = N
     diag(R.mat) <- 0.1
   }
   # Return a list of design matrices
-  information_list <- list(blocking_factor = blocking_factor.design, treatment_factor = treatment_factor.design, G_mat = G.mat, R_mat = R.mat)
+  information_list <- list(blocking_factor = blocking_factor.design,
+                           treatment_factor = treatment_factor.design,
+                           G_mat = G.mat,
+                           R_mat = R.mat)
   return(information_list)
 }
 
