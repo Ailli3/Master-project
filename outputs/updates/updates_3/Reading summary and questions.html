@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jingning Yao">
+
+<title>Reading Summary and questions–Williams’s article</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Reading summary and questions_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Reading summary and questions_files/libs/quarto-html/quarto.js"></script>
+<script src="Reading summary and questions_files/libs/quarto-html/popper.min.js"></script>
+<script src="Reading summary and questions_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Reading summary and questions_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Reading summary and questions_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Reading summary and questions_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Reading summary and questions_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Reading summary and questions_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Reading summary and questions_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Reading-summary-and-questions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reading Summary and questions–Williams’s article</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jingning Yao </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="main-problem-discussed" class="level1">
+<h1>Main problem discussed</h1>
+<p>Due to poor NB (neighbor balance) and ED (even distribution), sub-optimal design will be rejected, even each row and each column forms a binary block, that is, no treatment occurs more than once in a column or row.</p>
+</section>
+<section id="concepts-before-algrithm" class="level1">
+<h1>Concepts before algrithm</h1>
+<section id="blocking-structures-grouping-of-rows-and-columns." class="level2">
+<h2 class="anchored" data-anchor-id="blocking-structures-grouping-of-rows-and-columns.">Blocking structures: grouping of rows and columns.(?)</h2>
+<p>Generally we have a rectangle experiment field with <span class="math inline">\(k\)</span> rows and <span class="math inline">\(s\)</span> columns and assume that <span class="math inline">\(k\leq s\)</span>. Grouping rows and columns into <span class="math inline">\(g_k\)</span> row-groups and <span class="math inline">\(g_s\)</span> column-groups, respectively. this move is to achieve ED in experimental area.</p>
+</section>
+<section id="criteria-evaluated" class="level2">
+<h2 class="anchored" data-anchor-id="criteria-evaluated">Criteria evaluated</h2>
+<p>Three criteria we want to compare between designs</p>
+<ol type="1">
+<li><p>The average efficiency factor <span class="math inline">\(\bar{f}_A^{RC}\)</span>, can be measured as average pairwise variance of the design. Article mention <span class="math inline">\(\bar{f}_A\)</span> <span class="citation" data-cites="williams2015optimality">(<a href="#ref-williams2015optimality" role="doc-biblioref">Williams and Piepho 2015</a>)</span> calculated as following formula <span class="math display">\[
+\bar{f}_A=\bar{g}_A\frac{\bar{r}_a}{\bar{r}_h}
+\]</span> here <span class="math inline">\(r_i\)</span> is the replicated time for every treatment, <span class="math inline">\(\bar{r}_a\)</span> is the arithmetic mean of the <span class="math inline">\(r_i\)</span> and <span class="math inline">\(\bar{r}_h\)</span> is the harmonic mean. It is a a scaled form of <span class="math inline">\(\bar{g}_A\)</span> for ease of comparison. When it comes to <span class="math inline">\(\bar{g}_A\)</span> Williams mentioned its relation with A-criteria. We have <span class="math display">\[
+\bar{g}_A = \frac{1}{\bar{r}_a\mathscr{A}}
+\]</span> Here <span class="math inline">\(\mathscr{A}\)</span> is the A-criteria we have. So the average efficiency factor can be measured by A-criteria. I suppose we may use <span class="math inline">\(\frac{1}{\mathscr{A}}\)</span> to define</p></li>
+<li><p>Using Euclidean distances in terms of row and column numbers to measure the ED. <span class="math inline">\(MST_i\)</span> is the arithmetic mean length of the lines of a minimum spanning tree connecting all replications of the treatment <span class="math inline">\(i\)</span></p></li>
+<li><p>NB is evaluated by number of treatment pairs.(?)</p></li>
+</ol>
+<p>We need to find a good balance between these three standards.</p>
+</section>
+</section>
+<section id="generating-design-using-linear-mixed-model" class="level1">
+<h1>Generating design using linear-mixed model</h1>
+<section id="linear-mixed-model" class="level2">
+<h2 class="anchored" data-anchor-id="linear-mixed-model">linear-mixed model</h2>
+<p>The linear-mixed model we are discussing</p>
+<p><span class="math display">\[
+y=\textbf{X}\tau+\textbf{Z}u+\epsilon
+\]</span> we would like to optimize the treatment information matrix <span class="math inline">\(\textbf{X}^\top \textbf{P}\textbf{X}\)</span>, <span class="math inline">\(\textbf{P}\)</span> matrix is the inverse of the covariance matrix of <span class="math inline">\(y\)</span> we denote is as <span class="math inline">\(\textbf{V}\)</span> and <span class="math inline">\(\textbf{V}=\textbf{Z}\textbf{G}\textbf{Z}^\top+\textbf{R}\)</span>, <span class="math inline">\(\textbf{G}\)</span> and <span class="math inline">\(\textbf{R}\)</span> are variance-covariance matrices of random effects and error.</p>
+<p>In the article, Williams replaced <span class="math inline">\(\textbf{Z}\mu+\epsilon\)</span> with <span class="math inline">\(f\)</span> and and taking row groups and column groups into consideration, that is <span class="math display">\[
+f= \textbf{Z}_Ru_R+\textbf{Z}_Cu_C+\textbf{Z}_{RG}u_{RG}+\textbf{Z}_{CG}u_{CG}+\epsilon
+\]</span></p>
+</section>
+<section id="direct-optimization-of-ed-and-nb" class="level2">
+<h2 class="anchored" data-anchor-id="direct-optimization-of-ed-and-nb">Direct optimization of ED and NB</h2>
+<p>Defining six type of self-adjacency, and start with an efficient row-column design,which can be found by algorithm with average efficiency factor we choose, such as A-criteria we have at hand. and improve nine scores that measure ED and NB.Row minimum span and column minimum span are also included to evaluate ED.</p>
+<p>But here we only optimize <span class="math inline">\(S1\)</span> (diagonal self-adjacencies), <span class="math inline">\(S2\)</span> (Number of row-neighbor occurrences), row minimum span and column minimum span, and <span class="math inline">\(\bar{f}_A^{RC}=\frac{1}{\mathscr{A}}\)</span>. We don’t want <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span> to be large and we are expecting row minimum span, column minimum span and average efficiency factor to be as large as possible.</p>
+</section>
+</section>
+<section id="interchange-algorithm-basing-on-scoring-system" class="level1">
+<h1>Interchange algorithm basing on scoring system</h1>
+<section id="algorithm-described-in-article" class="level2">
+<h2 class="anchored" data-anchor-id="algorithm-described-in-article">Algorithm described in article</h2>
+<ol type="1">
+<li><p>Suppose we have a rectangle experiment field have several row and columns. Firstly, we divide column into column-groups, and in each column-group the number of plots may less than the number of treatment. And optimize <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span> for the design with interchanges.</p></li>
+<li><p>Using interchanges (or permutations I suppose) within a column-group to optimize the value in the scoring system. To be specific, improving column spans without affecting <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span> we previously have. And also optimize the row spans.</p></li>
+<li><p>To determine whether we accept the new design or not, we have to steps:</p></li>
+</ol>
+<ol type="a">
+<li><p><span class="math inline">\(S1\)</span>, <span class="math inline">\(S2\)</span>, minimum row span and minimum column span are better than current design.</p></li>
+<li><p>The average efficiency factor <span class="math inline">\(\bar{f}_A^{RC}\)</span> is larger than current design.</p></li>
+</ol>
+</section>
+<section id="algorithm-i-have-in-mind" class="level2">
+<h2 class="anchored" data-anchor-id="algorithm-i-have-in-mind">Algorithm I have in mind</h2>
+<ol type="1">
+<li><p>Using A-criteria and simulated annealing to generate an efficient row-column design (sub-optimal).</p></li>
+<li><p>Do step 1 in Algorithm described in article. As it is written in article - without degrading any earlier criteria.</p></li>
+<li><p>Optimize minimum row span and minimum column span without without affecting <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span>.</p></li>
+<li><p>Calculating A-criteria for the new design, but this time we may need to use <span class="math display">\[
+f= \textbf{Z}_Ru_R+\textbf{Z}_Cu_C+\textbf{Z}_{RG}u_{RG}+\textbf{Z}_{CG}u_{CG}+\epsilon
+\]</span> to calculate <span class="math inline">\(\textbf{V}\)</span> matrix and <span class="math inline">\(\textbf{P}\)</span> matrix because now we are considering column-groups and row-groups.</p></li>
+<li><p>Collecting values of the criteria - A-criteria (The average efficiency factor we use), minimum of <span class="math inline">\(MST_i\)</span> of all treatment and number of treatment pairs. We are expecting a better values for these criteria. Go back to step 2 and step 3 if it is larger. However, According to the example given by Williams, to achieve a better ED and NB, average efficiency factor might be worse. So we need a tolerance for such changing.</p></li>
+</ol>
+</section>
+</section>
+<section id="questions-about-article-and-algorithm" class="level1">
+<h1>Questions about article and algorithm</h1>
+<section id="for-article" class="level2">
+<h2 class="anchored" data-anchor-id="for-article">For article</h2>
+<ol type="1">
+<li><p>Cannot understand 2 options in section 3.3, seems that it plays an important role in optimization.</p></li>
+<li><p>Divisible method and filter method mentioned in article. Not sure if my understanding is right.</p></li>
+<li><p>Why we need grouping of rows and columns? And how to achieve ED and NB between groups?</p></li>
+</ol>
+</section>
+<section id="for-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="for-algorithms">For Algorithms</h2>
+<ol type="1">
+<li><p>The relation between two design strategies given by Williams. I think they are two distinct algorithm. Or they can be combined.</p></li>
+<li><p>How to achieve “without degrading any earlier criteria”? Specifically speaking, for example, how to maintain <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span> when we are doing interchanges within column-groups. Is A-criteria changing when we are optimizing <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span>?</p></li>
+<li><p>How to update design? I suppose we can start with the design have better values of the criteria.</p></li>
+<li><p>“The starting design is now randomized to produce a new starting design and the program returns to step 1 above. This whole procedure is repeated 50 times. When this stage is completed the starting designs continue to be randomized with the program returning to step 1 each time.”</p></li>
+</ol>
+</section>
+</section>
+<section id="referance" class="level1 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referance</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-williams2015optimality" class="csl-entry" role="listitem">
+Williams, Emlyn, and Hans-Peter Piepho. 2015. <span>“Optimality and Contrasts in Block Designs with Unequal Treatment Replication.”</span> <em>Australian &amp; New Zealand Journal of Statistics</em> 57 (2): 203–9.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

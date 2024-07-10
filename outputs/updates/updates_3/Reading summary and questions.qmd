@@ -1,0 +1,117 @@
+---
+title: "Reading Summary and questions--Williams's article"
+author: "Jingning Yao"
+
+format: 
+  html: 
+    self-contained-math: true
+  pdf: 
+    fontsize: 12pt
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+bibliography: ref.bib
+---
+
+# Main problem discussed
+Due to poor NB (neighbor balance) and ED (even distribution), sub-optimal design will be rejected, even each row and each column forms a binary block, that is, no treatment occurs more than once in a column or row. 
+
+# Concepts before algrithm
+
+## Blocking structures: grouping of rows and columns.(?)
+Generally we have a rectangle experiment field with $k$ rows and $s$ columns and assume that $k\leq s$. Grouping rows and columns into $g_k$  row-groups and $g_s$ column-groups, respectively. this move is to achieve ED in experimental area.
+
+## Criteria evaluated
+Three criteria we want to compare between designs
+
+1. The average efficiency factor $\bar{f}_A^{RC}$, can be measured as average pairwise variance of the design. Article mention $\bar{f}_A$ [@williams2015optimality] calculated as following formula
+$$
+\bar{f}_A=\bar{g}_A\frac{\bar{r}_a}{\bar{r}_h}
+$$
+here $r_i$ is the replicated time for every treatment, $\bar{r}_a$ is the arithmetic mean of the $r_i$ and $\bar{r}_h$ is the harmonic mean. It is a a scaled form of $\bar{g}_A$ for ease of comparison. When it comes to $\bar{g}_A$ Williams mentioned its relation with A-criteria. We have
+$$
+\bar{g}_A = \frac{1}{\bar{r}_a\mathscr{A}}
+$$
+Here $\mathscr{A}$ is the A-criteria we have. So the average efficiency factor can be measured by A-criteria. I suppose we may use $\frac{1}{\mathscr{A}}$ to define 
+
+2. Using Euclidean distances in terms of row and column numbers to measure the ED. $MST_i$ is the arithmetic mean length of the lines of a minimum spanning tree connecting all replications of the treatment $i$
+
+3. NB is evaluated by number of treatment pairs.(?)
+
+We need to find a good balance between these three standards.
+
+# Generating design using linear-mixed model
+
+## linear-mixed model
+The linear-mixed model we are discussing
+
+$$
+y=\textbf{X}\tau+\textbf{Z}u+\epsilon
+$$
+we would like to optimize the treatment information matrix $\textbf{X}^\top \textbf{P}\textbf{X}$, $\textbf{P}$ matrix is the inverse of the covariance matrix of $y$ we denote is as $\textbf{V}$ and $\textbf{V}=\textbf{Z}\textbf{G}\textbf{Z}^\top+\textbf{R}$, $\textbf{G}$ and $\textbf{R}$ are variance-covariance matrices of random effects and error.
+
+In the article, Williams replaced $\textbf{Z}\mu+\epsilon$ with $f$ and and taking row groups and column groups into consideration, that is 
+$$
+f= \textbf{Z}_Ru_R+\textbf{Z}_Cu_C+\textbf{Z}_{RG}u_{RG}+\textbf{Z}_{CG}u_{CG}+\epsilon
+$$
+
+## Direct optimization of ED and NB
+Defining six type of self-adjacency, and start with an efficient row-column design,which can be found by algorithm with average efficiency factor we choose, such as A-criteria we have at hand. and improve nine scores that measure ED and NB.Row minimum span and column minimum span are also included to evaluate ED. 
+
+But here we only optimize $S1$ (diagonal self-adjacencies), $S2$ (Number of row-neighbor occurrences), row minimum span and column minimum span, and $\bar{f}_A^{RC}=\frac{1}{\mathscr{A}}$. We don't want $S1$ and $S2$ to be large and we are expecting row minimum span, column minimum span and average efficiency factor to be as large as possible.
+
+# Interchange algorithm basing on scoring system
+
+## Algorithm described in article
+
+1. Suppose we have a rectangle experiment field have several row and columns. Firstly, we divide column into column-groups, and in each column-group the number of plots may less than the number of treatment. And optimize $S1$ and $S2$ for the design with interchanges.
+
+2. Using interchanges (or permutations I suppose) within a column-group to optimize the value in the scoring system. To be specific, improving column spans without affecting $S1$ and $S2$ we previously have. And also optimize the row spans.
+
+3. To determine whether we accept the new design or not, we have to steps:
+
+a) $S1$, $S2$,  minimum row span and minimum column span are better than current design.
+
+b) The average efficiency factor $\bar{f}_A^{RC}$ is larger than current design.
+
+## Algorithm I have in mind
+
+1. Using A-criteria and simulated annealing to generate an efficient row-column design (sub-optimal).
+
+2. Do step 1 in  Algorithm described in article. As it is written in article - without degrading any earlier criteria.
+
+3. Optimize minimum row span and minimum column span without without affecting $S1$ and $S2$.
+
+4. Calculating A-criteria for the new design, but this time we may need to use
+$$
+f= \textbf{Z}_Ru_R+\textbf{Z}_Cu_C+\textbf{Z}_{RG}u_{RG}+\textbf{Z}_{CG}u_{CG}+\epsilon
+$$
+to calculate $\textbf{V}$ matrix and $\textbf{P}$ matrix because now we are considering column-groups and row-groups.
+
+5. Collecting values of the criteria - A-criteria (The average efficiency factor we use), minimum of $MST_i$ of all treatment and number of treatment pairs. We are expecting a better values for these criteria. Go back to step 2 and step 3 if it is larger. However, According to the example given by Williams, to achieve a better ED and NB, average efficiency factor might be worse. So we need a tolerance for such changing.
+
+# Questions about article and algorithm
+
+## For article
+
+1. Cannot understand 2 options in section 3.3, seems that it plays an important role in optimization.
+
+2. Divisible method and filter method mentioned in article. Not sure if my understanding is right.
+
+3. Why we need  grouping of rows and columns? And how to achieve ED and NB between groups? 
+
+## For Algorithms
+
+1. The relation between two design strategies given by Williams. I think they are two distinct algorithm. Or they can be combined.
+
+2. How to achieve "without degrading any earlier criteria"? Specifically speaking, for example, how to maintain $S1$ and $S2$ when we are doing interchanges within column-groups. Is A-criteria changing when we are optimizing $S1$ and $S2$?
+
+3. How to update design? I suppose we can start with the design have better values of the criteria.
+
+4. One specific part of algorithms in article: "The starting design is now randomized to produce a new starting design and the program returns to step 1 above. This whole
+procedure is repeated 50 times. When this stage is completed the starting designs continue to be randomized with the program
+returning to step 1 each time."
+
+
+# Referance
