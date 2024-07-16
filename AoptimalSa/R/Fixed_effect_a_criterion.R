@@ -12,11 +12,11 @@ P_matrix <- function(Z, R, G) {
   P <- R_inv - R_inv %*% Z %*% middle_inv %*% t(Z) %*% R_inv
   return(P)
 }
-a_criterion <- function(Xt, D, P = P_matrix(Z, R, G)){
+lambda_calculation <- function(Xt, D, P = P_matrix(Z, R, G)){
   C <- t(Xt) %*% P %*% Xt
   C_inv <- solve(C)
   lambda <- D %*% C_inv %*% t(D)
-  return(sum(diag(lambda)))
+  return(lambda)
 }
 
 a_criterion_calculation_from_data <- function(data,
@@ -31,8 +31,10 @@ a_criterion_calculation_from_data <- function(data,
     D <- diag(1, nrow = ncol(design[["treatment_factor"]]),
              ncol = ncol(design[["treatment_factor"]]))
   }
+  npi <- ncol(design[["treatment_factor"]] %*% D)
   P <- P_matrix(design[["blocking_factor"]], design[["R_mat"]], design[["G_mat"]])
-  A_value <- a_criterion(design[["treatment_factor"]], D , P)
+  lambda <- lambda_calculation(design[["treatment_factor"]], D , P)
+  A_value <- 2 / (npi - 1) * (sum(diag(lambda)) - 1 / npi * sum(colSums(lambda)))
   return(A_value)
 }
 
@@ -47,10 +49,12 @@ a_criterion_calculation_for_iteration <- function(blocking_factor.mat,
     D <- diag(1, nrow = ncol(treatment_factor.mat),
               ncol = ncol(treatment_factor.mat))
   }
-
   if (is.null(G.mat)||is.null(R.mat)) {
     stop("We need G matrix and R matrix for calculation")
   }
+  npi <- ncol(treatment_factor.mat %*% D)
   P <- P_matrix(blocking_factor.mat, R.mat, G.mat)
-  A_value <- a_criterion(treatment_factor.mat, D , P)
+  lambda <- lambda_calculation(treatment_factor.mat, D , P)
+  A_value <- 2 / (npi - 1) * (sum(diag(lambda)) - 1 / npi * sum(colSums(lambda)))
+  return(A_value)
 }

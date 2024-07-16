@@ -5,8 +5,8 @@ simulated_annealing <- function(data,
                                 blocking_factor = "~ col + row",
                                 treatment_factor = "~ 0 + trt",
                                 max_iter = 10000,
-                                initial_temperature = 150,
-                                cooling_rate = 0.01,
+                                initial_temperature = 5,
+                                cooling_rate = 0.1,
                                 epsilon = 0.0000001,
                                 fixed_treatment = TRUE) {
   if (fixed_treatment == TRUE){
@@ -28,8 +28,6 @@ simulated_annealing <- function(data,
       temperature <- initial_temperature * exp(-cooling_rate * i)
       design_candidate <- generate_pairwise_permutations(current_design)
       for (candidate in design_candidate ){
-        # print(dim(design[["R_mat"]]))
-        # print(dim(design[["blocking_factor"]]))
         a_candidate <- a_criterion_calculation_for_iteration(design[["blocking_factor"]],
                                                              candidate,
                                                              design[["G_mat"]],
@@ -44,13 +42,13 @@ simulated_annealing <- function(data,
           a_current <- a_candidate
           break
         }
-        print("a iteration pass")
+        message("a iteration pass")
       }
       i <- i+1
       Xt_list[[i]] <- current_design
       a_values[i] <- a_current
     }
 
-    return(list(optimal_design = current_design, a_history = a_values, iteration_number = i))
+    return(list(optimal_design = current_design, a_history = a_values, design_history = Xt_list, iteration_number = i))
   }
 }

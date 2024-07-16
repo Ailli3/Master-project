@@ -39,5 +39,13 @@ test_that("a_criterion_calculation_from_data", {
                                                     inv_model_info[["G_mat"]],
                                                     inv_model_info[["R_mat"]])
   expect_equal(A_inv, A_inv_it)
+  A_op_it <- a_criterion_calculation_for_iteration(op_model_info[["blocking_factor"]],
+                                                   op_model_info[["treatment_factor"]],
+                                                   op_model_info[["G_mat"]],
+                                                   op_model_info[["R_mat"]])
+
+  expect_equal(A_op, A_op_it)
+  print(A_op_it)
+  print(A_inv_it)
 
 })
