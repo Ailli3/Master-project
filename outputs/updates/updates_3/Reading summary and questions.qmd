@@ -113,5 +113,81 @@ to calculate $\textbf{V}$ matrix and $\textbf{P}$ matrix because now we are cons
 procedure is repeated 50 times. When this stage is completed the starting designs continue to be randomized with the program
 returning to step 1 each time."
 
+# Two thinkings of algorothm
 
-# Referance
+## Restrictions of permutation
+
+In simulated annealing, each iteration generates a new design matrix, referred to as a "neighborhood." By defining new neighborhood operations, we can ensure that each iteration produces a new design that meets the non-adjacency constraint.
+
+In the design matrix, select two different cells and swap their treatments. If the swap results in adjacent cells having the same treatment, cancel this swap and re-select cells to perform the swap again.
+
+## Penalty Function
+
+Incorporate a penalty term into the objective function. When adjacent treatments in the design are the same, this penalty term increases the value of the objective function, making the optimization process more likely to avoid having the same treatment in adjacent positions.
+
+For example, we can define a following penalty function. For example we have a design matrix $X$, the penalty for self-adjacency is
+
+$$
+f(X) = \sum_{(i,j)\in X}I(X_i = X_j)
+$$
+Here $i$ and $j$ are different plots next to each other in the experiment field, and $I(X_i = X_j)$ is an indicator function equals to $1$ if $i$ plot and $j$ plot have the same treatment.
+
+So basing on this penalty function, For a certain design $X$ we change our function into:
+
+$$
+F(X) = \bar{f}_A^{RC} + \lambda \cdot f(X)
+$$
+here $\lambda < 0$
+
+Or use A-criteria :
+$$
+G(x) = t\mathscr{A} + (1-t)\cdot f(X)
+$$
+here $0\leq t \leq 1$ and we minimize it
+
+Usually we have such mathematical programming of inequality constrained optimization problem: we minimize objective function $f_0(x)$  with inequality constrains $f_i(x)\leq 0, i\in I=\{1,2,\cdots,m\}$.And we have a well-known penalty function for this problem is
+$$
+F (x, \rho) = f_0(x) + \rho \sum_{i\in I}max\{f_i(x),0\}
+$$
+and a corresponding constrained penalty optimization problem is to minimize penalty function $F_2 (x, \rho)$ [@meng2013exactness]
+In our case we may write our inequality constrain as 
+$$
+f(X) = \sum_{(i,j)\in X}I(X_i = X_j) \leq0
+$$
+
+The indicator function $I(X_i = X_j)$ mentioned above is for NB. What about ED?
+
+For a specific treatment $t$ we measure ED by calculating row span and column span.For a design $X$, so we define
+$Cs(X)$ is the minimum column span for design $X$ and $Rs(X)$ is the minimum row span. And we are expecting
+$$
+Cs(X)\geq 4 \quad and \quad Rs(X)\geq 4
+$$
+we may rewrite it as 
+$$
+c(X)=-Cs(X)+4\leq 0 \quad r(X)=-Rs(X)+4\leq 0
+$$
+After all we have our constrained optimize problem (Prob)
+
+Objective function : min $\mathscr{A}$
+
+Constrains :  
+
+$C_1(X)=f(X) = \sum_{(i,j)\in X}I(X_i = X_j) \leq0$
+
+$C_2(X)=c(X)=-Cs(X)+4\leq 0$
+
+$C_3(X)=r(X)=-Rs(X)+4\leq 0$
+
+Having our penalty function :
+$$
+F (X, \rho) = \mathscr{A} + \rho \sum_{i=1,2,3} max\{C_i(X),0\}
+$$
+
+## Another possible way
+We may use Lagrangian functions and KKT theorem
+
+For the problem we mention above, we have Lagrangian function
+$$
+\mathscr{L} = \mathscr{A}+\lambda_1 C_1(X) + \lambda_2 C_2(X) + \lambda_3 C_3(X)
+$$
+Here $\lambda_i \geq 0$

@@ -209,12 +209,61 @@ f= \textbf{Z}_Ru_R+\textbf{Z}_Cu_C+\textbf{Z}_{RG}u_{RG}+\textbf{Z}_{CG}u_{CG}+\
 </ol>
 </section>
 </section>
-<section id="referance" class="level1 unnumbered">
-
+<section id="two-thinkings-of-algorothm" class="level1">
+<h1>Two thinkings of algorothm</h1>
+<section id="restrictions-of-permutation" class="level2">
+<h2 class="anchored" data-anchor-id="restrictions-of-permutation">Restrictions of permutation</h2>
+<p>In simulated annealing, each iteration generates a new design matrix, referred to as a “neighborhood.” By defining new neighborhood operations, we can ensure that each iteration produces a new design that meets the non-adjacency constraint.</p>
+<p>In the design matrix, select two different cells and swap their treatments. If the swap results in adjacent cells having the same treatment, cancel this swap and re-select cells to perform the swap again.</p>
+</section>
+<section id="penalty-function" class="level2">
+<h2 class="anchored" data-anchor-id="penalty-function">Penalty Function</h2>
+<p>Incorporate a penalty term into the objective function. When adjacent treatments in the design are the same, this penalty term increases the value of the objective function, making the optimization process more likely to avoid having the same treatment in adjacent positions.</p>
+<p>For example, we can define a following penalty function. For example we have a design matrix <span class="math inline">\(X\)</span>, the penalty for self-adjacency is</p>
+<p><span class="math display">\[
+f(X) = \sum_{(i,j)\in X}I(X_i = X_j)
+\]</span> Here <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are different plots next to each other in the experiment field, and <span class="math inline">\(I(X_i = X_j)\)</span> is an indicator function equals to <span class="math inline">\(1\)</span> if <span class="math inline">\(i\)</span> plot and <span class="math inline">\(j\)</span> plot have the same treatment.</p>
+<p>So basing on this penalty function, For a certain design <span class="math inline">\(X\)</span> we change our function into:</p>
+<p><span class="math display">\[
+F(X) = \bar{f}_A^{RC} + \lambda \cdot f(X)
+\]</span> here <span class="math inline">\(\lambda &lt; 0\)</span></p>
+<p>Or use A-criteria : <span class="math display">\[
+G(x) = t\mathscr{A} + (1-t)\cdot f(X)
+\]</span> here <span class="math inline">\(0\leq t \leq 1\)</span> and we minimize it</p>
+<p>Usually we have such mathematical programming of inequality constrained optimization problem: we minimize objective function <span class="math inline">\(f_0(x)\)</span> with inequality constrains <span class="math inline">\(f_i(x)\leq 0, i\in I=\{1,2,\cdots,m\}\)</span>.And we have a well-known penalty function for this problem is <span class="math display">\[
+F (x, \rho) = f_0(x) + \rho \sum_{i\in I}max\{f_i(x),0\}
+\]</span> and a corresponding constrained penalty optimization problem is to minimize penalty function <span class="math inline">\(F_2 (x, \rho)\)</span> <span class="citation" data-cites="meng2013exactness">(<a href="#ref-meng2013exactness" role="doc-biblioref">Meng et al. 2013</a>)</span> In our case we may write our inequality constrain as <span class="math display">\[
+f(X) = \sum_{(i,j)\in X}I(X_i = X_j) \leq0
+\]</span></p>
+<p>The indicator function <span class="math inline">\(I(X_i = X_j)\)</span> mentioned above is for NB. What about ED?</p>
+<p>For a specific treatment <span class="math inline">\(t\)</span> we measure ED by calculating row span and column span.For a design <span class="math inline">\(X\)</span>, so we define <span class="math inline">\(Cs(X)\)</span> is the minimum column span for design <span class="math inline">\(X\)</span> and <span class="math inline">\(Rs(X)\)</span> is the minimum row span. And we are expecting <span class="math display">\[
+Cs(X)\geq 4 \quad and \quad Rs(X)\geq 4
+\]</span> we may rewrite it as <span class="math display">\[
+c(X)=-Cs(X)+4\leq 0 \quad r(X)=-Rs(X)+4\leq 0
+\]</span> After all we have our constrained optimize problem (Prob)</p>
+<p>Objective function : min <span class="math inline">\(\mathscr{A}\)</span></p>
+<p>Constrains :</p>
+<p><span class="math inline">\(C_1(X)=f(X) = \sum_{(i,j)\in X}I(X_i = X_j) \leq0\)</span></p>
+<p><span class="math inline">\(C_2(X)=c(X)=-Cs(X)+4\leq 0\)</span></p>
+<p><span class="math inline">\(C_3(X)=r(X)=-Rs(X)+4\leq 0\)</span></p>
+<p>Having our penalty function : <span class="math display">\[
+F (X, \rho) = \mathscr{A} + \rho \sum_{i=1,2,3} max\{C_i(X),0\}
+\]</span></p>
+</section>
+<section id="another-possible-way" class="level2">
+<h2 class="anchored" data-anchor-id="another-possible-way">Another possible way</h2>
+<p>We may use Lagrangian functions and KKT theorem</p>
+<p>For the problem we mention above, we have Lagrangian function <span class="math display">\[
+\mathscr{L} = \mathscr{A}+\lambda_1 C_1(X) + \lambda_2 C_2(X) + \lambda_3 C_3(X)
+\]</span> Here <span class="math inline">\(\lambda_i \geq 0\)</span></p>
 
 </section>
+</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referance</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-meng2013exactness" class="csl-entry" role="listitem">
+Meng, Zhiqing, Chuangyin Dang, Min Jiang, Xinsheng Xu, and Rui Shen. 2013. <span>“Exactness and Algorithm of an Objective Penalty Function.”</span> <em>Journal of Global Optimization</em> 56: 691–711.
+</div>
 <div id="ref-williams2015optimality" class="csl-entry" role="listitem">
 Williams, Emlyn, and Hans-Peter Piepho. 2015. <span>“Optimality and Contrasts in Block Designs with Unequal Treatment Replication.”</span> <em>Australian &amp; New Zealand Journal of Statistics</em> 57 (2): 203–9.
 </div>
