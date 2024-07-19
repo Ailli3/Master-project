@@ -16,10 +16,14 @@ book:
    chapters:
      - index.qmd
      - abstract.qmd
-     - disclaimer.qmd # omit this if honours or masters by coursework
      - acknowledgements.qmd
-     - chapter1.qmd
-     - chapter2.qmd
+     - intro.qmd
+     - background.qmd
+     - methods.qmd
+     - results.qmd
+     - discussion.qmd
+     #- chapter1.qmd
+     #- chapter2.qmd
      - references.qmd
    appendices:
      - tools.qmd
