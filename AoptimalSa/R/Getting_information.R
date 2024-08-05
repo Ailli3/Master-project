@@ -28,9 +28,6 @@ model_information <- function(data, blocking_factor = NULL,
 
   # Create design matrix for treatment factor effects
   if (!is.null(treatment_factor)) {
-
-    print(paste("Treatment factor formula:", treatment_factor))
-
     treatment_factor.design <- model.matrix(as.formula(paste(treatment_factor)), data = data)
     colnames(treatment_factor.design) <- gsub(" ", ".", colnames(treatment_factor.design))
   } else {

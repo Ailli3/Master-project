@@ -47,3 +47,7 @@ format:
   anu-thesis-pdf:
     keep-tex: false
     #classoption: twoside
+    text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+        \usepackage{bbold}

@@ -23,8 +23,7 @@ simulated_annealing <- function(data,
     current_design <- design[["treatment_factor"]]
     i <- 1
     while (i == 1 ||
-           (i <= max_iter &&
-            abs(a_values[i-1] - a_current) / a_values[i-1] > epsilon)) {
+           (i <= max_iter)) {
       temperature <- initial_temperature * exp(-cooling_rate * i)
       design_candidate <- generate_pairwise_permutations(current_design)
       for (candidate in design_candidate ){

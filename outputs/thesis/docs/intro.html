@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +50,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./chapter2.html" rel="next">
+<link href="./background.html" rel="next">
 <link href="./acknowledgements.html" rel="prev">
 <link href="./_extensions/anu-thesis/assets/ANU_Favicon_Inversed_Gold.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -89,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter1.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -132,26 +152,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./disclaimer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Disclaimer</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Acknowledgements</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Method</span></span></a>
+  <a href="./background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -214,9 +246,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Reproducible research is an essential paradigm that promotes the idea that scientific investigations should be transparent, verifiable, and accessible to others. In an era where the scientific community faces concerns about the replicability of research findings, adopting reproducible research practices becomes imperative.</p>
+<p>In the field of experimental design, efficient methods are crucial for ensuring accurate and reliable results. One such method is the row-column design, controlling variability in experiments involving two factors, typically arranged in rows and columns. The row-column design can be considered as an extension of the Latin square design with more flexibility, allowing for different numbers of rows, columns, and treatments. This flexibility makes row-column designs applicable to a wider range of experimental settings.</p>
+<p>To offer a row-column design that gives a precise estimation of treatment effects, one way is to seek the optimal value of some statistic criteria, for example, A-criteria(links to sections), minimizing the variance of elementary treatment contrasts. Using linear mixed model and assuming fixed treatment effects and random blocking effect, <span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> has show the relation between optimizing design and minimizing the value of A-criteria, and show some possible algorithms to search optimal design in feasible set. These algorithms mainly focus on comparing the arrangements of different treatments, that is, doing permutations, and calculating their A values, optimizing design by iterations.</p>
+<p>However, some undesired cluster of replications or some treatment may occur when algorithm are doing permutations along rows and columns. <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> found that such clustering is considered undesirable by experimenters who worry that irregular environmental gradients might negatively impact multiple replications of the same treatment, potentially leading to biased treatment effect estimates. Williams emphasis that there is a need to design a strategy to avoid clustering and achieve even distribution of treatment replications among the experimental field. Two properties of design are introduced. Even distribution of treatment replications, abbreviated as ED, and neighbor balance, abbreviated as NB. A good ED ensures every replications of a treatment are widely spread in experimental field, and NB helps to avoid replications of the some treatment cluster together repeatedly. Williams introduce a scoring system to analysis ED and NB for a specific design, and introduce a algorithm to optimize ED, NB and some average efficiency factor can be represented by a specific statistic criteria.(maybe saying some improvement is needed)</p>
+<p>We offer an optimization strategy for a design problem, which we can improving ED and NB during optimizing statistic criteria for a design, and avoid unwanted clustering and self-adjacency on the resulting design.In this algorithm, we use A-criteria to evaluate the efficiency of a design. Before the algorithm, we randomly generate a design as an initial design, and calculate the A-criteria as initial value. We update design by selecting a better among its neighbors. The neighbors are pair-wise permutations of a design. Typically, we select a neighbor from all pairwise permutations of a design for iteration, but this does not ensure ED and NB. To ensure ED and NB during optimization, we need to add some constraints when generating the pairwise permutations.(maybe explain what is the constraints) By filtering design with bad ED and NB, we then optimize the statistic criteria of the design.</p>
+<p>(sections in the thesis)</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-butler2013optimal" class="csl-entry" role="listitem">
+Butler, David. 2013. <span>“On the Optimal Design of Experiments Under the Linear Mixed Model.”</span>
+</div>
+<div id="ref-piepho2018neighbor" class="csl-entry" role="listitem">
+Piepho, Hans-Peter, Volker Michel, and Emlyn Williams. 2018. <span>“Neighbor Balance and Evenness of Distribution of Treatment Replications in Row-Column Designs.”</span> <em>Biometrical Journal</em> 60 (6): 1172–89.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -613,8 +657,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapter2.html" class="pagination-link" aria-label="Method">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Method</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./background.html" class="pagination-link" aria-label="Background">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -626,7 +670,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright © 2024, Your Name</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/chapter1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/intro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

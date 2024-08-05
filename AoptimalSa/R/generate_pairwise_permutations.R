@@ -6,6 +6,7 @@
 
 generate_pairwise_permutations <- function(X) {
   n <- nrow(X)
+  n_c <- ncol(X)
   neighbors <- list()
   index <- 1
   for (i in 1:(n - 1)) {
@@ -13,6 +14,8 @@ generate_pairwise_permutations <- function(X) {
       if (all(X[i, ] == X[j, ])) {
         next
       }
+
+
       X_new <- X
       temp <- X_new[i, ]
       X_new[i, ] <- X_new[j, ]
@@ -24,3 +27,12 @@ generate_pairwise_permutations <- function(X) {
   }
   return(neighbors)
 }
+
+
+#check_self_adjacency <- function(X, row_num_i, row_num_j, n_r, n_c){
+  #selecting row_num_i neighbors
+  #neighbors_i <- list()
+  #if (n_r < row_num_i < ){
+
+  #}
+#}

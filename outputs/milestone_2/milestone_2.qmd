@@ -1,0 +1,38 @@
+---
+title: "Opimization of Row-Column Designs"
+author: "Jingning Yao"
+supervisors:
+  - "Dr. Emi Tanaka"
+  - "Dr. Katharine Turner"
+date: today
+format: 
+  pdf: 
+    documentclass: amsart
+    fontsize: 12pt
+    template-partials:
+      - partials/before-body.tex
+      - partials/after-body.tex
+    include-in-header:
+      text: |
+        \usepackage{fullpage}
+        \usepackage{enumitem}
+bibliography: ref.bib
+---
+
+# Current work results
+
+In my recent research on experimental design optimization, I have focused on improving the A-criterion by  gradient descent methods, basing on @butler2013optimal. In addition, I have explored the potential of simulated annealing algorithms to further enhance optimization processes
+
+Inspired by @piepho2018neighbor, I have attempted to use neighbor balance (NB) and even distribution (ED) as criteria to guide the direction of gradient descent.
+
+To measure neighbor balance, I have constructed adjacency matrices and identified their maximum values. This approach allows for a quantitative assessment of how balanced the neighboring elements are in the design. Furthermore, I have implemented maximum column span and row span of design matrix to evaluate even distribution across the design field. These values are critical for ensuring that experimental units are evenly distributed, minimizing potential biases.
+
+# Expectation for this semester
+
+Currently, I am focusing on using pairwise permutations of a design matrix to generate its neighbors and iterate towards optimization. My goal is to enhance this process by incorporating neighbor balance (NB) and even distribution (ED) as filtering criteria for the permutations. The idea is to apply these parameters during the generation of pairwise permutations to ensure that only permutations maintaining or improving NB and ED are considered. 
+
+The expecting outcome is that the resulting experimental designs will be optimized for the A-criterion while simultaneously ensuring excellent neighbor balance and even distribution.
+
+I aim to put this algorithm in practice by applying it to some simple rectangular experimental designs, assessing its performance. Additionally, I plan to extend this work to simulate realistic data sets.
+
+# References

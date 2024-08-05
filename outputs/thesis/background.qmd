@@ -1,6 +1,5 @@
 # Background {#sec-bg}
 
-
 ## Linear model 
 
 Suppose we have a linear model,
@@ -25,14 +24,24 @@ where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
 
 The Fisher information matrix of @eq-lm is given as
 $$
-\mathbf{C} = \frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})=-\frac{1}{\sigma^2}\textbf{X}^\top\textbf{X}
+\mathbf{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\textbf{X}^\top\textbf{X}
 $$
 :::
 
 ::: proof
-
-Where is the proof?
-
+The second derivative of the log-likelihood function      $\log\ell(\boldsymbol{\tau};\boldsymbol{y})$ is the Hessian matrix. We have
+$$
+\frac{\partial}{\partial\boldsymbol{\tau}}\log\ell(\boldsymbol{\tau};\boldsymbol{y})=\frac{1}{\sigma^2}\textbf{X}^\top(\boldsymbol{y}-\textbf{X}\boldsymbol{\tau})
+$$
+and for second derivative is
+$$
+\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})==-\frac{1}{\sigma^2}\textbf{X}^\top\textbf{X}
+$$
+And in linear model assumption we have $\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$ and the Fisher information matrix is unbiased because, in the expectation calculation process, we do not involve the randomness of $\boldsymbol{y}$. The Fisher information matrix is actually determined by the design matrix $\textbf{X}$ and the error variance $\sigma^2$. Hence
+$$
+\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\textbf{X}^\top\textbf{X} = -\mathbf{C} 
+$$
+So $\mathbf{C} = \frac{1}{\sigma^2}\textbf{X}^\top\textbf{X}$
 :::
 
 
@@ -43,9 +52,7 @@ The variance of the fixed effects for @eq-lm is equivalent to the inverse of the
 :::
 
 ::: proof
-
-Add proof
-
+We know that the MLE of $\boldsymbol{\tau}$ in a linear model is $\hat{\boldsymbol{\tau}}=(\textbf{X}^\top\textbf{X})^{-1}\textbf{X}^\top\boldsymbol{y}$. By assumption we have $\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$. So $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\sigma^2(\textbf{X}^\top\textbf{X})^{-1})$.So we have $var(\hat{\boldsymbol{\tau}}) = \sigma^2(\textbf{X}^\top\textbf{X})^{-1}$, which is exactly the inverse of Fisher information matrix $\mathbf{C}^{-1}$.
 :::
 
 
@@ -56,7 +63,7 @@ Linear mixed model extends linear model by incorporating additionally incorporat
 $$
 \boldsymbol{y}=\textbf{X}\boldsymbol{\tau}+\textbf{Z}\boldsymbol{u}+\boldsymbol{\epsilon}
 $$ {#eq-lmm}
-here $\boldsymbol{y}$ is $n\times 1$ vector for $n$ observations, $\boldsymbol{\tau}$ is a $t\times1$ parameter vector of fixed effects, $\boldsymbol{u}$ is a $q \times1$ parameter vector of random effects, and $\boldsymbol{\epsilon}$ is the $n\times 1$ error vector, $\textbf{X}$ and $\textbf{Z}$ are design matrices of dimension  $n \times t$ and $n \times q$ for fixed effects and random effects, respectively. We assume for random effects and error vector $\epsilon$
+here $\boldsymbol{y}$ is $n\times 1$ vector for $n$ observations, $\boldsymbol{\tau}$ is a $t\times1$ parameter vector of treatment factors, $\boldsymbol{u}$ is a $q \times1$ parameter vector of blocking effects, and $\boldsymbol{\epsilon}$ is the $n\times 1$ error vector, $\textbf{X}$ and $\textbf{Z}$ are design matrices of dimension  $n \times t$ and $n \times q$ for treatment factors and blocking factors, respectively. We here assume blocking factors are random effect, with random error $\boldsymbol{\epsilon}$ we have
 $$
 \begin{bmatrix}
 \boldsymbol{u} \\
@@ -79,7 +86,7 @@ where $\textbf{G}$ is the $q \times q$ variance matrix for $\boldsymbol{u}$ and 
 
 ##  A-criterion
 
-We first start with a simple example, that is, we are interesting in examine fixed effect part $\boldsymbol{\tau}$, to elucidate the influence of A-criterion. 
+We first start with a simple example, that is, we consider treatment factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of A-criterion. 
 
 From @butler2013optimal, we conduct a maximum log likelihood by following objective function:
 $$
@@ -123,7 +130,8 @@ $$
 \begin{bmatrix}
 \textbf{X}^\top\textbf{R}^{-1}\boldsymbol{y}\\
 \textbf{Z}^\top\textbf{R}^{-1}\boldsymbol{y}
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 
 Let
 $$
@@ -141,32 +149,55 @@ $$
 \textbf{W}=\begin{bmatrix}\textbf{X} &\textbf{Z}\end{bmatrix}
 $$
 
-We can rewrite the equation in a standard form $\textbf{C}\hat\beta=\textbf{W}^T\textbf{R}^{-1}y$. As we mentioned above, we are interesting in examine fixed effect part $\tau$ so we need a standard form only for $\tau$, we do this by cancelling $\mu$, We have
+@robinson1991blup shows that 
 $$
-\boldsymbol{X}^T\textbf{R}^{-1}\textbf{X}\tau+\textbf{X}^T\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})\textbf{Z}^T\textbf{R}^{-1}y=\textbf{X}^T\textbf{R}^{-1}y\\
+\hat{\boldsymbol{\beta}}=\begin{bmatrix}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
+\end{bmatrix}\sim
+N(\begin{bmatrix}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
+\end{bmatrix}, \textbf{C}^{-1})
 $$
-$$
-\Rightarrow \textbf{X}^{T}[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}]\textbf{X}\tau=\textbf{X}^{T}[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}]y\\
-$$
-$$
-\Rightarrow \textbf{X}^{T}\textbf{P}\textbf{X}\tau=\textbf{X}^{T}\textbf{P}y
-$$
-where $P=\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^T\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^{T}\textbf{R}^{-1}$, let $\textbf{C}_{11}=\textbf{X}^{T}\textbf{P}\textbf{X}$ then we have the standard form for $\hat\tau$, which is $\textbf{C}_{11}\tau=\textbf{X}^T\textbf{P}y$, and $\textbf{C}_{11}$ is the corresponding Fisher information matrix.
 
-So we have $\tau-\hat\tau\sim N(0,\textbf{C}_{11}^{-1})$.To examine a specific form of $\tau$, we do linear transform on $\tau$: $\hat\pi=\textbf{D}\hat\tau$, where $\textbf{D}$ is some transform matrix, so we have $\textbf{D}(\tau-\hat\tau)=\pi-\hat\pi\sim N(0,\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^{T})$. We denote $\boldsymbol{\Lambda}=\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^{T}$.
+We can rewrite the equation in a standard form $\textbf{C}\hat\beta=\textbf{W}^\top\textbf{R}^{-1}y$. So $\textbf{C}$ is the Fisher information matrix for this linear mixed model. As we mentioned above, we are interesting in examine fixed effect part $\boldsymbol{\tau}$. For the properties of variance-covariance matrix, matrix $\textbf{C}$ can be written as
+$$
+\textbf{C}=
+\begin{bmatrix}
+\textbf{C}_{11} & \textbf{C}_{12}\\
+\textbf{C}_{21} & \textbf{C}_{22}
+\end{bmatrix}
+$$
+$\textbf{C}_{11}^{-1}$ is a $t \times t$ matrix and variance-covariance matrix for treatment factors. We can caluclate $\textbf{C}_{11}$ by writing out standard form for $\boldsymbol{\tau}$ and cancelling $\boldsymbol{u}$.We have
+$$
+\boldsymbol{X}^\top\textbf{R}^{-1}\textbf{X}\boldsymbol{\tau}+\textbf{X}^\top\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^\top\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})\textbf{Z}^\top\textbf{R}^{-1}y=\textbf{X}^\top\textbf{R}^{-1}y\\
+$$
+$$
+\Rightarrow \textbf{X}^\top[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^\top\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^\top\textbf{R}^{-1}]\textbf{X}\boldsymbol{\tau}=\textbf{X}^\top[\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^\top\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^\top\textbf{R}^{-1}]y\\
+$$
+$$
+\Rightarrow \textbf{X}^\top\textbf{P}\textbf{X}\boldsymbol{\tau}=\textbf{X}^\top\textbf{P}y
+$$
+where $\textbf{P}=\textbf{R}^{-1}-\textbf{R}^{-1}\textbf{Z}(\textbf{Z}^\top\textbf{R}^{-1}\textbf{Z}+\textbf{G}^{-1})^{-1}\textbf{Z}^\top\textbf{R}^{-1}$, let $\textbf{C}_{11}=\textbf{X}^\top\textbf{P}\textbf{X}$ then we have the standard form for $\hat{\boldsymbol{\tau}}$, which is $\textbf{C}_{11}\boldsymbol{\tau}=\textbf{X}^\top\textbf{P}y$, and $\textbf{C}_{11}$ is the corresponding Fisher information matrix.
+
+So we have $\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\textbf{C}_{11}^{-1})$.To examine a specific form of $\boldsymbol{\tau}$, we do linear transform on $\boldsymbol{\tau}$: $\hat{\boldsymbol{\pi}}=\textbf{D}\hat{\boldsymbol{\tau}}$, where $\textbf{D}$ is some transform matrix, so we have $\textbf{D}(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})=\boldsymbol{\pi}-\hat{\boldsymbol{\pi}}\sim N(0,\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^\top)$. We denote $\boldsymbol{\Lambda}=\textbf{D}\textbf{C}_{11}^{-}\textbf{D}^\top$.
 
 A-criterion is the mean of predicted error variance of the parameter. i.e. 
 $$
 \mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}\sum_{i}\sum_{j<i} predicted\quad error\quad variance\quad of\quad(\hat\pi_i-\hat\pi_j)
 $$
-where $n_{\pi]$ is the row number of vector$\pi$.For error variance part, we have 
+where $n_{\pi}$ is the row number of vector $\pi$.For error variance part, we have 
 $$
 \sum_{i}\sum_{j<i} predicted\quad error\quad variance\quad of\quad(\hat\pi_i-\hat\pi_j)=\sum_{i}\sum_{j<i}var(\hat\pi_i-\hat\pi_j)=\sum_{i}\sum_{j<i}[var(\hat\pi_i)+var(\hat\pi_j)-2cov(\hat\pi_i,\hat\pi_j)]
 $$
-from virance-covirance matrix $\boldsymbol{\Lambda}$, we can rewrite the sum part as $n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^{T}\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}$.So we have
+from virance-covirance matrix $\boldsymbol{\Lambda}$, we can rewrite the sum part as $n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}$.So we have
 $$
-\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}[n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^{T}\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}]
+\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}[n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}]
 $$
-same result from [@butler2013model]
+same result from @butler2013model
 
 Derivation above indicate that $\mathscr{A}\propto tr(\boldsymbol{\Lambda})$, A-criterion as the  mean of predicted error variance of the parameter, we prefer it as small as possible to obtain a accurate result from experiment, which means the trace of virance-covirance matrix $\boldsymbol{\Lambda}$ should be as small as possible. And this is our goal on optimal experimental design.
+
+
+

@@ -191,3 +191,55 @@ $$
 \mathscr{L} = \mathscr{A}+\lambda_1 C_1(X) + \lambda_2 C_2(X) + \lambda_3 C_3(X)
 $$
 Here $\lambda_i \geq 0$
+
+# Methods on constrained permutation
+
+## How to find self-adjacency(?)
+
+An example with square field
+$$
+\begin{pmatrix}
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+\end{pmatrix}
+$$
+with actual plot
+
+$$
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13} & a_{14}\\
+a_{21} & a_{22} & a_{23} & a_{24}\\
+a_{31} & a_{32} & a_{33} & a_{34}\\
+a_{41} & a_{42} & a_{43} & a_{44}
+\end{pmatrix}
+$$
+take $a_{22}$ as example, we wish to check $a_{12},a_{32},a_{11},a_{21},a_{31},a_{13},a_{23},a_{32}$, we find out that in row and column matrix, $a_{21}$ and $a_{23}$ are next to $a_{22}$, but $a_{12}$ and $a_{32}$ are three rows (column number -1) away. So in coding I can do
+
+1. selecting $a_{12}$ and $a_{32}$ since we want to check $a_{22}$ and select two plot next to $a_{12}$ and $a_{32}$. Then we have 8 plots selected. 
+
+2. Check these 8 plots if self-adjacency happens
+
+## How to avoid clustering(?)
+To avoid clustering, in other word, avoiding two treatment next to each other twice or more.
+
+
+$$
+\begin{pmatrix}
+1 & 0 & 0 &0 \\
+1 & 0
+\end{pmatrix}
+$$

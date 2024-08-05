@@ -256,6 +256,48 @@ F (X, \rho) = \mathscr{A} + \rho \sum_{i=1,2,3} max\{C_i(X),0\}
 <p>For the problem we mention above, we have Lagrangian function <span class="math display">\[
 \mathscr{L} = \mathscr{A}+\lambda_1 C_1(X) + \lambda_2 C_2(X) + \lambda_3 C_3(X)
 \]</span> Here <span class="math inline">\(\lambda_i \geq 0\)</span></p>
+</section>
+</section>
+<section id="methods-on-constrained-permutation" class="level1">
+<h1>Methods on constrained permutation</h1>
+<section id="how-to-find-self-adjacency" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-find-self-adjacency">How to find self-adjacency(?)</h2>
+<p>An example with square field <span class="math display">\[
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{pmatrix}
+\]</span> with actual plot</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} &amp; a_{14}\\
+a_{21} &amp; a_{22} &amp; a_{23} &amp; a_{24}\\
+a_{31} &amp; a_{32} &amp; a_{33} &amp; a_{34}\\
+a_{41} &amp; a_{42} &amp; a_{43} &amp; a_{44}
+\end{pmatrix}
+\]</span> take <span class="math inline">\(a_{22}\)</span> as example, we wish to check <span class="math inline">\(a_{12},a_{32},a_{11},a_{21},a_{31},a_{13},a_{23},a_{32}\)</span>, we find out that in row and column matrix, <span class="math inline">\(a_{21}\)</span> and <span class="math inline">\(a_{23}\)</span> are next to <span class="math inline">\(a_{22}\)</span>, but <span class="math inline">\(a_{12}\)</span> and <span class="math inline">\(a_{32}\)</span> are three rows (column number -1) away. So in coding I can do</p>
+<ol type="1">
+<li><p>selecting <span class="math inline">\(a_{12}\)</span> and <span class="math inline">\(a_{32}\)</span> since we want to check <span class="math inline">\(a_{22}\)</span> and select two plot next to <span class="math inline">\(a_{12}\)</span> and <span class="math inline">\(a_{32}\)</span>. Then we have 8 plots selected.</p></li>
+<li><p>Check these 8 plots if self-adjacency happens</p></li>
+</ol>
+</section>
+<section id="how-to-avoid-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-avoid-clustering">How to avoid clustering(?)</h2>
+<p>To avoid clustering, in other word, avoiding two treatment next to each other twice or more.</p>
 
 </section>
 </section>
