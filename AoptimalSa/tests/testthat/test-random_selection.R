@@ -1,10 +1,11 @@
 test_that("random selection test", {
   library(dplyr)
-  data_r <- expand.grid(col=as.factor(1:10),
-                        row=as.factor(1:10)) |>
-    mutate(trt = sample(rep(LETTERS[1:10], 10)))
-  optimal_design_info <- gradient_selection(data_r,
-                                          max_iter = 250)
+  data_r <- expand.grid(col=as.factor(1:5),
+                        row=as.factor(1:5)) |>
+    mutate(trt = sample(rep(LETTERS[1:5], 5)))
+  optimal_design_info <- Random_search(data_r,
+                                       steplength = 5,
+                                        max_iter = 200)
   iteration_number <- optimal_design_info[["iteration_number"]]
   a_values_vector <- unlist(optimal_design_info['a_history'])
   a_value_re <- a_values_vector[iteration_number]
@@ -17,5 +18,5 @@ test_that("random selection test", {
        ylab = "A-criterion",
        col = "blue")
   #optimal_design_info_cr <- Complete_random_search(data_r,max_iter = 10)
-  #print(optimal_design_info_cr[["a_value"]])
+  print(optimal_design_info[["a_value"]])
 })

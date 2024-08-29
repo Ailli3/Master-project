@@ -45,7 +45,7 @@ supervisor:
 format:
   anu-thesis-html: default
   anu-thesis-pdf:
-    keep-tex: false
+    keep-tex: True
     #classoption: twoside
     text: |
         \usepackage{fullpage}

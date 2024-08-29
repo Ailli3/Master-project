@@ -25,7 +25,11 @@ simulated_annealing <- function(data,
     while (i == 1 ||
            (i <= max_iter)) {
       temperature <- initial_temperature * exp(-cooling_rate * i)
+
+
       design_candidate <- generate_pairwise_permutations(current_design)
+
+
       for (candidate in design_candidate ){
         a_candidate <- a_criterion_calculation_for_iteration(design[["blocking_factor"]],
                                                              candidate,

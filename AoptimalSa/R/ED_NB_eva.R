@@ -74,3 +74,31 @@ give_adjacent_matrix_du <- function(data){
   adjacency_matrix <- table(adjacent_pairs$trt1, adjacent_pairs$trt2)
   return(adjacency_matrix)
 }
+
+find_min_spans <- function(data) {
+
+  trt_spans <- data %>%
+    group_by(trt) %>%
+    summarise(min_col = min(as.numeric(as.character(col))),
+              max_col = max(as.numeric(as.character(col))),
+              min_row = min(as.numeric(as.character(row))),
+              max_row = max(as.numeric(as.character(row)))) %>%
+    mutate(col_span = max_col - min_col + 1,
+           row_span = max_row - min_row + 1)
+
+
+  min_col_span_trt <- trt_spans %>%
+    filter(col_span == min(col_span)) %>%
+    select(trt, col_span) %>%
+    distinct()
+
+  min_row_span_trt <- trt_spans %>%
+    filter(row_span == min(row_span)) %>%
+    select(trt, row_span) %>%
+    distinct()
+
+  span_info <- list(min_col_span_trt = min_col_span_trt, min_row_span_trt = min_row_span_trt)
+
+  return(c(min_row_span_trt$row_span[1], min_col_span_trt$col_span[1]))
+}
+
