@@ -269,7 +269,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#a-criterion" id="toc-a-criterion" class="nav-link" data-scroll-target="#a-criterion"><span class="header-section-number">2.2.1</span> A-criterion</a></li>
   </ul></li>
-  <li><a href="#neighbor-balance-and-even-distribution" id="toc-neighbor-balance-and-even-distribution" class="nav-link" data-scroll-target="#neighbor-balance-and-even-distribution"><span class="header-section-number">2.3</span> Neighbor balance and even distribution</a>
+  <li><a href="#neighbor-balance-and-eveness-of-distribution" id="toc-neighbor-balance-and-eveness-of-distribution" class="nav-link" data-scroll-target="#neighbor-balance-and-eveness-of-distribution"><span class="header-section-number">2.3</span> Neighbor balance and eveness of distribution</a>
   <ul class="collapse">
   <li><a href="#concepts-of-nb-and-ed" id="toc-concepts-of-nb-and-ed" class="nav-link" data-scroll-target="#concepts-of-nb-and-ed"><span class="header-section-number">2.3.1</span> Concepts of NB and ED</a></li>
   <li><a href="#measuring-nb-and-ed" id="toc-measuring-nb-and-ed" class="nav-link" data-scroll-target="#measuring-nb-and-ed"><span class="header-section-number">2.3.2</span> Measuring NB and ED</a></li>
@@ -376,7 +376,7 @@ N\left(
 <p><span class="citation" data-cites="henderson1959estimation">Henderson et al. (<a href="references.html#ref-henderson1959estimation" role="doc-biblioref">1959</a>)</span> emphasis that computing matrix <span class="math inline">\boldsymbol{V}</span> which is often large is difficult. So here we use joint log likelihood.</p>
 <p>From <span class="citation" data-cites="butler2013optimal">David Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span>, we conduct a maximum log likelihood by following objective function: <span class="math display">
 \log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
-</span> ::: {#lem-joint-density-lmm} So log of joint density is given as</p>
+</span> :::{#lem-joint-density-lmm} So log of joint density is given as</p>
 <span class="math display">\begin{align*}
 \mathscr{L}&amp;=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
 &amp;=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
@@ -567,7 +567,7 @@ var(\hat{\boldsymbol{\tau}})
 </span> And base on the complement of <span class="math inline">\boldsymbol{C}_{11}</span>, we rewrite the <span class="math inline">\boldsymbol{S}</span> <span class="math display">
 \begin{align*}
 \boldsymbol{S}
-&amp;=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
+&amp;=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &amp;=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &amp;=\boldsymbol{C}_{11}
 \end{align*}
@@ -575,14 +575,14 @@ var(\hat{\boldsymbol{\tau}})
 <p>So we have <span class="math inline">\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})</span>.To examine a specific form of <span class="math inline">\boldsymbol{\tau}</span>, in general case, we do linear transform on <span class="math inline">\boldsymbol{\tau}</span>: <span class="math inline">\hat{\boldsymbol{\pi}}=\boldsymbol{D}\hat{\boldsymbol{\tau}}</span>, where <span class="math inline">\boldsymbol{D}</span> is some transform matrix, so we have <span class="math inline">\boldsymbol{D}(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})=\boldsymbol{\pi}-\hat{\boldsymbol{\pi}}\sim N(0,\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top)</span>. We denote <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top</span>. If <span class="math inline">\boldsymbol{D}</span> is identical matrix <span class="math inline">\boldsymbol{I}</span>, then <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span> and <span class="math inline">\hat{\boldsymbol{\pi}}=\hat{\boldsymbol{\tau}}</span>.</p>
 <p>We know that A-criterion is the mean of predicted error variance of the parameter from <a href="#eq-a" class="quarto-xref">Equation&nbsp;<span>2.5</span></a> i.e.&nbsp; <span class="math display">
 \mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j&lt;i}V_{ij}
-</span> Having virance-covirance matrix <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span>, we can rewrite the sum part as <span class="math inline">n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}</span>.So we have [FIXME] <span class="math display">
-\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}[n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}]
-</span> same result from <span class="citation" data-cites="butler2013model">DG Butler, Smith, and Cullis (<a href="references.html#ref-butler2013model" role="doc-biblioref">2013</a>)</span></p>
+</span> Having variance-covariance matrix <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span>, we can rewrite the sum part as <span class="math inline">n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}</span>.So we have <span id="eq-an"><span class="math display">
+\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\tag{2.7}</span></span> same result from <span class="citation" data-cites="butler2013model">DG Butler, Smith, and Cullis (<a href="references.html#ref-butler2013model" role="doc-biblioref">2013</a>)</span></p>
 <p>Derivation above indicate that <span class="math inline">\mathscr{A}\propto tr(\boldsymbol{\Lambda})</span>, A-criterion as the mean of predicted error variance of the parameter, we prefer it as small as possible to obtain a accurate result from experiment, which means the trace of virance-covirance matrix <span class="math inline">\boldsymbol{\Lambda}</span> should be as small as possible. And this is our goal on optimal experimental design.</p>
 </section>
 </section>
-<section id="neighbor-balance-and-even-distribution" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="neighbor-balance-and-even-distribution"><span class="header-section-number">2.3</span> Neighbor balance and even distribution</h2>
+<section id="neighbor-balance-and-eveness-of-distribution" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="neighbor-balance-and-eveness-of-distribution"><span class="header-section-number">2.3</span> Neighbor balance and eveness of distribution</h2>
 <section id="concepts-of-nb-and-ed" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="concepts-of-nb-and-ed"><span class="header-section-number">2.3.1</span> Concepts of NB and ED</h3>
 <p><span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> emphasis the the concepts of neighbor balance and even distribution are crucial to mitigating biases and ensuring the reliability of results in row-column design.</p>

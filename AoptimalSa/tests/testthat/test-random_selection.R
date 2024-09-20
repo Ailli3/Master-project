@@ -1,11 +1,12 @@
 test_that("random selection test", {
   library(dplyr)
-  data_r <- expand.grid(col=as.factor(1:5),
-                        row=as.factor(1:5)) |>
-    mutate(trt = sample(rep(LETTERS[1:5], 5)))
+  library(tidyr)
+  data_r <- expand.grid(col=as.factor(1:7),
+                        row=as.factor(1:7)) |>
+    mutate(trt = sample(rep(LETTERS[1:7], 7)))
   optimal_design_info <- Random_search(data_r,
-                                       steplength = 5,
-                                        max_iter = 200)
+                                       steplength = 3,
+                                       max_iter = 150)
   iteration_number <- optimal_design_info[["iteration_number"]]
   a_values_vector <- unlist(optimal_design_info['a_history'])
   a_value_re <- a_values_vector[iteration_number]
@@ -19,4 +20,6 @@ test_that("random selection test", {
        col = "blue")
   #optimal_design_info_cr <- Complete_random_search(data_r,max_iter = 10)
   print(optimal_design_info[["a_value"]])
+  grid_matrix <- matrix(optimal_design_info[["design"]]$trt, nrow = 10, ncol = 10, byrow = TRUE)
+  print(grid_matrix)
 })

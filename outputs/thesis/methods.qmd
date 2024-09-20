@@ -1,2 +1,189 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 # Methods {#sec-methods}
 
+## Modeling row-column design
+
+As mentioned in previous chapter, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as "row" and "column" factors. This design structure appears frequently in agricultural and industrial trials, where treatments are applied across units organized in a grid-like pattern, and both row and column effects may influence the outcomes.
+
+In my assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.
+
+Recalling @eq-lmm, the treatment effects are modeled as fixed effects, represented by the treatment design matrix $\boldsymbol{X}$ with parameter vector $\boldsymbol{\tau}$, measuring the influence of each treatment on the response variable. The matrix $\boldsymbol{X}$ is constructed such that each row corresponds to an experimental unit, and indicators in  each column indicates whether a treatment is applied or not. Detailed structure will be shown in section(?????)
+
+The random effects are modeled through the matrix $\boldsymbol{Z}$ and parameter vector $\boldsymbol{u}$. Matrix $\boldsymbol{Z}$ is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector $\boldsymbol{u}$ are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix $\boldsymbol{G}$.
+
+With $\boldsymbol{y}$ as the vector of observed responses and $\boldsymbol{\epsilon}$ as error term, a row-column design can be modeled by @eq-lmm . where $\boldsymbol{X\tau}$ represents the fixed treatment effects and $\boldsymbol{Zu}$ captures the random variations basing on rows and columns. 
+
+### Random effects matrix
+The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
+$$
+\begin{bmatrix}
+\begin{array}{cccc|cccc}
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+\end{array}
+\end{bmatrix}
+$$
+Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout.In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.
+
+In a more general case, suppose we have a $m\times n$ row-column experiment field. We should have a random effect matrix with $mn$ rows and $m+n$ columns with binary numbers. In this paper, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modeling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.
+
+### Design matrix for treatments
+The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable.  In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use $4\times 4$ experiment field as example, and suppose we have $4$ different treatments for each have $4$ replications, needing $16$ experiment unite. An example design matrix $\boldsymbol{X}$ for treatments should be a $16\times 4$ matrix with binary indicators as shown below
+
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+\end{bmatrix}
+$$
+For a given experimental unit, that is a given row, the design matrix contains a 1 in the column corresponding to the treatment applied to that unit, and 0 elsewhere.This structure allows for a clear and efficient representation of which treatment is applied to each unit. For example, the first row of the example design matrix represents the first treatment is applied in the unit locating on the first column, first row.
+
+if there are $t$ treatments and $N$ experimental units, the design matrix will have $N$ rows and $t$ columns. Then the design matrix for treatment $\boldsymbol{X}$ with size $N\times t$, should satisfy that for any row $n_{i}$
+$$
+\sum_{j=1}^{t} \boldsymbol{X}_{n_{i},j}=1
+$$
+That is, there is only one treatment can be applied in each experiment unit. And for any treatment $t_j$ with $r_j$ replications, it has
+$$
+\sum_{i=1}^{N}\boldsymbol{X}_{i,t_j}=r_j
+$$
+All replications of a treatment are applied in experimental field.
+
+### Assumptoins for A-value calculation
+
+It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling @eq-an, for calculating A value we need the covariance matrix for the random effects, matrix $\boldsymbol{G}$, covariance matrix for the error term, matrix $\boldsymbol{R}$, transformation matrix $\boldsymbol{D}$, random effect matrix $\boldsymbol{Z}$ and treatment design matrix $\boldsymbol{X}$. We need some basic setup for these matrices.
+
+Assume that we now have a row-column matrix with $R$ rows, $C$ columns and $RC$ plots.
+
+For the covariance matrix for the random effects, matrix $\boldsymbol{G}$, which captures the variability introduced by the row and column effects. I assume it is a $(R+C)\times(R+C)$ diagonal matrix, that is, it has following form,
+$$
+\boldsymbol{G}_{diag} = \sigma_{G}^2\boldsymbol{I}_{(R+C)}
+$$
+$\boldsymbol{I}_{(R+C)}$ is a $(R+C)\times(R+C)$ identity matrix. And $\sigma_{G}$ is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between row and column effects in the design.
+
+Similarly, for the covariance matrix for the error term, matrix $\boldsymbol{R}$, I assume that it  is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have
+$$
+\boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{RC}
+$$
+with identity matrix $\boldsymbol{I}_{RC}$ and scale constant $\sigma_{R}$.
+
+@butler2013optimal have introduced linear transformations of the treatment parameter vector $\boldsymbol{\tau}$ by using a transformation matrix $\boldsymbol{D}$, which allows for the investigation of linear combinations of treatments. However, in this paper, I simplify the approach by setting $\boldsymbol{D}$ as the identity matrix $\boldsymbol{I}_{RC}$. This means that we focus on the individual effects of the treatments rather than their linear combinations.
+
+These assumptions makes the structure of the model becomes more straightforward, allowing us to concentrate on the direct estimation of treatment effects while maintaining independence among the random effects and error terms.
+
+It's important to note that in our design, the random effect matrix $\boldsymbol{Z}$ remains constant during the optimization process.This means that while the row and column effects are accounted for as random effects, their structure does not change. 
+
+With these assumptions in place, the A-value in the context of a row-column design dependents only on the treatment design matrix $\boldsymbol{X}$. This means that the primary factor influencing the A-value is the distribution and arrangement of treatments within the design, and it directly impacts the variance of the treatment effect estimates.
+Therefore, optimizing the A-value under these assumptions becomes a problem of optimizing the treatment distribution in the design, ensuring that the treatments are arranged in such a way that the variance of the estimates is minimized.
+
+## Searching Strategy
+Before introducing the details of the searching strategy, it is important to establish a solid foundation by proving that the minimum of the A-value exists. The existence of the minimum A-value implies that the A-value has a lower bound, ensuring that the process of iteration optimizing the experimental design is not endless. As we continue to search for smaller A-values, this guarantees that we can eventually stop when the A-value stabilizes or a sufficient number of iterations reached.
+
+This allows us to conclude that we have found an optimal or near-optimal design. Therefore, the existence of this lower bound serves as a critical foundation for our iterative search, giving us confidence that the optimization will converge to a solution.
+
+### Exitence of the minimum of A-value
+
+To prove that the minimum of the A-value exists, we establish a objective function, that is, the A-value function $A(\boldsymbol{X})$ maps design matrix for treatment $\boldsymbol{X}$ to its A-value. It is a function that maps the design space to $\mathbb{R}$.
+$$
+A: \Omega \to \mathbb{R}, \quad \boldsymbol{X} \mapsto A(\boldsymbol{X})
+$$
+Here $\Omega$ is the design space contains all possible design matrix $\boldsymbol{X}$.
+
+Now we proof the existence of minimum value of $\boldsymbol{X}$, where $\boldsymbol{X}\in\Omega$.
+
+::: proof
+Recalling @eq-an 
+
+$$
+\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+$$
+This expression is well-defined for all valid design matrices $\boldsymbol{X}$. So function $A(\boldsymbol{X})$ is well-defined.
+
+The A-value represents the average variance of the difference treatment effect estimates, and since variances are always positive, the A-value is naturally bounded from below by zero. So we have
+$$
+A(\boldsymbol{X})\geq0
+$$
+which implies that the A-criterion is bounded below.
+
+In experimental design, the treatment design matrix $\boldsymbol{X}$ can take on a finite number of possible permutations, especially in practical row-column designs where the number of treatments and experimental units is fixed. In a finite search space, a lower bounded function has its minimum value.
+:::
+### General stracture
+In @piepho2018neighbor, the optimization of NB and ED was typically carried out under the assumption that the A-value was already optimal or fixed. This required identifying a set of solutions that maintained the A-value while improving the balance and distribution properties. In addition to assuming the A-value is fixed, another approach they used is to randomly select a design and then optimizing ED and NB.This process would be repeated multiple times, and the design with the best A-value will be selected. 
+
+(images)
+
+These approach separates the optimization of ED and NB from the A-value, while I try to merge these two process into one algorithm. I use pairwise permutation among treatments to change treatment design during iterations. And to avoid design with bad ED and NB, I am using some criteria to filter the permutation, only maintain or better properties are accepted. In this way, a row-column design that satisfies multiple optimization requirements is achieved.
+
+(images)
+
+Basing on optimal design search methods share a common set of features in exploring the design space given in @butler2013optimal, my searching method contains following part:
+
+1. A calculation method of objective criterion for a given design matrix $\boldsymbol{X}$
+
+2. An interchange policy to switch the design with in search space $\Omega$
+
+3. An acceptance policy for a new design.
+
+4. A stopping rule to terminate the search.
+
+The criterion calculation part has already been discussed earlier. We will now introduce interchange policy of switching the design.
+
+### Permutaions and filtering
+
+We use permutations of the treatments to update the design matrix for treatment. We randomly select two different treatments and swap them within the design matrix during the permutation process, without making drastic changes.
+
+Let $\boldsymbol{X}$ be the current design matrix for treatments, where each row corresponds to an experimental unit, and each column represents a treatment. Suppose we randomly select two different treatments, $t_i$ and $t_j$ located in $i$th row and $j$th row respectively. $\boldsymbol{X}_{new}$ can be written as
+$$
+\boldsymbol{X}_{new} = \boldsymbol{X}\boldsymbol{P}_{ij}
+$$
+with permutation matrix defined as
+$$
+ P_{i j}=\left[
+ \begin{array}{ccccccc}
+ 1 & 0 & \cdots & 0 & 0 & \cdots & 0 \\ 
+ 0 & 1 & \cdots & 0 & 0 & \cdots & 0 \\ 
+ \vdots & \vdots & \ddots & \vdots & \vdots & \cdots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & 1 & \cdots & 0 \\
+ \vdots & \vdots & & \vdots & \vdots & & \vdots\\
+ 0 & 0 & \cdots & 1 & 0 & \cdots & 0 \\ 
+ \vdots & \vdots & \cdots & \vdots & \vdots & \ddots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & 0 & \cdots & 1
+ \end{array}\right] 
+$$
+
+
+### Random search
+
+### Simulated annealing

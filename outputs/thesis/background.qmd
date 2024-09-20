@@ -86,7 +86,8 @@ blocking effects, and $\boldsymbol{\epsilon}$ is the $n\times 1$ error
 vector, $\boldsymbol{X}$ and $\boldsymbol{Z}$ are design matrices of
 dimension $n \times t$ and $n \times q$ for treatment factors and
 blocking factors, respectively. We here assume blocking factors are
-random effect, with random error $\boldsymbol{\epsilon}$ we have $$
+random effect, with random error $\boldsymbol{\epsilon}$ we have
+$$
 \begin{bmatrix}
 \boldsymbol{u} \\
 \boldsymbol{\epsilon} 
@@ -108,6 +109,9 @@ $\boldsymbol{u}$ and $\boldsymbol{R}$ is $n\times n$ variance matrix for
 $\boldsymbol{\epsilon}$.
 
 ### A-criterion
+Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.
+
+By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of treatment effects. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
 
 We first start with a simple example, that is, we consider treatment
 factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of
@@ -150,9 +154,8 @@ following objective function:
 $$
 \log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
 $$
-::: {#lem-joint-density-lmm}
+:::{#lem-joint-density-lmm}
 So log of joint density is given as
-
 ```{=tex}
 \begin{align*}
 \mathscr{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
@@ -420,7 +423,7 @@ And base on the complement of $\boldsymbol{C}_{11}$, we rewrite the $\boldsymbol
 $$
 \begin{align*}
 \boldsymbol{S}
-&=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
+&=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &=\boldsymbol{C}_{11}
 \end{align*}
@@ -442,14 +445,13 @@ i.e.
 $$
 \mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 $$ 
-Having virance-covirance matrix $\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}$, we can rewrite
+Having variance-covariance matrix $\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}$, we can rewrite
 the sum part as
-$n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}$.So
+$n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}$.So
 we have
-[FIXME]
 $$
-\mathscr{A}=\frac{1}{n_{\pi}(n_{\pi}-1)}[n_{\pi}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\pi}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\pi}}]
-$$
+\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+$${#eq-an}
 same result from @butler2013model
 
 Derivation above indicate that
@@ -459,7 +461,7 @@ possible to obtain a accurate result from experiment, which means the
 trace of virance-covirance matrix $\boldsymbol{\Lambda}$ should be as
 small as possible. And this is our goal on optimal experimental design.
 
-## Neighbor balance and even distribution
+## Neighbor balance and eveness of distribution
 
 ### Concepts of NB and ED
 
