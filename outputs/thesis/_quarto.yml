@@ -25,8 +25,8 @@ book:
      #- chapter1.qmd
      #- chapter2.qmd
      - references.qmd
-   appendices:
-     - tools.qmd
+   # appendices:
+   #   - tools.qmd
    page-footer: "Copyright © 2024, Your Name"
 
 bibliography: ref.bib
@@ -43,7 +43,7 @@ supervisor:
   - Dr. John Smith
 
 format:
-  anu-thesis-html: default
+  #anu-thesis-html: default
   anu-thesis-pdf:
     keep-tex: True
     #classoption: twoside

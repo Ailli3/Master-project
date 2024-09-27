@@ -81,16 +81,18 @@ $$
 $$
 All replications of a treatment are applied in experimental field.
 
-### Assumptoins for A-value calculation
+### Assumptions for A-value calculation
 
 It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling @eq-an, for calculating A value we need the covariance matrix for the random effects, matrix $\boldsymbol{G}$, covariance matrix for the error term, matrix $\boldsymbol{R}$, transformation matrix $\boldsymbol{D}$, random effect matrix $\boldsymbol{Z}$ and treatment design matrix $\boldsymbol{X}$. We need some basic setup for these matrices.
 
 Assume that we now have a row-column matrix with $R$ rows, $C$ columns and $RC$ plots.
 
 For the covariance matrix for the random effects, matrix $\boldsymbol{G}$, which captures the variability introduced by the row and column effects. I assume it is a $(R+C)\times(R+C)$ diagonal matrix, that is, it has following form,
+#######################
 $$
 \boldsymbol{G}_{diag} = \sigma_{G}^2\boldsymbol{I}_{(R+C)}
 $$
+#######################
 $\boldsymbol{I}_{(R+C)}$ is a $(R+C)\times(R+C)$ identity matrix. And $\sigma_{G}$ is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between row and column effects in the design.
 
 Similarly, for the covariance matrix for the error term, matrix $\boldsymbol{R}$, I assume that it  is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have
@@ -113,7 +115,7 @@ Before introducing the details of the searching strategy, it is important to est
 
 This allows us to conclude that we have found an optimal or near-optimal design. Therefore, the existence of this lower bound serves as a critical foundation for our iterative search, giving us confidence that the optimization will converge to a solution.
 
-### Exitence of the minimum of A-value
+### Existence of the minimum of A-value
 
 To prove that the minimum of the A-value exists, we establish a objective function, that is, the A-value function $A(\boldsymbol{X})$ maps design matrix for treatment $\boldsymbol{X}$ to its A-value. It is a function that maps the design space to $\mathbb{R}$.
 $$
@@ -139,7 +141,7 @@ which implies that the A-criterion is bounded below.
 
 In experimental design, the treatment design matrix $\boldsymbol{X}$ can take on a finite number of possible permutations, especially in practical row-column designs where the number of treatments and experimental units is fixed. In a finite search space, a lower bounded function has its minimum value.
 :::
-### General stracture
+### General structure
 In @piepho2018neighbor, the optimization of NB and ED was typically carried out under the assumption that the A-value was already optimal or fixed. This required identifying a set of solutions that maintained the A-value while improving the balance and distribution properties. In addition to assuming the A-value is fixed, another approach they used is to randomly select a design and then optimizing ED and NB.This process would be repeated multiple times, and the design with the best A-value will be selected. 
 
 (images)
@@ -150,7 +152,7 @@ These approach separates the optimization of ED and NB from the A-value, while I
 
 Basing on optimal design search methods share a common set of features in exploring the design space given in @butler2013optimal, my searching method contains following part:
 
-1. A calculation method of objective criterion for a given design matrix $\boldsymbol{X}$
+1. A calculation method for an optimal criterion for a given design matrix $\boldsymbol{X}$
 
 2. An interchange policy to switch the design with in search space $\Omega$
 
@@ -160,30 +162,87 @@ Basing on optimal design search methods share a common set of features in explor
 
 The criterion calculation part has already been discussed earlier. We will now introduce interchange policy of switching the design.
 
-### Permutaions and filtering
+### Permutations and filtering
 
 We use permutations of the treatments to update the design matrix for treatment. We randomly select two different treatments and swap them within the design matrix during the permutation process, without making drastic changes.
 
 Let $\boldsymbol{X}$ be the current design matrix for treatments, where each row corresponds to an experimental unit, and each column represents a treatment. Suppose we randomly select two different treatments, $t_i$ and $t_j$ located in $i$th row and $j$th row respectively. $\boldsymbol{X}_{new}$ can be written as
 $$
-\boldsymbol{X}_{new} = \boldsymbol{X}\boldsymbol{P}_{ij}
+\boldsymbol{X}_{new} = \boldsymbol{P}_{ij}\boldsymbol{X}
 $$
 with permutation matrix defined as
 $$
- P_{i j}=\left[
- \begin{array}{ccccccc}
- 1 & 0 & \cdots & 0 & 0 & \cdots & 0 \\ 
- 0 & 1 & \cdots & 0 & 0 & \cdots & 0 \\ 
- \vdots & \vdots & \ddots & \vdots & \vdots & \cdots & \vdots \\ 
- 0 & 0 & \cdots & 0 & 1 & \cdots & 0 \\
- \vdots & \vdots & & \vdots & \vdots & & \vdots\\
- 0 & 0 & \cdots & 1 & 0 & \cdots & 0 \\ 
- \vdots & \vdots & \cdots & \vdots & \vdots & \ddots & \vdots \\ 
- 0 & 0 & \cdots & 0 & 0 & \cdots & 1
+ \boldsymbol{P}_{i j}=\left[
+ \begin{array}{cccccccc}
+ 1 & 0 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\ 
+ 0 & 1 & \cdots & 0 & \cdots &0 & \cdots & 0 \\ 
+ \vdots & \vdots & \ddots & \vdots & & \vdots & \cdots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & \cdots & 1 & \cdots & 0 \\
+ \vdots & \vdots & & \vdots & \ddots & \vdots & & \vdots\\
+ 0 & 0 & \cdots & 1 & \cdots & 0 & \cdots & 0 \\ 
+ \vdots & \vdots & \cdots & \vdots & & \vdots & \ddots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & \cdots & 0 & \cdots & 1
  \end{array}\right] 
 $$
+It is a identity matrix with $i$th row and $j$th row swapped.
+
+When performing permutations on the design matrix, I apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out. 
+
+A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix $\boldsymbol{X}_{new}$ with corresponding design $\mathcal{D}_{new}$ is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for $\boldsymbol{X}_{new}$, that is $C_{NB}'$, $MRS(\mathcal{D}_{new})$ and $MCS(\mathcal{D}_{new})$. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it's not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as $T_{ED}$ and $T_{NB}$, which are none negative numbers. Current design matrix  $\boldsymbol{X}$ corresponding design $\mathcal{D}$ has  ED and NB value$C_{NB}$, $MRS(\mathcal{D})$ and $MCS(\mathcal{D})$.  New design matrix $\boldsymbol{X}_{new}$ mentioned above is accepted when
+$$
+\begin{align*}
+&(C_{NB}'\leq C_{NB}+T_{NB}) \\
+\land & (MRS(\mathcal{D}_{new})\geq MRS(\mathcal{D})-T_{ED})\\
+\land & (MCS(\mathcal{D}_{new})\geq MCS(\mathcal{D})-T_{ED})
+\end{align*}
+$${#eq-accp}
+is true. 
 
 
 ### Random search
+
+The random search algorithm begins with a randomly selected design matrix. To ensure that the search is efficient and avoids getting trapped in local optima, we introduce the concept of step length. This parameter determines how many permutations we consider in each iteration. Given the computational constraints, especially when the number of treatments or rows and columns increases, it is impractical to check all possible permutations of a design and evaluate each for acceptance. However, we aim to explore as many permutations as possible to avoid falling into local optima.
+
+At each iteration, we randomly generate a set of permutations. For each generated permutation, we apply the filtering step check by @eq-accp. If the permutation is not accepted, we randomly select another one and repeat the process. This continues until we have successfully selected a number of permutations equal to the step length. The whole process should look like
+
+::: {.algorithm}
+1. **Input**: Original design matrix `X`, Step length `s`, Tolerance for ED and NB as `t_1` and `t_2`.
+2. Initialize `k = 1`, ED and NB value for `X` as `ED_X_row`, `ED_X_col` and `NB_X`.
+3. While `k < s`:
+   - Generate a random permutation matrix `P` by selecting two different treatments.
+   - Apply permutation: `X_new = X P`.
+   - Calculate new values of ED and NB, `ED_X_row_new`, `ED_X_col_new` and `NB_X_new`.
+   - If new values satisfy `ED_X_row_new >= ED_X_row - t_1`, `ED_X_col_new >= ED_X_col - t_1` and `NB_X_new <= NB_X + t_2`, accept and remember this `X_new`.
+   - Increment `k`.
+   - If `k = s`, output all selected permutations.
+4. **Output**:A set of `k` permutations of original design matrix `X`
+
+:::
+
+The Random Search algorithm starts with a randomly selected initial design matrix $\boldsymbol{X}_0$, and we aim to minimize the A-value associated with the design. We set a maximum number of iterations $M$ and a step length $s$.
+
+The process for each iteration can be described as follows:
+
+
+::: {.algorithm .content-visible when-format="html"}
+
+1. **Initialization**: Start with a random design matrix `X_0 ` and set the iteration counter `k = 0`.
+   
+2. **Iteration**: For each iteration `k`, where `k < M`:
+   - Generate `s` random permutations of the current design matrix `X_c`.
+   - Calculate the A-value `A(X_i)`for each permutation `X_i`, where `i` = $1, 2, \cdots, s$ .
+   - Compare the A-values for all `s` permutations with the current design `X_k`.
+   - Select the permutation with the smallest A-value, `X_best`, among the `s` candidates.
+   - If `A(X_best) < A(X_c)` update the current design matrix: `X_c = X_best`; otherwise, retain the current design.
+   
+3. **Termination**: Repeat this process until the maximum number of iterations `M` is reached.
+
+:::
+
+
+::: {.algorithm .content-visible when-format="pdf"}
+
+:::
+
 
 ### Simulated annealing

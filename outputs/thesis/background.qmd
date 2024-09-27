@@ -546,7 +546,7 @@ $r$ and column $c$.
 We measure NB by taking the maximum of the elements in adjacency matrix
 $\boldsymbol{A}$. Our NB criteria is
 $$
-C_{NB}=max\{\boldsymbol{A}_{ij}\} \quad i,j\in T
+C_{NB}=max\{\boldsymbol{A}_{ij}\}-min\{\boldsymbol{A}_{ij}\}  \quad i,j\in T
 $$
 
 #### Evaluating ED with minimum row and column span
