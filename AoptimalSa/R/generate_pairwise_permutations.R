@@ -37,7 +37,6 @@ generate_pairwise_data_permutations_steplength <- function(data, steplength, dat
       if (IF_accept(data, temp_data)) {
         results_list[[length(results_list) + 1]] <- temp_data
         #datalist[[length(datalist) + 1]] <- temp_data
-        message(paste("pick one permutation"))
         count <- count + 1
       }else{
         next
@@ -50,33 +49,13 @@ generate_pairwise_data_permutations_steplength <- function(data, steplength, dat
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-######################################################
-
-
-
 object_vector_for_desgin <- function(data){
   A_value <- a_criterion_calculation_from_data(data)
   NB_data <- max(find_adjacent_pairs(data))-min(find_adjacent_pairs(data))
   ED_data <- find_min_spans(data)
   return(c(A_value, NB_data, ED_data))
 }
-
+########################################################
 pareto_dominates <- function(vector1, vector2) {
   better_in_all <- all(vector1 <= vector2)
   better_in_at_least_one <- any(vector1 < vector2)

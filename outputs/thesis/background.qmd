@@ -509,7 +509,7 @@ to the left, and to the right.
 I use an adjacency matrix to count the number of times each treatment is
 adjacent to another. This matrix serves as a crucial tool in my
 optimization process, enabling precise tracking and adjustment of
-treatment placements to achieve neighbor balance.
+treatment placements to achieve neighbour balance.
 
 We denote the adjacency matrix as $\boldsymbol{A}$, and for treatment
 $i$ and $j$ in treatment set $T$ $\boldsymbol{A}_{ij}$ represents the
@@ -543,7 +543,7 @@ The function $F_{r,c}(j)$ here is actually counting the
 times that treatment $j$ occurs at places around the position row
 $r$ and column $c$.
 
-We measure NB by taking the maximum of the elements in adjacency matrix
+We measure NB by taking difference of the maximum and minimum of the elements in adjacency matrix
 $\boldsymbol{A}$. Our NB criteria is
 $$
 C_{NB}=max\{\boldsymbol{A}_{ij}\}-min\{\boldsymbol{A}_{ij}\}  \quad i,j\in T
