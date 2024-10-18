@@ -156,12 +156,12 @@ $$
 $$
 :::{#lem-joint-density-lmm}
 So log of joint density is given as
-```{=tex}
-\begin{align*}
+
+$$\begin{aligned}
 \mathscr{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
 &=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
-\end{align*}
-```
+\end{aligned}$$
+
 :::
 
 ::: proof
@@ -242,7 +242,8 @@ which is equivalent with GLS estimation
 
 ::: proof
 We only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
-\begin{align*}
+
+$$\begin{aligned}
 \boldsymbol{P}\boldsymbol{V} &=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
 &= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top - \boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top \\
 &\quad \quad \quad \quad \quad \quad\quad\quad -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
@@ -252,7 +253,9 @@ We only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
 &= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{G}^{-1}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z})\boldsymbol{G}\boldsymbol{Z}^\top\\
 &= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
 & = \boldsymbol{I}
-\end{align*} So $\hat{\boldsymbol{\tau}}_{llm}$ and
+\end{aligned}$$
+
+So $\hat{\boldsymbol{\tau}}_{llm}$ and
 $\hat{\boldsymbol{\tau}}_{gls}$ are equivalent, and we denote them as
 $\hat{\boldsymbol{\tau}}$
 :::
@@ -288,12 +291,12 @@ From @eq-ll and @eq-asp, we have
 $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)$
 
 We denote
-\begin{align*}
+$$\begin{aligned}
 \boldsymbol{M} &= \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X}\\
 \boldsymbol{N} &= \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z}\\
 \boldsymbol{J} &= \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}\\
 \boldsymbol{K} &= \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1}\\
-\end{align*}
+\end{aligned}$$
 In the context of row-column design, the $\boldsymbol{K}$ matrix is invertible. Schur complement of $\boldsymbol{K}$ is 
 $$
 \boldsymbol{S} = \boldsymbol{M} - \boldsymbol{N} \boldsymbol{K}^{-1} \boldsymbol{J}
@@ -331,18 +334,18 @@ $$
 \boldsymbol{U}_2
 \end{bmatrix}\boldsymbol{y}
 $$
-Here 
-\begin{align*}
+Here
+$$\begin{aligned}
 &\boldsymbol{U}_1 = \boldsymbol{C}^{11}\boldsymbol{X}^\top\boldsymbol{R}^{-1}+\boldsymbol{C}^{12}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\\
 &\boldsymbol{U}_2 = \boldsymbol{C}^{21}\boldsymbol{X}^\top\boldsymbol{R}^{-1}+\boldsymbol{C}^{22}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}
-\end{align*}
+\end{aligned}$$
 
 From @eq-ll and @eq-asp, we have
 $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{U}_1(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)\boldsymbol{U}_1^\top)$
 
 And we have following results
 
-\begin{align*}
+$$\begin{aligned}
 \begin{bmatrix}
 \boldsymbol{U}_1 \\
 \boldsymbol{U}_2
@@ -396,15 +399,15 @@ And we have following results
 \boldsymbol{I} & -\boldsymbol{C}^{12}\boldsymbol{G}^{-1} \\
 0 & \boldsymbol{I}-\boldsymbol{C}^{22}\boldsymbol{G}^{-1}
 \end{bmatrix}
-\end{align*}
+\end{aligned}$$
 
 So we have
-\begin{align*}
+$$\begin{aligned}
 \boldsymbol{U}_1\boldsymbol{X}&=\boldsymbol{I}\\
 \boldsymbol{U}_1\boldsymbol{Z}&=-\boldsymbol{C}^{12}\boldsymbol{G}^{-1}\\
-\end{align*}
+\end{aligned}$$
 For the variance of estimation we have
-\begin{align*}
+$$\begin{aligned}
 var(\hat{\boldsymbol{\tau}})
 &=
 \boldsymbol{U}_1(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)\boldsymbol{U}_1^\top\\
@@ -413,7 +416,7 @@ var(\hat{\boldsymbol{\tau}})
 &=\boldsymbol{C}^{11}\boldsymbol{X}^\top\boldsymbol{U}_1^\top+\boldsymbol{C}^{12}\boldsymbol{Z}^\top\boldsymbol{U}_1^\top+\boldsymbol{C}^{12}\boldsymbol{G}^{-1}\boldsymbol{G}(\boldsymbol{G}^{-1})^\top(\boldsymbol{C}^{12})^\top\\
 &=\boldsymbol{C}^{11}-\boldsymbol{C}^{12}(\boldsymbol{G}^{-1})^\top(\boldsymbol{C}^{12})^\top+\boldsymbol{C}^{12}(\boldsymbol{G}^{-1})^\top(\boldsymbol{C}^{12})^\top\\
 &=\boldsymbol{C}^{11}
-\end{align*}
+\end{aligned}$$
 
 What is $\boldsymbol{C}^{11}$? what is the relation between $\boldsymbol{C}_{11}$ and $\boldsymbol{C}^{11}$? From @eq-iv we have $\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}$ and $\boldsymbol{S}$ is 
 $$
@@ -421,12 +424,12 @@ $$
 $$
 And base on the complement of $\boldsymbol{C}_{11}$, we rewrite the $\boldsymbol{S}$
 $$
-\begin{align*}
+$$\begin{aligned}
 \boldsymbol{S}
 &=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &=\boldsymbol{C}_{11}
-\end{align*}
+\end{aligned}$$
 $$
 So $var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}$.
 
