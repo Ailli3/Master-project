@@ -1,5 +1,74 @@
 # Introduction {#sec-intro}
-In the field of experimental design, efficient methods are crucial for ensuring accurate and reliable results. One such method is the row-column design, controlling variability in experiments involving two factors, typically arranged in rows and columns. The row-column design can be considered as an extension of the Latin square design with more flexibility, allowing for different numbers of rows, columns, and treatments. This flexibility makes row-column designs applicable to a wider range of experimental settings.
+
+Experiments play a vital role in scientific research by helping to establish causal relationships between variables. In a comparative experiment, the researcher focuses on examining the effects of various treatments on a response variable. To achieve accurate and reliable results in a comparative experiment, careful experimental design is essential. In this thesis, we formally define an experimental design as given in @def-exp.
+
+
+::: {#def-exp}
+
+## Design
+
+A comparative experiment is an experimental study involving a set of experimental units, denoted as $\Omega$, and a set of treatments, denoted as $\mathcal{T}$. The experimental design is defined as a surjective function $D: \Omega \rightarrow \mathcal{T}$. The sizes of $\Omega$ and $\mathcal{T}$ are denoted as $N$ and $n_t$. We use $V_{\Omega} := \mathbb{R}^N$ and $V_{\mathcal{T}}$ to denote the vector spaces of $\Omega$ and $\mathcal{T}$, respectively.
+
+:::
+
+A row-column design is a particular type of experimental design where the experimental unit is uniquely indexed by the combination of two orthogonal factors, typically arranged in rows and columns. The row-column experimental structure is common in many biological applications, e.g. experiments involving 96-well plates, glasshouse experiments with units laid out in rectangular layout and crop field trials. See @def-rowcol for a formal definition of a row-column design. Note that rows and columns do not have to correspond to actual physical dimensions.
+
+
+
+::: {#def-rowcol}
+
+## Row-column design
+
+A row-column design refers to an experiment where experimental units are defined by the Cartesian product of two sets, denoted as $\mathcal{R}$ and $\mathcal{C}$, respectively, such that $\Omega = \mathcal{R} \times \mathcal{C}$. We denote $F_R$ and $F_C$ as the surjective functions that map $\Omega$ to $\mathcal{R}$ and $\mathcal{C}$, respectively. We use $V_R$ and $V_C$ to denote vector spaces in $\mathbb{R}^N$ for row and column factors, respectively.
+
+:::
+
+
+In a row-column design, the row and column factors are often considered as nuisance (or blocking) factors. The treatments of interest are then randomly allocated with certain constraints as to reduce confounding the treatment factors with these nuisance factors. An example of row-column design is the _Latin square design_ where $n_r = n_c$ and each treatment appears exactly once in each row and column (see @exm-lsd). 
+
+::: {#exm-lsd}
+
+## A $3 \times 3$ Latin square design
+
+In a $3 \times 3$ Latin square design, we let $n_t = n_c = n_r = 3$ and the resulting random instance of a design is as shown in @fig-lsd with its corresponding design elements shown in @tbl-lsd.
+
+```{r fig-lsd}
+#| message: false
+#| echo: false
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap: "A $3 \\times 3$ Latin square design."
+library(tidyverse)
+lsd3 <- tibble(
+  row = rep(1:3, each = 3),
+  col = rep(1:3, 3),
+  treatment = c(1, 2, 3, 2, 3, 1, 3, 1, 2)
+) |> 
+  mutate(across(everything(), as.factor))
+lsd3 |> 
+  ggplot(aes(col, row, fill = treatment)) +
+  geom_tile(color = "black", linewidth = 1.4) +
+  theme_minimal(base_size = 18) +
+  labs(x = "Column", y = "Row", fill = "Treatment") +
+  coord_equal()
+```
+
+
+```{r tbl-lsd}
+#| echo: false
+#| tbl-cap: "The design elements of @fig-lsd with $\\Omega$ and $T$ as defined in @def-exp and $F_R$ and $F_C$ as defined in @def-rowcol. The $n=9$-vectors $\\boldsymbol{x}_{R_i}$ for $i = 1, 2, 3$, $\\boldsymbol{x}_{C_j}$  for $j = 1, 2, 3$ and $\\boldsymbol{x}_{T_k}$ for $k = 1, 2, 3$ are the orthonormal basis of $V_R$, $V_C$ and $V_T$, respectively."
+lsd3 |> 
+  mutate(unit = 1:n(), .before = row) |>
+  bind_cols(model.matrix(~ row - 1, data = lsd3)) |>
+  bind_cols(model.matrix(~ col - 1, data = lsd3)) |>
+  bind_cols(model.matrix(~ treatment - 1, data = lsd3)) |> 
+  knitr::kable(col.names = c("$\\omega \\in \\Omega$", "$F_R(\\omega)$", "$F_C(\\omega)$", "$T(\\omega)$", "$\\boldsymbol{x}_{R_1}$", "$\\boldsymbol{x}_{R_2}$", "$\\boldsymbol{x}_{R_3}$", "$\\boldsymbol{x}_{C_1}$", "$\\boldsymbol{x}_{C_2}$", "$\\boldsymbol{x}_{C_3}$", "$\\boldsymbol{x}_{T_1}$", "$\\boldsymbol{x}_{T_2}$", "$\\boldsymbol{x}_{T_3}$")) 
+```
+
+
+
+:::
+
 
 To offer a row-column design that gives a precise estimation of treatment effects,  one way is to seek the optimal value of some statistic criteria, for example, A-criteria(links to sections), minimizing the variance of elementary treatment contrasts. Using linear mixed model and assuming fixed treatment effects and random blocking effect, @butler2013optimal has show the relation between optimizing design and minimizing the value of A-criteria, and show some possible algorithms to search optimal design in feasible set. These algorithms mainly focus on comparing the arrangements of different treatments, that is, doing permutations, and calculating their A values, optimizing design by iterations.
 
