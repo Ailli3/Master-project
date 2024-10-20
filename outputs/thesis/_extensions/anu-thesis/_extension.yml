@@ -63,6 +63,7 @@ contributes:
       # format-resources:
       #  - assets/latex/anuthesis.sty
       cite-method: natbib
+      pdf-engine: pdflatex
       template-partials:
       - assets/latex/before-title.tex
       - assets/latex/before-body.tex

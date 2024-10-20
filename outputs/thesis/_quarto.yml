@@ -45,9 +45,9 @@ supervisor:
 format:
   anu-thesis-html: default
   anu-thesis-pdf:
-    keep-tex: True
+    keep-tex: true
     #classoption: twoside
-    text: |
-        \usepackage{fullpage}
-        \usepackage{enumitem}
-        \usepackage{bbold}
+    # text: |
+    #     \usepackage{fullpage}
+    #     \usepackage{enumitem}
+    #     \usepackage{bbold}
