@@ -1,0 +1,355 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Methods {#sec-methods}
+
+## Modeling row-column design
+
+As mentioned in previous chapter, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as "row" and "column" factors. This design structure appears frequently in agricultural and industrial trials, where treatments are applied across units organized in a grid-like pattern, and both row and column effects may influence the outcomes.
+
+In my assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.
+
+Recalling @eq-lmm, the treatment effects are modeled as fixed effects, represented by the treatment design matrix $\boldsymbol{X}$ with parameter vector $\boldsymbol{\tau}$, measuring the influence of each treatment on the response variable. The matrix $\boldsymbol{X}$ is constructed such that each row corresponds to an experimental unit, and indicators in  each column indicates whether a treatment is applied or not.
+
+The random effects are modeled through the matrix $\boldsymbol{Z}$ and parameter vector $\boldsymbol{u}$. Matrix $\boldsymbol{Z}$ is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector $\boldsymbol{u}$ are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix $\boldsymbol{G}$.
+
+With $\boldsymbol{y}$ as the vector of observed responses and $\boldsymbol{\epsilon}$ as error term, a row-column design can be modeled by @eq-lmm . where $\boldsymbol{X\tau}$ represents the fixed treatment effects and $\boldsymbol{Zu}$ captures the random variations basing on rows and columns. 
+
+### Random effects matrix
+The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
+$$
+\begin{bmatrix}
+\begin{array}{cccc|cccc}
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+\end{array}
+\end{bmatrix}
+$$
+Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout.In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.
+
+In a more general case, suppose we have a $m\times n$ row-column experiment field. We should have a random effect matrix with $mn$ rows and $m+n$ columns with binary numbers. In this paper, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modeling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.
+
+### Design matrix for treatments
+The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable.  In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use $4\times 4$ experiment field as example, and suppose we have $4$ different treatments for each have $4$ replications, needing $16$ experiment unite. An example design matrix $\boldsymbol{X}$ for treatments should be a $16\times 4$ matrix with binary indicators as shown below
+
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0\\
+\end{bmatrix}
+$$
+For a given experimental unit, that is a given row, the design matrix contains a 1 in the column corresponding to the treatment applied to that unit, and 0 elsewhere.This structure allows for a clear and efficient representation of which treatment is applied to each unit. For example, the first row of the example design matrix represents the first treatment is applied in the unit locating on the first column, first row.
+
+if there are $t$ treatments and $N$ experimental units, the design matrix will have $N$ rows and $t$ columns. Then the design matrix for treatment $\boldsymbol{X}$ with size $N\times t$, should satisfy that for any row $n_{i}$
+$$
+\sum_{j=1}^{t} \boldsymbol{X}_{n_{i},j}=1
+$$
+That is, there is only one treatment can be applied in each experiment unit. And for any treatment $t_j$ with $r_j$ replications, it has
+$$
+\sum_{i=1}^{N}\boldsymbol{X}_{i,t_j}=r_j
+$$
+All replications of a treatment are applied in experimental field.
+
+### Assumptions for A-value calculation
+
+It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling @eq-an, for calculating A value we need the covariance matrix for the random effects, matrix $\boldsymbol{G}$, covariance matrix for the error term, matrix $\boldsymbol{R}$, transformation matrix $\boldsymbol{D}$, random effect matrix $\boldsymbol{Z}$ and treatment design matrix $\boldsymbol{X}$. We need some basic setup for these matrices.
+
+Assume that we now have a row-column matrix with $n_r$ rows, $n_r$ columns and $n_rn_c$ plots.
+
+For the covariance matrix for the random effects, matrix $\boldsymbol{G}$, which captures the variability introduced by the row and column effects. I assume it is a $(R+C)\times(R+C)$ diagonal matrix, that is, it has following form,
+
+$$
+\boldsymbol{G}_{diag} =
+\begin{bmatrix}
+\sigma_{G_c}^2\boldsymbol{I}_{n_c} & 0 \\
+0 & \sigma_{G_r}^2\boldsymbol{I}_{n_r}
+\end{bmatrix}
+$$
+$\boldsymbol{I}_{n_c}$ is a ${n_c}\times{n_c}$ identity matrix, same to $\boldsymbol{I}_{n_r}$. And $\sigma_{G_c}$ and $\sigma_{G_r}$ is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between different row and column effects in the design.
+
+Similarly, for the covariance matrix for the error term, matrix $\boldsymbol{R}$, I assume that it  is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have
+$$
+\boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{n_rn_c}
+$$
+with identity matrix $\boldsymbol{I}_{n_rn_c}$ and scale constant $\sigma_{R}$.
+
+@butler2013optimal have introduced linear transformations of the treatment parameter vector $\boldsymbol{\tau}$ by using a transformation matrix $\boldsymbol{D}$, which allows for the investigation of linear combinations of treatments. However, in this paper, I simplify the approach by setting $\boldsymbol{D}$ as the identity matrix $\boldsymbol{I}_{RC}$. This means that we focus on the individual effects of the treatments rather than their linear combinations.
+
+These assumptions makes the structure of the model becomes more straightforward, allowing us to concentrate on the direct estimation of treatment effects while maintaining independence among the random effects and error terms.
+
+It's important to note that in our design, the random effect matrix $\boldsymbol{Z}$ remains constant during the optimization process.This means that while the row and column effects are accounted for as random effects, their structure does not change. 
+
+With these assumptions in place, the A-value in the context of a row-column design dependents only on the treatment design matrix $\boldsymbol{X}$. This means that the primary factor influencing the A-value is the distribution and arrangement of treatments within the design, and it directly impacts the variance of the treatment effect estimates.
+Therefore, optimizing the A-value under these assumptions becomes a problem of optimizing the treatment distribution in the design, ensuring that the treatments are arranged in such a way that the variance of the estimates is minimized.
+
+## Searching Strategy
+Before introducing the details of the searching strategy, it is important to establish a solid foundation by proving that the minimum of the A-value exists. The existence of the minimum A-value implies that the A-value has a lower bound, ensuring that the process of iteration optimizing the experimental design is not endless. As we continue to search for smaller A-values, this guarantees that we can eventually stop when the A-value stabilizes or a sufficient number of iterations reached.
+
+This allows us to conclude that we have found an optimal or near-optimal design. Therefore, the existence of this lower bound serves as a critical foundation for our iterative search, giving us confidence that the optimization will converge to a solution.
+
+### Existence of the minimum of A-value
+
+To prove that the minimum of the A-value exists, we establish a objective function, that is, the A-value function $A(\boldsymbol{X})$ maps design matrix for treatment $\boldsymbol{X}$ to its A-value. It is a function that maps the design space to $\mathbb{R}$.
+$$
+A: \Omega \to \mathbb{R}, \quad \boldsymbol{X} \mapsto A(\boldsymbol{X})
+$$
+Here $\Omega$ is the design space contains all possible design matrix $\boldsymbol{X}$.
+
+Now we proof the existence of minimum value of $\boldsymbol{X}$, where $\boldsymbol{X}\in\Omega$.
+
+::: proof
+Recalling @eq-an 
+
+$$
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+$$
+This expression is well-defined for all valid design matrices $\boldsymbol{X}$. So function $A(\boldsymbol{X})$ is well-defined.
+
+The A-value represents the average variance of the difference treatment effect estimates, and since variances are always positive, the A-value is naturally bounded from below by zero. So we have
+$$
+A(\boldsymbol{X})\geq0
+$$
+which implies that the A-criterion is bounded below.
+
+In experimental design, the treatment design matrix $\boldsymbol{X}$ can take on a finite number of possible permutations, especially in practical row-column designs where the number of treatments and experimental units is fixed. In a finite search space, a lower bounded function has its minimum value.
+:::
+### General structure
+In @piepho2018neighbor, the optimization of NB and ED was typically carried out under the assumption that the A-value was already optimal or fixed. This required identifying a set of solutions that maintained the A-value while improving the balance and distribution properties. In addition to assuming the A-value is fixed, another approach they used is to randomly select a design and then optimizing ED and NB.This process would be repeated multiple times, and the design with the best A-value will be selected. 
+
+![Method been used](images/methods/method1.png){#fig-method1 width=70%}
+
+
+These approach separates the optimization of ED and NB from the A-value, while I try to merge these two process into one algorithm. I use pairwise permutation among treatments to change treatment design during iterations. And to avoid design with bad ED and NB, I am using some criteria to filter the permutation, only maintain or better properties are accepted. In this way, a row-column design that satisfies multiple optimization requirements is achieved.
+
+![Attempting method](images/methods/method2.png){fig-align="center" width=70%}
+
+Basing on optimal design search methods share a common set of features in exploring the design space given in @butler2013optimal, my searching method contains following part:
+
+1. A calculation method for an optimal criterion for a given design matrix $\boldsymbol{X}$
+
+2. An interchange policy to switch the design with in search space $\Omega$
+
+3. An acceptance policy for a new design.
+
+4. A stopping rule to terminate the search.
+
+The criterion calculation part has already been discussed earlier. We will now introduce interchange policy of switching the design.
+
+### Permutations and filtering
+
+We use permutations of the treatments to update the design matrix for treatment. We randomly select two different treatments and swap them within the design matrix during the permutation process, without making drastic changes.
+
+Let $\boldsymbol{X}$ be the current design matrix for treatments, where each row corresponds to an experimental unit, and each column represents a treatment. Suppose we randomly select two different treatments, $t_i$ and $t_j$ located in $i$th row and $j$th row respectively. $\boldsymbol{X}_{new}$ can be written as
+$$
+\boldsymbol{X}_{new} = \boldsymbol{P}_{ij}\boldsymbol{X}
+$$
+with permutation matrix defined as
+$$
+ \boldsymbol{P}_{i j}=\left[
+ \begin{array}{cccccccc}
+ 1 & 0 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\ 
+ 0 & 1 & \cdots & 0 & \cdots &0 & \cdots & 0 \\ 
+ \vdots & \vdots & \ddots & \vdots & & \vdots & \cdots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & \cdots & 1 & \cdots & 0 \\
+ \vdots & \vdots & & \vdots & \ddots & \vdots & & \vdots\\
+ 0 & 0 & \cdots & 1 & \cdots & 0 & \cdots & 0 \\ 
+ \vdots & \vdots & \cdots & \vdots & & \vdots & \ddots & \vdots \\ 
+ 0 & 0 & \cdots & 0 & \cdots & 0 & \cdots & 1
+ \end{array}\right] 
+$$
+It is a identity matrix with $i$th row and $j$th row swapped.
+
+When performing permutations on the design matrix, I apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out. 
+
+A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix $\boldsymbol{X}_{new}$ with corresponding design $\mathcal{D}_{new}$ is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for $\boldsymbol{X}_{new}$, that is $C_{NB}'$, $MRS(\mathcal{D}_{new})$ and $MCS(\mathcal{D}_{new})$. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it's not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as $T_{ED}$ and $T_{NB}$, which are none negative numbers. Current design matrix  $\boldsymbol{X}$ corresponding design $\mathcal{D}$ has  ED and NB value$C_{NB}$, $MRS(\mathcal{D})$ and $MCS(\mathcal{D})$.  New design matrix $\boldsymbol{X}_{new}$ mentioned above is accepted when
+$$\begin{aligned}
+&(C_{NB}'\leq C_{NB}+T_{NB}) \\
+\land & (MRS(\mathcal{D}_{new})\geq MRS(\mathcal{D})-T_{ED})\\
+\land & (MCS(\mathcal{D}_{new})\geq MCS(\mathcal{D})-T_{ED})
+\end{aligned}$${#eq-accp}
+is true. 
+
+
+### Random search
+
+The random search algorithm begins with a randomly selected design matrix. To ensure that the search is efficient and avoids getting trapped in local optima, we introduce the concept of step length. This parameter determines how many permutations we consider in each iteration. Given the computational constraints, especially when the number of treatments or rows and columns increases, it is impractical to check all possible permutations of a design and evaluate each for acceptance. However, we aim to explore as many permutations as possible to avoid falling into local optima.
+
+At each iteration, we randomly generate a set of permutations. For each generated permutation, we apply the filtering step check by @eq-accp. If the permutation is not accepted, we randomly select another one and repeat the process. This continues until we have successfully selected a number of permutations equal to the step length. 
+
+We denote step length as $s$. tolerance for ED and NB as $t_{ED}$ and $t_{NB}$. For a design matrix $\boldsymbol{X}$, its ED criteria - minimum row span and minimum column span is, $mrs({\boldsymbol{X}})$ and $mcs({\boldsymbol{X}})$, and NB criteria is denote as $C_{NB}({\boldsymbol{X}})$.
+
+::: {.algorithm}
+1. **Input**: Original design matrix $\boldsymbol{X}$, step length $s$, tolerance for ED and NB as $t_{ED}$ and $t_{NB}$.
+2. **Initialize**: $k = 1$, ED and NB value for $\boldsymbol{X}$ as $mrs({\boldsymbol{X}})$, $mcs({\boldsymbol{X}})$ and $C_{NB}({\boldsymbol{X}})$.
+3. While $k < s$:
+   - Generate a random permutation matrix $\boldsymbol{P}$ by selecting two different treatments.
+   - Apply permutation: $\boldsymbol{X_{new} = X P}$.
+   - Calculate new values of ED and NB, $mrs({\boldsymbol{X}_{new}})$, $mcs({\boldsymbol{X}_{new}})$ and $C_{NB}({\boldsymbol{X}_{new}})$.
+   - If new values satisfy $mrs({\boldsymbol{X}_{new}}) >= mrs({\boldsymbol{X}}) - t_{ED}$, $mcs({\boldsymbol{X}_{new}}) >= mcs({\boldsymbol{X}}) - t_{ED}$ and $C_{NB}({\boldsymbol{X}_{new}}) <= C_{NB}({\boldsymbol{X}}) + t_{NB}$, accept and remember this $\boldsymbol{X}_{new}$.
+   - Increment $k$.
+   - If $k = s$, output all selected permutations.
+4. **Output**:A set of $k$ permutations of original design matrix $\boldsymbol{X}$
+
+:::
+
+The Random Search algorithm starts with a randomly selected initial design matrix $\boldsymbol{X}_0$, and we aim to minimize the A-value associated with the design. We set a maximum number of iterations $M$ and a step length $s$.
+
+The process for each iteration can be described as follows:
+
+We denote a random design matrix $\boldsymbol{X}_0$, and iteration counter $k$. Maximum number of iteration is $M$. And denote the A-value for a random design matrix $\boldsymbol{X}$ is $A(\boldsymbol{X})$. Current design matrix during the iteration we have is denoted as $\boldsymbol{X}_c$
+
+
+::: {.algorithm .content-visible when-format="html"}
+
+1. **Initialization**: Start with a random design matrix $\boldsymbol{X}_0$, set the iteration counter `$k = 0$, maximum number of iteration as $M$ and step-length $s$. A-value for the current design is $A_c = A(\boldsymbol{X}_0)$.
+   
+2. **Iteration**: For each iteration $k$, where $k < M$:
+   - Generate $s$ random permutations $\{\boldsymbol{X}_i\}$, $i=1,2,\cdots,s$ of the current design matrix $X_c$.
+   - Calculate the A-value $A(\boldsymbol{X}_i)$for each permutation $\boldsymbol{X}_i$.
+   - Compare the A-values for all $s$ permutations with the current design $X_c$.
+   - Select the permutation with the smallest A-value, $\boldsymbol{X}_j$, among the $s$ candidates.
+   - If $A(\boldsymbol{X}_j) < A(\boldsymbol{X}_c)$ update the current design matrix: $\boldsymbol{X}_c = \boldsymbol{X}_j$; otherwise, retain the current design.
+   
+3. **Termination**: Repeat this process until the maximum number of iterations $M$ is reached.
+
+:::
+
+
+::: {.algorithm .content-visible when-format="pdf"}
+
+:::
+
+
+### Simulated annealing
+
+Simulated Annealing (SA)  is a global optimization algorithm inspired by the annealing process in metallurgy. At higher temperatures, the algorithm allows the acceptance of worse solutions to escape local optima; as the temperature decreases, it converges toward an optimal solution.
+
+@butler2013optimal state that the Boltzmann probability
+$$
+P(E)\propto e^{[-E/kt]}
+$$
+offer a pathway to measuring the accept possibility during the algorithm, where $E$ is the energy of the state,for a given temperature $t$. The constant $k$ is Boltzmann’s constant. The energy $E$ corresponds to the value of the objective function, in our case is A-value. During the iterative process, suppose we have a design (state) having A-value (energy) $A_1$ at time $t$, and we are shifting our design into a new design with A-value $A_2$, resulting in an energy change $A_{\bigtriangleup} = A_2 - A_1$. If $A_{\bigtriangleup}$ is negative, that is $A_2 < A_1$, we always accept new design since we have lower A-value. If $A_{\bigtriangleup}$ is positive, acceptance follows the Metropolis criterion: a random number, $\delta \in [0,1]$, is generated, and $A_2$ is accepted if $\delta \leq exp(-A_{\bigtriangleup}/kt)$. So we have acceptance rate $P(A_2)$ for a new A-value $A_2$.
+$$
+P(A_2)=
+\begin{cases}
+1 & \text{if } A_2<A_1 \\
+\exp(-A_{\bigtriangleup}/kt) & \text{if } A_2>A_1\\
+\end{cases}
+$${#eq-prob}
+The basic elements of SA given by @bertsimas1993simulated is as followed
+
+1. A finite set $S$.
+2. A real-valued cost function $J$ defined on $S$. Let $S^*\subset S$ be the set of global minima of the function $J$, assumed to be a proper subset of $S$.
+3. For each $i\in S$, a set $S(i) \subset S - {i}$, called the set of neighbours of $i$.
+4. For every $i$, a collection of positive coefficients $q_{ij}$, $j\in S(i)$, such that $\sum_{j\in S(i)} q_{ij} = 1$. It is assumed that $j\in S(i)$, if $i \in S(j)$.
+5. A nonincreasing function $T:N\rightarrow (0, \infty)$, called the cooling schedule. Here $N$ is the set of positive integers, and $T(t)$ is called the temperature at time $t$.
+6. An initial "state" $x(0)\in S$.
+
+We are applying these elements to a SA that fits our case. Our SA having following elements.
+
+1. A finite searching space $\{\boldsymbol{X}\}$ consisting all design matrix.
+2. An A-value function $A(\boldsymbol{X})$ defined on $\{\boldsymbol{X}\}$ and it is real-valued. There is a set of $\{\boldsymbol{X}^*\}$ that having optimal A-value and $\{\boldsymbol{X}^*\}\in \{\boldsymbol{X}\}$
+3. For each design matrix $\boldsymbol{X}$ in searching space, we consider all possible permutations filtered by @eq-accp are neighbours of $\boldsymbol{X}$, which is a subset of searching space $\{\boldsymbol{X}\}$.
+4. All possible permutations have equal possibility to be chose, and the sum of the possibility it equal to $1$.
+5. A nonincreasing function $T:N\rightarrow (0, \infty)$, $T(t)$ is called the temperature at $t$-th iteration.
+6. A random initial design $\boldsymbol{X}_0$
+
+Suppose we have a current design matrix $\boldsymbol{X}_i$ and its neighbours filtered by @eq-accp contains $n_p$ numbers of design. The next design is determined as follows:
+
+A design matrix $\boldsymbol{X}_j$ is randomly picked from the neighbours of $\boldsymbol{X}_i$. Suppose there is $n_p$  design matrices in the neighbours of $\boldsymbol{X}_i$, then the probability of selecting $\boldsymbol{X}_j$ among all neighbours is $\frac{1}{n_p}$. This is actually the positive coefficients $q_{ij}$ afore-mentioned in basic elements of SA. We now denote $\boldsymbol{X}(t)$ to be the design matrix at $t$-th iteration. Once $\boldsymbol{X}_j$ is chosen, the next design matrix is determined as follows:
+$$
+P(\boldsymbol{X}(t+1)=\boldsymbol{X}_j|\boldsymbol{X}(t)=\boldsymbol{X}_i)
+=\begin{cases}
+1 & \text{if } A(\boldsymbol{X}_j)<A(\boldsymbol{X}_i) \\
+\frac{1}{n_p}\exp(-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))/T(t) & \text{if } A(\boldsymbol{X}_j)>A(\boldsymbol{X}_i)\\
+\end{cases}
+$$
+
+#### Convergence analyze
+
+In this section, We will discuss the convergence properties of the SA algorithm. During iteration process, temperature cooling schedule plays an important role in convergence. It determines whether the algorithm will reach an optimal or near-optimal solution over time. Basing on work in @sasaki1988time, @bertsimas1993simulated gives a conclusion on convergence properties, with afore-mentioned basic element. Define that state $i$ communicates with $S^*$ at height $h$ if there exists a path in $S$ that starts at $i$ and ends at some element of $S^*$ and the largest value of $J$ along the path is $J(i)+h$. Denote $d^*$ be the smallest number such that every $i \in S$ communicates with $S^*$ at height $d^*$.
+
+::: Theorem
+The SA algorithm converges if and only if
+$$
+\lim_{t\to 0} T(t)=0
+$$
+and
+$$
+\sum_{t=1}^{\infty} \exp[-\frac{d^*}{T(t)}]=\infty
+$${#eq-covcon}
+:::
+To ensure the condition above, the mostly chose cooling schedule is
+$$
+T(t) = \frac{d}{\log t}
+$${#eq-logcol}
+Here $d$ is some constant. It can be initial temperature.
+
+::: proof
+It is obvious that $\lim_{t\to 0} T(t)=0$ in @eq-logcol
+
+
+Bring @eq-logcol in to @eq-covcon, we have
+$$
+\sum_{t=1}^{\infty} \exp[-\frac{d^*\log (t)}{d}]=\sum_{t=1}^{\infty}t^{-\frac{d^*}{d}}
+$$
+It is a harmonic series and it diverge when $\frac{d^*}{d}<1$, that is, $d^*<d$. So SA of we have a large enough $d$ (initial temperature).
+:::
+
+Although logarithmic cooling theoretically guarantees convergence to the global optimum, it is computationally demanding and has a very slow convergence rate in practice, making it less feasible for large-scale problems. To address these limitations, exponential cooling is introduced as a more practical alternative. While it does not offer a theoretical guarantee of reaching the global optimum, as noted by @kirkpatrick1983optimization. Because of limited time and computational resource, we will try to use exponential cooling in our as given in @aarts1989simulated and well-practised It provides near-optimal solutions within a reasonable time, making it highly effective for large combinatorial optimization problems.
+$$
+T(t) = T_0 \exp(-\alpha*t)
+$${#eq-expcol}
+Here $T_0$ is the initial temperature, and $\alpha$ is the cooling rate determine how fast the temperature drop.
+
+#### Algorithm
+
+For accept probability @eq-prob,  we usually start with $0.8$ and keep dropping when iteration goes.This probability depends on the magnitude of change in the objective function A-value. To simplify the initialization, we often conduct a few preliminary iterations to observe the range and rate of change in A-values, then use these observations to determine an initial temperature. Several studies have explored methods for autonomously selecting this initial temperature.
+
+::: {.algorithm .content-visible when-format="html"}
+
+1. **Initialization**: Start with a random design matrix $\boldsymbol{X}_0$, set the iteration counter `$k = 0$, maximum number of iteration as $M$, A-value for the current design is $A_c = A(\boldsymbol{X}_0)$, initial temperature $T_0$ and a type of cooling schedule $T(t)$.
+
+2. **Iteration**: For each iteration $k$, $k<M$:
+    - Randomly pick one permutation $\boldsymbol{X}_{new}$ among all neighbours of current design $\boldsymbol{X}_c$.
+    - Calculate the A-value $A(\boldsymbol{X}_{new})$ for permutation $\boldsymbol{X}_{new}$ and compare it with $A(\boldsymbol{X}_c)$.
+    - If $A(\boldsymbol{X}_{new}) < A(\boldsymbol{X}_c)$, update $\boldsymbol{X}_c=\boldsymbol{X}_{new}$.
+    - If $A(\boldsymbol{X}_{new}) > A(\boldsymbol{X}_c)$, update $\boldsymbol{X}_c=\boldsymbol{X}_{new}$ with probability $\exp[-(A(\boldsymbol{X}_{new}) - A(\boldsymbol{X}_c))/T(t)]$.
+3. **Termination**: Repeat this process until the maximum number of iterations $M$ is reached.
+:::
+
+
+
+
+
