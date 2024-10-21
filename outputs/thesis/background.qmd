@@ -6,71 +6,9 @@ editor:
 
 # Background {#sec-bg}
 
-## Linear model
-
-Suppose we have a linear model,
-
-$$\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$ {#eq-lm}
-where $\boldsymbol{y}$ is $n\times 1$ vector of $n$ observations,
-$\boldsymbol{\tau}$ is a $t\times 1$ vector of fixed effects,
-$\boldsymbol{\epsilon}$ is the $n\times 1$ vector for error, and
-$\boldsymbol{X}$ is a design matrix has size $n\times t$. We assume that
-$\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_{n})$
-and hence
-$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$.
-
-The log-likelihood of @eq-lm is then given as:
-
-$$
-\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
-$$ The $(i,j)$-th entry of the Fisher information matrix is defined as
-
-$$
-I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
-$$ where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
-
-::: {#lem-fim-lm}
-The Fisher information matrix of @eq-lm is given as $$
-\boldsymbol{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-$$
-:::
-
-::: proof
-The second derivative of the log-likelihood function
-$\log\ell(\boldsymbol{\tau};\boldsymbol{y})$ is the Hessian matrix. We
-have $$
-\frac{\partial}{\partial\boldsymbol{\tau}}\log\ell(\boldsymbol{\tau};\boldsymbol{y})=\frac{1}{\sigma^2}\boldsymbol{X}^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})
-$$ and for second derivative is $$
-\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})==-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-$$ And in linear model assumption we have
-$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$
-and the Fisher information matrix is unbiased because, in the
-expectation calculation process, we do not involve the randomness of
-$\boldsymbol{y}$. The Fisher information matrix is actually determined
-by the design matrix $\boldsymbol{X}$ and the error variance $\sigma^2$.
-Hence $$
-\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\boldsymbol{C} 
-$$ So $\boldsymbol{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}$
-:::
-
-::: {#lem-lm-var}
-The variance of the fixed effects for @eq-lm is equivalent to the
-inverse of the Fisher information matrix, i.e.
-$var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \boldsymbol{C}^{-1}.$
-:::
-
-::: proof
-We know that the MLE of $\boldsymbol{\tau}$ in a linear model is
-$\hat{\boldsymbol{\tau}}=(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{y}$.
-By assumption we have
-$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$.
-So
-$\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1})$.So
-we have
-$var(\hat{\boldsymbol{\tau}}) = \sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1}$,
-which is exactly the inverse of Fisher information matrix
-$\boldsymbol{C}^{-1}$.
-:::
+Linear (mixed) models are the primarly method of analysis of experimental data with response that have an approximate Normal distribution. In this chapter, we expand on the model 
+$$\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$
+to consider linear mixed models for the analysis of experimental data with a more general experimental structure.
 
 ## Linear mixed model
 
@@ -103,88 +41,52 @@ N\left(
 \boldsymbol{G} & \boldsymbol{0} \\
 \boldsymbol{0} & \boldsymbol{R}
 \end{bmatrix}
-\right),
-$$ where $\boldsymbol{G}$ is the $q \times q$ variance matrix for
+\right)
+$$ {#eq-dist}
+where $\boldsymbol{G}$ is the $q \times q$ variance matrix for
 $\boldsymbol{u}$ and $\boldsymbol{R}$ is $n\times n$ variance matrix for
 $\boldsymbol{\epsilon}$.
 
-### A-criterion
-Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.
+Throughout this thesis, we assume $\boldsymbol{R} = \sigma^2\mathbf{I}_n$ and $\boldsymbol{G}$ is a block diagonal matrix where each block is a scaled identity matrix. In practice, these structures can be more complex, e.g. @williamsConstructionCrossoverDesigns2007 consider autoregressive and linear variance structures for crossover designs. 
 
-By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of treatment effects. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
+In addition, we assume in this thesis that the treatment effects are fixed and blocking factors (i.e. the row and column factors in row-column design) are random effects. It should be noted, however, that the treatment effects can be random effects based on the purpose of the experiment [@robinsonThatBLUPGood1991;@butlerDesignFieldExperiments2014].
 
-We first start with a simple example, that is, we consider treatment
-factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of
-A-criterion.
+### Estimation of model parameters
 
-basing on assumption, we have $$
-\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top)
-$$ {#eq-asp} So for objective function, we can write out the
-distributions
+#### Fixed and random effects 
 
-$$
-\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R}) \\
-\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})
-$$
+@hendersonEstimationEnvironmentalGenetic1959 first derived the set of equations, referred to as _mixed model equations_ by @smithMultiplicativeMixedModels1999, as a precursor to the estimation of fixed effects and predictions of random effects. These equations are derived from maximizing the joint log density of the response and random effects as shown in @lem-mme.
 
-We want to give a precise estimation on $\boldsymbol{\tau}$. As we
-mentioned, we have the distribution for response variable
-$\boldsymbol{y}\sim$ We can use generalized least squares(GLS) by
-rewrite the model as:
-$$
-\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\tau} + \zeta
-$$ 
-Here
-$\zeta = \boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(0, \boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)$.
-@henderson1975best shows that the GLS estimation of $\boldsymbol{\tau}$
-is any solution to
-$$
-\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X}\hat{\boldsymbol{\tau}}_{gls}=\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}
-$$
-Here
-$\boldsymbol{V}=\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top$.
-So
-$\hat{\boldsymbol{\tau}}_{gls} = (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}$
+::: {#lem-mme}
 
-@henderson1959estimation emphasis that computing matrix $\boldsymbol{V}$
-which is often large is difficult. So here we use joint log likelihood.
+## Mixed model equations
 
-From @butler2013optimal, we conduct a maximum log likelihood by
-following objective function:
-$$
-\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
-$$
+The mixed model equations shown below are derived from maximising the joint log density of $\boldsymbol{y}$ and $\boldsymbol{u}$.
 
-::: {#lem-joint-density-lmm}
-So log of joint density is given as
-$$\begin{aligned}
-\mathscr{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
-&=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
-\end{aligned}$$
-:::
+$$\boldsymbol{C}\hat{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},$$ where $\boldsymbol{C} = \boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*$, $\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} & \boldsymbol{Z} \end{bmatrix}$, $\hat{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \hat{\boldsymbol{u}}^\top)^\top$ and $\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} & \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} & \boldsymbol{G}^{-1}\end{bmatrix}$.
 
 ::: proof
-We have density function for
-$\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})$
 
-$$
-f_y = \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}exp(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u})))
-$$
-And density function for $\boldsymbol{u}$
-$$
-f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u})
-$$
-Ignoring constant part, we have
-$$
-\log f_y=-\frac{1}{2}[\ln |\boldsymbol{R}|+(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))]
-$$
-$$
-\log f_u = -\frac{1}{2}[\ln |\boldsymbol{G}+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}]
-$$ So we have our log of joint density function.
-:::
+Given the model [-@eq-lmm] with assumption in [-@eq-dist], we have $\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})$ and $\boldsymbol{y}|\boldsymbol{u}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})$ with probability density functions as
+$$\begin{aligned}f_u(\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{q}|\boldsymbol{G}|}}\exp\left(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}\exp\left(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))\right).
+\end{aligned}$$
+Ignoring the constants, we have
+$$\begin{aligned}
+\log f_u(\boldsymbol{u}) &= -\frac{1}{2}\left(\log |\boldsymbol{G}|+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+\log f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &=-\frac{1}{2}\left(\log |\boldsymbol{R}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})\right).
+\end{aligned}$$
+The joint density of $\boldsymbol{y}$ and $\boldsymbol{u}$ is given as 
 
+$$f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) = f_{y|u}(\boldsymbol{y}|\boldsymbol{u})f_u(\boldsymbol{u}),$$ {#eq-density}
+and taking the log of both sides for @eq-density, we have the log of joint density as:
+$$\begin{aligned}
+\mathcal{L} :=& \log f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) \\
+=& \log f_{y|u}(\boldsymbol{y}|\boldsymbol{u})+\log f_u(\boldsymbol{u})\\
+=& -\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right).
+\end{aligned}$$
 We determine that
-$\frac{\partial\mathscr{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathscr{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}$,
+$\frac{\partial\mathcal{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}$,
 and write the equation into a matrix form
 $$
 \begin{bmatrix}
@@ -192,30 +94,32 @@ $$
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
 \end{bmatrix}
 \begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
 \end{bmatrix}=
 \begin{bmatrix}
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{y}\\
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
-\end{bmatrix}
+\end{bmatrix}.
 $$ {#eq-ll}
+:::
 
-Let
-$$
-\boldsymbol{C}=
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
-\end{bmatrix} 
-\quad
-\hat{\boldsymbol{\beta}}_{llm}=\begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
-\end{bmatrix}
-\quad
-\boldsymbol{W}=\begin{bmatrix}\boldsymbol{X} &\boldsymbol{Z}\end{bmatrix}
-$$
+:::
+
+:::: {#thm-blue}
+
+## Best linear unbiased estimates and predictions
+
+The solutions to the mixed models equations in @lem-mme (shown below) give the best linear unbiased estimates (BLUEs) for $\boldsymbol{\tau}$ and best linear unbiased predictions (BLUPs) for $\boldsymbol{u}$ provided that $\boldsymbol{G}$ and $\boldsymbol{R}$ are known.
+
+$$\begin{aligned}
+\hat{\boldsymbol{\tau}} &= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\\
+\hat{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
+\end{aligned}$${#eq-esti}
+
+where $\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}$. In this paper, we primarily discuss the treatment effect, so we provide the proof of the treatment effect.
+
+::: proof
 By cancelling $\boldsymbol{u}$, we have
 $$
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})\boldsymbol{Z}^\top\boldsymbol{R}^{-1}y=\boldsymbol{X}^\top\boldsymbol{R}^{-1}y\\
@@ -230,17 +134,14 @@ where
 $\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}$,
 let
 $\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}$
-then we have the form similar to GLS estimation for
+then we have the form of estimation for
 $\hat{\boldsymbol{\tau}}$, which is
 $$
 \boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
 $$
 and the estimation of $\boldsymbol{\tau}$ is
 $\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}$,
-which is equivalent with GLS estimation
-
-::: proof
-We only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
+Now, we only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
 
 $$\begin{aligned}
 \boldsymbol{P}\boldsymbol{V} &=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
@@ -253,11 +154,49 @@ $$\begin{aligned}
 &= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
 & = \boldsymbol{I}
 \end{aligned}$$
-
-So $\hat{\boldsymbol{\tau}}_{llm}$ and
-$\hat{\boldsymbol{\tau}}_{gls}$ are equivalent, and we denote them as
-$\hat{\boldsymbol{\tau}}$
+we have our proof
 :::
+
+:::
+
+#### Variance parameters
+
+In practice, the variance parameters for $\boldsymbol{G}$ and $\boldsymbol{R}$ are unknown and must be estimated from data. As a consequence, the solutions in @thm-blue are referred to as Empirical-BLUEs (E-BLUE) or Empirical-BLUPs (E-BLUPs).
+
+The variance parameters may be estimated using a method of moment approach, however this approach can only be utilized for simple variance structures with balanced numbers of treatments. 
+
+The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates [@pattersonRecoveryInterblockInformation1971]. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see @verbylaConditionalDerivationResidual1990 for the derivation of REML and @smithMultiplicativeMixedModels1999 for computational strategies involving the average information algorithm [@gilmourAverageInformationREML1995;@johnsonRestrictedMaximumLikelihood1995].
+
+
+### Precision of estimators
+In linear mixed model analysis, when estimating the accuracy of parameters and variance, we typically use the Fisher information matrix to provide a method for variance analysis. For the linear mixed model @eq-lmm, we have the log-likelihood of it is then given as:
+$$
+\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
+$$
+The $(i,j)$-th entry of the Fisher information matrix is defined as
+$$
+I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+$$ 
+where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
+
+::: {#lem-fim-lm}
+The Fisher information matrix of @eq-lm is given as
+$$
+\mathbf{C}_{lmm} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+$$
+:::
+
+And we have $\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{lmm}^{-1})$.We will provide the specific form of this matrix and the related proof in the introduction of the A-value.
+
+### A-criterion
+
+Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.
+
+By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of treatment effects. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
+
+We first start with a simple example, that is, we consider treatment
+factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of
+A-criterion.
 
 Now we have our estimation for the treatment factor, and experimental
 design aims to further refine our design by focusing on the precision of
@@ -273,18 +212,27 @@ factor $\hat{\boldsymbol{\tau}}$ has $n_{\tau}$ factors. A-criterion
 measure the average predicted error variance of different treatments.
 Let
 $V_{ij}= var(\hat{\tau}_i-\hat{\tau}_j)=var(\hat{\tau}_i)+var(\hat{\tau}_j)-2cov(\hat{\tau}_i,\hat{\tau}_j)$,
-and a A-value $\mathscr{A}$ is
+and a A-value $\mathcal{A}$ is
 $$
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 $${#eq-a}
 :::
 
 To discover the relationship between the A-value and the design matrix,
 I need to find the variance-covariance matrix of
 $\hat{\boldsymbol{\tau}}$. In fact, it can be proof that
-$\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
 
-From @eq-ll and @eq-asp, we have
+
+::: {#lem-cov}
+For treatment effect and its estimator @eq-esti, we have $\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
+
+::: proof
+From @eq-ll and basing in assumption we have
+$$
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top),
+$${#eq-asp}
+
+ so also we have
 $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)$
 
 We denote
@@ -420,6 +368,7 @@ $$
 \boldsymbol{S} = \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}
 $$
 And base on the complement of $\boldsymbol{C}_{11}$, we rewrite the $\boldsymbol{S}$
+
 $$\begin{aligned}
 \boldsymbol{S}
 &=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
@@ -430,8 +379,13 @@ $$\begin{aligned}
 So $var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}$.
 
 So we have
-$\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.To
-examine a specific form of $\boldsymbol{\tau}$, in general case, we do linear transform
+$\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
+:::
+
+:::
+
+
+To examine a specific form of $\boldsymbol{\tau}$, in general case, we do linear transform
 on $\boldsymbol{\tau}$:
 $\hat{\boldsymbol{\pi}}=\boldsymbol{D}\hat{\boldsymbol{\tau}}$, where
 $\boldsymbol{D}$ is some transform matrix, so we have
@@ -442,38 +396,40 @@ $\boldsymbol{\Lambda}=\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top$.
 We know that A-criterion is the mean of predicted error variance of the parameter from @eq-a 
 i.e. 
 $$
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 $$ 
 Having variance-covariance matrix $\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}$, we can rewrite
 the sum part as
 $n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}$.So
 we have
 $$
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
 $${#eq-an}
 same result from @butler2013model
 
 Derivation above indicate that
-$\mathscr{A}\propto tr(\boldsymbol{\Lambda})$, A-criterion as the mean
+$\mathcal{A}\propto tr(\boldsymbol{\Lambda})$, A-criterion as the mean
 of predicted error variance of the parameter, we prefer it as small as
 possible to obtain a accurate result from experiment, which means the
 trace of virance-covirance matrix $\boldsymbol{\Lambda}$ should be as
 small as possible. And this is our goal on optimal experimental design.
 
+
+
 ## Neighbor balance and eveness of distribution
 
 ### Concepts of NB and ED
 
-@piepho2018neighbor emphasis the the concepts of neighbor balance and
+@piepho2018neighbor emphasis the the concepts of neighbour balance and
 even distribution are crucial to mitigating biases and ensuring the
 reliability of results in row-column design.
 
-Neighbor balance (NB) refers to the principle that, in a row-column
+Neighbour balance (NB) refers to the principle that, in a row-column
 experimental design, the frequency with which two treatments are
 adjacent or near each other should not be excessively high. High
 adjacency frequency between two treatments can lead to mutual influence,
 which may cause bias to the experimental results. For example, if the
-effect of one treatment can spread to neighboring areas, frequent
+effect of one treatment can spread to neighbouring areas, frequent
 adjacency could interfere with accurate measurement of each treatment's
 true effect next to it. Therefore, it is essential to control the
 adjacency frequency of different treatments to prevent high adjacency
@@ -490,7 +446,6 @@ observations. By evenly distributing replications, environmental
 interference can be minimized, so that we can enhance the reliability of
 the experimental results.
 
-(maybe some example plots or pictures)
 
 ### Measuring NB and ED
 
@@ -567,3 +522,5 @@ $$
 MCS(\mathcal{D})=min\{CS(t)\},\quad t \in T
 $$
 So, for the changes in the design matrix $\mathcal{D}$ during the search process, we tend to accept only those changes where the Minimum Row Span ($MRS$) and Minimum Column Span ($MCS$) remain the same or become smaller.
+
+
