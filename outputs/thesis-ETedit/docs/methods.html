@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>{{&lt; var title &gt;}} – 3&nbsp; Methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./results.html" rel="next">
+<link href="./background.html" rel="prev">
+<link href="site_libs/quarto-contrib/quarto-project/anu-thesis/assets/ANU_Favicon_Inversed_Gold.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="site_libs/quarto-contrib/quarto-project/anu-thesis/assets/css/all.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./methods.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ANU Thesis</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./abstract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acknowledgements</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="images/ANU_Primary_Vertical_GoldBlack.png" class="logo img-fluid"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#modeling-row-column-design" id="toc-modeling-row-column-design" class="nav-link active" data-scroll-target="#modeling-row-column-design"><span class="header-section-number">3.1</span> Modeling row-column design</a>
+  <ul class="collapse">
+  <li><a href="#random-effects-matrix" id="toc-random-effects-matrix" class="nav-link" data-scroll-target="#random-effects-matrix"><span class="header-section-number">3.1.1</span> Random effects matrix</a></li>
+  <li><a href="#design-matrix-for-treatments" id="toc-design-matrix-for-treatments" class="nav-link" data-scroll-target="#design-matrix-for-treatments"><span class="header-section-number">3.1.2</span> Design matrix for treatments</a></li>
+  <li><a href="#assumptions-for-a-value-calculation" id="toc-assumptions-for-a-value-calculation" class="nav-link" data-scroll-target="#assumptions-for-a-value-calculation"><span class="header-section-number">3.1.3</span> Assumptions for A-value calculation</a></li>
+  </ul></li>
+  <li><a href="#searching-strategy" id="toc-searching-strategy" class="nav-link" data-scroll-target="#searching-strategy"><span class="header-section-number">3.2</span> Searching Strategy</a>
+  <ul class="collapse">
+  <li><a href="#existence-of-the-minimum-of-a-value" id="toc-existence-of-the-minimum-of-a-value" class="nav-link" data-scroll-target="#existence-of-the-minimum-of-a-value"><span class="header-section-number">3.2.1</span> Existence of the minimum of A-value</a></li>
+  <li><a href="#general-structure" id="toc-general-structure" class="nav-link" data-scroll-target="#general-structure"><span class="header-section-number">3.2.2</span> General structure</a></li>
+  <li><a href="#permutations-and-filtering" id="toc-permutations-and-filtering" class="nav-link" data-scroll-target="#permutations-and-filtering"><span class="header-section-number">3.2.3</span> Permutations and filtering</a></li>
+  <li><a href="#random-search" id="toc-random-search" class="nav-link" data-scroll-target="#random-search"><span class="header-section-number">3.2.4</span> Random search</a></li>
+  <li><a href="#simulated-annealing" id="toc-simulated-annealing" class="nav-link" data-scroll-target="#simulated-annealing"><span class="header-section-number">3.2.5</span> Simulated annealing</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-methods" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods</span></span></h1>
+</div>
+
+
+<div class="quarto-title-anu-block">
+
+
+<div class="quarto-title-meta">
+
+  
+  
+  </div>
+
+
+
+
+
+</div>
+
+</header>
+
+
+<section id="modeling-row-column-design" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="modeling-row-column-design"><span class="header-section-number">3.1</span> Modeling row-column design</h2>
+<p>As mentioned in previous chapter, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as “row” and “column” factors. This design structure appears frequently in agricultural and industrial trials, where treatments are applied across units organized in a grid-like pattern, and both row and column effects may influence the outcomes.</p>
+<p>In my assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.</p>
+<p>Recalling <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.2</span></a>, the treatment effects are modeled as fixed effects, represented by the treatment design matrix <span class="math inline">\boldsymbol{X}</span> with parameter vector <span class="math inline">\boldsymbol{\tau}</span>, measuring the influence of each treatment on the response variable. The matrix <span class="math inline">\boldsymbol{X}</span> is constructed such that each row corresponds to an experimental unit, and indicators in each column indicates whether a treatment is applied or not.</p>
+<p>The random effects are modeled through the matrix <span class="math inline">\boldsymbol{Z}</span> and parameter vector <span class="math inline">\boldsymbol{u}</span>. Matrix <span class="math inline">\boldsymbol{Z}</span> is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector <span class="math inline">\boldsymbol{u}</span> are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix <span class="math inline">\boldsymbol{G}</span>.</p>
+<p>With <span class="math inline">\boldsymbol{y}</span> as the vector of observed responses and <span class="math inline">\boldsymbol{\epsilon}</span> as error term, a row-column design can be modeled by <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> . where <span class="math inline">\boldsymbol{X\tau}</span> represents the fixed treatment effects and <span class="math inline">\boldsymbol{Zu}</span> captures the random variations basing on rows and columns.</p>
+<section id="random-effects-matrix" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="random-effects-matrix"><span class="header-section-number">3.1.1</span> Random effects matrix</h3>
+<p>The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure. For example, we a have a <span class="math inline">4\times 4</span> experiment field, having <span class="math inline">4</span> rows, <span class="math inline">4</span> columns and <span class="math inline">16</span> units. Then random effects matrix should be a <span class="math inline">16 \times 8</span> matrix containing binary indicator as the one presented. <span class="math display">
+\begin{bmatrix}
+\begin{array}{cccc|cccc}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{array}
+\end{bmatrix}
+</span> Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout.In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.</p>
+<p>In a more general case, suppose we have a <span class="math inline">m\times n</span> row-column experiment field. We should have a random effect matrix with <span class="math inline">mn</span> rows and <span class="math inline">m+n</span> columns with binary numbers. In this paper, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modeling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.</p>
+</section>
+<section id="design-matrix-for-treatments" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="design-matrix-for-treatments"><span class="header-section-number">3.1.2</span> Design matrix for treatments</h3>
+<p>The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable. In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use <span class="math inline">4\times 4</span> experiment field as example, and suppose we have <span class="math inline">4</span> different treatments for each have <span class="math inline">4</span> replications, needing <span class="math inline">16</span> experiment unite. An example design matrix <span class="math inline">\boldsymbol{X}</span> for treatments should be a <span class="math inline">16\times 4</span> matrix with binary indicators as shown below</p>
+<p><span class="math display">
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 0 &amp; 0\\
+\end{bmatrix}
+</span> For a given experimental unit, that is a given row, the design matrix contains a 1 in the column corresponding to the treatment applied to that unit, and 0 elsewhere.This structure allows for a clear and efficient representation of which treatment is applied to each unit. For example, the first row of the example design matrix represents the first treatment is applied in the unit locating on the first column, first row.</p>
+<p>if there are <span class="math inline">t</span> treatments and <span class="math inline">N</span> experimental units, the design matrix will have <span class="math inline">N</span> rows and <span class="math inline">t</span> columns. Then the design matrix for treatment <span class="math inline">\boldsymbol{X}</span> with size <span class="math inline">N\times t</span>, should satisfy that for any row <span class="math inline">n_{i}</span> <span class="math display">
+\sum_{j=1}^{t} \boldsymbol{X}_{n_{i},j}=1
+</span> That is, there is only one treatment can be applied in each experiment unit. And for any treatment <span class="math inline">t_j</span> with <span class="math inline">r_j</span> replications, it has <span class="math display">
+\sum_{i=1}^{N}\boldsymbol{X}_{i,t_j}=r_j
+</span> All replications of a treatment are applied in experimental field.</p>
+</section>
+<section id="assumptions-for-a-value-calculation" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="assumptions-for-a-value-calculation"><span class="header-section-number">3.1.3</span> Assumptions for A-value calculation</h3>
+<p>It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.7</span></a>, for calculating A value we need the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, transformation matrix <span class="math inline">\boldsymbol{D}</span>, random effect matrix <span class="math inline">\boldsymbol{Z}</span> and treatment design matrix <span class="math inline">\boldsymbol{X}</span>. We need some basic setup for these matrices.</p>
+<p>Assume that we now have a row-column matrix with <span class="math inline">n_r</span> rows, <span class="math inline">n_r</span> columns and <span class="math inline">n_rn_c</span> plots.</p>
+<p>For the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, which captures the variability introduced by the row and column effects. I assume it is a <span class="math inline">(R+C)\times(R+C)</span> diagonal matrix, that is, it has following form,</p>
+<p><span class="math display">
+\boldsymbol{G}_{diag} =
+\begin{bmatrix}
+\sigma_{G_c}^2\boldsymbol{I}_{n_c} &amp; 0 \\
+0 &amp; \sigma_{G_r}^2\boldsymbol{I}_{n_r}
+\end{bmatrix}
+</span> <span class="math inline">\boldsymbol{I}_{n_c}</span> is a <span class="math inline">{n_c}\times{n_c}</span> identity matrix, same to <span class="math inline">\boldsymbol{I}_{n_r}</span>. And <span class="math inline">\sigma_{G_c}</span> and <span class="math inline">\sigma_{G_r}</span> is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between different row and column effects in the design.</p>
+<p>Similarly, for the covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, I assume that it is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have <span class="math display">
+\boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{n_rn_c}
+</span> with identity matrix <span class="math inline">\boldsymbol{I}_{n_rn_c}</span> and scale constant <span class="math inline">\sigma_{R}</span>.</p>
+<p><span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> have introduced linear transformations of the treatment parameter vector <span class="math inline">\boldsymbol{\tau}</span> by using a transformation matrix <span class="math inline">\boldsymbol{D}</span>, which allows for the investigation of linear combinations of treatments. However, in this paper, I simplify the approach by setting <span class="math inline">\boldsymbol{D}</span> as the identity matrix <span class="math inline">\boldsymbol{I}_{RC}</span>. This means that we focus on the individual effects of the treatments rather than their linear combinations.</p>
+<p>These assumptions makes the structure of the model becomes more straightforward, allowing us to concentrate on the direct estimation of treatment effects while maintaining independence among the random effects and error terms.</p>
+<p>It’s important to note that in our design, the random effect matrix <span class="math inline">\boldsymbol{Z}</span> remains constant during the optimization process.This means that while the row and column effects are accounted for as random effects, their structure does not change.</p>
+<p>With these assumptions in place, the A-value in the context of a row-column design dependents only on the treatment design matrix <span class="math inline">\boldsymbol{X}</span>. This means that the primary factor influencing the A-value is the distribution and arrangement of treatments within the design, and it directly impacts the variance of the treatment effect estimates. Therefore, optimizing the A-value under these assumptions becomes a problem of optimizing the treatment distribution in the design, ensuring that the treatments are arranged in such a way that the variance of the estimates is minimized.</p>
+</section>
+</section>
+<section id="searching-strategy" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="searching-strategy"><span class="header-section-number">3.2</span> Searching Strategy</h2>
+<p>Before introducing the details of the searching strategy, it is important to establish a solid foundation by proving that the minimum of the A-value exists. The existence of the minimum A-value implies that the A-value has a lower bound, ensuring that the process of iteration optimizing the experimental design is not endless. As we continue to search for smaller A-values, this guarantees that we can eventually stop when the A-value stabilizes or a sufficient number of iterations reached.</p>
+<p>This allows us to conclude that we have found an optimal or near-optimal design. Therefore, the existence of this lower bound serves as a critical foundation for our iterative search, giving us confidence that the optimization will converge to a solution.</p>
+<section id="existence-of-the-minimum-of-a-value" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="existence-of-the-minimum-of-a-value"><span class="header-section-number">3.2.1</span> Existence of the minimum of A-value</h3>
+<p>To prove that the minimum of the A-value exists, we establish a objective function, that is, the A-value function <span class="math inline">A(\boldsymbol{X})</span> maps design matrix for treatment <span class="math inline">\boldsymbol{X}</span> to its A-value. It is a function that maps the design space to <span class="math inline">\mathbb{R}</span>. <span class="math display">
+A: \Omega \to \mathbb{R}, \quad \boldsymbol{X} \mapsto A(\boldsymbol{X})
+</span> Here <span class="math inline">\Omega</span> is the design space contains all possible design matrix <span class="math inline">\boldsymbol{X}</span>.</p>
+<p>Now we proof the existence of minimum value of <span class="math inline">\boldsymbol{X}</span>, where <span class="math inline">\boldsymbol{X}\in\Omega</span>.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.7</span></a></p>
+<p><span class="math display">
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+</span> This expression is well-defined for all valid design matrices <span class="math inline">\boldsymbol{X}</span>. So function <span class="math inline">A(\boldsymbol{X})</span> is well-defined.</p>
+<p>The A-value represents the average variance of the difference treatment effect estimates, and since variances are always positive, the A-value is naturally bounded from below by zero. So we have <span class="math display">
+A(\boldsymbol{X})\geq0
+</span> which implies that the A-criterion is bounded below.</p>
+<p>In experimental design, the treatment design matrix <span class="math inline">\boldsymbol{X}</span> can take on a finite number of possible permutations, especially in practical row-column designs where the number of treatments and experimental units is fixed. In a finite search space, a lower bounded function has its minimum value.</p>
+</div>
+</section>
+<section id="general-structure" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="general-structure"><span class="header-section-number">3.2.2</span> General structure</h3>
+<p>In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, the optimization of NB and ED was typically carried out under the assumption that the A-value was already optimal or fixed. This required identifying a set of solutions that maintained the A-value while improving the balance and distribution properties. In addition to assuming the A-value is fixed, another approach they used is to randomly select a design and then optimizing ED and NB.This process would be repeated multiple times, and the design with the best A-value will be selected.</p>
+<div id="fig-method1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-method1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/methods/method1.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-method1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Method been used
+</figcaption>
+</figure>
+</div>
+<p>These approach separates the optimization of ED and NB from the A-value, while I try to merge these two process into one algorithm. I use pairwise permutation among treatments to change treatment design during iterations. And to avoid design with bad ED and NB, I am using some criteria to filter the permutation, only maintain or better properties are accepted. In this way, a row-column design that satisfies multiple optimization requirements is achieved.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/methods/method2.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Attempting method</figcaption>
+</figure>
+</div>
+<p>Basing on optimal design search methods share a common set of features in exploring the design space given in <span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span>, my searching method contains following part:</p>
+<ol type="1">
+<li><p>A calculation method for an optimal criterion for a given design matrix <span class="math inline">\boldsymbol{X}</span></p></li>
+<li><p>An interchange policy to switch the design with in search space <span class="math inline">\Omega</span></p></li>
+<li><p>An acceptance policy for a new design.</p></li>
+<li><p>A stopping rule to terminate the search.</p></li>
+</ol>
+<p>The criterion calculation part has already been discussed earlier. We will now introduce interchange policy of switching the design.</p>
+</section>
+<section id="permutations-and-filtering" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="permutations-and-filtering"><span class="header-section-number">3.2.3</span> Permutations and filtering</h3>
+<p>We use permutations of the treatments to update the design matrix for treatment. We randomly select two different treatments and swap them within the design matrix during the permutation process, without making drastic changes.</p>
+<p>Let <span class="math inline">\boldsymbol{X}</span> be the current design matrix for treatments, where each row corresponds to an experimental unit, and each column represents a treatment. Suppose we randomly select two different treatments, <span class="math inline">t_i</span> and <span class="math inline">t_j</span> located in <span class="math inline">i</span>th row and <span class="math inline">j</span>th row respectively. <span class="math inline">\boldsymbol{X}_{new}</span> can be written as <span class="math display">
+\boldsymbol{X}_{new} = \boldsymbol{P}_{ij}\boldsymbol{X}
+</span> with permutation matrix defined as <span class="math display">
+\boldsymbol{P}_{i j}=\left[
+\begin{array}{cccccccc}
+1 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; \cdots &amp;0 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; &amp; \vdots &amp; \cdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; &amp; \vdots &amp; \ddots &amp; \vdots &amp; &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp; 1 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 1
+\end{array}\right]
+</span> It is a identity matrix with <span class="math inline">i</span>th row and <span class="math inline">j</span>th row swapped.</p>
+<p>When performing permutations on the design matrix, I apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out.</p>
+<p>A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix <span class="math inline">\boldsymbol{X}_{new}</span> with corresponding design <span class="math inline">\mathcal{D}_{new}</span> is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for <span class="math inline">\boldsymbol{X}_{new}</span>, that is <span class="math inline">C_{NB}'</span>, <span class="math inline">MRS(\mathcal{D}_{new})</span> and <span class="math inline">MCS(\mathcal{D}_{new})</span>. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it’s not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as <span class="math inline">T_{ED}</span> and <span class="math inline">T_{NB}</span>, which are none negative numbers. Current design matrix <span class="math inline">\boldsymbol{X}</span> corresponding design <span class="math inline">\mathcal{D}</span> has ED and NB value<span class="math inline">C_{NB}</span>, <span class="math inline">MRS(\mathcal{D})</span> and <span class="math inline">MCS(\mathcal{D})</span>. New design matrix <span class="math inline">\boldsymbol{X}_{new}</span> mentioned above is accepted when <span id="eq-accp"><span class="math display">\begin{aligned}
+&amp;(C_{NB}'\leq C_{NB}+T_{NB}) \\
+\land &amp; (MRS(\mathcal{D}_{new})\geq MRS(\mathcal{D})-T_{ED})\\
+\land &amp; (MCS(\mathcal{D}_{new})\geq MCS(\mathcal{D})-T_{ED})
+\end{aligned} \tag{3.1}</span></span> is true.</p>
+</section>
+<section id="random-search" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="random-search"><span class="header-section-number">3.2.4</span> Random search</h3>
+<p>The random search algorithm begins with a randomly selected design matrix. To ensure that the search is efficient and avoids getting trapped in local optima, we introduce the concept of step length. This parameter determines how many permutations we consider in each iteration. Given the computational constraints, especially when the number of treatments or rows and columns increases, it is impractical to check all possible permutations of a design and evaluate each for acceptance. However, we aim to explore as many permutations as possible to avoid falling into local optima.</p>
+<p>At each iteration, we randomly generate a set of permutations. For each generated permutation, we apply the filtering step check by <a href="#eq-accp" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>. If the permutation is not accepted, we randomly select another one and repeat the process. This continues until we have successfully selected a number of permutations equal to the step length.</p>
+<p>We denote step length as <span class="math inline">s</span>. tolerance for ED and NB as <span class="math inline">t_{ED}</span> and <span class="math inline">t_{NB}</span>. For a design matrix <span class="math inline">\boldsymbol{X}</span>, its ED criteria - minimum row span and minimum column span is, <span class="math inline">mrs({\boldsymbol{X}})</span> and <span class="math inline">mcs({\boldsymbol{X}})</span>, and NB criteria is denote as <span class="math inline">C_{NB}({\boldsymbol{X}})</span>.</p>
+<div class="algorithm">
+<ol type="1">
+<li><strong>Input</strong>: Original design matrix <span class="math inline">\boldsymbol{X}</span>, step length <span class="math inline">s</span>, tolerance for ED and NB as <span class="math inline">t_{ED}</span> and <span class="math inline">t_{NB}</span>.</li>
+<li><strong>Initialize</strong>: <span class="math inline">k = 1</span>, ED and NB value for <span class="math inline">\boldsymbol{X}</span> as <span class="math inline">mrs({\boldsymbol{X}})</span>, <span class="math inline">mcs({\boldsymbol{X}})</span> and <span class="math inline">C_{NB}({\boldsymbol{X}})</span>.</li>
+<li>While <span class="math inline">k &lt; s</span>:
+<ul>
+<li>Generate a random permutation matrix <span class="math inline">\boldsymbol{P}</span> by selecting two different treatments.</li>
+<li>Apply permutation: <span class="math inline">\boldsymbol{X_{new} = X P}</span>.</li>
+<li>Calculate new values of ED and NB, <span class="math inline">mrs({\boldsymbol{X}_{new}})</span>, <span class="math inline">mcs({\boldsymbol{X}_{new}})</span> and <span class="math inline">C_{NB}({\boldsymbol{X}_{new}})</span>.</li>
+<li>If new values satisfy <span class="math inline">mrs({\boldsymbol{X}_{new}}) &gt;= mrs({\boldsymbol{X}}) - t_{ED}</span>, <span class="math inline">mcs({\boldsymbol{X}_{new}}) &gt;= mcs({\boldsymbol{X}}) - t_{ED}</span> and <span class="math inline">C_{NB}({\boldsymbol{X}_{new}}) &lt;= C_{NB}({\boldsymbol{X}}) + t_{NB}</span>, accept and remember this <span class="math inline">\boldsymbol{X}_{new}</span>.</li>
+<li>Increment <span class="math inline">k</span>.</li>
+<li>If <span class="math inline">k = s</span>, output all selected permutations.</li>
+</ul></li>
+<li><strong>Output</strong>:A set of <span class="math inline">k</span> permutations of original design matrix <span class="math inline">\boldsymbol{X}</span></li>
+</ol>
+</div>
+<p>The Random Search algorithm starts with a randomly selected initial design matrix <span class="math inline">\boldsymbol{X}_0</span>, and we aim to minimize the A-value associated with the design. We set a maximum number of iterations <span class="math inline">M</span> and a step length <span class="math inline">s</span>.</p>
+<p>The process for each iteration can be described as follows:</p>
+<p>We denote a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, and iteration counter <span class="math inline">k</span>. Maximum number of iteration is <span class="math inline">M</span>. And denote the A-value for a random design matrix <span class="math inline">\boldsymbol{X}</span> is <span class="math inline">A(\boldsymbol{X})</span>. Current design matrix during the iteration we have is denoted as <span class="math inline">\boldsymbol{X}_c</span></p>
+<ol type="1">
+<li><p><strong>Initialization</strong>: Start with a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, set the iteration counter `<span class="math inline">k = 0</span>, maximum number of iteration as <span class="math inline">M</span> and step-length <span class="math inline">s</span>. A-value for the current design is <span class="math inline">A_c = A(\boldsymbol{X}_0)</span>.</p></li>
+<li><p><strong>Iteration</strong>: For each iteration <span class="math inline">k</span>, where <span class="math inline">k &lt; M</span>:</p>
+<ul>
+<li>Generate <span class="math inline">s</span> random permutations <span class="math inline">\{\boldsymbol{X}_i\}</span>, <span class="math inline">i=1,2,\cdots,s</span> of the current design matrix <span class="math inline">X_c</span>.</li>
+<li>Calculate the A-value <span class="math inline">A(\boldsymbol{X}_i)</span>for each permutation <span class="math inline">\boldsymbol{X}_i</span>.</li>
+<li>Compare the A-values for all <span class="math inline">s</span> permutations with the current design <span class="math inline">X_c</span>.</li>
+<li>Select the permutation with the smallest A-value, <span class="math inline">\boldsymbol{X}_j</span>, among the <span class="math inline">s</span> candidates.</li>
+<li>If <span class="math inline">A(\boldsymbol{X}_j) &lt; A(\boldsymbol{X}_c)</span> update the current design matrix: <span class="math inline">\boldsymbol{X}_c = \boldsymbol{X}_j</span>; otherwise, retain the current design.</li>
+</ul></li>
+<li><p><strong>Termination</strong>: Repeat this process until the maximum number of iterations <span class="math inline">M</span> is reached.</p></li>
+</ol>
+</section>
+<section id="simulated-annealing" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="simulated-annealing"><span class="header-section-number">3.2.5</span> Simulated annealing</h3>
+<p>Simulated Annealing (SA) is a global optimization algorithm inspired by the annealing process in metallurgy. At higher temperatures, the algorithm allows the acceptance of worse solutions to escape local optima; as the temperature decreases, it converges toward an optimal solution.</p>
+<p><span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> state that the Boltzmann probability <span class="math display">
+P(E)\propto e^{[-E/kt]}
+</span> offer a pathway to measuring the accept possibility during the algorithm, where <span class="math inline">E</span> is the energy of the state,for a given temperature <span class="math inline">t</span>. The constant <span class="math inline">k</span> is Boltzmann’s constant. The energy <span class="math inline">E</span> corresponds to the value of the objective function, in our case is A-value. During the iterative process, suppose we have a design (state) having A-value (energy) <span class="math inline">A_1</span> at time <span class="math inline">t</span>, and we are shifting our design into a new design with A-value <span class="math inline">A_2</span>, resulting in an energy change <span class="math inline">A_{\bigtriangleup} = A_2 - A_1</span>. If <span class="math inline">A_{\bigtriangleup}</span> is negative, that is <span class="math inline">A_2 &lt; A_1</span>, we always accept new design since we have lower A-value. If <span class="math inline">A_{\bigtriangleup}</span> is positive, acceptance follows the Metropolis criterion: a random number, <span class="math inline">\delta \in [0,1]</span>, is generated, and <span class="math inline">A_2</span> is accepted if <span class="math inline">\delta \leq exp(-A_{\bigtriangleup}/kt)</span>. So we have acceptance rate <span class="math inline">P(A_2)</span> for a new A-value <span class="math inline">A_2</span>. <span id="eq-prob"><span class="math display">
+P(A_2)=
+\begin{cases}
+1 &amp; \text{if } A_2&lt;A_1 \\
+\exp(-A_{\bigtriangleup}/kt) &amp; \text{if } A_2&gt;A_1\\
+\end{cases}
+\tag{3.2}</span></span> The basic elements of SA given by <span class="citation" data-cites="bertsimas1993simulated">Bertsimas and Tsitsiklis (<a href="references.html#ref-bertsimas1993simulated" role="doc-biblioref">1993</a>)</span> is as followed</p>
+<ol type="1">
+<li>A finite set <span class="math inline">S</span>.</li>
+<li>A real-valued cost function <span class="math inline">J</span> defined on <span class="math inline">S</span>. Let <span class="math inline">S^*\subset S</span> be the set of global minima of the function <span class="math inline">J</span>, assumed to be a proper subset of <span class="math inline">S</span>.</li>
+<li>For each <span class="math inline">i\in S</span>, a set <span class="math inline">S(i) \subset S - {i}</span>, called the set of neighbours of <span class="math inline">i</span>.</li>
+<li>For every <span class="math inline">i</span>, a collection of positive coefficients <span class="math inline">q_{ij}</span>, <span class="math inline">j\in S(i)</span>, such that <span class="math inline">\sum_{j\in S(i)} q_{ij} = 1</span>. It is assumed that <span class="math inline">j\in S(i)</span>, if <span class="math inline">i \in S(j)</span>.</li>
+<li>A nonincreasing function <span class="math inline">T:N\rightarrow (0, \infty)</span>, called the cooling schedule. Here <span class="math inline">N</span> is the set of positive integers, and <span class="math inline">T(t)</span> is called the temperature at time <span class="math inline">t</span>.</li>
+<li>An initial “state” <span class="math inline">x(0)\in S</span>.</li>
+</ol>
+<p>We are applying these elements to a SA that fits our case. Our SA having following elements.</p>
+<ol type="1">
+<li>A finite searching space <span class="math inline">\{\boldsymbol{X}\}</span> consisting all design matrix.</li>
+<li>An A-value function <span class="math inline">A(\boldsymbol{X})</span> defined on <span class="math inline">\{\boldsymbol{X}\}</span> and it is real-valued. There is a set of <span class="math inline">\{\boldsymbol{X}^*\}</span> that having optimal A-value and <span class="math inline">\{\boldsymbol{X}^*\}\in \{\boldsymbol{X}\}</span></li>
+<li>For each design matrix <span class="math inline">\boldsymbol{X}</span> in searching space, we consider all possible permutations filtered by <a href="#eq-accp" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> are neighbours of <span class="math inline">\boldsymbol{X}</span>, which is a subset of searching space <span class="math inline">\{\boldsymbol{X}\}</span>.</li>
+<li>All possible permutations have equal possibility to be chose, and the sum of the possibility it equal to <span class="math inline">1</span>.</li>
+<li>A nonincreasing function <span class="math inline">T:N\rightarrow (0, \infty)</span>, <span class="math inline">T(t)</span> is called the temperature at <span class="math inline">t</span>-th iteration.</li>
+<li>A random initial design <span class="math inline">\boldsymbol{X}_0</span></li>
+</ol>
+<p>Suppose we have a current design matrix <span class="math inline">\boldsymbol{X}_i</span> and its neighbours filtered by <a href="#eq-accp" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> contains <span class="math inline">n_p</span> numbers of design. The next design is determined as follows:</p>
+<p>A design matrix <span class="math inline">\boldsymbol{X}_j</span> is randomly picked from the neighbours of <span class="math inline">\boldsymbol{X}_i</span>. Suppose there is <span class="math inline">n_p</span> design matrices in the neighbours of <span class="math inline">\boldsymbol{X}_i</span>, then the probability of selecting <span class="math inline">\boldsymbol{X}_j</span> among all neighbours is <span class="math inline">\frac{1}{n_p}</span>. This is actually the positive coefficients <span class="math inline">q_{ij}</span> afore-mentioned in basic elements of SA. We now denote <span class="math inline">\boldsymbol{X}(t)</span> to be the design matrix at <span class="math inline">t</span>-th iteration. Once <span class="math inline">\boldsymbol{X}_j</span> is chosen, the next design matrix is determined as follows: <span class="math display">
+P(\boldsymbol{X}(t+1)=\boldsymbol{X}_j|\boldsymbol{X}(t)=\boldsymbol{X}_i)
+=\begin{cases}
+1 &amp; \text{if } A(\boldsymbol{X}_j)&lt;A(\boldsymbol{X}_i) \\
+\frac{1}{n_p}\exp(-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))/T(t) &amp; \text{if } A(\boldsymbol{X}_j)&gt;A(\boldsymbol{X}_i)\\
+\end{cases}
+</span></p>
+<section id="convergence-analyze" class="level4" data-number="3.2.5.1">
+<h4 data-number="3.2.5.1" class="anchored" data-anchor-id="convergence-analyze"><span class="header-section-number">3.2.5.1</span> Convergence analyze</h4>
+<p>In this section, We will discuss the convergence properties of the SA algorithm. During iteration process, temperature cooling schedule plays an important role in convergence. It determines whether the algorithm will reach an optimal or near-optimal solution over time. Basing on work in <span class="citation" data-cites="sasaki1988time">Sasaki and Hajek (<a href="references.html#ref-sasaki1988time" role="doc-biblioref">1988</a>)</span>, <span class="citation" data-cites="bertsimas1993simulated">Bertsimas and Tsitsiklis (<a href="references.html#ref-bertsimas1993simulated" role="doc-biblioref">1993</a>)</span> gives a conclusion on convergence properties, with afore-mentioned basic element. Define that state <span class="math inline">i</span> communicates with <span class="math inline">S^*</span> at height <span class="math inline">h</span> if there exists a path in <span class="math inline">S</span> that starts at <span class="math inline">i</span> and ends at some element of <span class="math inline">S^*</span> and the largest value of <span class="math inline">J</span> along the path is <span class="math inline">J(i)+h</span>. Denote <span class="math inline">d^*</span> be the smallest number such that every <span class="math inline">i \in S</span> communicates with <span class="math inline">S^*</span> at height <span class="math inline">d^*</span>.</p>
+<div class="Theorem">
+<p>The SA algorithm converges if and only if <span class="math display">
+\lim_{t\to 0} T(t)=0
+</span> and <span id="eq-covcon"><span class="math display">
+\sum_{t=1}^{\infty} \exp[-\frac{d^*}{T(t)}]=\infty
+\tag{3.3}</span></span></p>
+</div>
+<p>To ensure the condition above, the mostly chose cooling schedule is <span id="eq-logcol"><span class="math display">
+T(t) = \frac{d}{\log t}
+\tag{3.4}</span></span> Here <span class="math inline">d</span> is some constant. It can be initial temperature.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>It is obvious that <span class="math inline">\lim_{t\to 0} T(t)=0</span> in <a href="#eq-logcol" class="quarto-xref">Equation&nbsp;<span>3.4</span></a></p>
+<p>Bring <a href="#eq-logcol" class="quarto-xref">Equation&nbsp;<span>3.4</span></a> in to <a href="#eq-covcon" class="quarto-xref">Equation&nbsp;<span>3.3</span></a>, we have <span class="math display">
+\sum_{t=1}^{\infty} \exp[-\frac{d^*\log (t)}{d}]=\sum_{t=1}^{\infty}t^{-\frac{d^*}{d}}
+</span> It is a harmonic series and it diverge when <span class="math inline">\frac{d^*}{d}&lt;1</span>, that is, <span class="math inline">d^*&lt;d</span>. So SA of we have a large enough <span class="math inline">d</span> (initial temperature).</p>
+</div>
+<p>Although logarithmic cooling theoretically guarantees convergence to the global optimum, it is computationally demanding and has a very slow convergence rate in practice, making it less feasible for large-scale problems. To address these limitations, exponential cooling is introduced as a more practical alternative. While it does not offer a theoretical guarantee of reaching the global optimum, as noted by <span class="citation" data-cites="kirkpatrick1983optimization">Kirkpatrick, Gelatt Jr, and Vecchi (<a href="references.html#ref-kirkpatrick1983optimization" role="doc-biblioref">1983</a>)</span>. Because of limited time and computational resource, we will try to use exponential cooling in our as given in <span class="citation" data-cites="aarts1989simulated">Aarts and Korst (<a href="references.html#ref-aarts1989simulated" role="doc-biblioref">1989</a>)</span> and well-practised It provides near-optimal solutions within a reasonable time, making it highly effective for large combinatorial optimization problems. <span id="eq-expcol"><span class="math display">
+T(t) = T_0 \exp(-\alpha*t)
+\tag{3.5}</span></span> Here <span class="math inline">T_0</span> is the initial temperature, and <span class="math inline">\alpha</span> is the cooling rate determine how fast the temperature drop.</p>
+</section>
+<section id="algorithm" class="level4" data-number="3.2.5.2">
+<h4 data-number="3.2.5.2" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">3.2.5.2</span> Algorithm</h4>
+<p>For accept probability <a href="#eq-prob" class="quarto-xref">Equation&nbsp;<span>3.2</span></a>, we usually start with <span class="math inline">0.8</span> and keep dropping when iteration goes.This probability depends on the magnitude of change in the objective function A-value. To simplify the initialization, we often conduct a few preliminary iterations to observe the range and rate of change in A-values, then use these observations to determine an initial temperature. Several studies have explored methods for autonomously selecting this initial temperature.</p>
+<ol type="1">
+<li><p><strong>Initialization</strong>: Start with a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, set the iteration counter `<span class="math inline">k = 0</span>, maximum number of iteration as <span class="math inline">M</span>, A-value for the current design is <span class="math inline">A_c = A(\boldsymbol{X}_0)</span>, initial temperature <span class="math inline">T_0</span> and a type of cooling schedule <span class="math inline">T(t)</span>.</p></li>
+<li><p><strong>Iteration</strong>: For each iteration <span class="math inline">k</span>, <span class="math inline">k&lt;M</span>:</p>
+<ul>
+<li>Randomly pick one permutation <span class="math inline">\boldsymbol{X}_{new}</span> among all neighbours of current design <span class="math inline">\boldsymbol{X}_c</span>.</li>
+<li>Calculate the A-value <span class="math inline">A(\boldsymbol{X}_{new})</span> for permutation <span class="math inline">\boldsymbol{X}_{new}</span> and compare it with <span class="math inline">A(\boldsymbol{X}_c)</span>.</li>
+<li>If <span class="math inline">A(\boldsymbol{X}_{new}) &lt; A(\boldsymbol{X}_c)</span>, update <span class="math inline">\boldsymbol{X}_c=\boldsymbol{X}_{new}</span>.</li>
+<li>If <span class="math inline">A(\boldsymbol{X}_{new}) &gt; A(\boldsymbol{X}_c)</span>, update <span class="math inline">\boldsymbol{X}_c=\boldsymbol{X}_{new}</span> with probability <span class="math inline">\exp[-(A(\boldsymbol{X}_{new}) - A(\boldsymbol{X}_c))/T(t)]</span>.</li>
+</ul></li>
+<li><p><strong>Termination</strong>: Repeat this process until the maximum number of iterations <span class="math inline">M</span> is reached.</p></li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-aarts1989simulated" class="csl-entry" role="listitem">
+Aarts, Emile, and Jan Korst. 1989. <em>Simulated Annealing and Boltzmann Machines: A Stochastic Approach to Combinatorial Optimization and Neural Computing</em>. John Wiley &amp; Sons, Inc.
+</div>
+<div id="ref-bertsimas1993simulated" class="csl-entry" role="listitem">
+Bertsimas, Dimitris, and John Tsitsiklis. 1993. <span>“Simulated Annealing.”</span> <em>Statistical Science</em> 8 (1): 10–15.
+</div>
+<div id="ref-butler2013optimal" class="csl-entry" role="listitem">
+Butler, David. 2013. <span>“On the Optimal Design of Experiments Under the Linear Mixed Model.”</span>
+</div>
+<div id="ref-kirkpatrick1983optimization" class="csl-entry" role="listitem">
+Kirkpatrick, Scott, C Daniel Gelatt Jr, and Mario P Vecchi. 1983. <span>“Optimization by Simulated Annealing.”</span> <em>Science</em> 220 (4598): 671–80.
+</div>
+<div id="ref-piepho2018neighbor" class="csl-entry" role="listitem">
+Piepho, Hans-Peter, Volker Michel, and Emlyn Williams. 2018. <span>“Neighbor Balance and Evenness of Distribution of Treatment Replications in Row-Column Designs.”</span> <em>Biometrical Journal</em> 60 (6): 1172–89.
+</div>
+<div id="ref-sasaki1988time" class="csl-entry" role="listitem">
+Sasaki, Galen H, and Bruce Hajek. 1988. <span>“The Time Complexity of Maximum Matching by Simulated Annealing.”</span> <em>Journal of the ACM (JACM)</em> 35 (2): 387–403.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./background.html" class="pagination-link" aria-label="Background">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./results.html" class="pagination-link" aria-label="Results">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright © 2024, Your Name</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
