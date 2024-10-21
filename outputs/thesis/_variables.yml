@@ -1,10 +1,11 @@
-title: ANU Thesis
-subtitle: Quarto Template
-author: Your Name
-degree: Doctor of Philosophy # Change this to Honours or Masters as needed
-school: Research School of Spectacular Sciences # name of the enrolling unit
-date-start: 2024-01-01
-date-end: 2028-01-01
+title: A-Criterion Optimization in Row-Column Design:Minimizing Clustering
+subtitle: Balancing Treatment Efficiency and Spatial Distribution in Experimental Designs
+author: Jingning Yao
+degree: Master of Mathematical Sciences (Advanced) # Change this to Honours or Masters as needed
+school: Mathematical Sciences Institue # name of the enrolling unit
+date-start: 2024-02-17
+date-end: 2024-10-24
 keywords:
-  - reproducible research
-  - open science
+  - Row-Column Design Optimization
+  - A-Criterion
+  - Simulated Annealing
