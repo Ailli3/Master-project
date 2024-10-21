@@ -8,20 +8,26 @@ library(gridExtra)
 library(cowplot)
 #load
 
-RS_results1 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/RS/result_rs_r_5_15.RDS")
-RS_results2 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/RS/result_rs_r_16_25.RDS")
+RS_results1 <- readRDS("simulation_results/RS/result_rs_r_5_15.RDS")
+RS_results2 <- readRDS("simulation_results/RS/result_rs_r_16_25.RDS")
 
 RS_results <- rbind(RS_results1, RS_results2)
 
-SA_SLOW_results1 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/SA_slow/result_sa_slow_5_15.RDS")
-SA_SLOW_results2 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/SA_slow/result_sa_slow_16_25.RDS")
+SA_SLOW_results1 <- readRDS("simulation_results/SA_slow/result_sa_slow_5_15.RDS")
+SA_SLOW_results2 <- readRDS("simulation_results/SA_slow/result_sa_slow_16_25.RDS")
 
 SA_SLOW_results <- rbind(SA_SLOW_results1, SA_SLOW_results2)
 
-SA_FAST_results1 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/SA_Fast/result_sa_fast_5_15.RDS")
-SA_FAST_results2 <- readRDS("C:/Users/yaoya/Desktop/master project doc/DATA/SA_Fast/result_sa_fast_16_25.RDS")
+SA_FAST_results1 <- readRDS("simulation_results/SA_Fast/result_sa_fast_5_15.RDS")
+SA_FAST_results2 <- readRDS("simulation_results/SA_Fast/result_sa_fast_16_25.RDS")
 
 SA_FAST_results <- rbind(SA_FAST_results1, SA_FAST_results2)
+
+bind_rows(mutate(RS_results, algorithm = "Random Selection"),
+          mutate(SA_SLOW_results, algorithm = "SA log Cooling"),
+          mutate(SA_FAST_results, algorithm = "SA exp Cooling")) |> 
+  write_csv("outputs/thesis-ETedit/data/results.rds")
+
 
 #taking avarage
 RS_average_results <- RS_results %>%

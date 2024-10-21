@@ -6,6 +6,6 @@ school: Mathematical Sciences Institue # name of the enrolling unit
 date-start: 2024-02-17
 date-end: 2024-10-24
 keywords:
-  - Row-Column Design Optimization
-  - A-Criterion
-  - Simulated Annealing
+  - experimental design 
+  - optimal design 
+  - row-column design

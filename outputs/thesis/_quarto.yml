@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-   title: "{{< var title >}}"
+   title: "Preliminary investigation of algorithms for optimal row-column designs"
    subtitle: "{{< var subtitle >}}"
    author: "{{< var author >}}"
    date: today
@@ -16,7 +16,7 @@ book:
    chapters:
      - index.qmd
      - abstract.qmd
-     - acknowledgements.qmd
+     #- acknowledgements.qmd
      - intro.qmd
      - background.qmd
      - methods.qmd
@@ -27,7 +27,7 @@ book:
      - references.qmd
    appendices:
      - tools.qmd
-   page-footer: "Copyright © 2024, Your Name"
+   page-footer: "Copyright © 2024, Jingning Yao"
 
 bibliography: ref.bib
 
@@ -39,15 +39,10 @@ date-start: "{{< var date-start >}}"
 date-end: "{{< var date-end >}}"
 titlepage-supervisor: true
 supervisor:
-  - Prof. Jane Smith
-  - Dr. John Smith
+  - Dr. Emi Tanaka
+  - A/Prof Katherine Turner
 
 format:
   anu-thesis-html: default
   anu-thesis-pdf:
     keep-tex: true
-    #classoption: twoside
-    # text: |
-    #     \usepackage{fullpage}
-    #     \usepackage{enumitem}
-    #     \usepackage{bbold}
