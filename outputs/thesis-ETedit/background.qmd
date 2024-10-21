@@ -6,20 +6,110 @@ editor:
 
 # Background {#sec-bg}
 
-## Linear model
+Linear (mixed) models are the primarly method of analysis of experimental data with response that have an approximate Normal distribution. In this chapter, we expand on the model @eq-lm to consider linear mixed models for the analysis of experimental data with a more general experimental structure.
 
-Suppose we have a linear model,
 
-$$\boldsymbol{y}=\mathbf{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$ {#eq-lm}
-where $\boldsymbol{y}$ is $n\times 1$ vector of $n$ observations,
-$\boldsymbol{\tau}$ is a $t\times 1$ vector of fixed effects,
-$\boldsymbol{\epsilon}$ is the $n\times 1$ vector for error, and
-$\mathbf{X}$ is a design matrix has size $n\times t$. We assume that
-$\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_{n})$
-and hence
-$\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$.
+## Linear mixed model
 
-The log-likelihood of @eq-lm is then given as:
+Linear mixed model incorporates additional random effects into the model that effectively give
+greater flexibility and capability to incorporate known correlated
+structures into the model. We consider a linear mixed model $$
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}
+$$ {#eq-lmm} where $\boldsymbol{y}$ is a $n\times 1$ vector of
+observations, $\boldsymbol{\tau}$ is a $t\times1$ vector of
+fixed effects, $\boldsymbol{u}$ is a $q \times1$ vector of
+random effects, and $\boldsymbol{\epsilon}$ is the $n\times 1$ error
+vector, $\boldsymbol{X}$ and $\boldsymbol{Z}$ are design matrices of
+dimensions $n \times t$ and $n \times q$ for fixed and random effects, respectively. We assume that 
+$$
+\begin{bmatrix}
+\boldsymbol{u} \\
+\boldsymbol{\epsilon} 
+\end{bmatrix}
+\sim
+N\left(
+\begin{bmatrix}
+\boldsymbol{0} \\
+\boldsymbol{0}
+\end{bmatrix}
+,
+\begin{bmatrix}
+\boldsymbol{G} & \mathbf{0} \\
+\mathbf{0} & \boldsymbol{R}
+\end{bmatrix}
+\right),
+$$ {#eq-dist} where $\boldsymbol{G}$ is a $q \times q$ variance matrix for
+$\boldsymbol{u}$ and $\boldsymbol{R}$ is a $n\times n$ variance matrix for
+$\boldsymbol{\epsilon}$. 
+
+Throughout this thesis, we assume $\boldsymbol{R} = \sigma^2\mathbf{I}_n$ and $\boldsymbol{G}$ is a block diagonal matrix where each block is a scaled identity matrix. In practice, these structures can be more complex, e.g. @williamsConstructionCrossoverDesigns2007 consider autoregressive and linear variance structures for crossover designs. 
+
+In addition, we assume in this thesis that the treatment effects are fixed and blocking factors (i.e. the row and column factors in row-column design) are random effects. It should be noted, however, that the treatment effects can be random effects based on the purpose of the experiment [@robinsonThatBLUPGood1991;@butlerDesignFieldExperiments2014].
+
+### Estimation of model parameters
+
+#### Fixed and random effects 
+
+@hendersonEstimationEnvironmentalGenetic1959 first derived the set of equations, referred to as _mixed model equations_ by @smithMultiplicativeMixedModels1999, as a precursor to the estimation of fixed effects and predictions of random effects. These equations are derived from maximing the joint log density of the response and random effects as shown in @lem-mme.
+
+
+:::: {#lem-mme}
+
+## Mixed model equations
+
+The mixed model equations shown below are derived from maximising the joint log density of $\boldsymbol{y}$ and $\boldsymbol{u}$.
+
+$$(\boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*)\tilde{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},$$ where $\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} & \boldsymbol{Z} \end{bmatrix}$, $\tilde{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \tilde{\boldsymbol{u}}^\top)^\top$ and $\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} & \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} & \boldsymbol{G}^{-1}\end{bmatrix}$.
+
+
+::: proof
+
+[FILL]
+
+:::
+
+:::
+
+
+:::: {#thm-blue}
+
+## Best linear unbiased estimates and predictions
+
+The solutions to the mixed models equations in @lem-mme (shown below) give the best linear unbiased estimates (BLUEs) for $\boldsymbol{\tau}$ and best linear unbiased predictions (BLUPs) for $\boldsymbol{u}$ provided that $\boldsymbol{G}$ and $\boldsymbol{R}$ are known.
+
+$$\begin{aligned}
+\hat{\boldsymbol{\tau}} &= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\\
+\tilde{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
+\end{aligned}$$
+
+where $\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}$.
+
+::: proof
+
+[FILL]
+
+:::
+
+
+:::
+
+
+#### Variance parameters
+
+In practice, the variance parameters for $\boldsymbol{G}$ and $\boldsymbol{R}$ are unknown and must be estimated from data. As a consequence, the solutions in @thm-blue are referred to as Empirical-BLUEs (E-BLUE) or Empirical-BLUPs (E-BLUPs).
+
+The variance parameters may be estimated using a method of moment approach, however this approach can only be utilized for simple variance structures with balanced numbers of treatments. 
+
+The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates [@pattersonRecoveryInterblockInformation1971]. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see @verbylaConditionalDerivationResidual1990 for the derivation of REML and @smithMultiplicativeMixedModels1999 for computational strategies involving the average information algorithm [@gilmourAverageInformationREML1995;@johnsonRestrictedMaximumLikelihood1995].
+
+
+
+
+### Precision of estimators
+
+---
+
+The log-likelihood of @eq-lmm is then given as:
 
 $$
 \log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
@@ -48,13 +138,13 @@ and the Fisher information matrix is unbiased because, in the
 expectation calculation process, we do not involve the randomness of
 $\boldsymbol{y}$. The Fisher information matrix is actually determined
 by the design matrix $\boldsymbol{X}$ and the error variance $\sigma^2$.
-Hence $$
-\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\mathbf{C} 
-$$ So $\mathbf{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}$
+Taking the expectation of both sides, we have $$
+\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\mathbf{C}, 
+$$ and thus $\mathbf{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}$.
 :::
 
 ::: {#lem-lm-var}
-The variance of the fixed effects for @eq-lm is equivalent to the
+The variance of the estimate of fixed effects for @eq-lm is equivalent to the
 inverse of the Fisher information matrix, i.e.
 $var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \mathbf{C}^{-1}.$
 :::
@@ -72,41 +162,6 @@ which is exactly the inverse of Fisher information matrix
 $\mathbf{C}^{-1}$.
 :::
 
-## Linear mixed model
-
-Linear mixed model extends linear model by incorporating additionally
-incorporating random effects into the model that effectively give
-greater flexibility and capability to incorporate known correlated
-structures into the model. We now consider a linear mixed model $$
-\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}
-$$ {#eq-lmm} here $\boldsymbol{y}$ is $n\times 1$ vector for $n$
-observations, $\boldsymbol{\tau}$ is a $t\times1$ parameter vector of
-treatment factors, $\boldsymbol{u}$ is a $q \times1$ parameter vector of
-blocking effects, and $\boldsymbol{\epsilon}$ is the $n\times 1$ error
-vector, $\boldsymbol{X}$ and $\boldsymbol{Z}$ are design matrices of
-dimension $n \times t$ and $n \times q$ for treatment factors and
-blocking factors, respectively. We here assume blocking factors are
-random effect, with random error $\boldsymbol{\epsilon}$ we have
-$$
-\begin{bmatrix}
-\boldsymbol{u} \\
-\boldsymbol{\epsilon} 
-\end{bmatrix}
-\sim
-N\left(
-\begin{bmatrix}
-\boldsymbol{0} \\
-\boldsymbol{0}
-\end{bmatrix}
-,
-\begin{bmatrix}
-\boldsymbol{G} & \mathbf{0} \\
-\mathbf{0} & \boldsymbol{R}
-\end{bmatrix}
-\right),
-$$ where $\boldsymbol{G}$ is the $q \times q$ variance matrix for
-$\boldsymbol{u}$ and $\boldsymbol{R}$ is $n\times n$ variance matrix for
-$\boldsymbol{\epsilon}$.
 
 ### A-criterion
 Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.
