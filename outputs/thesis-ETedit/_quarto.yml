@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-   title: "{{< var title >}}"
+   title: "Preliminary investigation of algorithms for optimal row-column designs"
    subtitle: "{{< var subtitle >}}"
    author: "{{< var author >}}"
    date: today
