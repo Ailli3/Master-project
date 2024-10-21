@@ -33,6 +33,7 @@ contributes:
       theme: [custom.scss]
       css: assets/css/all.css
       html-math-method: katex
+      mainfont: PublicSans
       template-partials:
        - assets/title-block.html
     pdf:
