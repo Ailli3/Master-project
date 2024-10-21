@@ -59,14 +59,56 @@ In addition, we assume in this thesis that the treatment effects are fixed and b
 
 The mixed model equations shown below are derived from maximising the joint log density of $\boldsymbol{y}$ and $\boldsymbol{u}$.
 
-$$(\boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*)\tilde{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},$$ where $\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} & \boldsymbol{Z} \end{bmatrix}$, $\tilde{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \tilde{\boldsymbol{u}}^\top)^\top$ and $\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} & \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} & \boldsymbol{G}^{-1}\end{bmatrix}$.
+$$\boldsymbol{C}\hat{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},$$ where $\boldsymbol{C} = \boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*$, $\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} & \boldsymbol{Z} \end{bmatrix}$, $\hat{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \hat{\boldsymbol{u}}^\top)^\top$ and $\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} & \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} & \boldsymbol{G}^{-1}\end{bmatrix}$.
 
 
 ::: proof
 
-[FILL]
+Given the model [-@eq-lmm] with assumption in [-@eq-dist], we have $\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})$ and $\boldsymbol{y}|\boldsymbol{u}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})$ with probability density functions as
+$$\begin{aligned}f_u(\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{q}|\boldsymbol{G}|}}\exp\left(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}\exp\left(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))\right).
+\end{aligned}
+$$
+Ignoring the constants, we have
+$$\begin{aligned}
+\log f_u(\boldsymbol{u}) &= -\frac{1}{2}\left(\log |\boldsymbol{G}|+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+\log f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &=-\frac{1}{2}\left(\log |\boldsymbol{R}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})\right).
+\end{aligned}$$
+
+The joint density of $\boldsymbol{y}$ and $\boldsymbol{u}$ is given as 
+
+$$f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) = f_{y|u}(\boldsymbol{y}|\boldsymbol{u})f_u(\boldsymbol{u}),$$ {#eq-density}
+and taking the log of both sides for @eq-density, we have the log of joint density as:
+$$\begin{aligned}
+\mathcal{L} :=& \log f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) \\
+=& \log f_{y|u}(\boldsymbol{y}|\boldsymbol{u})+\log f_u(\boldsymbol{u})\\
+=& -\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right).
+\end{aligned}$$
+
+
+We determine that
+$\frac{\partial\mathcal{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}$,
+and write the equation into a matrix form
+$$
+\begin{bmatrix}
+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
+\end{bmatrix}
+\begin{bmatrix}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
+\end{bmatrix}=
+\begin{bmatrix}
+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{y}\\
+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
+\end{bmatrix}.
+$$ 
+
+
 
 :::
+
+
 
 :::
 
@@ -79,12 +121,55 @@ The solutions to the mixed models equations in @lem-mme (shown below) give the b
 
 $$\begin{aligned}
 \hat{\boldsymbol{\tau}} &= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\\
-\tilde{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
+\hat{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
 \end{aligned}$$
 
 where $\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}$.
 
 ::: proof
+
+By cancelling $\boldsymbol{u}$, we have
+$$
+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})\boldsymbol{Z}^\top\boldsymbol{R}^{-1}y=\boldsymbol{X}^\top\boldsymbol{R}^{-1}y\\
+$$
+$$
+\Rightarrow \boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]y\\
+$$
+$$
+\Rightarrow \boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
+$$
+where
+$\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}$,
+let
+$\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}$
+then we have the form similar to GLS estimation for
+$\hat{\boldsymbol{\tau}}$, which is
+$$
+\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
+$$
+and the estimation of $\boldsymbol{\tau}$ is
+$\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}$,
+which is equivalent with GLS estimation
+
+We only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
+
+$$\begin{aligned}
+\boldsymbol{P}\boldsymbol{V} &=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
+&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top - \boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top \\
+&\quad \quad \quad \quad \quad \quad\quad\quad -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
+&=\boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top(\boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
+&=\boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{Z}^\top+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
+&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{I}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G})\boldsymbol{Z}^\top\\
+&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{G}^{-1}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z})\boldsymbol{G}\boldsymbol{Z}^\top\\
+&= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
+& = \boldsymbol{I}
+\end{aligned}$$
+
+So $\hat{\boldsymbol{\tau}}_{llm}$ and
+$\hat{\boldsymbol{\tau}}_{gls}$ are equivalent, and we denote them as
+$\hat{\boldsymbol{\tau}}$
+
+
 
 [FILL]
 
@@ -172,148 +257,6 @@ We first start with a simple example, that is, we consider treatment
 factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of
 A-criterion.
 
-basing on assumption, we have $$
-\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top)
-$$ {#eq-asp} So for objective function, we can write out the
-distributions
-
-$$
-\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R}) \\
-\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})
-$$
-
-We want to give a precise estimation on $\boldsymbol{\tau}$. As we
-mentioned, we have the distribution for response variable
-$\boldsymbol{y}\sim$ We can use generalized least squares(GLS) by
-rewrite the model as:
-$$
-\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\tau} + \zeta
-$$ 
-Here
-$\zeta = \boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(0, \boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)$.
-@henderson1975best shows that the GLS estimation of $\boldsymbol{\tau}$
-is any solution to
-$$
-\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X}\hat{\boldsymbol{\tau}}_{gls}=\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}
-$$
-Here
-$\boldsymbol{V}=\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top$.
-So
-$\hat{\boldsymbol{\tau}}_{gls} = (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}$
-
-@henderson1959estimation emphasis that computing matrix $\boldsymbol{V}$
-which is often large is difficult. So here we use joint log likelihood.
-
-From @butler2013optimal, we conduct a maximum log likelihood by
-following objective function:
-$$
-\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
-$$
-:::{#lem-joint-density-lmm}
-So log of joint density is given as
-
-$$\begin{aligned}
-\mathcal{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
-&=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
-\end{aligned}$$
-
-:::
-
-::: proof
-We have density function for
-$\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})$
-
-$$
-f_y = \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}exp(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u})))
-$$
-And density function for $\boldsymbol{u}$
-$$
-f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u})
-$$
-Ignoring constant part, we have
-$$
-\log f_y=-\frac{1}{2}[\ln |\boldsymbol{R}|+(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))]
-$$
-$$
-\log f_u = -\frac{1}{2}[\ln |\boldsymbol{G}+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}]
-$$ So we have our log of joint density function.
-:::
-
-We determine that
-$\frac{\partial\mathcal{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}$,
-and write the equation into a matrix form
-$$
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
-\end{bmatrix}
-\begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
-\end{bmatrix}=
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{y}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
-\end{bmatrix}
-$$ {#eq-ll}
-
-Let
-$$
-\boldsymbol{C}=
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
-\end{bmatrix} 
-\quad
-\hat{\boldsymbol{\beta}}_{llm}=\begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
-\end{bmatrix}
-\quad
-\boldsymbol{W}=\begin{bmatrix}\boldsymbol{X} &\boldsymbol{Z}\end{bmatrix}
-$$
-By cancelling $\boldsymbol{u}$, we have
-$$
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})\boldsymbol{Z}^\top\boldsymbol{R}^{-1}y=\boldsymbol{X}^\top\boldsymbol{R}^{-1}y\\
-$$
-$$
-\Rightarrow \boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]y\\
-$$
-$$
-\Rightarrow \boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
-$$
-where
-$\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}$,
-let
-$\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}$
-then we have the form similar to GLS estimation for
-$\hat{\boldsymbol{\tau}}$, which is
-$$
-\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
-$$
-and the estimation of $\boldsymbol{\tau}$ is
-$\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}$,
-which is equivalent with GLS estimation
-
-::: proof
-We only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
-
-$$\begin{aligned}
-\boldsymbol{P}\boldsymbol{V} &=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
-&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top - \boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top \\
-&\quad \quad \quad \quad \quad \quad\quad\quad -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
-&=\boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top(\boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
-&=\boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{Z}^\top+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
-&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{I}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G})\boldsymbol{Z}^\top\\
-&= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{G}^{-1}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z})\boldsymbol{G}\boldsymbol{Z}^\top\\
-&= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
-& = \boldsymbol{I}
-\end{aligned}$$
-
-So $\hat{\boldsymbol{\tau}}_{llm}$ and
-$\hat{\boldsymbol{\tau}}_{gls}$ are equivalent, and we denote them as
-$\hat{\boldsymbol{\tau}}$
-:::
 
 Now we have our estimation for the treatment factor, and experimental
 design aims to further refine our design by focusing on the precision of
