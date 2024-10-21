@@ -23,58 +23,48 @@ For the consistency across all algorithms, we aimed to explore the largest feasi
 
 In setting up random selection, the final parameter is the step length $s$. During runtime, the process of selecting permutations for step-length iterations often accounts for a large portion of the total functioning time.Additionally, this selection becomes especially challenging when the row, column, and treatment numbers are low. In such cases, while applying filtering criteria, it can be difficult to find a sufficient number of unique permutations that meet the requirements, as the design itself may not contain enough options. To ensure the algorithm runs smoothly and completes within a reasonable time, we set the step length to $s=3$. 
 
-For the SA algorithm, we need to set the initial temperature $T_0$.It actually depends on the acceptance rate for higher A-values at the start of the iteration process. As mentioned in the previous section, we typically aim for an initial acceptance rate of around 0.8. That is we hope $\exp(-A_{\bigtriangleup}/T_0) \approx 0.8 $. We often lack precise information on $A_{\bigtriangleup}$ before the algorithm, we set the initial temperature based on an empirical estimate. We set $T_0=1$. Some adaptive algorithms for setting the initial temperature are often discussed in the literature.
+For the SA algorithm, we need to set the initial temperature $T_0$.It actually depends on the acceptance rate for higher A-values at the start of the iteration process. As mentioned in the previous section, we typically aim for an initial acceptance rate of around 0.8. That is we hope $\exp(-A_{\bigtriangleup}/T_0) \approx 0.8$. We often lack precise information on $A_{\bigtriangleup}$ before the algorithm, we set the initial temperature based on an empirical estimate. We set $T_0=1$. Some adaptive algorithms for setting the initial temperature are often discussed in the literature.
 
 To examine combinations of row, column, and treatment numbers, we tested a wide range of configurations. Row number ranged from 5 to 25, and column number varied from 5 to 16. For each row and column combination, we tested treatment numbers of 10, 20, 50, 80, and 100. To ensure that the blocksdesign functions operated correctly and to maintain general applicability, we ship a combination, if the product of rows and columns was less than twice the treatment number.It ensures that each treatment could have at least two replication. For each combination of row, column and treatment number, we conduct three replication for more accurate observation. 
 
-For the cases when treatment number cannot evenly divide the product of rows and columns, suppose $n_{plot}=n_r\times n_c$ and treatment number is $n_{\tau}$, we set base replication number as $\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor$, and randomly pick $n_{plot}\quad mod\quad n_{\tau}$ treatments assign $\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor+1$ replication to these treatments. This approach ensures that the number of each treatment is as close as possible to one another.
+For the cases when treatment number cannot evenly divide the product of rows and columns, suppose $n_{plot}=n_r\times n_c$ and treatment number is $n_{\tau}$, we set base replication number as $\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor$, and randomly pick $(n_{plot}\mod n_{\tau})$ treatments assign $\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor+1$ replication to these treatments. This approach ensures that the number of each treatment is as close as possible to one another.
 
 ## Result analyze
 ### General behviour of algorithms
 Now we observe the overall behaviour of the algorithm, to examine the change of A-value during the process. We here use example with $n_c=n_r=15$ and $n_\tau=50$. we now use blocksdesign functions to generate a optimal design $\mathcal{D}_{op}$ with A-value $A_{op} = 0.5027$ under set-up, NB criteria $C_{NB}(\mathcal{D}_{op})=3$ and ED criteria $MRS(\mathcal{D}_{op})=MCS(\mathcal{D}_{op})=5$. See detailed assignment as follow
 
-::: {#fig-align style="text-align: center"}
-![blocksdesign out put](../thesis/images/Rplots/block-design-visualization.png){fig-align="center" width=70%}
-:::
+
+![blocksdesign out put](images/Rplots/block-design-visualization.png){#fig-funcoutput fig-align="center" width=70%}
+
 
 #### Random selection
 We now look at how random selection behave during the process. The iteration stops at $549$-th step with output A-value $A_{rs}=0.050478$ and NB criteria $C_{NB}(\mathcal{D}_{rs})=4$ and ED criteria $MRS(\mathcal{D}_{rs})=5$ and $MCS(\mathcal{D}_{rs})=7$. The changes in the A-value over iterations and the specific design are shown in the figure below.
 
-::: {#fig-align style="text-align: center"}
-![A v.s. Iteration (Random search)](../thesis/images/Rplots/random selection example.png){fig-align="center" width=70%}
-:::
 
-::: {#fig-align style="text-align: center"}
-![Random search out put design](../thesis/images/Rplots/Random search design visualization.png){fig-align="center" width=70%}
-:::
+![A v.s. Iteration (Random search)](images/Rplots/random-selection-example.png){#fig-AvIRS fig-align="center" width=70%}
+
+![Random search out put design](images/Rplots/Random-search-design-visualization.png){#fig-RSoutput fig-align="center" width=70%}
 
 From the results, the A-value obtained by Random Search is relatively close to that of the block design, though slightly larger, as is the NB statistic. Recall that we would like A-value and $C_{NB}$ to be as small as possible, and for both $MRC$ and $MRC$, the larger the better. Therefore, the Random Search outcome has a larger minimum column span, meaning it preform better on evenness of distribution.
 
 #### SA with log cooling schedule
 For SA using the log cooling schedule @eq-logcol,Unlike random selection, the algorithm accepts higher A-values with a certain probability, causing fluctuations in A-values throughout the iterations, resulting in rises and falls rather than a steady decline. Details can be seen in the figure below.
 
-::: {#fig-align style="text-align: center"}
-![A v.s. Iteration (SA with log cooling schedule)](D:/Mater Advanced project/Master project/outputs/Rplots/SA_SLOW example.png){fig-align="center" width=70%}
-:::
+![A v.s. Iteration (SA with log cooling schedule)](images/Rplots/SA-SLOW-example.png){#fig-AvISAlog fig-align="center" width=70%}
 
-::: {#fig-align style="text-align: center"}
-![SA with log cooling schedule out put design](../thesis/images/Rplots/SA_SLOW visualization.png){fig-align="center" width=70%}
-:::
+![SA with log cooling schedule out put design](images/Rplots/SA-SLOW-visualization.png){#fig-SAlogoutput fig-align="center" width=70%}
 
-As it indicate in the plot, the process went through all iterations, reaching maximum iteration number $M$. At the 2000th iteration, the A-value is $A_{SAlog}=0.050609$ with NB criteria $C_{SAlog}(\mathcal{D}_{rs})=5$ and ED criteria $MRS(\mathcal{D}_{SAlog})=7$ and $MCS(\mathcal{D}_{SAlog})=6$.
+
+As it indicate in the plot, the process went through all iterations, reaching maximum iteration number $M$. At the 2000th iteration, the A-value is $A_{SAlog}=0.050609$ with NB criteria $C_{SAlog}(\mathcal{D}_{SAlog})=5$ and ED criteria $MRS(\mathcal{D}_{SAlog})=7$ and $MCS(\mathcal{D}_{SAlog})=6$.
 
 Compared to random selection, the optimization of the A-value in SA is less effective, since the limitation of a maximum iteration number $M$.Similar to the NB statistic, where SA shows a less optimal outcome than the block design. However, the two ED statistics given by SA are significantly improved compared to those provided by the blockdesign function and random selection. Because of the slower decrease in acceptance rates for higher A-values with log cooling schedule, we observe that the algorithm occasionally continues to accept larger A-values even in the latter stages. 
 
 #### SA with exp cooling schedule
 This is also SA but with an exponential cooling schedule @eq-expcol. Although exponential cooling schedule does not theoretically guarantee SA convergence to the global optimum, it can produce a relatively near-optimal solution within finite computational resources and time constraints. Because of the rapid temperature decrease in exponential cooling, the algorithm initially shows fluctuations in A-values at the beginning of the iterations. However, as the number of iterations increases, the acceptance rate for larger A-values declines quickly, and algorithm tend to avoid accepting higher A-values.Details are shown in the figure below
 
-::: {#fig-align style="text-align: center"}
-![A v.s. Iteration (SA with exp cooling schedule)](../thesis/images/Rplots/SA_F example.png){fig-align="center" width=70%}
-:::
+![A v.s. Iteration (SA with exp cooling schedule)](images/Rplots/SA-F-example.png){#fig-AvISAexp fig-align="center" width=70%}
 
-::: {#fig-align style="text-align: center"}
-![A v.s. Iteration (SA with exp cooling schedule)](../thesis/images/Rplots/SA_F visualization.png){fig-align="center" width=70%}
-:::
+![SA with exp cooling schedule out put design](images/Rplots/SA-F-visualization.png){#fig-SAexpoutput fig-align="center" width=70%}
 
 The iteration process stopped at the $1341$-st iteration because the A-value had come sufficiently close to the blockdesign A-value. The results show that the A-value achieved is $A_{SAexp} = 0.050473$, with an NB statistic $C_{SAexp}(\mathcal{D}_{rs})=4$, and ED statistics $MRS(\mathcal{D}_{SAexp})=5$ and $MCS(\mathcal{D}_{SAexp})=6$. 
 
@@ -88,64 +78,49 @@ Now we begin to explore the relationship between function runtime and the number
 
 For random selection, many simulations did not reach the maximum number of iterations, which can be observed in the figure.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. runtime (random selection)](../thesis/images/Rplots/RS_eva/RS-iternum-distribution.png){fig-align="center" width=70%}
-:::
+![Proportion of Iterations (Random Selection)](images/Rplots/RS_eva/RS-iternum-distribution.png){#fig-PoIRS fig-align="center" width=70%}
 
 So we present the relationship between runtime and the number of rows under different treatment numbers, as shown in the figures below. As mentioned earlier, we have three replications for each combination of rows, columns, and treatment numbers. We calculate the average of the three replications for each combination as the final result.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. runtime (random selection)](../thesis/images/Rplots/RS_eva/RS-row-vs-runtime.png){fig-align="center" width=70%}
-:::
+![#rows v.s. runtime (random selection)](images/Rplots/RS_eva/RS-row-vs-runtime.png){#fig-RvTRS fig-align="center" width=70%}
 
 We can observe that, under different numbers of columns, the relationship between rows and runtime tends to be similar. Here, we will not discuss the origin or significance of this trend but instead focus on the relation between variables and runtime.  There is no clear positive or negative relationship between the number of rows and runtime. We see that as the number of rows increases, the runtime does not consistently increase or decrease, which is related to the randomness of random selection. During the iteration process, we might be lucky enough to find a good design early and terminate the iteration, or the A-value may gradually decrease over the iterations.
 
 However, by observing the vertical axis of different subplots, we can see that as the number of treatments increases, the range of runtime fluctuations also increases. To demonstrate this, we present the relationship between the number of treatments and runtime under different rows and columns.
 
-::: {#fig-align style="text-align: center"}
-![#treatment v.s. runtime (random selection)](../thesis/images/Rplots/RS_eva/RS-trt-vs-runtime.png){fig-align="center" width=70%}
-:::
+
+![#treatments v.s. runtime (random selection)](images/Rplots/RS_eva/RS-trt-vs-runtime.png){#fig-TvTRS fig-align="center" width=70%}
+
 
 By observing the figure, we can see that as the number of treatments increases, runtime shows a positive correlation, indicating that with more treatments, random selection requires more time to find permutations and make comparisons.
 
 This approach leads us to consider the relationship between the number of treatments and runtime. However, for SA with log cooling, due to the slow convergence of log cooling and the limitation of a maximum number of iterations, the algorithm often runs until the maximum number of iterations is reached. This makes it difficult to observe the relationship between the number of treatments and runtime, as runtime is often related to the maximum number of iterations. See the image below for details. 
 
-::: {#fig-align style="text-align: center"}
-![Iteration number distribution (SA with log cooling schedule)](../thesis/images/Rplots/SA-Slow-eva/SA-Slow-iternum-distribution.png){fig-align="center" width=70%}
-:::
+![Proportion of Iterations (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-iternum-distribution.png){#fig-PoISAlog fig-align="center" width=70%}
+
 
 In the figure, we can see that only when the number of rows and columns is small, meaning the design space is limited, SA with log cooling can terminate before reaching the maximum number of iterations. In most other cases, the algorithm stops when it reaches the maximum number of iterations. Therefore, we use the difference $d = (A_{SAlog}-A_{op})/A_{op}$ between the A-value obtained by SA with log cooling at the maximum number of iterations and the A-value calculated by the blockdesign function to evaluate the impact of the number of rows, columns, and treatments on the efficiency of the algorithm.
 
 We first look at the influence of the number of rows on the distance. Similar to the analysis method used for random selection, we provide the following figure.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference (SA with exp cooling schedule)](../thesis/images/Rplots/SA-Slow-eva/SA-Slow-row-vs-diff.png){fig-align="center" width=70%}
-:::
+![#rows v.s. difference (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-row-vs-diff.png){#fig-RvDSAlog fig-align="center" width=70%}
 
 From the above figure, it is evident that the number of rows and columns is positively correlated with the difference. The greater the number of rows, the larger the difference. Similarly, the greater the number of columns, the higher the lines (towards the red), indicating a larger difference. Based on previous experience, we attempt to examine the relationship between the number of treatments and distance, as shown in the figure below.
 
-::: {#fig-align style="text-align: center"}
-![#treatment v.s. difference (SA with exp cooling schedule)](../thesis/images/Rplots/SA-Slow-eva/SA-Slow-trt-vs-diff.png){fig-align="center" width=70%}
-:::
+![#treatments v.s. difference (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-trt-vs-diff.png){#fig-TvDSAlog fig-align="center" width=70%}
 
 The results show that the treatment number is negatively correlated with the difference. In other words, as the treatment number increases, the resulting value (whether the iteration stops early or reaches the maximum number of iterations) tends to be closer to the optimal value. However, this does not necessarily mean that the absolute distance to the optimal value decreases.
 
 For SA with exponential cooling, we also examine the distribution of the iteration numbers.
-::: {#fig-align style="text-align: center"}
-![#rows v.s. runtime (random selection)](../thesis/images/Rplots/SA-Fast-eva/SA-Fast-iternum-distribution.png){fig-align="center" width=70%}
-:::
+![Proportion of Iterations (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-iternum-distribution.png){#fig-PoISAexp fig-align="center" width=70%}
 
 It can be seen that most of the simulations did not reach the maximum number of iterations, so we can use runtime to compare the effects of rows, columns, and treatment numbers on the algorithm.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. runtime (random selection)](../thesis/images/Rplots/SA-Fast-eva/SA-Fast-row-vs-runtime.png){fig-align="center" width=70%}
-:::
+![#rows v.s. runtime (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-row-vs-runtime.png){#fig-RvTSAexp fig-align="center" width=70%}
 
 We can see that when the treatment number is small, the influence of rows and columns on runtime is not significant. This could be because the design space is smaller, and for randomness, the algorithm stops after fewer iterations. As the treatment number increases, the impact of rows and columns on runtime becomes apparent: the greater the number of rows and columns, the longer the runtime.This effect can also be observed when examining the influence of the treatment number on runtime.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. runtime (random selection)](../thesis/images/Rplots/SA-Fast-eva/SA-Fast-trt-vs-runtime.png){fig-align="center" width=70%}
-:::
+![#treatments v.s. runtime (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-trt-vs-runtime.png){#fig-TvTSAexp fig-align="center" width=70%}
 
 Similarly, we can observe that as the treatment number increases, the runtime also increases. Additionally, as the number of rows increases, the vertical axis of the plot also grows, indicating their positive correlation.
 
@@ -156,42 +131,30 @@ Now we compare the effectiveness of different algorithms. To simplify the proces
 #### Comparing with difference
 Now, we use the difference to compare the computational efficiency of different algorithms. We present the figures showing the influence of row number, column number, and treatment number on the difference for the three algorithms. Note that for random selection and SA with exponential cooling, the method for calculating the difference is the same as for SA with logarithmic cooling, which means it represents the relative difference, that is $d = (A_{op}-A_{result})/A_{op}$.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/r-vs-D.png){fig-align="center" width=70%}
-:::
+![#rows v.s. difference](images/Rplots/means/r-vs-D.png){#fig-RvD fig-align="center" width=70%}
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/c-vs-D.png){fig-align="center" width=70%}
-:::
+![#columns v.s. difference](images/Rplots/means/c-vs-D.png){#fig-CvD fig-align="center" width=70%}
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/trt-vs-D.png){fig-align="center" width=70%}
-:::
+![#treatments v.s. difference](images/Rplots/means/trt-vs-D.png){#fig-TvD fig-align="center" width=70%}
 
 Overall, it can be observed that for the difference, random selection has the smallest value, SA with exponential cooling is slightly larger, and SA with logarithmic cooling has the largest value. Moreover, SA with logarithmic cooling is more influenced by the three variables. 
 
 In general, for all three algorithms, as the number of rows and columns increases, the relative difference also increases. However, the difference is negatively correlated with the treatment number. As mentioned earlier, a smaller relative difference does not necessarily mean that the absolute distance to the optimal value decreases. We can use the figure below to support this point.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/trt-vs-ABS-D.png){fig-align="center" width=70%}
-:::
+![#treatments v.s. absolute difference](images/Rplots/means/trt-vs-ABS-D.png){#fig-TvabsD fig-align="center" width=70%}
+
 
 It can be seen here that if we consider the absolute difference, it is actually positively correlated with the treatment number.
 
 #### Comparing with runtime
 Now, let's see what the comparison looks like from the perspective of runtime. We present the following figure to illustrate this.
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/r-vs-t.png){fig-align="center" width=70%}
-:::
+![#rows v.s. runtime](images/Rplots/means/r-vs-t.png){#fig-RvT fig-align="center" width=70%}
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/c-vs-t.png){fig-align="center" width=70%}
-:::
 
-::: {#fig-align style="text-align: center"}
-![#rows v.s. difference)](../thesis/images/Rplots/means/trt-vs-t.png){fig-align="center" width=70%}
-:::
+![#colcums v.s. runtime](images/Rplots/means/c-vs-t.png){#fig-CvT fig-align="center" width=70%}:::
+
+![#treatments v.s. runtime](images/Rplots/means/trt-vs-t.png){#fig-TvT fig-align="center" width=70%}
 
 From the figures, we can see that SA with exponential cooling is the fastest, while SA with log cooling takes a bit longer, and random selection requires the longest time. When the number of rows, columns, and treatments is still small, for the design space is limited and the randomness of the algorithms, the differences are less noticeable. However, as these numbers increase, the differences in runtime become more significant, with random selection showing the fastest increase in runtime. Overall, the number of rows, columns, and treatments are all positively correlated with runtime, but the treatment number has a more direct impact on runtime.
 
