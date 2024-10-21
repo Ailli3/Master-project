@@ -10,14 +10,14 @@ editor:
 
 Suppose we have a linear model,
 
-$$\boldsymbol{y}=\mathbf{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$ {#eq-lm}
+$$\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$ {#eq-lm}
 where $\boldsymbol{y}$ is $n\times 1$ vector of $n$ observations,
 $\boldsymbol{\tau}$ is a $t\times 1$ vector of fixed effects,
 $\boldsymbol{\epsilon}$ is the $n\times 1$ vector for error, and
-$\mathbf{X}$ is a design matrix has size $n\times t$. We assume that
+$\boldsymbol{X}$ is a design matrix has size $n\times t$. We assume that
 $\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_{n})$
 and hence
-$\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$.
+$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$.
 
 The log-likelihood of @eq-lm is then given as:
 
@@ -31,7 +31,7 @@ $$ where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
 
 ::: {#lem-fim-lm}
 The Fisher information matrix of @eq-lm is given as $$
-\mathbf{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
+\boldsymbol{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
 $$
 :::
 
@@ -43,33 +43,33 @@ have $$
 $$ and for second derivative is $$
 \frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})==-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
 $$ And in linear model assumption we have
-$\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$
+$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$
 and the Fisher information matrix is unbiased because, in the
 expectation calculation process, we do not involve the randomness of
 $\boldsymbol{y}$. The Fisher information matrix is actually determined
 by the design matrix $\boldsymbol{X}$ and the error variance $\sigma^2$.
 Hence $$
-\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\mathbf{C} 
-$$ So $\mathbf{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}$
+\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\boldsymbol{C} 
+$$ So $\boldsymbol{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}$
 :::
 
 ::: {#lem-lm-var}
 The variance of the fixed effects for @eq-lm is equivalent to the
 inverse of the Fisher information matrix, i.e.
-$var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \mathbf{C}^{-1}.$
+$var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \boldsymbol{C}^{-1}.$
 :::
 
 ::: proof
 We know that the MLE of $\boldsymbol{\tau}$ in a linear model is
 $\hat{\boldsymbol{\tau}}=(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{y}$.
 By assumption we have
-$\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)$.
+$\boldsymbol{y} \sim N(\boldsymbol{X}\boldsymbol{\tau}, \sigma^2\boldsymbol{I}_n)$.
 So
 $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1})$.So
 we have
 $var(\hat{\boldsymbol{\tau}}) = \sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1}$,
 which is exactly the inverse of Fisher information matrix
-$\mathbf{C}^{-1}$.
+$\boldsymbol{C}^{-1}$.
 :::
 
 ## Linear mixed model
@@ -100,8 +100,8 @@ N\left(
 \end{bmatrix}
 ,
 \begin{bmatrix}
-\boldsymbol{G} & \mathbf{0} \\
-\mathbf{0} & \boldsymbol{R}
+\boldsymbol{G} & \boldsymbol{0} \\
+\boldsymbol{0} & \boldsymbol{R}
 \end{bmatrix}
 \right),
 $$ where $\boldsymbol{G}$ is the $q \times q$ variance matrix for
@@ -154,14 +154,13 @@ following objective function:
 $$
 \log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
 $$
-:::{#lem-joint-density-lmm}
-So log of joint density is given as
 
+::: {#lem-joint-density-lmm}
+So log of joint density is given as
 $$\begin{aligned}
 \mathscr{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
-&=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
+&=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
 \end{aligned}$$
-
 :::
 
 ::: proof
@@ -284,8 +283,6 @@ To discover the relationship between the A-value and the design matrix,
 I need to find the variance-covariance matrix of
 $\hat{\boldsymbol{\tau}}$. In fact, it can be proof that
 $\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
-
-(lemma and proof)
 
 From @eq-ll and @eq-asp, we have
 $\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)$
@@ -423,14 +420,13 @@ $$
 \boldsymbol{S} = \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}
 $$
 And base on the complement of $\boldsymbol{C}_{11}$, we rewrite the $\boldsymbol{S}$
-$$
 $$\begin{aligned}
 \boldsymbol{S}
 &=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &=\boldsymbol{C}_{11}
 \end{aligned}$$
-$$
+
 So $var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}$.
 
 So we have
@@ -514,31 +510,31 @@ adjacent to another. This matrix serves as a crucial tool in my
 optimization process, enabling precise tracking and adjustment of
 treatment placements to achieve neighbour balance.
 
-We denote the adjacency matrix as $\boldsymbol{A}$, and for treatment
-$i$ and $j$ in treatment set $T$ $\boldsymbol{A}_{ij}$ represents the
+We denote the adjacency matrix as $\mathcal{U}$, and for treatment
+$i$ and $j$ in treatment set $T$ $\mathcal{U}_{ij}$ represents the
 count of times treatment $i$ is adjacent to treatment $j$. Here
 "adjacent" means treatment $j$ is located next to treatment $i$ (maybe a
 picture to show it)
 
 For Given design $\mathcal{D}$ and $\mathcal{D}_{r,c}$ represents the
-treatment at row $r$ and column $c$. So $\boldsymbol{A}_{ij}$ can be
+treatment at row $r$ and column $c$. So $\mathcal{U}_{ij}$ can be
 expressed as:
 
 $$
-\boldsymbol{A}_{ij}=\sum_{r=1}^{R}\sum_{c=1}^{C}I_{r,c}(i) F_{r,c}(j)
+\mathcal{U}_{ij}=\sum_{r=1}^{n_r}\sum_{c=1}^{n_c}I_{r,c}(i) F_{r,c}(j)
 $$
 where
 $$
 F_{r,c}(j)=
 \sum_{m \in \{-1,0,1\}}\sum_{n \in \{-1,1\}}I_{r+m,c+n}(j)+\sum_{m \in \{-1,1\}}I_{r+m,c}(j)
 $$
-$R$ and $C$ are total number of rows and columns and $I_{r,c}(\cdot)$ is
+$n_r$ and $n_c$ are total number of rows and columns and $I_{r,c}(\cdot)$ is
 the indicator function, which takes value under following cases
 $$
 I_{r,c}(i)=
 \begin{cases}
 1 & \text{if } \mathcal{D}_{r,c}=i \\
-0 & \text{if } \mathcal{D}_{r,c}\neq i & \text{or } r<1,r>R,c<1,c>C\\
+0 & \text{if } \mathcal{D}_{r,c}\neq i \; \text{or } r<1,r>n_r,c<1,c>n_c\\
 \end{cases}
 $$
 
@@ -547,9 +543,9 @@ times that treatment $j$ occurs at places around the position row
 $r$ and column $c$.
 
 We measure NB by taking difference of the maximum and minimum of the elements in adjacency matrix
-$\boldsymbol{A}$. Our NB criteria is
+$\mathcal{U}$. Our NB criteria is
 $$
-C_{NB}=max\{\boldsymbol{A}_{ij}\}-min\{\boldsymbol{A}_{ij}\}  \quad i,j\in T
+C_{NB}=max\{\mathcal{U}_{ij}\}-min\{\mathcal{U}_{ij}\}  \quad i,j\in T
 $$
 
 #### Evaluating ED with minimum row and column span
@@ -557,7 +553,7 @@ The goal of evaluating the evenness of distribution (ED) is to find the row and 
 
 The row span for a given treatment $t \in T$ is defined as the difference between the maximum and minimum row indices where t appears in experiment field.
 $$
-RS(t)=max\{r:\mathcal{D}_{r,c}=t\}-min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<R,\quad 1<c<C
+RS(t)=max\{r:\mathcal{D}_{r,c}=t\}-min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 $$
 And the minimum row span of a design $\mathcal{D}$ is 
 $$
@@ -565,7 +561,7 @@ MRS(\mathcal{D})=min\{RS(t)\},\quad t \in T
 $$
 Same for column span
 $$
-CS(t)=max\{c:\mathcal{D}_{r,c}=t\}-min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<R,\quad 1<c<C
+CS(t)=max\{c:\mathcal{D}_{r,c}=t\}-min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 $$
 $$
 MCS(\mathcal{D})=min\{CS(t)\},\quad t \in T
