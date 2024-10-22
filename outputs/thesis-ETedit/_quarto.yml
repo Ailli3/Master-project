@@ -43,6 +43,8 @@ supervisor:
   - A/Prof Katherine Turner
 
 format:
-  anu-thesis-html: default
+  anu-thesis-html: 
+    default-image-extension: svg
   anu-thesis-pdf:
     keep-tex: true
+    default-image-extension: pdf
