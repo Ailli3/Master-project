@@ -435,7 +435,7 @@ Now, we use the difference to compare the computational efficiency of different 
 
 ```{r}
 #| label: fig-RvD
-#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result}$ by the number of rows for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average relative difference between $A_{op}$ and $A_{result}$ by the number of rows for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -451,7 +451,7 @@ results |>
 
 ```{r}
 #| label: fig-CvD
-#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result}$ by the number of columns for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average relative difference between $A_{op}$ and $A_{result}$ by the number of columns for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -467,7 +467,7 @@ results |>
 
 ```{r}
 #| label: fig-TvD
-#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result} by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average relative difference between $A_{op}$ and $A_{result}$ by the number of treatments for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -486,7 +486,7 @@ In general, for all three algorithms, as the number of rows and columns increase
 
 ```{r}
 #| label: fig-TvDabs
-#| fig-cap: "The above plot shows the average absolute difference between $A_{op}$ and $A_{result} by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average absolute difference between $A_{op}$ and $A_{result}$ by the number of treatments for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -506,7 +506,7 @@ Now, let's see what the comparison looks like from the perspective of runtime. W
 
 ```{r}
 #| label: fig-RvT
-#| fig-cap: "The above plot shows the average runtime by the number of rows for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "the average runtime by the number of rows for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -520,7 +520,7 @@ results |>
 
 ```{r}
 #| label: fig-CvT
-#| fig-cap: "The above plot shows the average runtime by the number of columns for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average runtime by the number of columns for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
@@ -534,7 +534,7 @@ results |>
 
 ```{r}
 #| label: fig-TvT
-#| fig-cap: "The above plot shows the average runtime by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| fig-cap: "The average runtime by the number of treatments for different algorithms, with the lines representing different algorithms."
 #| warning: false
 
 results |>
