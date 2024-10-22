@@ -2,12 +2,12 @@
 
 | Notation            | Meaning                                        |
 |---------------------|------------------------------------------------|
-| $\boldsymbol{y}$                          | Response variable vector                       |
-| $\boldsymbol{u}$                        | Parameter vector of blocking effects           |
-| $\hat{\boldsymbol{u}}_{llm}$            | Estimated parameter vector of blocking effects by log-likelihood maximization |
-| $\boldsymbol{\tau}$                         | Parameter vector of treatments effects           |
-| $\hat{\boldsymbol{\tau}}_{gls}$     | Estimated parameter vector of treatments effects by generalized least squares |
-| $\hat{\boldsymbol{\tau}}_{llm}$     | Estimated parameter vector of treatments effects by log-likelihood maximization |
+| $\boldsymbol{y}$                          | Response variable vector               |
+| $\boldsymbol{u}$                        | Parameter vector of blocking effects      |
+| $\hat{\boldsymbol{u}}_{llm}$            | Estimated parameter vector of blocking effects by log-likelihood maximization|
+| $\boldsymbol{\tau}$                         | Parameter vector of treatments effects       |
+| $\hat{\boldsymbol{\tau}}_{gls}$     | Estimated parameter vector of treatments effects by generalized least squares|
+| $\hat{\boldsymbol{\tau}}_{llm}$     | Estimated parameter vector of treatments effects by log-likelihood maximization|
 | $\boldsymbol{\epsilon}$     | Parameter vector of model error            |
 | $\boldsymbol{Z}$                | Blocking factor matrix                         |
 | $\boldsymbol{X}$            | Design matrix for treatments                   |

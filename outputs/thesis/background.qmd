@@ -137,10 +137,10 @@ $\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}$
 then we have the form of estimation for
 $\hat{\boldsymbol{\tau}}$, which is
 $$
-\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
+\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
 $$
 and the estimation of $\boldsymbol{\tau}$ is
-$\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}$,
+$\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}$,
 Now, we only need to prove that $\boldsymbol{P}=\boldsymbol{V}^{-1}$.
 
 $$\begin{aligned}
@@ -154,7 +154,7 @@ $$\begin{aligned}
 &= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
 & = \boldsymbol{I}
 \end{aligned}$$
-we have our proof
+so we have $\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}=\hat{\boldsymbol{\tau}}= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}$.
 :::
 
 :::
@@ -182,11 +182,11 @@ where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
 ::: {#lem-fim-lm}
 The Fisher information matrix of @eq-lm is given as
 $$
-\mathbf{C}_{lmm} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+\boldsymbol{C}_{\text{Fisher}} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
 $$
 :::
 
-And we have $\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{lmm}^{-1})$.We will provide the specific form of this matrix and the related proof in the introduction of the A-value.
+And we have $\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{\text{Fisher}}^{-1})$.We will provide the specific form of this matrix and the related proof in the introduction of the A-value.
 
 ### A-criterion
 
@@ -262,7 +262,7 @@ So from @eq-ll we have
 $$
 \begin{bmatrix}
 \hat{\boldsymbol{\tau}} \\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{u}}
 \end{bmatrix}
 =
 \begin{bmatrix}

@@ -19,8 +19,9 @@ The random effects are modeled through the matrix $\boldsymbol{Z}$ and parameter
 With $\boldsymbol{y}$ as the vector of observed responses and $\boldsymbol{\epsilon}$ as error term, a row-column design can be modeled by @eq-lmm . where $\boldsymbol{X\tau}$ represents the fixed treatment effects and $\boldsymbol{Zu}$ captures the random variations basing on rows and columns. 
 
 ### Random effects matrix
-The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
+The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure, denoted as $\boldsymbol{Z}$. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
 $$
+\boldsymbol{Z}_{\text{example}}=
 \begin{bmatrix}
 \begin{array}{cccc|cccc}
 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
@@ -50,6 +51,7 @@ In a more general case, suppose we have a $m\times n$ row-column experiment fiel
 The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable.  In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use $4\times 4$ experiment field as example, and suppose we have $4$ different treatments for each have $4$ replications, needing $16$ experiment unite. An example design matrix $\boldsymbol{X}$ for treatments should be a $16\times 4$ matrix with binary indicators as shown below
 
 $$
+\boldsymbol{X}_{\text{example}}=
 \begin{bmatrix}
 1 & 0 & 0 & 0\\
 0 & 1 & 0 & 0\\
@@ -132,7 +134,7 @@ Now we proof the existence of minimum value of $\boldsymbol{X}$, where $\boldsym
 Recalling @eq-an 
 
 $$
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
 $$
 This expression is well-defined for all valid design matrices $\boldsymbol{X}$. So function $A(\boldsymbol{X})$ is well-defined.
 

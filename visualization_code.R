@@ -59,7 +59,6 @@ ggplot(data_plot_rs, aes(x = Iteration, y = A_criterion)) +
   geom_text(data = last_point, aes(x = Iteration, y = A_criterion, label = paste0("(", Iteration, ", ", round(A_criterion, 6), ")")),
             vjust = -1, hjust = 1, color = "red") +
   labs(
-    title = "A-criterion over Iterations (Random Selection)",
     x = "Iteration",
     y = "A-criterion"
   ) +

@@ -2,9 +2,22 @@
 editor: 
   markdown: 
     wrap: 72
+execute:
+  echo: false
+  fig-align: center
+  fig-width: 10
+  fig-height: 7
 ---
 
 # Results {#sec-results}
+
+```{r}
+#| include: false
+library(tidyverse)
+theme_set(theme_bw(base_size = 14))
+results <- readRDS("data/results.rds")
+load("data/visualization_data.RData")
+```
 
 ## Simulation set-up
 To begin the Results section, we’ll look at the foundational set-up of my simulation. In order to streamline the computation within limited computational resources, I implemented a series of simplifications.
@@ -34,37 +47,164 @@ For the cases when treatment number cannot evenly divide the product of rows and
 Now we observe the overall behaviour of the algorithm, to examine the change of A-value during the process. We here use example with $n_c=n_r=15$ and $n_\tau=50$. we now use blocksdesign functions to generate a optimal design $\mathcal{D}_{op}$ with A-value $A_{op} = 0.5027$ under set-up, NB criteria $C_{NB}(\mathcal{D}_{op})=3$ and ED criteria $MRS(\mathcal{D}_{op})=MCS(\mathcal{D}_{op})=5$. See detailed assignment as follow
 
 
-![blocksdesign out put](images/Rplots/block-design-visualization.png){#fig-funcoutput fig-align="center" width=70%}
+```{r}
+#| label: fig-blockdesign
+#| fig-cap: "Detailed assignment for treatments given by design function in blocksdesign package "
+#| warning: false
+A_design$trt_num <- as.numeric(gsub("T", "", A_design$trt))
+
+# Plot with a gradient color scale and numeric-only treatment labels
+ggplot(A_design, aes(x = col, y = row, fill = trt_num)) +
+  geom_tile(color = "white") +  # Creates grid cells
+  scale_y_reverse() +           # Ensures row 1 starts from top
+  labs(x = "Column",
+       y = "Row") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  geom_text(aes(label = trt_num), color = "black", size = 3) + # Uses numeric label only
+  scale_fill_gradient(name = "Treatment", 
+                      low = "blue", high = "white")
+```
 
 
 #### Random selection
-We now look at how random selection behave during the process. The iteration stops at $549$-th step with output A-value $A_{rs}=0.050478$ and NB criteria $C_{NB}(\mathcal{D}_{rs})=4$ and ED criteria $MRS(\mathcal{D}_{rs})=5$ and $MCS(\mathcal{D}_{rs})=7$. The changes in the A-value over iterations and the specific design are shown in the figure below.
+We now look at how random selection behave during the process. The iteration stops at $549$-th step with output A-value $A_{rs}=0.050478$ and NB criteria $C_{NB}(\mathcal{D}_{rs})=4$ and ED criteria $MRS(\mathcal{D}_{rs})=5$ and $MCS(\mathcal{D}_{rs})=7$. The changes in the A-value over iterations and the specific design are shown in @fig-AvIRS and @fig-RS.
+
+```{r}
+#| label: fig-AvIRS
+#| fig-cap: "A v.s. Iteration (Random search) "
+#| warning: false
+ggplot(data_plot_rs, aes(x = Iteration, y = A_criterion)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(data = last_point, aes(x = Iteration, y = A_criterion), color = "red", size = 2) +
+  geom_text(data = last_point, aes(x = Iteration, y = A_criterion, label = paste0("(", Iteration, ", ", round(A_criterion, 6), ")")),
+            vjust = -1, hjust = 1, color = "red") +
+  labs(
+    x = "Iteration",
+    y = "A-criterion"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Centered, bold title
+    panel.grid.major = element_line(color = "gray80"),
+    panel.grid.minor = element_line(color = "gray90"),
+    panel.border = element_rect(color = "black", fill = NA, size = 1)
+  )
+```
 
 
-![A v.s. Iteration (Random search)](images/Rplots/random-selection-example.png){#fig-AvIRS fig-align="center" width=70%}
+```{r}
+#| label: fig-RS
+#| fig-cap: "Detailed assignment for treatments given by random search "
+#| warning: false
+design_RS$trt_num <- as.numeric(gsub("T", "", design_RS$trt))
 
-![Random search out put design](images/Rplots/Random-search-design-visualization.png){#fig-RSoutput fig-align="center" width=70%}
+# Plot with a gradient color scale and numeric-only treatment labels
+ggplot(design_RS, aes(x = col, y = row, fill = trt_num)) +
+  geom_tile(color = "white") +  # Creates grid cells
+  scale_y_reverse() +           # Ensures row 1 starts from top
+  labs(x = "Column",
+       y = "Row") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  geom_text(aes(label = trt_num), color = "black", size = 3) + # Uses numeric label only
+  scale_fill_gradient(name = "Treatment", 
+                      low = "blue", high = "white")
+```
 
 From the results, the A-value obtained by Random Search is relatively close to that of the block design, though slightly larger, as is the NB statistic. Recall that we would like A-value and $C_{NB}$ to be as small as possible, and for both $MRC$ and $MRC$, the larger the better. Therefore, the Random Search outcome has a larger minimum column span, meaning it preform better on evenness of distribution.
 
 #### SA with log cooling schedule
-For SA using the log cooling schedule @eq-logcol,Unlike random selection, the algorithm accepts higher A-values with a certain probability, causing fluctuations in A-values throughout the iterations, resulting in rises and falls rather than a steady decline. Details can be seen in the figure below.
+For SA using the log cooling schedule @eq-logcol,Unlike random selection, the algorithm accepts higher A-values with a certain probability, causing fluctuations in A-values throughout the iterations, resulting in rises and falls rather than a steady decline. Details can be seen in the @fig-AvISAlog and @fig-SAlog.
 
-![A v.s. Iteration (SA with log cooling schedule)](images/Rplots/SA-SLOW-example.png){#fig-AvISAlog fig-align="center" width=70%}
+```{r}
+#| label: fig-AvISAlog
+#| fig-cap: "A v.s. Iteration (SA with log cooling schedule) "
+#| warning: false
+ggplot(data_plot_SA_SLOW, aes(x = Iteration, y = A_criterion)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(data = last_point_SA_SLOW, aes(x = Iteration, y = A_criterion), color = "red", size = 2) +
+  geom_text(data = last_point_SA_SLOW, aes(x = Iteration, y = A_criterion, label = paste0("(", Iteration-1, ", ", round(A_criterion, 6), ")")),
+            vjust = -1, hjust = 1, color = "red") +
+  labs(
+    x = "Iteration",
+    y = "A-criterion"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Centered, bold title
+    panel.grid.major = element_line(color = "gray80"),
+    panel.grid.minor = element_line(color = "gray90"),
+    panel.border = element_rect(color = "black", fill = NA, size = 1)
+  )
+```
 
-![SA with log cooling schedule out put design](images/Rplots/SA-SLOW-visualization.png){#fig-SAlogoutput fig-align="center" width=70%}
 
+```{r}
+#| label: fig-SAlog
+#| fig-cap: "Detailed assignment for treatments given by SA with log cooling schedule "
+#| warning: false
+design_RS$trt_num <- as.numeric(gsub("T", "", design_RS$trt))
+# Plot with a gradient color scale and numeric-only treatment labels
+ggplot(design_SA_SLOW, aes(x = col, y = row, fill = trt_num)) +
+  geom_tile(color = "white") +  # Creates grid cells
+  scale_y_reverse() +           # Ensures row 1 starts from top
+  labs(
+       x = "Column",
+       y = "Row") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  geom_text(aes(label = trt_num), color = "black", size = 3) + # Uses numeric label only
+  scale_fill_gradient(name = "Treatment",
+                      low = "blue", high = "white")
+```
 
 As it indicate in the plot, the process went through all iterations, reaching maximum iteration number $M$. At the 2000th iteration, the A-value is $A_{SAlog}=0.050609$ with NB criteria $C_{SAlog}(\mathcal{D}_{SAlog})=5$ and ED criteria $MRS(\mathcal{D}_{SAlog})=7$ and $MCS(\mathcal{D}_{SAlog})=6$.
 
 Compared to random selection, the optimization of the A-value in SA is less effective, since the limitation of a maximum iteration number $M$.Similar to the NB statistic, where SA shows a less optimal outcome than the block design. However, the two ED statistics given by SA are significantly improved compared to those provided by the blockdesign function and random selection. Because of the slower decrease in acceptance rates for higher A-values with log cooling schedule, we observe that the algorithm occasionally continues to accept larger A-values even in the latter stages. 
 
 #### SA with exp cooling schedule
-This is also SA but with an exponential cooling schedule @eq-expcol. Although exponential cooling schedule does not theoretically guarantee SA convergence to the global optimum, it can produce a relatively near-optimal solution within finite computational resources and time constraints. Because of the rapid temperature decrease in exponential cooling, the algorithm initially shows fluctuations in A-values at the beginning of the iterations. However, as the number of iterations increases, the acceptance rate for larger A-values declines quickly, and algorithm tend to avoid accepting higher A-values.Details are shown in the figure below
+This is also SA but with an exponential cooling schedule @eq-expcol. Although exponential cooling schedule does not theoretically guarantee SA convergence to the global optimum, it can produce a relatively near-optimal solution within finite computational resources and time constraints. Because of the rapid temperature decrease in exponential cooling, the algorithm initially shows fluctuations in A-values at the beginning of the iterations. However, as the number of iterations increases, the acceptance rate for larger A-values declines quickly, and algorithm tend to avoid accepting higher A-values.Details are shown in the @fig-SAexp and @fig-SAlog
 
-![A v.s. Iteration (SA with exp cooling schedule)](images/Rplots/SA-F-example.png){#fig-AvISAexp fig-align="center" width=70%}
+```{r}
+#| label: fig-AvISAexp
+#| fig-cap: "A v.s. Iteration (SA with exp cooling schedule)"
+#| warning: false
+ggplot(data_plot_SA_F, aes(x = Iteration, y = A_criterion)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(data = last_point_SA_F, aes(x = Iteration, y = A_criterion), color = "red", size = 2) +
+  geom_text(data = last_point_SA_F, aes(x = Iteration, y = A_criterion, label = paste0("(", Iteration, ", ", round(A_criterion, 6), ")")),
+            vjust = -1, hjust = 1, color = "red") +
+  labs(
+    x = "Iteration",
+    y = "A-criterion"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),  # Centered, bold title
+    panel.grid.major = element_line(color = "gray80"),
+    panel.grid.minor = element_line(color = "gray90"),
+    panel.border = element_rect(color = "black", fill = NA, size = 1)
+  )
+```
 
-![SA with exp cooling schedule out put design](images/Rplots/SA-F-visualization.png){#fig-SAexpoutput fig-align="center" width=70%}
+```{r}
+#| label: fig-SAexp
+#| fig-cap: "Detailed assignment for treatments given by SA with exp cooling schedule "
+#| warning: false
+
+ggplot(design_SA_F, aes(x = col, y = row, fill = trt_num)) +
+  geom_tile(color = "white") +  # Creates grid cells
+  scale_y_reverse() +           # Ensures row 1 starts from top
+  labs(
+       x = "Column",
+       y = "Row") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  geom_text(aes(label = trt_num), color = "black", size = 3) + # Uses numeric label only
+  scale_fill_gradient(name = "Treatment",
+                      low = "blue", high = "white")
+```
 
 The iteration process stopped at the $1341$-st iteration because the A-value had come sufficiently close to the blockdesign A-value. The results show that the A-value achieved is $A_{SAexp} = 0.050473$, with an NB statistic $C_{SAexp}(\mathcal{D}_{rs})=4$, and ED statistics $MRS(\mathcal{D}_{SAexp})=5$ and $MCS(\mathcal{D}_{SAexp})=6$. 
 
@@ -76,51 +216,212 @@ In contrast, random selection evaluates multiple permutations (equal to the step
 
 Now we begin to explore the relationship between function runtime and the number of rows, columns, and treatments. Generally, runtime is proportional to the number of iterations. Here, we have set the maximum number of iterations to 2000. If in the simulation most runs reach the maximum number of iterations, then evaluating the relationship between runtime and rows, columns, and treatment numbers will no longer be meaningful.Therefore, before the analysis, we need to examine the distribution of iteration numbers. If most of the simulations do not reach the maximum number of iterations, we can use runtime as a measure of computational efficiency.
 
-For random selection, many simulations did not reach the maximum number of iterations, which can be observed in the figure.
+For random selection, many simulations did not reach the maximum number of iterations, which can be observed in @fig-iteration-ditribution-RS.
 
-![Proportion of Iterations (Random Selection)](images/Rplots/RS_eva/RS-iternum-distribution.png){#fig-PoIRS fig-align="center" width=70%}
+```{r}
+#| label: fig-iteration-ditribution-RS
+#| fig-cap: "Proportion of Iteration number for random selection"
+#| warning: false
+RS_results <- results %>%
+  filter(algorithm == "Random Selection")
+
+iteration_summary <- RS_results %>%
+  mutate(iteration_group = ifelse(iteration_number == 2000, "Reached 2000", "Below 2000")) %>%
+  group_by(iteration_group) %>%
+  summarise(count = n())
+
+ggplot(iteration_summary, aes(x = "", y = count, fill = iteration_group)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +  
+  labs(
+    fill = "Iteration Group"
+  ) +
+  theme_void() +  
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 10),
+    legend.position = "right"
+  ) +
+  scale_fill_manual(values = c("Below 2000" = "skyblue", "Reached 2000" = "lightcoral"))
+```
 
 So we present the relationship between runtime and the number of rows under different treatment numbers, as shown in the figures below. As mentioned earlier, we have three replications for each combination of rows, columns, and treatment numbers. We calculate the average of the three replications for each combination as the final result.
 
-![#rows v.s. runtime (random selection)](images/Rplots/RS_eva/RS-row-vs-runtime.png){#fig-RvTRS fig-align="center" width=70%}
+```{r}
+#| label: fig-RvTRS
+#| fig-cap: "The above plot shows the average runtime by the number of rows with the color indicating the number of columns and facetted by the number of treatments t for Random Selection algorithm."
+#| warning: false
+results |>
+  filter(algorithm == "Random Selection") |>  
+  summarise(runtime = mean(runtime), .by = c(rows, cols, treatments_number),
+            runtime_low = quantile(runtime, 0.025),
+            runtime_high = quantile(runtime, 0.975)) |>
+  mutate(t = treatments_number) |>
+  ggplot(aes(rows, runtime, color = factor(cols))) +
+  geom_smooth(size = 1, method = "loess", se = FALSE, span = 0.5) +
+  facet_wrap(~t, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of rows", y = "Average runtime (seconds)", color = "Number of columns")
+```
 
 We can observe that, under different numbers of columns, the relationship between rows and runtime tends to be similar. Here, we will not discuss the origin or significance of this trend but instead focus on the relation between variables and runtime.  There is no clear positive or negative relationship between the number of rows and runtime. We see that as the number of rows increases, the runtime does not consistently increase or decrease, which is related to the randomness of random selection. During the iteration process, we might be lucky enough to find a good design early and terminate the iteration, or the A-value may gradually decrease over the iterations.
 
-However, by observing the vertical axis of different subplots, we can see that as the number of treatments increases, the range of runtime fluctuations also increases. To demonstrate this, we present the relationship between the number of treatments and runtime under different rows and columns.
+However, by observing the vertical axis of different subplots, we can see that as the number of treatments increases, the range of runtime fluctuations also increases. To demonstrate this, we present the relationship between the number of treatments and runtime under different rows and columns as @fig-TvTRS shows.
 
-
-![#treatments v.s. runtime (random selection)](images/Rplots/RS_eva/RS-trt-vs-runtime.png){#fig-TvTRS fig-align="center" width=70%}
-
+```{r}
+#| label: fig-TvTRS
+#| fig-cap: "The above plot shows the average runtime by the number of treatments with the color indicating the number of rows, facetted by the number of columns for Random Selection algorithm."
+#| warning: false
+results |>
+  filter(algorithm == "Random Selection") |>  
+  summarise(runtime = mean(runtime), .by = c(rows, cols, treatments_number),
+            runtime_low = quantile(runtime, 0.025),
+            runtime_high = quantile(runtime, 0.975)) |>
+  mutate(t = treatments_number) |>
+  ggplot(aes(treatments_number, runtime, color = factor(rows))) +
+  geom_smooth(size = 1, method = "loess", se = FALSE, span = 1) +
+  facet_wrap(~cols, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of treatments", y = "Average runtime (seconds)", color = "Number of rows")
+```
 
 By observing the figure, we can see that as the number of treatments increases, runtime shows a positive correlation, indicating that with more treatments, random selection requires more time to find permutations and make comparisons.
 
-This approach leads us to consider the relationship between the number of treatments and runtime. However, for SA with log cooling, due to the slow convergence of log cooling and the limitation of a maximum number of iterations, the algorithm often runs until the maximum number of iterations is reached. This makes it difficult to observe the relationship between the number of treatments and runtime, as runtime is often related to the maximum number of iterations. See the image below for details. 
+This approach leads us to consider the relationship between the number of treatments and runtime. However, for SA with log cooling, due to the slow convergence of log cooling and the limitation of a maximum number of iterations, the algorithm often runs until the maximum number of iterations is reached. This makes it difficult to observe the relationship between the number of treatments and runtime, as runtime is often related to the maximum number of iterations. See @fig-iteration-ditribution-SAlog below for details. 
+```{r}
 
-![Proportion of Iterations (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-iternum-distribution.png){#fig-PoISAlog fig-align="center" width=70%}
+#| label: fig-iteration-ditribution-SAlog
+#| fig-cap: "Proportion of Iteration number for SA with log cooling schedule"
+#| warning: false
+SA_Slow_results <- results %>%
+  filter(algorithm == "SA log Cooling")
 
+iteration_summary <- SA_Slow_results %>%
+  mutate(iteration_group = ifelse(iteration_number == 2000, "Reached 2000", "Below 2000")) %>%
+  group_by(iteration_group) %>%
+  summarise(count = n())
+
+ggplot(iteration_summary, aes(x = "", y = count, fill = iteration_group)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") + 
+  labs(
+    fill = "Iteration Group"
+  ) +
+  theme_void() +  
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 10),
+    legend.position = "right"
+  ) +
+  scale_fill_manual(values = c("Below 2000" = "skyblue", "Reached 2000" = "lightcoral"))
+```
 
 In the figure, we can see that only when the number of rows and columns is small, meaning the design space is limited, SA with log cooling can terminate before reaching the maximum number of iterations. In most other cases, the algorithm stops when it reaches the maximum number of iterations. Therefore, we use the difference $d = (A_{SAlog}-A_{op})/A_{op}$ between the A-value obtained by SA with log cooling at the maximum number of iterations and the A-value calculated by the blockdesign function to evaluate the impact of the number of rows, columns, and treatments on the efficiency of the algorithm.
 
-We first look at the influence of the number of rows on the distance. Similar to the analysis method used for random selection, we provide the following figure.
+We first look at the influence of the number of rows on the distance. Similar to the analysis method used for random selection, we provide @fig-RvDSAlog.
 
-![#rows v.s. difference (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-row-vs-diff.png){#fig-RvDSAlog fig-align="center" width=70%}
+```{r}
+#| label: fig-RvDSAlog 
+#| fig-cap: "The above plot shows the difference between $A_{SAlog}$ and $A_{op}$ by the number of rows with the color indicating the number of columns and facetted by the number of treatments for SA log Cooling algorithm."
+#| warning: false
+
+results |>
+  filter(algorithm == "SA log Cooling") |>  
+  mutate(A_diff = abs(A_true - A_result)/A_true) |>  
+  summarise(A_diff = mean(A_diff), .by = c(rows, cols, treatments_number)) |>
+  ggplot(aes(rows, A_diff, color = factor(cols))) +
+  geom_smooth(se = FALSE, method = "loess") +
+  facet_wrap(~treatments_number, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of rows", y = "Average difference of A-value", color = "Number of columns")
+```
 
 From the above figure, it is evident that the number of rows and columns is positively correlated with the difference. The greater the number of rows, the larger the difference. Similarly, the greater the number of columns, the higher the lines (towards the red), indicating a larger difference. Based on previous experience, we attempt to examine the relationship between the number of treatments and distance, as shown in the figure below.
 
-![#treatments v.s. difference (SA with log cooling schedule)](images/Rplots/SA-Slow-eva/SA-Slow-trt-vs-diff.png){#fig-TvDSAlog fig-align="center" width=70%}
+```{r}
+#| label: fig-TvDSAlog
+#| fig-cap: "The above plot shows the difference between $A_{SAlog}$ and $A_{op}$ by the number of treatments, with the color indicating the number of rows and facetted by the number of columns for SA with log cooling algorithm."
+#| warning: false
+results |>
+  filter(algorithm == "SA log Cooling") |>
+  mutate(A_diff = abs(A_true - A_result)/A_true) |>
+  summarise(A_diff = mean(A_diff), .by = c(rows, cols, treatments_number)) |>
+  ggplot(aes(treatments_number, A_diff, color = factor(rows))) +
+  geom_smooth(se = FALSE, method = "loess") + 
+  facet_wrap(~cols, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of treatments", y = "Average difference of A-value", color = "Number of rows")
+```
 
 The results show that the treatment number is negatively correlated with the difference. In other words, as the treatment number increases, the resulting value (whether the iteration stops early or reaches the maximum number of iterations) tends to be closer to the optimal value. However, this does not necessarily mean that the absolute distance to the optimal value decreases.
 
 For SA with exponential cooling, we also examine the distribution of the iteration numbers.
-![Proportion of Iterations (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-iternum-distribution.png){#fig-PoISAexp fig-align="center" width=70%}
 
-It can be seen that most of the simulations did not reach the maximum number of iterations, so we can use runtime to compare the effects of rows, columns, and treatment numbers on the algorithm.
+```{r}
+#| label: fig-iteration-ditribution-SAlog
+#| fig-cap: "Proportion of Iteration number for SA with exp cooling schedule"
+#| warning: false
+SA_FAST_results <- results %>%
+  filter(algorithm == "SA exp Cooling")
 
-![#rows v.s. runtime (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-row-vs-runtime.png){#fig-RvTSAexp fig-align="center" width=70%}
+iteration_summary <- SA_FAST_results %>%
+  mutate(iteration_group = ifelse(iteration_number == 2000, "Reached 2000", "Below 2000")) %>%
+  group_by(iteration_group) %>%
+  summarise(count = n())
+
+
+ggplot(iteration_summary, aes(x = "", y = count, fill = iteration_group)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(
+    fill = "Iteration Group"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 10),
+    legend.position = "right"
+  ) +
+  scale_fill_manual(values = c("Below 2000" = "skyblue", "Reached 2000" = "lightcoral"))
+```
+
+It can be seen that most of the simulations did not reach the maximum number of iterations, so we can use runtime to compare the effects of rows, columns, and treatment numbers on the algorithm. Details in @fig-RvTSAexp
+
+```{r}
+#| label: fig-RvTSAexp
+#| fig-cap: "The above plot shows the runtime by the number of rows with the color indicating the number of columns and facetted by the number of treatments for SA with exp cooling algorithm."
+#| warning: false
+
+results |>
+  filter(algorithm == "SA exp Cooling") |>  
+  summarise(runtime = mean(runtime), .by = c(rows, cols, treatments_number)) |>
+  ggplot(aes(rows, runtime, color = factor(cols))) +
+  geom_smooth(se = FALSE, method = "loess") +  
+  facet_wrap(~treatments_number, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of rows", y = "Average runtime (seconds)", color = "Number of columns")
+```
 
 We can see that when the treatment number is small, the influence of rows and columns on runtime is not significant. This could be because the design space is smaller, and for randomness, the algorithm stops after fewer iterations. As the treatment number increases, the impact of rows and columns on runtime becomes apparent: the greater the number of rows and columns, the longer the runtime.This effect can also be observed when examining the influence of the treatment number on runtime.
 
-![#treatments v.s. runtime (SA with exp cooling schedule)](images/Rplots/SA-Fast-eva/SA-Fast-trt-vs-runtime.png){#fig-TvTSAexp fig-align="center" width=70%}
+
+```{r}
+#| label: fig-TvTSAexp
+#| fig-cap: "The above plot shows the runtime by the number of treatments with the color indicating the number of rows and facetted by the number of columns for the filtered 'SA exp Cooling' algorithm."
+#| warning: false
+
+results |>
+  filter(algorithm == "SA exp Cooling") |>  
+  summarise(runtime = mean(runtime), .by = c(rows, cols, treatments_number)) |>
+  ggplot(aes(treatments_number, runtime, color = factor(rows))) +
+  geom_smooth(se = FALSE, method = "loess") +  
+  facet_wrap(~cols, labeller = label_both) +
+  colorspace::scale_color_discrete_sequential() +
+  labs(x = "Number of treatments", y = "Average runtime (seconds)", color = "Number of rows")
+```
 
 Similarly, we can observe that as the treatment number increases, the runtime also increases. Additionally, as the number of rows increases, the vertical axis of the plot also grows, indicating their positive correlation.
 
@@ -131,30 +432,119 @@ Now we compare the effectiveness of different algorithms. To simplify the proces
 #### Comparing with difference
 Now, we use the difference to compare the computational efficiency of different algorithms. We present the figures showing the influence of row number, column number, and treatment number on the difference for the three algorithms. Note that for random selection and SA with exponential cooling, the method for calculating the difference is the same as for SA with logarithmic cooling, which means it represents the relative difference, that is $d = (A_{op}-A_{result})/A_{op}$.
 
-![#rows v.s. difference](images/Rplots/means/r-vs-D.png){#fig-RvD fig-align="center" width=70%}
 
-![#columns v.s. difference](images/Rplots/means/c-vs-D.png){#fig-CvD fig-align="center" width=70%}
+```{r}
+#| label: fig-RvD
+#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result}$ by the number of rows for different algorithms, with the lines representing different algorithms."
+#| warning: false
 
-![#treatments v.s. difference](images/Rplots/means/trt-vs-D.png){#fig-TvD fig-align="center" width=70%}
+results |>
+  mutate(relative_error = abs(A_true - A_result) / A_true) |> 
+  group_by(algorithm, rows) |>  
+  summarise(relative_error = mean(relative_error), .groups = "drop") |> 
+  ggplot(aes(rows, relative_error, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.2) +
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of rows", y = "Average relative error", color = "Algorithm") 
+```
+
+
+```{r}
+#| label: fig-CvD
+#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result}$ by the number of columns for different algorithms, with the lines representing different algorithms."
+#| warning: false
+
+results |>
+  mutate(relative_error = abs(A_true - A_result) / A_true) |> 
+  group_by(algorithm, cols) |>  
+  summarise(relative_error = mean(relative_error), .groups = "drop") |> 
+  ggplot(aes(cols, relative_error, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.2) +
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of columns", y = "Average relative error", color = "Algorithm") 
+```
+
+
+```{r}
+#| label: fig-TvD
+#| fig-cap: "The above plot shows the average relative difference between $A_{op}$ and $A_{result} by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| warning: false
+
+results |>
+  mutate(relative_error = abs(A_true - A_result) / A_true) |>  
+  group_by(algorithm, treatments_number) |>  
+  summarise(relative_error = mean(relative_error), .groups = "drop") |>  
+  ggplot(aes(treatments_number, relative_error, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.4) +
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of treatments", y = "Average relative error", color = "Algorithm")
+```
 
 Overall, it can be observed that for the difference, random selection has the smallest value, SA with exponential cooling is slightly larger, and SA with logarithmic cooling has the largest value. Moreover, SA with logarithmic cooling is more influenced by the three variables. 
 
-In general, for all three algorithms, as the number of rows and columns increases, the relative difference also increases. However, the difference is negatively correlated with the treatment number. As mentioned earlier, a smaller relative difference does not necessarily mean that the absolute distance to the optimal value decreases. We can use the figure below to support this point.
+In general, for all three algorithms, as the number of rows and columns increases, the relative difference also increases. However, the difference is negatively correlated with the treatment number. As mentioned earlier, a smaller relative difference does not necessarily mean that the absolute distance to the optimal value decreases. We can use the @fig-TvDabs below to support this point.
 
-![#treatments v.s. absolute difference](images/Rplots/means/trt-vs-ABS-D.png){#fig-TvabsD fig-align="center" width=70%}
+```{r}
+#| label: fig-TvDabs
+#| fig-cap: "The above plot shows the average absolute difference between $A_{op}$ and $A_{result} by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| warning: false
 
+results |>
+  mutate(relative_error = abs(A_true - A_result)) |>  
+  group_by(algorithm, treatments_number) |>  
+  summarise(relative_error = mean(relative_error), .groups = "drop") |>  
+  ggplot(aes(treatments_number, relative_error, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.4) +
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of treatments", y = "Average relative error", color = "Algorithm")
+```
 
 It can be seen here that if we consider the absolute difference, it is actually positively correlated with the treatment number.
 
 #### Comparing with runtime
-Now, let's see what the comparison looks like from the perspective of runtime. We present the following figure to illustrate this.
+Now, let's see what the comparison looks like from the perspective of runtime. We present @fig-RvT, @fig-CvT, and @fig-TvT  to illustrate this.
 
-![#rows v.s. runtime](images/Rplots/means/r-vs-t.png){#fig-RvT fig-align="center" width=70%}
+```{r}
+#| label: fig-RvT
+#| fig-cap: "The above plot shows the average runtime by the number of rows for different algorithms, with the lines representing different algorithms."
+#| warning: false
 
+results |>
+  group_by(algorithm, rows) |>
+  summarise(runtime = mean(runtime), .groups = "drop") |> 
+  ggplot(aes(rows, runtime, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.2) + 
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of rows", y = "Average runtime (seconds)", color = "Algorithm")
+```
 
-![#colcums v.s. runtime](images/Rplots/means/c-vs-t.png){#fig-CvT fig-align="center" width=70%}:::
+```{r}
+#| label: fig-CvT
+#| fig-cap: "The above plot shows the average runtime by the number of columns for different algorithms, with the lines representing different algorithms."
+#| warning: false
 
-![#treatments v.s. runtime](images/Rplots/means/trt-vs-t.png){#fig-TvT fig-align="center" width=70%}
+results |>
+  group_by(algorithm, cols) |>  
+  summarise(runtime = mean(runtime), .groups = "drop") |>  
+  ggplot(aes(cols, runtime, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.2) + 
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) + 
+  labs(x = "Number of columns", y = "Average runtime (seconds)", color = "Algorithm") 
+```
+
+```{r}
+#| label: fig-TvT
+#| fig-cap: "The above plot shows the average runtime by the number of treatments for different algorithms, with the lines representing different algorithms."
+#| warning: false
+
+results |>
+  group_by(algorithm, treatments_number) |> 
+  summarise(runtime = mean(runtime), .groups = "drop") |> 
+  ggplot(aes(treatments_number, runtime, color = algorithm)) +
+  geom_smooth(se = FALSE, method = "loess",span = 0.4) +
+  scale_color_manual(values = c("SA exp Cooling" = "blue", "SA log Cooling" = "green", "Random Selection" = "red")) +  
+  labs(x = "Number of treatments", y = "Average runtime (seconds)", color = "Algorithm")
+```
 
 From the figures, we can see that SA with exponential cooling is the fastest, while SA with log cooling takes a bit longer, and random selection requires the longest time. When the number of rows, columns, and treatments is still small, for the design space is limited and the randomness of the algorithms, the differences are less noticeable. However, as these numbers increase, the differences in runtime become more significant, with random selection showing the fastest increase in runtime. Overall, the number of rows, columns, and treatments are all positively correlated with runtime, but the treatment number has a more direct impact on runtime.
 

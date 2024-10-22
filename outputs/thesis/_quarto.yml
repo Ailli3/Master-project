@@ -17,6 +17,7 @@ book:
      - index.qmd
      - abstract.qmd
      #- acknowledgements.qmd
+     - notation.qmd
      - intro.qmd
      - background.qmd
      - methods.qmd

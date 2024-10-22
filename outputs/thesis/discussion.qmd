@@ -40,7 +40,7 @@ here $\lambda < 0$
 
 Or use A-criteria :
 $$
-G(x) = t\mathscr{A} + (1-t)\cdot f(X)
+G(x) = t\mathcal{A} + (1-t)\cdot f(X)
 $$
 here $0\leq t \leq 1$ and we minimize it
 
