@@ -26,7 +26,7 @@ SA_FAST_results <- rbind(SA_FAST_results1, SA_FAST_results2)
 bind_rows(mutate(RS_results, algorithm = "Random Selection"),
           mutate(SA_SLOW_results, algorithm = "SA log Cooling"),
           mutate(SA_FAST_results, algorithm = "SA exp Cooling")) |> 
-  write_csv("outputs/thesis-ETedit/data/results.rds")
+  saveRDS("outputs/thesis-ETedit/data/results.rds")
 
 
 #taking avarage
