@@ -4,9 +4,9 @@
 |---------------------|------------------------------------------------|
 | $\boldsymbol{y}$                          | Response variable vector               |
 | $\boldsymbol{u}$                        | Parameter vector of blocking effects      |
-| $\hat{\boldsymbol{u}}$            | Estimated parameter vector of blocking effects by log-likelihood maximization|
+| $\hat{\boldsymbol{u}}$            | Estimated parameter vector of blocking effects maximization|
 | $\boldsymbol{\tau}$                         | Parameter vector of treatments effects       |
-| $\hat{\boldsymbol{\tau}}$     | Estimated parameter vector of treatments effects by log-likelihood maximization|
+| $\hat{\boldsymbol{\tau}}$     | Estimated parameter vector of treatments effects |
 | $\boldsymbol{\epsilon}$     | Parameter vector of model error            |
 | $\boldsymbol{Z}$                | Blocking factor matrix                         |
 | $\boldsymbol{X}$            | Design matrix for treatments                   |

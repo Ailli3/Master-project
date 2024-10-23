@@ -112,8 +112,8 @@ Substituting the above $\boldsymbol{C}$ leads to our conclusion
 
 :::
 
-
 @thm-blue provides the specific form for estimation of the parameters.
+
 :::: {#thm-blue}
 
 ## Best linear unbiased estimates and predictions
@@ -209,7 +209,9 @@ the design.
 Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects. By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of the difference of the effects between two treatments. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
 
 Recall that in this thesis, we consider treatment factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of A-criterion. Our discussion of the A-criterion below is always based on this assumption.
+
 ::: {#def-A-value}
+
 Basing on the model formula @eq-lmm, and a estimation of treatment
 factor $\hat{\boldsymbol{\tau}}$ has $n_{\tau}$ factors. A-criterion
 measure the average predicted error variance of different treatments.
@@ -219,6 +221,7 @@ and an A-value $\mathcal{A}$ is
 $$
 \mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 $${#eq-a}
+
 :::
 
 To discover the relationship between the A-value and the design matrix,
@@ -230,13 +233,12 @@ $\hat{\boldsymbol{\tau}}$. In fact, it can be proof that
 For treatment effect and its estimator @eq-esti, we have $(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})$.
 
 ::: proof
+
 From @eq-lmm and basing on assumption @eq-dist we have
 $$
 \boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top),
 $${#eq-asp}
 
- so also we have
-$\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)$
 
 We denote
 $$\begin{aligned}

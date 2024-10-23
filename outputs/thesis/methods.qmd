@@ -248,7 +248,7 @@ We denote a random design matrix $\boldsymbol{X}_0$, and iteration counter $k$. 
 
 ### Simulated annealing
 
-Simulated Annealing (SA)  is a global optimization algorithm inspired by the annealing process in metallurgy. At higher temperatures, the algorithm allows the acceptance of worse solutions to escape local optima; as the temperature decreases, it converges toward an optimal solution.
+Simulated Annealing (SA) is a global optimization algorithm inspired by the annealing process in metallurgy. At higher temperatures, the algorithm allows the acceptance of worse solutions to escape local optima; as the temperature decreases, it converges toward an optimal solution.
 
 @butler2013optimal state that the Boltzmann probability
 $$
@@ -324,13 +324,13 @@ It is a harmonic series and it diverge when $\frac{d^*}{d}<1$, that is, $d^*<d$.
 
 Although logarithmic cooling theoretically guarantees convergence to the global optimum, it is computationally demanding and has a very slow convergence rate in practice, making it less feasible for large-scale problems. To address these limitations, exponential cooling is introduced as a more practical alternative. While it does not offer a theoretical guarantee of reaching the global optimum, as noted by @kirkpatrick1983optimization. Because of limited time and computational resource, we will try to use exponential cooling in our as given in @aarts1989simulated and well-practised It provides near-optimal solutions within a reasonable time, making it highly effective for large combinatorial optimization problems.
 $$
-T(t) = T_0 \exp(-\alpha*t)
+T(t) = T_0 \exp(-\alpha\times t)
 $${#eq-expcol}
 Here $T_0$ is the initial temperature, and $\alpha$ is the cooling rate determine how fast the temperature drop.
 
 #### Algorithm
 
-For accept probability @eq-prob,  we usually start with $0.8$ and keep dropping when iteration goes.This probability depends on the magnitude of change in the objective function A-value. To simplify the initialization, we often conduct a few preliminary iterations to observe the range and rate of change in A-values, then use these observations to determine an initial temperature. Several studies have explored methods for autonomously selecting this initial temperature.
+For accept probability @eq-prob,  we usually start with $0.8$ and keep dropping when iteration goes. This probability depends on the magnitude of change in the objective function A-value. To simplify the initialization, we often conduct a few preliminary iterations to observe the range and rate of change in A-values, then use these observations to determine an initial temperature. Several studies have explored methods for autonomously selecting this initial temperature.
 
 ::: {.algorithm}
 
@@ -342,6 +342,7 @@ For accept probability @eq-prob,  we usually start with $0.8$ and keep dropping 
     - If $A(\boldsymbol{X}_{new}) < A(\boldsymbol{X}_c)$, update $\boldsymbol{X}_c=\boldsymbol{X}_{new}$.
     - If $A(\boldsymbol{X}_{new}) > A(\boldsymbol{X}_c)$, update $\boldsymbol{X}_c=\boldsymbol{X}_{new}$ with probability $\exp[-(A(\boldsymbol{X}_{new}) - A(\boldsymbol{X}_c))/T(t)]$.
 3. **Termination**: Repeat this process until the maximum number of iterations $M$ is reached.
+
 :::
 
 

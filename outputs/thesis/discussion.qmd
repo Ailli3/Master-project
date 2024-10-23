@@ -6,17 +6,17 @@ In this section, we focus on examining the limitations and shortcomings of our a
 
 ### Computational efficiency and convergence rate
 
-Based on the line plots from the previous section, we observe that the convergence rate of our three algorithms significantly slow down as they approach the optimal solution. This often results in giving a near-optimal solutions, although it performs reasonably well within the limited number of iterations $M$ in our simulation. For iterative methods, the algorithm actually  explores the entire design matrix space by evaluating permutations of the matrix. This causes our algorithms, especially random selection, to have long runtimes when a large number of iterations is performed. For certain fixed design assumptions, such as the diagonal $\boldsymbol{G}$ matrix and $\boldsymbol{R}$ matrix we used previously, an algorithm that optimizes based on matrix structure could improve efficiency in such cases.
+Based on the line plots from the previous section, we observe that the convergence rate of our three algorithms significantly slow down as they approach the optimal solution. This often results in giving a near-optimal solutions, although it performs reasonably well within the limited number of iterations $M$ in our simulation. For iterative methods, the algorithm actually  explores the entire design matrix space by evaluating permutations of the matrix. This causes our algorithms, especially random selection, to have long runtime when a large number of iterations is performed. For certain fixed design assumptions, such as the diagonal $\boldsymbol{G}$ matrix and $\boldsymbol{R}$ matrix we used previously, an algorithm that optimizes based on matrix structure could improve efficiency in such cases.
 
 ### Balancing multi-objective optimization
 
-We aim to optimize A while avoiding bad NB and ED statistics, which essentially represents a multi-objective optimization problem. In our current approach, we incorporate filtering steps during random search permutation generation and SA neighbour generation to ensure that NB and ED improve gradually throughout the iterations. Although this approach allows for the stepwise optimization of all three statistics, it fails to bing in the correlations among them and lacks the ability to balance and trade off between the three. Using a multi-objective optimization method would allow us to place these three statistics on an equal priority level. In our current approach, however, the A-value has consistently been the primary variable driving changes in the design matrix.
+We aim to optimize A while avoiding bad NB and ED statistics, which essentially represents a multi-objective optimization problem. In our approach, we incorporate filtering steps with random search permutation generation and SA neighbour generation to ensure that NB and ED improve gradually throughout the iterations. Although this approach allows for the stepwise optimization of all three statistics, it fails to bring in the correlations among them and lacks the ability to balance and trade off between the three. Using a multi-objective optimization method would allow us to place these three statistics on an equal priority level. In our current approach, however, the A-value has consistently been the primary variable driving changes in the design matrix.
 
 ### Limitations and generalizability in practical applications
 
 When comparing the computational performance of different algorithms, we mentioned that such comparisons cannot determine which algorithm is better. For a deeper exploration of the performance of different algorithms, a controlled comparison is needed. For example, setting a common tolerance and allowing all algorithms sufficient time or iteration count to complete, which would enable a fair comparison of runtime or iteration numbers. Our analysis of the algorithms is based on a limited set of constraints, observing and comparing the behaviour of different algorithms under some conditions.
 
-When discussing model errors, we mentioned using the R matrix for modelling. For independent plots, using linear models and the R matrix is very convenient. In @piepho2018neighbor, the ${AR1}$ model is suggested as a way to address cases where plots are correlated. We have not attempted or analysed algorithms using this type of model.
+When discussing model errors, we mentioned using the R matrix for modelling. For independent plots, using linear models and the R matrix is very convenient. In @piepho2018neighbor, the ${\text{AR}1}$ model is suggested as a way to address cases where plots are correlated. We have not attempted or analysed algorithms using this type of model.
 
 ## Future Directions
 
@@ -46,7 +46,7 @@ here $0\leq t \leq 1$ and we minimize it
 
 Usually we have such mathematical programming of inequality constrained optimization problem: we minimize objective function $f_0(x)$  with inequality constrains $f_i(x)\leq 0, i\in I=\{1,2,\cdots,m\}$.And we have a well-known penalty function for this problem is
 $$
-F (x, \rho) = f_0(x) + \rho \sum_{i\in I}max\{f_i(x),0\}
+F (x, \rho) = f_0(x) + \rho \sum_{i\in I}\max\{f_i(x),0\}
 $$
 and a corresponding constrained penalty optimization problem is to minimize penalty function $F_2 (x, \rho)$, detailed information in @meng2013exactness
 

@@ -89,7 +89,8 @@ However, some undesired cluster of replications or some treatment may occur when
 #| warning: false
 #| fig-width: 8
 #| fig-height: 8
-#| fig-cap: "Above, the figure presents an example of clustering: multiple replications of treatment 8 are grouped together, while treatments 1 and 19 are always adjacent to each other."
+#| fig-scap: "Example for clustering"
+#| fig-cap: "The figure presents an example of clustering: multiple replications of treatment 8 are grouped together, while treatments 1 and 19 are always adjacent to each other."
 library(dplyr)
 library(ggplot2)
 
