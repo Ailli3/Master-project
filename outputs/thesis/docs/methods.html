@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ANU Thesis - 3&nbsp; Methods</title>
+<title>Preliminary investigation of algorithms for optimal row-column designs - 3&nbsp; Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ANU Thesis</a> 
+      <a href="./">Preliminary investigation of algorithms for optimal row-column designs</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -184,7 +184,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Declaration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,8 +195,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation and terminology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -310,14 +310,15 @@ window.Quarto = {
 
 <section id="modeling-row-column-design" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="modeling-row-column-design"><span class="header-section-number">3.1</span> Modeling row-column design</h2>
-<p>As mentioned in previous chapter, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as “row” and “column” factors. This design structure appears frequently in agricultural and industrial trials, where treatments are applied across units organized in a grid-like pattern, and both row and column effects may influence the outcomes.</p>
-<p>In my assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.</p>
-<p>Recalling <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.2</span></a>, the treatment effects are modeled as fixed effects, represented by the treatment design matrix <span class="math inline">\boldsymbol{X}</span> with parameter vector <span class="math inline">\boldsymbol{\tau}</span>, measuring the influence of each treatment on the response variable. The matrix <span class="math inline">\boldsymbol{X}</span> is constructed such that each row corresponds to an experimental unit, and indicators in each column indicates whether a treatment is applied or not.</p>
-<p>The random effects are modeled through the matrix <span class="math inline">\boldsymbol{Z}</span> and parameter vector <span class="math inline">\boldsymbol{u}</span>. Matrix <span class="math inline">\boldsymbol{Z}</span> is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector <span class="math inline">\boldsymbol{u}</span> are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix <span class="math inline">\boldsymbol{G}</span>.</p>
-<p>With <span class="math inline">\boldsymbol{y}</span> as the vector of observed responses and <span class="math inline">\boldsymbol{\epsilon}</span> as error term, a row-column design can be modeled by <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> . where <span class="math inline">\boldsymbol{X\tau}</span> represents the fixed treatment effects and <span class="math inline">\boldsymbol{Zu}</span> captures the random variations basing on rows and columns.</p>
+<p>As mentioned in <a href="background.html" class="quarto-xref"><span>Chapter 2</span></a>, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as “row” and “column” factors.</p>
+<p>Recalling the assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.</p>
+<p>In <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>, the treatment effects are modelled as fixed effects, represented by the treatment design matrix <span class="math inline">\boldsymbol{X}</span> with parameter vector <span class="math inline">\boldsymbol{\tau}</span>, measuring the influence of each treatment on the response variable. The matrix <span class="math inline">\boldsymbol{X}</span> is constructed such that each row corresponds to an experimental unit, and indicators in each column indicates whether a treatment is applied or not.</p>
+<p>The random effects are modelled through the matrix <span class="math inline">\boldsymbol{Z}</span> and parameter vector <span class="math inline">\boldsymbol{u}</span>. Matrix <span class="math inline">\boldsymbol{Z}</span> is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector <span class="math inline">\boldsymbol{u}</span> are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix <span class="math inline">\boldsymbol{G}</span>.</p>
+<p>With <span class="math inline">\boldsymbol{y}</span> as the vector of observed responses and <span class="math inline">\boldsymbol{\epsilon}</span> as error term, a row-column design can be modelled by <a href="background.html#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> . where <span class="math inline">\boldsymbol{X\tau}</span> represents the fixed treatment effects and <span class="math inline">\boldsymbol{Zu}</span> captures the random variations basing on rows and columns.</p>
 <section id="random-effects-matrix" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="random-effects-matrix"><span class="header-section-number">3.1.1</span> Random effects matrix</h3>
-<p>The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure. For example, we a have a <span class="math inline">4\times 4</span> experiment field, having <span class="math inline">4</span> rows, <span class="math inline">4</span> columns and <span class="math inline">16</span> units. Then random effects matrix should be a <span class="math inline">16 \times 8</span> matrix containing binary indicator as the one presented. <span class="math display">
+<p>The design matrix for the random effects, which is row and column in linear mixed model, follows a binary indicator structure, denoted as <span class="math inline">\boldsymbol{Z}</span>. For example, we a have a <span class="math inline">4\times 4</span> experiment field, having <span class="math inline">4</span> rows, <span class="math inline">4</span> columns and <span class="math inline">16</span> units. Then random effects matrix should be a <span class="math inline">16 \times 8</span> matrix containing binary indicator as the one presented. <span class="math display">
+\boldsymbol{Z}_{\text{example}}=
 \begin{bmatrix}
 \begin{array}{cccc|cccc}
 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
@@ -338,13 +339,13 @@ window.Quarto = {
 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
 \end{array}
 \end{bmatrix}
-</span> Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout.In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.</p>
-<p>In a more general case, suppose we have a <span class="math inline">m\times n</span> row-column experiment field. We should have a random effect matrix with <span class="math inline">mn</span> rows and <span class="math inline">m+n</span> columns with binary numbers. In this paper, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modeling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.</p>
+</span> Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout. In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.</p>
+<p>In a more general case, suppose we have a <span class="math inline">n_r\times n_c</span> row-column experiment field. We should have a random effect matrix with <span class="math inline">n_rn_c</span> rows and <span class="math inline">n_r+n_c</span> columns with binary numbers. In this thesis, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modelling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.</p>
 </section>
 <section id="design-matrix-for-treatments" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="design-matrix-for-treatments"><span class="header-section-number">3.1.2</span> Design matrix for treatments</h3>
-<p>The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable. In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use <span class="math inline">4\times 4</span> experiment field as example, and suppose we have <span class="math inline">4</span> different treatments for each have <span class="math inline">4</span> replications, needing <span class="math inline">16</span> experiment unite. An example design matrix <span class="math inline">\boldsymbol{X}</span> for treatments should be a <span class="math inline">16\times 4</span> matrix with binary indicators as shown below</p>
-<p><span class="math display">
+<p>The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable. In a row-column experimental design, each experimental unit is assigned a specific treatment. The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use <span class="math inline">4\times 4</span> experiment field as example, and suppose we have <span class="math inline">4</span> different treatments for each have <span class="math inline">4</span> replications, needing <span class="math inline">16</span> experiment unite. An example design matrix <span class="math inline">\boldsymbol{X}</span> for treatments should be a <span class="math inline">16\times 4</span> matrix with binary indicators as shown below <span class="math display">
+\boldsymbol{X}_{\text{example}}=
 \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; 0\\
 0 &amp; 1 &amp; 0 &amp; 0\\
@@ -372,9 +373,9 @@ window.Quarto = {
 </section>
 <section id="assumptions-for-a-value-calculation" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="assumptions-for-a-value-calculation"><span class="header-section-number">3.1.3</span> Assumptions for A-value calculation</h3>
-<p>It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.7</span></a>, for calculating A value we need the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, transformation matrix <span class="math inline">\boldsymbol{D}</span>, random effect matrix <span class="math inline">\boldsymbol{Z}</span> and treatment design matrix <span class="math inline">\boldsymbol{X}</span>. We need some basic setup for these matrices.</p>
-<p>Assume that we now have a row-column matrix with <span class="math inline">n_r</span> rows, <span class="math inline">n_r</span> columns and <span class="math inline">n_rn_c</span> plots.</p>
-<p>For the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, which captures the variability introduced by the row and column effects. I assume it is a <span class="math inline">(R+C)\times(R+C)</span> diagonal matrix, that is, it has following form,</p>
+<p>It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.9</span></a>, for calculating A value we need the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, transformation matrix <span class="math inline">\boldsymbol{D}</span>, random effect matrix <span class="math inline">\boldsymbol{Z}</span> and treatment design matrix <span class="math inline">\boldsymbol{X}</span>. We need some basic set-up for these matrices.</p>
+<p>Assume that we now have a row-column matrix with <span class="math inline">n_r</span> rows, <span class="math inline">n_c</span> columns and <span class="math inline">n_rn_c</span> plots.</p>
+<p>For the covariance matrix for the random effects, matrix <span class="math inline">\boldsymbol{G}</span>, which captures the variability introduced by the row and column effects. I assume it is a <span class="math inline">(n_r+n_c)\times(n_r+n_c)</span> diagonal matrix, that is, it has following form,</p>
 <p><span class="math display">
 \boldsymbol{G}_{diag} =
 \begin{bmatrix}
@@ -382,7 +383,7 @@ window.Quarto = {
 0 &amp; \sigma_{G_r}^2\boldsymbol{I}_{n_r}
 \end{bmatrix}
 </span> <span class="math inline">\boldsymbol{I}_{n_c}</span> is a <span class="math inline">{n_c}\times{n_c}</span> identity matrix, same to <span class="math inline">\boldsymbol{I}_{n_r}</span>. And <span class="math inline">\sigma_{G_c}</span> and <span class="math inline">\sigma_{G_r}</span> is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between different row and column effects in the design.</p>
-<p>Similarly, for the covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, I assume that it is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have <span class="math display">
+<p>Similarly, for the covariance matrix for the error term, matrix <span class="math inline">\boldsymbol{R}</span>, we assume that it is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have <span class="math display">
 \boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{n_rn_c}
 </span> with identity matrix <span class="math inline">\boldsymbol{I}_{n_rn_c}</span> and scale constant <span class="math inline">\sigma_{R}</span>.</p>
 <p><span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> have introduced linear transformations of the treatment parameter vector <span class="math inline">\boldsymbol{\tau}</span> by using a transformation matrix <span class="math inline">\boldsymbol{D}</span>, which allows for the investigation of linear combinations of treatments. However, in this paper, I simplify the approach by setting <span class="math inline">\boldsymbol{D}</span> as the identity matrix <span class="math inline">\boldsymbol{I}_{RC}</span>. This means that we focus on the individual effects of the treatments rather than their linear combinations.</p>
@@ -402,9 +403,9 @@ A: \Omega \to \mathbb{R}, \quad \boldsymbol{X} \mapsto A(\boldsymbol{X})
 </span> Here <span class="math inline">\Omega</span> is the design space contains all possible design matrix <span class="math inline">\boldsymbol{X}</span>.</p>
 <p>Now we proof the existence of minimum value of <span class="math inline">\boldsymbol{X}</span>, where <span class="math inline">\boldsymbol{X}\in\Omega</span>.</p>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.7</span></a></p>
+<p><span class="proof-title"><em>Proof</em>. </span>Recalling <a href="background.html#eq-an" class="quarto-xref">Equation&nbsp;<span>2.9</span></a></p>
 <p><span class="math display">
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
 </span> This expression is well-defined for all valid design matrices <span class="math inline">\boldsymbol{X}</span>. So function <span class="math inline">A(\boldsymbol{X})</span> is well-defined.</p>
 <p>The A-value represents the average variance of the difference treatment effect estimates, and since variances are always positive, the A-value is naturally bounded from below by zero. So we have <span class="math display">
 A(\boldsymbol{X})\geq0
@@ -415,34 +416,24 @@ A(\boldsymbol{X})\geq0
 <section id="general-structure" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="general-structure"><span class="header-section-number">3.2.2</span> General structure</h3>
 <p>In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, the optimization of NB and ED was typically carried out under the assumption that the A-value was already optimal or fixed. This required identifying a set of solutions that maintained the A-value while improving the balance and distribution properties. In addition to assuming the A-value is fixed, another approach they used is to randomly select a design and then optimizing ED and NB.This process would be repeated multiple times, and the design with the best A-value will be selected.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div id="fig-usedmethod" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/methods/method1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>Method been used</figcaption>
-</figure>
+<div aria-describedby="fig-usedmethod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../thesis/images/methods/method1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-usedmethod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Method been used
 </figcaption>
 </figure>
 </div>
-<p>These approach separates the optimization of ED and NB from the A-value, while I try to merge these two process into one algorithm. I use pairwise permutation among treatments to change treatment design during iterations. And to avoid design with bad ED and NB, I am using some criteria to filter the permutation, only maintain or better properties are accepted. In this way, a row-column design that satisfies multiple optimization requirements is achieved.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>These approach separates the optimization of ED and NB from the A-value, while we try to merge these two process into one algorithm. We use pairwise permutation among treatments to change treatment design during iterations. And to avoid design with bad ED and NB, I am using some criteria to filter the permutation, only maintain or better properties are accepted. In this way, a row-column design that satisfies multiple optimization requirements is achieved.</p>
+<div id="fig-mymethod" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/methods/method2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>Attempting method</figcaption>
-</figure>
+<div aria-describedby="fig-mymethod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../thesis/images/methods/method2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.2
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mymethod-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Attempting method
 </figcaption>
 </figure>
 </div>
@@ -472,15 +463,13 @@ Figure&nbsp;3.2
 \vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; &amp; \vdots &amp; \ddots &amp; \vdots \\
 0 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 1
 \end{array}\right]
-</span> It is a identity matrix with <span class="math inline">i</span>th row and <span class="math inline">j</span>th row swapped.</p>
-<p>When performing permutations on the design matrix, I apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out.</p>
-<p>A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix <span class="math inline">\boldsymbol{X}_{new}</span> with corresponding design <span class="math inline">\mathcal{D}_{new}</span> is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for <span class="math inline">\boldsymbol{X}_{new}</span>, that is <span class="math inline">C_{NB}'</span>, <span class="math inline">MRS(\mathcal{D}_{new})</span> and <span class="math inline">MCS(\mathcal{D}_{new})</span>. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it’s not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as <span class="math inline">T_{ED}</span> and <span class="math inline">T_{NB}</span>, which are none negative numbers. Current design matrix <span class="math inline">\boldsymbol{X}</span> corresponding design <span class="math inline">\mathcal{D}</span> has ED and NB value<span class="math inline">C_{NB}</span>, <span class="math inline">MRS(\mathcal{D})</span> and <span class="math inline">MCS(\mathcal{D})</span>. New design matrix <span class="math inline">\boldsymbol{X}_{new}</span> mentioned above is accepted when <span id="eq-accp"><span class="math display">
-\begin{align*}
+</span> It is an identity matrix with <span class="math inline">i</span>-th row and <span class="math inline">j</span>-th row swapped.</p>
+<p>When performing permutations on the design matrix, we apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out.</p>
+<p>A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix <span class="math inline">\boldsymbol{X}_{new}</span> with corresponding design <span class="math inline">\mathcal{D}_{new}</span> is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for <span class="math inline">\boldsymbol{X}_{new}</span>, that is <span class="math inline">C_{NB}'</span>, <span class="math inline">MRS(\mathcal{D}_{new})</span> and <span class="math inline">MCS(\mathcal{D}_{new})</span>. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it’s not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as <span class="math inline">T_{ED}</span> and <span class="math inline">T_{NB}</span>, which are none negative numbers. Current design matrix <span class="math inline">\boldsymbol{X}</span> corresponding design <span class="math inline">\mathcal{D}</span> has ED and NB value <span class="math inline">C_{NB}</span>, <span class="math inline">MRS(\mathcal{D})</span> and <span class="math inline">MCS(\mathcal{D})</span>. New design matrix <span class="math inline">\boldsymbol{X}_{new}</span> mentioned above is accepted when <span id="eq-accp"><span class="math display">\begin{aligned}
 &amp;(C_{NB}'\leq C_{NB}+T_{NB}) \\
 \land &amp; (MRS(\mathcal{D}_{new})\geq MRS(\mathcal{D})-T_{ED})\\
 \land &amp; (MCS(\mathcal{D}_{new})\geq MCS(\mathcal{D})-T_{ED})
-\end{align*}
-\tag{3.1}</span></span> is true.</p>
+\end{aligned} \tag{3.1}</span></span> is true.</p>
 </section>
 <section id="random-search" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="random-search"><span class="header-section-number">3.2.4</span> Random search</h3>
@@ -494,7 +483,7 @@ Figure&nbsp;3.2
 <li>While <span class="math inline">k &lt; s</span>:
 <ul>
 <li>Generate a random permutation matrix <span class="math inline">\boldsymbol{P}</span> by selecting two different treatments.</li>
-<li>Apply permutation: <span class="math inline">\boldsymbol{X_{new} = X P}</span>.</li>
+<li>Apply permutation: <span class="math inline">\boldsymbol{X_{new} = \boldsymbol{P}X}</span>.</li>
 <li>Calculate new values of ED and NB, <span class="math inline">mrs({\boldsymbol{X}_{new}})</span>, <span class="math inline">mcs({\boldsymbol{X}_{new}})</span> and <span class="math inline">C_{NB}({\boldsymbol{X}_{new}})</span>.</li>
 <li>If new values satisfy <span class="math inline">mrs({\boldsymbol{X}_{new}}) &gt;= mrs({\boldsymbol{X}}) - t_{ED}</span>, <span class="math inline">mcs({\boldsymbol{X}_{new}}) &gt;= mcs({\boldsymbol{X}}) - t_{ED}</span> and <span class="math inline">C_{NB}({\boldsymbol{X}_{new}}) &lt;= C_{NB}({\boldsymbol{X}}) + t_{NB}</span>, accept and remember this <span class="math inline">\boldsymbol{X}_{new}</span>.</li>
 <li>Increment <span class="math inline">k</span>.</li>
@@ -506,6 +495,7 @@ Figure&nbsp;3.2
 <p>The Random Search algorithm starts with a randomly selected initial design matrix <span class="math inline">\boldsymbol{X}_0</span>, and we aim to minimize the A-value associated with the design. We set a maximum number of iterations <span class="math inline">M</span> and a step length <span class="math inline">s</span>.</p>
 <p>The process for each iteration can be described as follows:</p>
 <p>We denote a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, and iteration counter <span class="math inline">k</span>. Maximum number of iteration is <span class="math inline">M</span>. And denote the A-value for a random design matrix <span class="math inline">\boldsymbol{X}</span> is <span class="math inline">A(\boldsymbol{X})</span>. Current design matrix during the iteration we have is denoted as <span class="math inline">\boldsymbol{X}_c</span></p>
+<div class="algorithm">
 <ol type="1">
 <li><p><strong>Initialization</strong>: Start with a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, set the iteration counter `<span class="math inline">k = 0</span>, maximum number of iteration as <span class="math inline">M</span> and step-length <span class="math inline">s</span>. A-value for the current design is <span class="math inline">A_c = A(\boldsymbol{X}_0)</span>.</p></li>
 <li><p><strong>Iteration</strong>: For each iteration <span class="math inline">k</span>, where <span class="math inline">k &lt; M</span>:</p>
@@ -518,6 +508,7 @@ Figure&nbsp;3.2
 </ul></li>
 <li><p><strong>Termination</strong>: Repeat this process until the maximum number of iterations <span class="math inline">M</span> is reached.</p></li>
 </ol>
+</div>
 </section>
 <section id="simulated-annealing" class="level3" data-number="3.2.5">
 <h3 data-number="3.2.5" class="anchored" data-anchor-id="simulated-annealing"><span class="header-section-number">3.2.5</span> Simulated annealing</h3>
@@ -544,7 +535,7 @@ P(A_2)=
 <li>A finite searching space <span class="math inline">\{\boldsymbol{X}\}</span> consisting all design matrix.</li>
 <li>An A-value function <span class="math inline">A(\boldsymbol{X})</span> defined on <span class="math inline">\{\boldsymbol{X}\}</span> and it is real-valued. There is a set of <span class="math inline">\{\boldsymbol{X}^*\}</span> that having optimal A-value and <span class="math inline">\{\boldsymbol{X}^*\}\in \{\boldsymbol{X}\}</span></li>
 <li>For each design matrix <span class="math inline">\boldsymbol{X}</span> in searching space, we consider all possible permutations filtered by <a href="#eq-accp" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> are neighbours of <span class="math inline">\boldsymbol{X}</span>, which is a subset of searching space <span class="math inline">\{\boldsymbol{X}\}</span>.</li>
-<li>All possible permutations have equal possibility to be chose, and the sum of the possibility it equal to <span class="math inline">1</span>.</li>
+<li>All possible permutations have equal possibility to be chose, and the sum of the possibility is equal to <span class="math inline">1</span>.</li>
 <li>A nonincreasing function <span class="math inline">T:N\rightarrow (0, \infty)</span>, <span class="math inline">T(t)</span> is called the temperature at <span class="math inline">t</span>-th iteration.</li>
 <li>A random initial design <span class="math inline">\boldsymbol{X}_0</span></li>
 </ol>
@@ -553,7 +544,7 @@ P(A_2)=
 P(\boldsymbol{X}(t+1)=\boldsymbol{X}_j|\boldsymbol{X}(t)=\boldsymbol{X}_i)
 =\begin{cases}
 1 &amp; \text{if } A(\boldsymbol{X}_j)&lt;A(\boldsymbol{X}_i) \\
-\frac{1}{n_p}\exp(-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))/T(t) &amp; \text{if } A(\boldsymbol{X}_j)&gt;A(\boldsymbol{X}_i)\\
+\frac{1}{n_p}\exp(\frac{-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))}{T(t)}) &amp; \text{if } A(\boldsymbol{X}_j)&gt;A(\boldsymbol{X}_i)\\
 \end{cases}
 </span></p>
 <section id="convergence-analyze" class="level4" data-number="3.2.5.1">
@@ -582,6 +573,7 @@ T(t) = T_0 \exp(-\alpha*t)
 <section id="algorithm" class="level4" data-number="3.2.5.2">
 <h4 data-number="3.2.5.2" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">3.2.5.2</span> Algorithm</h4>
 <p>For accept probability <a href="#eq-prob" class="quarto-xref">Equation&nbsp;<span>3.2</span></a>, we usually start with <span class="math inline">0.8</span> and keep dropping when iteration goes.This probability depends on the magnitude of change in the objective function A-value. To simplify the initialization, we often conduct a few preliminary iterations to observe the range and rate of change in A-values, then use these observations to determine an initial temperature. Several studies have explored methods for autonomously selecting this initial temperature.</p>
+<div class="algorithm">
 <ol type="1">
 <li><p><strong>Initialization</strong>: Start with a random design matrix <span class="math inline">\boldsymbol{X}_0</span>, set the iteration counter `<span class="math inline">k = 0</span>, maximum number of iteration as <span class="math inline">M</span>, A-value for the current design is <span class="math inline">A_c = A(\boldsymbol{X}_0)</span>, initial temperature <span class="math inline">T_0</span> and a type of cooling schedule <span class="math inline">T(t)</span>.</p></li>
 <li><p><strong>Iteration</strong>: For each iteration <span class="math inline">k</span>, <span class="math inline">k&lt;M</span>:</p>
@@ -593,6 +585,7 @@ T(t) = T_0 \exp(-\alpha*t)
 </ul></li>
 <li><p><strong>Termination</strong>: Repeat this process until the maximum number of iterations <span class="math inline">M</span> is reached.</p></li>
 </ol>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1026,7 +1019,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright © 2024, Your Name</p>
+<p>Copyright © 2024, Jingning Yao</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/methods.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

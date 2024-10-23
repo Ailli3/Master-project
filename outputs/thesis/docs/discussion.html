@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ANU Thesis - 5&nbsp; Discussion</title>
+<title>Preliminary investigation of algorithms for optimal row-column designs - 5&nbsp; Discussion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ANU Thesis</a> 
+      <a href="./">Preliminary investigation of algorithms for optimal row-column designs</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -184,7 +184,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Declaration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,8 +195,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation and terminology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -319,7 +319,7 @@ window.Quarto = {
 <section id="limitations-and-generalizability-in-practical-applications" class="level3" data-number="5.1.3">
 <h3 data-number="5.1.3" class="anchored" data-anchor-id="limitations-and-generalizability-in-practical-applications"><span class="header-section-number">5.1.3</span> Limitations and generalizability in practical applications</h3>
 <p>When comparing the computational performance of different algorithms, we mentioned that such comparisons cannot determine which algorithm is better. For a deeper exploration of the performance of different algorithms, a controlled comparison is needed. For example, setting a common tolerance and allowing all algorithms sufficient time or iteration count to complete, which would enable a fair comparison of runtime or iteration numbers. Our analysis of the algorithms is based on a limited set of constraints, observing and comparing the behaviour of different algorithms under some conditions.</p>
-<p>When discussing model errors, we mentioned using the R matrix for modelling. For independent plots, using linear models and the R matrix is very convenient. In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, the <span class="math inline">{AR1}</span> model is suggested as a way to address cases where plots are correlated. We have not attempted or analysed algorithms using this type of model.</p>
+<p>When discussing model errors, we mentioned using the R matrix for modelling. For independent plots, using linear models and the R matrix is very convenient. In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, the <span class="math inline">{AR1}</span> model is suggested as a way to address cases where plots are correlated. We have not attempted or analysed algorithms using this type of model.</p>
 </section>
 </section>
 <section id="future-directions" class="level2" data-number="5.2">
@@ -336,30 +336,30 @@ f(X) = \sum_{(i,j)\in X}I(X_i = X_j)
 F(X) = \bar{f}_A^{RC} + \lambda \cdot f(X)
 </span> here <span class="math inline">\lambda &lt; 0</span></p>
 <p>Or use A-criteria : <span class="math display">
-G(x) = t\mathscr{A} + (1-t)\cdot f(X)
+G(x) = t\mathcal{A} + (1-t)\cdot f(X)
 </span> here <span class="math inline">0\leq t \leq 1</span> and we minimize it</p>
 <p>Usually we have such mathematical programming of inequality constrained optimization problem: we minimize objective function <span class="math inline">f_0(x)</span> with inequality constrains <span class="math inline">f_i(x)\leq 0, i\in I=\{1,2,\cdots,m\}</span>.And we have a well-known penalty function for this problem is <span class="math display">
 F (x, \rho) = f_0(x) + \rho \sum_{i\in I}max\{f_i(x),0\}
-</span> and a corresponding constrained penalty optimization problem is to minimize penalty function <span class="math inline">F_2 (x, \rho)</span>, detailed information in <span class="citation" data-cites="meng2013exactness">Meng et al. (<a href="#ref-meng2013exactness" role="doc-biblioref">2013</a>)</span></p>
+</span> and a corresponding constrained penalty optimization problem is to minimize penalty function <span class="math inline">F_2 (x, \rho)</span>, detailed information in <span class="citation" data-cites="meng2013exactness">Meng et al. (<a href="references.html#ref-meng2013exactness" role="doc-biblioref">2013</a>)</span></p>
 </section>
 <section id="algorithm-improvment" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="algorithm-improvment"><span class="header-section-number">5.2.2</span> Algorithm improvment</h3>
 <section id="sa-based-multiobjective-optimization-algorithms" class="level4" data-number="5.2.2.1">
 <h4 data-number="5.2.2.1" class="anchored" data-anchor-id="sa-based-multiobjective-optimization-algorithms"><span class="header-section-number">5.2.2.1</span> SA-based multiobjective optimization algorithms</h4>
-<p>When discussing the A-value, NB statistic, and ED statistic, our goal is actually to find a process that can simultaneously optimize all three, or finding a balance between three statistic criteria.SA is often used in combinatorial optimization problems, as we are using it here to optimize the arrangement of treatment plots. <span class="citation" data-cites="suman2006survey">Suman and Kumar (<a href="#ref-suman2006survey" role="doc-biblioref">2006</a>)</span> claim that in recent studies, SA has been applied in many multi-objective optimization problems, because of its simplicity and capability of producing a Pareto set of solutions in single run with very little computational cost.</p>
-<p>We say a solution is non-dominated if none of its objective values can be improved without worsening at least one other objective. The Pareto set (or Pareto front) is a set of non-dominated solutions in a multi-objective optimization problem. <span class="citation" data-cites="suman2006survey">Suman and Kumar (<a href="#ref-suman2006survey" role="doc-biblioref">2006</a>)</span> introduce several SA for multi-objective optimization.</p>
-<p>SA-based multi-objective optimization algorithms given by <span class="citation" data-cites="suppapitnarm2000simulated">Suppapitnarm et al. (<a href="#ref-suppapitnarm2000simulated" role="doc-biblioref">2000</a>)</span> is a promising approach. Instead of <a href="#eq-prob" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-prob</span></a> and using permutation filtering, they give probability step write as this form <span class="math display">
+<p>When discussing the A-value, NB statistic, and ED statistic, our goal is actually to find a process that can simultaneously optimize all three, or finding a balance between three statistic criteria.SA is often used in combinatorial optimization problems, as we are using it here to optimize the arrangement of treatment plots. <span class="citation" data-cites="suman2006survey">Suman and Kumar (<a href="references.html#ref-suman2006survey" role="doc-biblioref">2006</a>)</span> claim that in recent studies, SA has been applied in many multi-objective optimization problems, because of its simplicity and capability of producing a Pareto set of solutions in single run with very little computational cost.</p>
+<p>We say a solution is non-dominated if none of its objective values can be improved without worsening at least one other objective. The Pareto set (or Pareto front) is a set of non-dominated solutions in a multi-objective optimization problem. <span class="citation" data-cites="suman2006survey">Suman and Kumar (<a href="references.html#ref-suman2006survey" role="doc-biblioref">2006</a>)</span> introduce several SA for multi-objective optimization.</p>
+<p>SA-based multi-objective optimization algorithms given by <span class="citation" data-cites="suppapitnarm2000simulated">Suppapitnarm et al. (<a href="references.html#ref-suppapitnarm2000simulated" role="doc-biblioref">2000</a>)</span> is a promising approach. Instead of <a href="methods.html#eq-prob" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> and using permutation filtering, they give probability step write as this form <span class="math display">
 P = \min(1, \Pi_{i=1}^N\exp\{\frac{-\bigtriangleup s_i}{T_i}\})
 </span> Here <span class="math inline">N</span> is the number of objective functions, and for each objective function <span class="math inline">i</span>, <span class="math inline">\bigtriangleup s_i</span> is the difference of objective function between two solution and <span class="math inline">T_i</span> is the current temperature. Control the optimization rates of different objective functions by setting different cooling schedules for each.</p>
 </section>
 <section id="memory-based-optimization-algorithms---tabu-search" class="level4" data-number="5.2.2.2">
 <h4 data-number="5.2.2.2" class="anchored" data-anchor-id="memory-based-optimization-algorithms---tabu-search"><span class="header-section-number">5.2.2.2</span> Memory-Based Optimization Algorithms - TABU search</h4>
-<p>Same with SA, Tabu Search is an optimization algorithm used for solving combinatorial problems. It is a type of local search method that enhances basic hill-climbing algorithms by using memory structures to avoid revisiting previously explored solutions, introduced in <span class="citation" data-cites="butler2013model">Butler, Smith, and Cullis (<a href="#ref-butler2013model" role="doc-biblioref">2013</a>)</span>. This helps the search process escape from local optima and encourages exploration of new areas in the solution space. Tabu Search maintains a tabu list, a short-term memory that keeps track of recent moves or solutions that should not be revisited for a certain number of iterations. This is mathematically represented as a set <span class="math inline">\mathcal{T}</span> where recent solutions <span class="math inline">X_t</span> are stored for a fixed period <span class="math inline">k</span> iterations: <span class="math display">
+<p>Same with SA, Tabu Search is an optimization algorithm used for solving combinatorial problems. It is a type of local search method that enhances basic hill-climbing algorithms by using memory structures to avoid revisiting previously explored solutions, introduced in <span class="citation" data-cites="butler2013model">Butler, Smith, and Cullis (<a href="references.html#ref-butler2013model" role="doc-biblioref">2013</a>)</span>. This helps the search process escape from local optima and encourages exploration of new areas in the solution space. Tabu Search maintains a tabu list, a short-term memory that keeps track of recent moves or solutions that should not be revisited for a certain number of iterations. This is mathematically represented as a set <span class="math inline">\mathcal{T}</span> where recent solutions <span class="math inline">X_t</span> are stored for a fixed period <span class="math inline">k</span> iterations: <span class="math display">
 \mathcal{T} = \{x_t|t \in [t-k,t)\}
 </span> If a solution <span class="math inline">x' \in \mathcal{T}</span>, <span class="math inline">x'</span> is considered “tabu” and cannot be revisited. Therefore, besides our two approaches here—random search with step-length and SA that probabilistically accepts worse objective function values—this type of short-term memory-enhanced algorithm (Memory-Enhanced Algorithms) helps ensure efficient computation, minimizing resource consumption while maximizing exploration within the solution space and helping escape local optima.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-butler2013model" class="csl-entry" role="listitem">
 Butler, DG, AB Smith, and BR Cullis. 2013. <span>“On Model Based Design of Comparative Experiments.”</span> preparation.
 </div>
@@ -787,7 +787,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright © 2024, Your Name</p>
+<p>Copyright © 2024, Jingning Yao</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/discussion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

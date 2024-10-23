@@ -4,10 +4,9 @@
 |---------------------|------------------------------------------------|
 | $\boldsymbol{y}$                          | Response variable vector               |
 | $\boldsymbol{u}$                        | Parameter vector of blocking effects      |
-| $\hat{\boldsymbol{u}}_{llm}$            | Estimated parameter vector of blocking effects by log-likelihood maximization|
+| $\hat{\boldsymbol{u}}$            | Estimated parameter vector of blocking effects by log-likelihood maximization|
 | $\boldsymbol{\tau}$                         | Parameter vector of treatments effects       |
-| $\hat{\boldsymbol{\tau}}_{gls}$     | Estimated parameter vector of treatments effects by generalized least squares|
-| $\hat{\boldsymbol{\tau}}_{llm}$     | Estimated parameter vector of treatments effects by log-likelihood maximization|
+| $\hat{\boldsymbol{\tau}}$     | Estimated parameter vector of treatments effects by log-likelihood maximization|
 | $\boldsymbol{\epsilon}$     | Parameter vector of model error            |
 | $\boldsymbol{Z}$                | Blocking factor matrix                         |
 | $\boldsymbol{X}$            | Design matrix for treatments                   |
@@ -15,9 +14,11 @@
 | $\boldsymbol{R}$            | variance matrix for model error                |
 | $\mathcal{A}$               | The A-value                                    |
 | $\boldsymbol{\Lambda}$        | Variance-covariance of estimated treatments effects|
+| $\mathcal{1}_n$ |  A vector of length n with all elements equal to 1 |
 | $\boldsymbol{D}$            | Transformation matrix of treatments|
 | $\mathcal{D}$         | Design results                                  |
 | $\mathcal{D}_{r,c}$     |The treatment at row $r$ and column $c$         |
+| $T$  |  The set of treatments |
 | $\mathcal{U}$         | Adjacency matrix                                |
 | $n_r$                 | Total number of rows |
 | $n_c$                 | Total number of columns |
@@ -36,8 +37,6 @@
 | $\mathcal{D}_{new}$ | Design results corresponding to $\boldsymbol{X}_{new}$|
 | $\boldsymbol{P}_{ij}$ | An identity matrix with $i$-th row and $j$-th row swapped|
 | $C_{NB}$           | Neighbour balance criteria of $\mathcal{D}_{new}$ |
-| $MRS(\mathcal{D}_{new})$ | The minimum row span of design $\mathcal{D}_{new}$|
-| $MCS(\mathcal{D}_{new})$ | The minimum column  span of design $\mathcal{D}_{new}$|
 | $T_{NB}$ | Tolerance for Neighbour balance criteria
 | $T_{ED}$ | Tolerance for minimum row span and minimum column span|
 | $s$ | Step length for random search|
@@ -58,21 +57,12 @@
 | $A_{rs}$ | A-value result given by random search|
 | $\mathcal{D}_{rs}$         | Design result of random search                               |
 | $C_{SAlog}$ | Neighbour balance criteria of random search |
-| $MRS(\mathcal{D}_rs)$ | The minimum row span of design $\mathcal{D}_rs$|
-| $MCS(\mathcal{D}_rs)$ | The minimum column  span of design $\mathcal{D}_rs$|
 | $A_{SAlog}$ | A-value result given by SA with log cooling schedule |
 | $\mathcal{D}_{SAlog}$   |      Design result of SA with log cooling schedule  |
 | $C_{SAlog}$ |  Neighbour balance criteria of SA with log cooling schedule |
-| $MRS(\mathcal{D}_{SAlog})$ | The minimum row span of design $\mathcal{D}_{SAlog}$|
-| $MCS(\mathcal{D}_{SAlog})$ | The minimum column  span of design $\mathcal{D}_{SAlog}$|
 | $A_{SAexp}$ | A-value result given by SA with exp cooling schedule |
 | $\mathcal{D}_{SAexp}$   |      Design result of SA with exp cooling schedule  |
 | $C_{SAexp}$ |  Neighbour balance criteria of SA with exp cooling schedule |
-| $MRS(\mathcal{D}_{SAexp})$ | The minimum row span of design $\mathcal{D}_{SAexp}$|
-| $MCS(\mathcal{D}_{SAexp})$ | The minimum column  span of design $\mathcal{D}_{SAexp}$|
-| $\mathcal{T}$ | Tabu list |
-
-
 
 
 | Terminology | Meaning  |

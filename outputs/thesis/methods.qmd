@@ -8,18 +8,18 @@ editor:
 
 ## Modeling row-column design
 
-As mentioned in previous chapter, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as "row" and "column" factors. This design structure appears frequently in agricultural and industrial trials, where treatments are applied across units organized in a grid-like pattern, and both row and column effects may influence the outcomes.
+As mentioned in @sec-bg, we use a linear mixed model (LMM) to model the row-column design having two distinct sources of variation, typically referred to as "row" and "column" factors. 
 
-In my assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.
+Recalling the assumptions, the row and column effects are treated as random effects, which means that they are random factors for spatial or systematic factors across different rows and columns of the experiment field. The treatment effects, on the other hand, are treated as fixed effects because they represent the primary factors of interest that we wish to evaluate in terms of their influence on the response variable.
 
-Recalling @eq-lmm, the treatment effects are modeled as fixed effects, represented by the treatment design matrix $\boldsymbol{X}$ with parameter vector $\boldsymbol{\tau}$, measuring the influence of each treatment on the response variable. The matrix $\boldsymbol{X}$ is constructed such that each row corresponds to an experimental unit, and indicators in  each column indicates whether a treatment is applied or not.
+In @eq-lmm, the treatment effects are modelled as fixed effects, represented by the treatment design matrix $\boldsymbol{X}$ with parameter vector $\boldsymbol{\tau}$, measuring the influence of each treatment on the response variable. The matrix $\boldsymbol{X}$ is constructed such that each row corresponds to an experimental unit, and indicators in  each column indicates whether a treatment is applied or not.
 
-The random effects are modeled through the matrix $\boldsymbol{Z}$ and parameter vector $\boldsymbol{u}$. Matrix $\boldsymbol{Z}$ is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector $\boldsymbol{u}$ are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix $\boldsymbol{G}$.
+The random effects are modelled through the matrix $\boldsymbol{Z}$ and parameter vector $\boldsymbol{u}$. Matrix $\boldsymbol{Z}$ is designed to capture the row and column structure of the experimental field, in which entries represent the position of each experimental unit located in some specific rows and columns. The parameters in vector $\boldsymbol{u}$ are corresponding row and column effects. They are assumed to follow a normal distribution with mean zero and variance-covariance matrix $\boldsymbol{G}$.
 
-With $\boldsymbol{y}$ as the vector of observed responses and $\boldsymbol{\epsilon}$ as error term, a row-column design can be modeled by @eq-lmm . where $\boldsymbol{X\tau}$ represents the fixed treatment effects and $\boldsymbol{Zu}$ captures the random variations basing on rows and columns. 
+With $\boldsymbol{y}$ as the vector of observed responses and $\boldsymbol{\epsilon}$ as error term, a row-column design can be modelled by @eq-lmm . where $\boldsymbol{X\tau}$ represents the fixed treatment effects and $\boldsymbol{Zu}$ captures the random variations basing on rows and columns. 
 
 ### Random effects matrix
-The design matrix for the random effects, which is row and column in my linear mixed model follows a binary indicator structure, denoted as $\boldsymbol{Z}$. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
+The design matrix for the random effects, which is row and column in linear mixed model, follows a binary indicator structure, denoted as $\boldsymbol{Z}$. For example, we a have a $4\times 4$ experiment field, having $4$ rows, $4$ columns and $16$ units. Then random effects matrix should be a $16 \times 8$ matrix containing binary indicator as the one presented.
 $$
 \boldsymbol{Z}_{\text{example}}=
 \begin{bmatrix}
@@ -43,13 +43,12 @@ $$
 \end{array}
 \end{bmatrix}
 $$
-Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout.In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.
+Each row corresponds to a specific experimental unit, while the columns represent the row and column factors in the experimental layout. In this matrix, the first set of columns represents the column effects, while the second set of columns represents the row effects. Each entry in this matrix is binary, where a value of 1 indicates that the experimental unit belongs to a specific row or column, and a 0 indicates otherwise. For example, the first row of the matrix has a 1 in both first and fifth columns, meaning that the corresponding unit of it is in the first column and the first row. This structure ensures that each unit is uniquely associated with one row and one column, and we can model the random effects accordingly.
 
-In a more general case, suppose we have a $m\times n$ row-column experiment field. We should have a random effect matrix with $mn$ rows and $m+n$ columns with binary numbers. In this paper, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modeling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.
+In a more general case, suppose we have a $n_r\times n_c$ row-column experiment field. We should have a random effect matrix with $n_rn_c$ rows and $n_r+n_c$ columns with binary numbers. In this thesis, we assume that the row effects and column effects are independent with each other. However, in more complex experimental design cases, they may be potentially correlated. The design of the random effects matrix, which separates the row and column effects as independent variables, simplifies the modelling process and the analysis of potential correlations between these effects in more advanced settings. This structure allows for easier identification and analysis of interactions between row and column effects, making the model flexible and adaptable to different levels of complexity in experimental designs.
 
 ### Design matrix for treatments
-The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable.  In a row-column experimental design, each experimental unit is assigned a specific treatment.The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use $4\times 4$ experiment field as example, and suppose we have $4$ different treatments for each have $4$ replications, needing $16$ experiment unite. An example design matrix $\boldsymbol{X}$ for treatments should be a $16\times 4$ matrix with binary indicators as shown below
-
+The design matrix for the treatment effects is constructed to capture the influence of each treatment on the response variable. In a row-column experimental design, each experimental unit is assigned a specific treatment. The entries in design matrix represents these assignments using binary indicators. Like random effects matrix each row in the matrix corresponds to an experimental unit, while each column represents a different treatment. Here we still use $4\times 4$ experiment field as example, and suppose we have $4$ different treatments for each have $4$ replications, needing $16$ experiment unite. An example design matrix $\boldsymbol{X}$ for treatments should be a $16\times 4$ matrix with binary indicators as shown below
 $$
 \boldsymbol{X}_{\text{example}}=
 \begin{bmatrix}
@@ -85,9 +84,9 @@ All replications of a treatment are applied in experimental field.
 
 ### Assumptions for A-value calculation
 
-It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling @eq-an, for calculating A value we need the covariance matrix for the random effects, matrix $\boldsymbol{G}$, covariance matrix for the error term, matrix $\boldsymbol{R}$, transformation matrix $\boldsymbol{D}$, random effect matrix $\boldsymbol{Z}$ and treatment design matrix $\boldsymbol{X}$. We need some basic setup for these matrices.
+It is important to clarify the key assumptions made in this study before calculating A value for a row-column design. Recalling @eq-an, for calculating A value we need the covariance matrix for the random effects, matrix $\boldsymbol{G}$, covariance matrix for the error term, matrix $\boldsymbol{R}$, transformation matrix $\boldsymbol{D}$, random effect matrix $\boldsymbol{Z}$ and treatment design matrix $\boldsymbol{X}$. We need some basic set-up for these matrices.
 
-Assume that we now have a row-column matrix with $n_r$ rows, $n_r$ columns and $n_rn_c$ plots.
+Assume that we now have a row-column matrix with $n_r$ rows, $n_c$ columns and $n_rn_c$ plots.
 
 For the covariance matrix for the random effects, matrix $\boldsymbol{G}$, which captures the variability introduced by the row and column effects. I assume it is a $(n_r+n_c)\times(n_r+n_c)$ diagonal matrix, that is, it has following form,
 
@@ -100,7 +99,7 @@ $$
 $$
 $\boldsymbol{I}_{n_c}$ is a ${n_c}\times{n_c}$ identity matrix, same to $\boldsymbol{I}_{n_r}$. And $\sigma_{G_c}$ and $\sigma_{G_r}$ is a scale constant. This means that the influences of the rows and columns are independent of each other, meaning there is no correlation between different row and column effects in the design.
 
-Similarly, for the covariance matrix for the error term, matrix $\boldsymbol{R}$, I assume that it  is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have
+Similarly, for the covariance matrix for the error term, matrix $\boldsymbol{R}$, we assume that it is also diagonal, indicating that the residual errors are uncorrelated across different experimental units. In this case we have
 $$
 \boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{n_rn_c}
 $$
@@ -134,7 +133,7 @@ Now we proof the existence of minimum value of $\boldsymbol{X}$, where $\boldsym
 Recalling @eq-an 
 
 $$
-\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
 $$
 This expression is well-defined for all valid design matrices $\boldsymbol{X}$. So function $A(\boldsymbol{X})$ is well-defined.
 
@@ -193,15 +192,15 @@ $$
 $$
 It is an identity matrix with $i$-th row and $j$-th row swapped.
 
-When performing permutations on the design matrix, I apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out. 
+When performing permutations on the design matrix, we apply checks based on the metrics of evenness of distribution (ED) and neighbour balance (NB). The goal is to ensure that only the permutations which improve or at least maintain desirable values for ED and NB are accepted, while others are filtered out. 
 
-A random permutation of treatments is generated by swapping two different treatments in the design matrix, as described earlier using a permutation matrix. Once the new design matrix $\boldsymbol{X}_{new}$ with corresponding design $\mathcal{D}_{new}$ is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for $\boldsymbol{X}_{new}$, that is $C_{NB}'$, $MRS(\mathcal{D}_{new})$ and $MCS(\mathcal{D}_{new})$. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it's not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as $T_{ED}$ and $T_{NB}$, which are none negative numbers. Current design matrix  $\boldsymbol{X}$ corresponding design $\mathcal{D}$ has  ED and NB value $C_{NB}$, $MRS(\mathcal{D})$ and $MCS(\mathcal{D})$.  New design matrix $\boldsymbol{X}_{new}$ mentioned above is accepted when
+Once the new design matrix $\boldsymbol{X}_{new}$ with corresponding design $\mathcal{D}_{new}$ is created, the next step is to evaluate the quality of the permutation by calculating the ED and NB values for the new configuration. As afore-mentioned, we have NB and ED criteria for $\boldsymbol{X}_{new}$, that is $C_{NB}'$, $MRS(\mathcal{D}_{new})$ and $MCS(\mathcal{D}_{new})$. Comparing the newly generated design matrix (offspring) with the original design matrix (parent), We accept the new permutation, if the ED and NB values improves or maintains them without significantly worse. In practice, we often set a tolerance for the ED and NB values. We generally allow ED and NB to become slightly worse, as it's not necessary for them to strictly improve or remain unchanged in every iteration. Our goal is to achieve a balance between ED, NB, and the A-value. For instance, ED might increase slightly while NB decreases a little, as long as the overall balance between the three objectives is maintained. This approach has the added benefit of lowering the acceptance threshold for permutations, which speeds up the algorithm during the random selection process. For instance, we set tolerance for ED and NB as $T_{ED}$ and $T_{NB}$, which are none negative numbers. Current design matrix  $\boldsymbol{X}$ corresponding design $\mathcal{D}$ has  ED and NB value $C_{NB}$, $MRS(\mathcal{D})$ and $MCS(\mathcal{D})$.  New design matrix $\boldsymbol{X}_{new}$ mentioned above is accepted When the following expression returns true。
 $$\begin{aligned}
 &(C_{NB}'\leq C_{NB}+T_{NB}) \\
 \land & (MRS(\mathcal{D}_{new})\geq MRS(\mathcal{D})-T_{ED})\\
 \land & (MCS(\mathcal{D}_{new})\geq MCS(\mathcal{D})-T_{ED})
 \end{aligned}$${#eq-accp}
-is true. 
+
 
 
 ### Random search
@@ -215,7 +214,7 @@ We denote step length as $s$. tolerance for ED and NB as $t_{ED}$ and $t_{NB}$. 
 ::: {.algorithm}
 1. **Input**: Original design matrix $\boldsymbol{X}$, step length $s$, tolerance for ED and NB as $t_{ED}$ and $t_{NB}$.
 2. **Initialize**: $k = 1$, ED and NB value for $\boldsymbol{X}$ as $mrs({\boldsymbol{X}})$, $mcs({\boldsymbol{X}})$ and $C_{NB}({\boldsymbol{X}})$.
-3. While $k < s$:
+3. **While** $k < s$:
    - Generate a random permutation matrix $\boldsymbol{P}$ by selecting two different treatments.
    - Apply permutation: $\boldsymbol{X_{new} = \boldsymbol{P}X}$.
    - Calculate new values of ED and NB, $mrs({\boldsymbol{X}_{new}})$, $mcs({\boldsymbol{X}_{new}})$ and $C_{NB}({\boldsymbol{X}_{new}})$.

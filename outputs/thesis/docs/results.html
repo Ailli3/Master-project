@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ANU Thesis - 4&nbsp; Results</title>
+<title>Preliminary investigation of algorithms for optimal row-column designs - 4&nbsp; Results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ANU Thesis</a> 
+      <a href="./">Preliminary investigation of algorithms for optimal row-column designs</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -184,7 +184,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Declaration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,8 +195,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation and terminology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -310,133 +310,126 @@ window.Quarto = {
 <p>To compare the differences between algorithms, we used the design function from the R package blocksdesign to calculate the optimized A-value <span class="math inline">A_{blocksdesign}</span> basing on <span class="citation" data-cites="edmondson2020multi">Edmondson (<a href="references.html#ref-edmondson2020multi" role="doc-biblioref">2020</a>)</span>, which we then compared to the results from our iterative process.</p>
 <p>For the consistency across all algorithms, we aimed to explore the largest feasible range of row, column, and treatment combinations. We set the maximum number of iterations <span class="math inline">M=2000</span> for each algorithm. And we add an early termination criterion: if the iterative algorithm’s A-value approaches <span class="math inline">A_{blocksdesign}</span> within a specified tolerance <span class="math inline">T_A</span>, the algorithm would stop iterating and output the A-value and design matrix. In this simulation we set <span class="math inline">T_A=2\times 10^{-4}</span> Therefore we can evaluate the performance of different algorithms across various combinations of row, column, and treatment numbers by comparing the total computational time required, the actual iteration number before reaching either <span class="math inline">M</span> or an early termination based on <span class="math inline">A_{blocksdesign}</span>, and the absolute difference between the algorithm’s and <span class="math inline">A_{blocksdesign}</span>.Basing on these evaluations, we can identify how effectively each algorithm performs under different complexity levels and determine the algorithm’s efficiency and accuracy across different cases.</p>
 <p>In setting up random selection, the final parameter is the step length <span class="math inline">s</span>. During runtime, the process of selecting permutations for step-length iterations often accounts for a large portion of the total functioning time.Additionally, this selection becomes especially challenging when the row, column, and treatment numbers are low. In such cases, while applying filtering criteria, it can be difficult to find a sufficient number of unique permutations that meet the requirements, as the design itself may not contain enough options. To ensure the algorithm runs smoothly and completes within a reasonable time, we set the step length to <span class="math inline">s=3</span>.</p>
-<p>For the SA algorithm, we need to set the initial temperature <span class="math inline">T_0</span>.It actually depends on the acceptance rate for higher A-values at the start of the iteration process. As mentioned in the previous section, we typically aim for an initial acceptance rate of around 0.8. That is we hope $(-A_{}/T_0) $. We often lack precise information on <span class="math inline">A_{\bigtriangleup}</span> before the algorithm, we set the initial temperature based on an empirical estimate. We set <span class="math inline">T_0=1</span>. Some adaptive algorithms for setting the initial temperature are often discussed in the literature.</p>
+<p>For the SA algorithm, we need to set the initial temperature <span class="math inline">T_0</span>.It actually depends on the acceptance rate for higher A-values at the start of the iteration process. As mentioned in the previous section, we typically aim for an initial acceptance rate of around 0.8. That is we hope <span class="math inline">\exp(-A_{\bigtriangleup}/T_0) \approx 0.8</span>. We often lack precise information on <span class="math inline">A_{\bigtriangleup}</span> before the algorithm, we set the initial temperature based on an empirical estimate. We set <span class="math inline">T_0=1</span>. Some adaptive algorithms for setting the initial temperature are often discussed in the literature.</p>
 <p>To examine combinations of row, column, and treatment numbers, we tested a wide range of configurations. Row number ranged from 5 to 25, and column number varied from 5 to 16. For each row and column combination, we tested treatment numbers of 10, 20, 50, 80, and 100. To ensure that the blocksdesign functions operated correctly and to maintain general applicability, we ship a combination, if the product of rows and columns was less than twice the treatment number.It ensures that each treatment could have at least two replication. For each combination of row, column and treatment number, we conduct three replication for more accurate observation.</p>
-<p>For the cases when treatment number cannot evenly divide the product of rows and columns, suppose <span class="math inline">n_{plot}=n_r\times n_c</span> and treatment number is <span class="math inline">n_{\tau}</span>, we set base replication number as <span class="math inline">\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor</span>, and randomly pick <span class="math inline">n_{plot}\quad mod\quad n_{\tau}</span> treatments assign <span class="math inline">\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor+1</span> replication to these treatments. This approach ensures that the number of each treatment is as close as possible to one another.</p>
+<p>For the cases when treatment number cannot evenly divide the product of rows and columns, suppose <span class="math inline">n_{plot}=n_r\times n_c</span> and treatment number is <span class="math inline">n_{\tau}</span>, we set base replication number as <span class="math inline">\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor</span>, and randomly pick <span class="math inline">(n_{plot}\mod n_{\tau})</span> treatments assign <span class="math inline">\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor+1</span> replication to these treatments. This approach ensures that the number of each treatment is as close as possible to one another.</p>
 </section>
 <section id="result-analyze" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="result-analyze"><span class="header-section-number">4.2</span> Result analyze</h2>
 <section id="general-behviour-of-algorithms" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="general-behviour-of-algorithms"><span class="header-section-number">4.2.1</span> General behviour of algorithms</h3>
 <p>Now we observe the overall behaviour of the algorithm, to examine the change of A-value during the process. We here use example with <span class="math inline">n_c=n_r=15</span> and <span class="math inline">n_\tau=50</span>. we now use blocksdesign functions to generate a optimal design <span class="math inline">\mathcal{D}_{op}</span> with A-value <span class="math inline">A_{op} = 0.5027</span> under set-up, NB criteria <span class="math inline">C_{NB}(\mathcal{D}_{op})=3</span> and ED criteria <span class="math inline">MRS(\mathcal{D}_{op})=MCS(\mathcal{D}_{op})=5</span>. See detailed assignment as follow</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-blockdesign" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/block-design-visualization.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>blocksdesign out put</figcaption>
-</figure>
+<div aria-describedby="fig-blockdesign-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-blockdesign-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blockdesign-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: Detailed assignment for treatments given by design function in blocksdesign package
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <section id="random-selection" class="level4" data-number="4.2.1.1">
 <h4 data-number="4.2.1.1" class="anchored" data-anchor-id="random-selection"><span class="header-section-number">4.2.1.1</span> Random selection</h4>
-<p>We now look at how random selection behave during the process. The iteration stops at <span class="math inline">549</span>-th step with output A-value <span class="math inline">A_{rs}=0.050478</span> and NB criteria <span class="math inline">C_{NB}(\mathcal{D}_{rs})=4</span> and ED criteria <span class="math inline">MRS(\mathcal{D}_{rs})=5</span> and <span class="math inline">MCS(\mathcal{D}_{rs})=7</span>. The changes in the A-value over iterations and the specific design are shown in the figure below.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>We now look at how random selection behave during the process. The iteration stops at <span class="math inline">549</span>-th step with output A-value <span class="math inline">A_{rs}=0.050478</span> and NB criteria <span class="math inline">C_{NB}(\mathcal{D}_{rs})=4</span> and ED criteria <span class="math inline">MRS(\mathcal{D}_{rs})=5</span> and <span class="math inline">MCS(\mathcal{D}_{rs})=7</span>. The changes in the A-value over iterations and the specific design are shown in <a href="#fig-AvIRS" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> and <a href="#fig-RS" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-AvIRS" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/random selection example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>A v.s. Iteration (Random search)</figcaption>
-</figure>
+<div aria-describedby="fig-AvIRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-AvIRS-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AvIRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: A v.s. Iteration (Random search)
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RS" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/Random search design visualization.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>Random search out put design</figcaption>
-</figure>
+<div aria-describedby="fig-RS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RS-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.3
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Detailed assignment for treatments given by random search
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>From the results, the A-value obtained by Random Search is relatively close to that of the block design, though slightly larger, as is the NB statistic. Recall that we would like A-value and <span class="math inline">C_{NB}</span> to be as small as possible, and for both <span class="math inline">MRC</span> and <span class="math inline">MRC</span>, the larger the better. Therefore, the Random Search outcome has a larger minimum column span, meaning it preform better on evenness of distribution.</p>
 </section>
 <section id="sa-with-log-cooling-schedule" class="level4" data-number="4.2.1.2">
 <h4 data-number="4.2.1.2" class="anchored" data-anchor-id="sa-with-log-cooling-schedule"><span class="header-section-number">4.2.1.2</span> SA with log cooling schedule</h4>
-<p>For SA using the log cooling schedule <a href="methods.html#eq-logcol" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>,Unlike random selection, the algorithm accepts higher A-values with a certain probability, causing fluctuations in A-values throughout the iterations, resulting in rises and falls rather than a steady decline. Details can be seen in the figure below.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>For SA using the log cooling schedule <a href="methods.html#eq-logcol" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>,Unlike random selection, the algorithm accepts higher A-values with a certain probability, causing fluctuations in A-values throughout the iterations, resulting in rises and falls rather than a steady decline. Details can be seen in the <a href="#fig-AvISAlog" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> and <a href="#fig-SAlog" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-AvISAlog" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="D:/Mater%20Advanced%20project/Master%20project/outputs/Rplots/SA_SLOW%20example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>A v.s. Iteration (SA with log cooling schedule)</figcaption>
-</figure>
+<div aria-describedby="fig-AvISAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-AvISAlog-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.4
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AvISAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: A v.s. Iteration (SA with log cooling schedule)
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-SAlog" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA_SLOW visualization.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>SA with log cooling schedule out put design</figcaption>
-</figure>
+<div aria-describedby="fig-SAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-SAlog-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.5
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: Detailed assignment for treatments given by SA with log cooling schedule
 </figcaption>
 </figure>
 </div>
-<p>As it indicate in the plot, the process went through all iterations, reaching maximum iteration number <span class="math inline">M</span>. At the 2000th iteration, the A-value is <span class="math inline">A_{SAlog}=0.050609</span> with NB criteria <span class="math inline">C_{SAlog}(\mathcal{D}_{rs})=5</span> and ED criteria <span class="math inline">MRS(\mathcal{D}_{SAlog})=7</span> and <span class="math inline">MCS(\mathcal{D}_{SAlog})=6</span>.</p>
+</div>
+</div>
+<p>As it indicate in the plot, the process went through all iterations, reaching maximum iteration number <span class="math inline">M</span>. At the 2000th iteration, the A-value is <span class="math inline">A_{SAlog}=0.050609</span> with NB criteria <span class="math inline">C_{SAlog}(\mathcal{D}_{SAlog})=5</span> and ED criteria <span class="math inline">MRS(\mathcal{D}_{SAlog})=7</span> and <span class="math inline">MCS(\mathcal{D}_{SAlog})=6</span>.</p>
 <p>Compared to random selection, the optimization of the A-value in SA is less effective, since the limitation of a maximum iteration number <span class="math inline">M</span>.Similar to the NB statistic, where SA shows a less optimal outcome than the block design. However, the two ED statistics given by SA are significantly improved compared to those provided by the blockdesign function and random selection. Because of the slower decrease in acceptance rates for higher A-values with log cooling schedule, we observe that the algorithm occasionally continues to accept larger A-values even in the latter stages.</p>
 </section>
 <section id="sa-with-exp-cooling-schedule" class="level4" data-number="4.2.1.3">
 <h4 data-number="4.2.1.3" class="anchored" data-anchor-id="sa-with-exp-cooling-schedule"><span class="header-section-number">4.2.1.3</span> SA with exp cooling schedule</h4>
-<p>This is also SA but with an exponential cooling schedule <a href="methods.html#eq-expcol" class="quarto-xref">Equation&nbsp;<span>3.5</span></a>. Although exponential cooling schedule does not theoretically guarantee SA convergence to the global optimum, it can produce a relatively near-optimal solution within finite computational resources and time constraints. Because of the rapid temperature decrease in exponential cooling, the algorithm initially shows fluctuations in A-values at the beginning of the iterations. However, as the number of iterations increases, the acceptance rate for larger A-values declines quickly, and algorithm tend to avoid accepting higher A-values.Details are shown in the figure below</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>This is also SA but with an exponential cooling schedule <a href="methods.html#eq-expcol" class="quarto-xref">Equation&nbsp;<span>3.5</span></a>. Although exponential cooling schedule does not theoretically guarantee SA convergence to the global optimum, it can produce a relatively near-optimal solution within finite computational resources and time constraints. Because of the rapid temperature decrease in exponential cooling, the algorithm initially shows fluctuations in A-values at the beginning of the iterations. However, as the number of iterations increases, the acceptance rate for larger A-values declines quickly, and algorithm tend to avoid accepting higher A-values.Details are shown in the <a href="#fig-SAexp" class="quarto-xref">Figure&nbsp;<span>4.7</span></a> and <a href="#fig-SAlog" class="quarto-xref">Figure&nbsp;<span>4.5</span></a></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-AvISAexp" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA_F example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>A v.s. Iteration (SA with exp cooling schedule)</figcaption>
-</figure>
+<div aria-describedby="fig-AvISAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-AvISAexp-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.6
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AvISAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.6: A v.s. Iteration (SA with exp cooling schedule)
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-SAexp" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA_F visualization.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>A v.s. Iteration (SA with exp cooling schedule)</figcaption>
-</figure>
+<div aria-describedby="fig-SAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-SAexp-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.7
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.7: Detailed assignment for treatments given by SA with exp cooling schedule
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>The iteration process stopped at the <span class="math inline">1341</span>-st iteration because the A-value had come sufficiently close to the blockdesign A-value. The results show that the A-value achieved is <span class="math inline">A_{SAexp} = 0.050473</span>, with an NB statistic <span class="math inline">C_{SAexp}(\mathcal{D}_{rs})=4</span>, and ED statistics <span class="math inline">MRS(\mathcal{D}_{SAexp})=5</span> and <span class="math inline">MCS(\mathcal{D}_{SAexp})=6</span>.</p>
 <p>The exponential cooling schedule achieved similar A-values and NB statistics to those of random selection. However, its performance on the ED statistic was less effective compared to both random selection and log cooling. The reason may be the early termination of iterations in exponential cooling, which limited the exploration of the whole design matrix space.</p>
@@ -446,138 +439,139 @@ Figure&nbsp;4.7
 <section id="analysis-by-algorithm" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="analysis-by-algorithm"><span class="header-section-number">4.2.2</span> Analysis by Algorithm</h3>
 <p>Now we begin to explore the relationship between function runtime and the number of rows, columns, and treatments. Generally, runtime is proportional to the number of iterations. Here, we have set the maximum number of iterations to 2000. If in the simulation most runs reach the maximum number of iterations, then evaluating the relationship between runtime and rows, columns, and treatment numbers will no longer be meaningful.Therefore, before the analysis, we need to examine the distribution of iteration numbers. If most of the simulations do not reach the maximum number of iterations, we can use runtime as a measure of computational efficiency.</p>
-<p>For random selection, many simulations did not reach the maximum number of iterations, which can be observed in the figure.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>For random selection, many simulations did not reach the maximum number of iterations, which can be observed in <a href="#fig-iteration-ditribution-RS" class="quarto-xref">Figure&nbsp;<span>4.8</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-iteration-ditribution-RS" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/RS_eva/RS-iternum-distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. runtime (random selection)</figcaption>
-</figure>
+<div aria-describedby="fig-iteration-ditribution-RS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-iteration-ditribution-RS-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.8
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iteration-ditribution-RS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.8: Proportion of Iteration number for random selection
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>So we present the relationship between runtime and the number of rows under different treatment numbers, as shown in the figures below. As mentioned earlier, we have three replications for each combination of rows, columns, and treatment numbers. We calculate the average of the three replications for each combination as the final result.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RvTRS" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/RS_eva/RS-row-vs-runtime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. runtime (random selection)</figcaption>
-</figure>
+<div aria-describedby="fig-RvTRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RvTRS-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.9
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RvTRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.9: The above plot shows the average runtime by the number of rows with the color indicating the number of columns and facetted by the number of treatments t for Random Selection algorithm.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>We can observe that, under different numbers of columns, the relationship between rows and runtime tends to be similar. Here, we will not discuss the origin or significance of this trend but instead focus on the relation between variables and runtime. There is no clear positive or negative relationship between the number of rows and runtime. We see that as the number of rows increases, the runtime does not consistently increase or decrease, which is related to the randomness of random selection. During the iteration process, we might be lucky enough to find a good design early and terminate the iteration, or the A-value may gradually decrease over the iterations.</p>
-<p>However, by observing the vertical axis of different subplots, we can see that as the number of treatments increases, the range of runtime fluctuations also increases. To demonstrate this, we present the relationship between the number of treatments and runtime under different rows and columns.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>However, by observing the vertical axis of different subplots, we can see that as the number of treatments increases, the range of runtime fluctuations also increases. To demonstrate this, we present the relationship between the number of treatments and runtime under different rows and columns as <a href="#fig-TvTRS" class="quarto-xref">Figure&nbsp;<span>4.10</span></a> shows.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvTRS" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/RS_eva/RS-trt-vs-runtime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#treatment v.s. runtime (random selection)</figcaption>
-</figure>
+<div aria-describedby="fig-TvTRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvTRS-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.10
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvTRS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.10: The above plot shows the average runtime by the number of treatments with the color indicating the number of rows, facetted by the number of columns for Random Selection algorithm.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>By observing the figure, we can see that as the number of treatments increases, runtime shows a positive correlation, indicating that with more treatments, random selection requires more time to find permutations and make comparisons.</p>
-<p>This approach leads us to consider the relationship between the number of treatments and runtime. However, for SA with log cooling, due to the slow convergence of log cooling and the limitation of a maximum number of iterations, the algorithm often runs until the maximum number of iterations is reached. This makes it difficult to observe the relationship between the number of treatments and runtime, as runtime is often related to the maximum number of iterations. See the image below for details.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
+<p>This approach leads us to consider the relationship between the number of treatments and runtime. However, for SA with log cooling, due to the slow convergence of log cooling and the limitation of a maximum number of iterations, the algorithm often runs until the maximum number of iterations is reached. This makes it difficult to observe the relationship between the number of treatments and runtime, as runtime is often related to the maximum number of iterations. See <a href="#fig-iteration-ditribution-SAlog" class="quarto-xref">Figure&nbsp;<span>4.13</span></a> below for details.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="../thesis/images/Rplots/SA-Slow-eva/SA-Slow-iternum-distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>Iteration number distribution (SA with log cooling schedule)</figcaption>
+<p><img src="results_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.11
-</figcaption>
-</figure>
 </div>
 <p>In the figure, we can see that only when the number of rows and columns is small, meaning the design space is limited, SA with log cooling can terminate before reaching the maximum number of iterations. In most other cases, the algorithm stops when it reaches the maximum number of iterations. Therefore, we use the difference <span class="math inline">d = (A_{SAlog}-A_{op})/A_{op}</span> between the A-value obtained by SA with log cooling at the maximum number of iterations and the A-value calculated by the blockdesign function to evaluate the impact of the number of rows, columns, and treatments on the efficiency of the algorithm.</p>
-<p>We first look at the influence of the number of rows on the distance. Similar to the analysis method used for random selection, we provide the following figure.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>We first look at the influence of the number of rows on the distance. Similar to the analysis method used for random selection, we provide <a href="#fig-RvDSAlog" class="quarto-xref">Figure&nbsp;<span>4.11</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RvDSAlog" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA-Slow-eva/SA-Slow-row-vs-diff.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference (SA with exp cooling schedule)</figcaption>
-</figure>
+<div aria-describedby="fig-RvDSAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RvDSAlog-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.12
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RvDSAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.11: The above plot shows the difference between <span class="math inline">A_{SAlog}</span> and <span class="math inline">A_{op}</span> by the number of rows with the color indicating the number of columns and facetted by the number of treatments for SA log Cooling algorithm.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>From the above figure, it is evident that the number of rows and columns is positively correlated with the difference. The greater the number of rows, the larger the difference. Similarly, the greater the number of columns, the higher the lines (towards the red), indicating a larger difference. Based on previous experience, we attempt to examine the relationship between the number of treatments and distance, as shown in the figure below.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvDSAlog" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA-Slow-eva/SA-Slow-trt-vs-diff.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#treatment v.s. difference (SA with exp cooling schedule)</figcaption>
-</figure>
+<div aria-describedby="fig-TvDSAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvDSAlog-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.13
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvDSAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.12: The above plot shows the difference between <span class="math inline">A_{SAlog}</span> and <span class="math inline">A_{op}</span> by the number of treatments, with the color indicating the number of rows and facetted by the number of columns for SA with log cooling algorithm.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>The results show that the treatment number is negatively correlated with the difference. In other words, as the treatment number increases, the resulting value (whether the iteration stops early or reaches the maximum number of iterations) tends to be closer to the optimal value. However, this does not necessarily mean that the absolute distance to the optimal value decreases.</p>
-<p>For SA with exponential cooling, we also examine the distribution of the iteration numbers. ::: {#fig-align style=“text-align: center”} <img src="../thesis/images/Rplots/SA-Fast-eva/SA-Fast-iternum-distribution.png" class="img-fluid quarto-figure quarto-figure-center" style="width:70.0%" alt="#rows v.s. runtime (random selection)"> :::</p>
-<p>It can be seen that most of the simulations did not reach the maximum number of iterations, so we can use runtime to compare the effects of rows, columns, and treatment numbers on the algorithm.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>For SA with exponential cooling, we also examine the distribution of the iteration numbers.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-iteration-ditribution-SAlog" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA-Fast-eva/SA-Fast-row-vs-runtime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. runtime (random selection)</figcaption>
-</figure>
+<div aria-describedby="fig-iteration-ditribution-SAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-iteration-ditribution-SAlog-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.14
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iteration-ditribution-SAlog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.13: Proportion of Iteration number for SA with exp cooling schedule
 </figcaption>
 </figure>
+</div>
+</div>
+</div>
+<p>It can be seen that most of the simulations did not reach the maximum number of iterations, so we can use runtime to compare the effects of rows, columns, and treatment numbers on the algorithm. Details in <a href="#fig-RvTSAexp" class="quarto-xref">Figure&nbsp;<span>4.14</span></a></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RvTSAexp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-RvTSAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RvTSAexp-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RvTSAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.14: The above plot shows the runtime by the number of rows with the color indicating the number of columns and facetted by the number of treatments for SA with exp cooling algorithm.
+</figcaption>
+</figure>
+</div>
+</div>
 </div>
 <p>We can see that when the treatment number is small, the influence of rows and columns on runtime is not significant. This could be because the design space is smaller, and for randomness, the algorithm stops after fewer iterations. As the treatment number increases, the impact of rows and columns on runtime becomes apparent: the greater the number of rows and columns, the longer the runtime.This effect can also be observed when examining the influence of the treatment number on runtime.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvTSAexp" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/SA-Fast-eva/SA-Fast-trt-vs-runtime.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. runtime (random selection)</figcaption>
-</figure>
+<div aria-describedby="fig-TvTSAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvTSAexp-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.15
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvTSAexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.15: The above plot shows the runtime by the number of treatments with the color indicating the number of rows and facetted by the number of columns for the filtered ‘SA exp Cooling’ algorithm.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>Similarly, we can observe that as the treatment number increases, the runtime also increases. Additionally, as the number of rows increases, the vertical axis of the plot also grows, indicating their positive correlation.</p>
 </section>
@@ -587,117 +581,110 @@ Figure&nbsp;4.15
 <section id="comparing-with-difference" class="level4" data-number="4.2.3.1">
 <h4 data-number="4.2.3.1" class="anchored" data-anchor-id="comparing-with-difference"><span class="header-section-number">4.2.3.1</span> Comparing with difference</h4>
 <p>Now, we use the difference to compare the computational efficiency of different algorithms. We present the figures showing the influence of row number, column number, and treatment number on the difference for the three algorithms. Note that for random selection and SA with exponential cooling, the method for calculating the difference is the same as for SA with logarithmic cooling, which means it represents the relative difference, that is <span class="math inline">d = (A_{op}-A_{result})/A_{op}</span>.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RvD" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/r-vs-D.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-RvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RvD-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.16
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.16: The average relative difference between <span class="math inline">A_{op}</span> and <span class="math inline">A_{result}</span> by the number of rows for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-CvD" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/c-vs-D.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-CvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-CvD-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.17
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.17: The average relative difference between <span class="math inline">A_{op}</span> and <span class="math inline">A_{result}</span> by the number of columns for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvD" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/trt-vs-D.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-TvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvD-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.18
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.18: The average relative difference between <span class="math inline">A_{op}</span> and <span class="math inline">A_{result}</span> by the number of treatments for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>Overall, it can be observed that for the difference, random selection has the smallest value, SA with exponential cooling is slightly larger, and SA with logarithmic cooling has the largest value. Moreover, SA with logarithmic cooling is more influenced by the three variables.</p>
-<p>In general, for all three algorithms, as the number of rows and columns increases, the relative difference also increases. However, the difference is negatively correlated with the treatment number. As mentioned earlier, a smaller relative difference does not necessarily mean that the absolute distance to the optimal value decreases. We can use the figure below to support this point.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>In general, for all three algorithms, as the number of rows and columns increases, the relative difference also increases. However, the difference is negatively correlated with the treatment number. As mentioned earlier, a smaller relative difference does not necessarily mean that the absolute distance to the optimal value decreases. We can use the <a href="#fig-TvDabs" class="quarto-xref">Figure&nbsp;<span>4.19</span></a> below to support this point.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvDabs" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/trt-vs-ABS-D.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-TvDabs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvDabs-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.19
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvDabs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.19: The average absolute difference between <span class="math inline">A_{op}</span> and <span class="math inline">A_{result}</span> by the number of treatments for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>It can be seen here that if we consider the absolute difference, it is actually positively correlated with the treatment number.</p>
 </section>
 <section id="comparing-with-runtime" class="level4" data-number="4.2.3.2">
 <h4 data-number="4.2.3.2" class="anchored" data-anchor-id="comparing-with-runtime"><span class="header-section-number">4.2.3.2</span> Comparing with runtime</h4>
-<p>Now, let’s see what the comparison looks like from the perspective of runtime. We present the following figure to illustrate this.</p>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+<p>Now, let’s see what the comparison looks like from the perspective of runtime. We present <a href="#fig-RvT" class="quarto-xref">Figure&nbsp;<span>4.20</span></a>, <a href="#fig-CvT" class="quarto-xref">Figure&nbsp;<span>4.21</span></a>, and <a href="#fig-TvT" class="quarto-xref">Figure&nbsp;<span>4.22</span></a> to illustrate this.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-RvT" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/r-vs-t.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-RvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-RvT-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.20
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.20: the average runtime by the number of rows for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-CvT" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/c-vs-t.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-CvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-CvT-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.21
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.21: The average runtime by the number of columns for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
 </div>
-<div id="fig-align" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center">
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-TvT" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../thesis/images/Rplots/means/trt-vs-t.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-<figcaption>#rows v.s. difference)</figcaption>
-</figure>
+<div aria-describedby="fig-TvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="results_files/figure-html/fig-TvT-1.png" class="img-fluid figure-img" width="960">
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-align-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.22
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TvT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.22: The average runtime by the number of treatments for different algorithms, with the lines representing different algorithms.
 </figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>From the figures, we can see that SA with exponential cooling is the fastest, while SA with log cooling takes a bit longer, and random selection requires the longest time. When the number of rows, columns, and treatments is still small, for the design space is limited and the randomness of the algorithms, the differences are less noticeable. However, as these numbers increase, the differences in runtime become more significant, with random selection showing the fastest increase in runtime. Overall, the number of rows, columns, and treatments are all positively correlated with runtime, but the treatment number has a more direct impact on runtime.</p>
 </section>
@@ -1124,7 +1111,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright © 2024, Your Name</p>
+<p>Copyright © 2024, Jingning Yao</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

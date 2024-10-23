@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ANU Thesis - 1&nbsp; Introduction</title>
+<title>Preliminary investigation of algorithms for optimal row-column designs - 1&nbsp; Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,7 +51,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./background.html" rel="next">
-<link href="./acknowledgements.html" rel="prev">
+<link href="./notation.html" rel="prev">
 <link href="./_extensions/anu-thesis/assets/ANU_Favicon_Inversed_Gold.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -96,6 +96,49 @@ div.csl-indent {
   });
 </script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="_extensions/anu-thesis/assets/css/all.css">
 </head>
@@ -124,7 +167,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ANU Thesis</a> 
+      <a href="./">Preliminary investigation of algorithms for optimal row-column designs</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -141,7 +184,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Declaration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -152,8 +195,8 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation and terminology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -246,11 +289,243 @@ div.csl-indent {
 </header>
 
 
-<p>In the field of experimental design, efficient methods are crucial for ensuring accurate and reliable results. One such method is the row-column design, controlling variability in experiments involving two factors, typically arranged in rows and columns. The row-column design can be considered as an extension of the Latin square design with more flexibility, allowing for different numbers of rows, columns, and treatments. This flexibility makes row-column designs applicable to a wider range of experimental settings.</p>
-<p>To offer a row-column design that gives a precise estimation of treatment effects, one way is to seek the optimal value of some statistic criteria, for example, A-criteria(links to sections), minimizing the variance of elementary treatment contrasts. Using linear mixed model and assuming fixed treatment effects and random blocking effect, <span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> has show the relation between optimizing design and minimizing the value of A-criteria, and show some possible algorithms to search optimal design in feasible set. These algorithms mainly focus on comparing the arrangements of different treatments, that is, doing permutations, and calculating their A values, optimizing design by iterations.</p>
-<p>However, some undesired cluster of replications or some treatment may occur when algorithm are doing permutations along rows and columns. <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> found that such clustering is considered undesirable by experimenters who worry that irregular environmental gradients might negatively impact multiple replications of the same treatment, potentially leading to biased treatment effect estimates. Williams emphasis that there is a need to design a strategy to avoid clustering and achieve even distribution of treatment replications among the experimental field. Two properties of design are introduced. Even distribution of treatment replications, abbreviated as ED, and neighbor balance, abbreviated as NB. A good ED ensures every replications of a treatment are widely spread in experimental field, and NB helps to avoid replications of the some treatment cluster together repeatedly. Williams introduce a scoring system to analysis ED and NB for a specific design, and introduce a algorithm to optimize ED, NB and some average efficiency factor can be represented by a specific statistic criteria.(maybe saying some improvement is needed)</p>
-<p>We offer an optimization strategy for a design problem, which we can improving ED and NB during optimizing statistic criteria for a design, and avoid unwanted clustering and self-adjacency on the resulting design.In this algorithm, we use A-criteria to evaluate the efficiency of a design. Before the algorithm, we randomly generate a design as an initial design, and calculate the A-criteria as initial value. We update design by selecting a better among its neighbors. The neighbors are pair-wise permutations of a design. Typically, we select a neighbor from all pairwise permutations of a design for iteration, but this does not ensure ED and NB. To ensure ED and NB during optimization, we need to add some constraints when generating the pairwise permutations.(maybe explain what is the constraints) By filtering design with bad ED and NB, we then optimize the statistic criteria of the design.</p>
-<p>(sections in the thesis)</p>
+<p>Experiments play a vital role in scientific research by helping to establish causal relationships between variables.To achieve accurate and reliable results in a comparative experiment, careful experimental design is essential. In this thesis, we formally define an experimental design as given in <a href="#def-exp" class="quarto-xref">Definition&nbsp;<span>1.1</span></a>.</p>
+<div id="def-exp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.1 (Design)</strong></span> A comparative experiment is an experimental study involving a set of experimental units, denoted as <span class="math inline">\Omega</span>, and a set of treatments, denoted as <span class="math inline">\mathcal{T}</span>. The experimental design is defined as a surjective function <span class="math inline">D: \Omega \rightarrow \mathcal{T}</span>. The sizes of <span class="math inline">\Omega</span> and <span class="math inline">\mathcal{T}</span> are denoted as <span class="math inline">N</span> and <span class="math inline">n_t</span>, respectively. We use <span class="math inline">V_{\Omega} := \mathbb{R}^N</span> and <span class="math inline">V_{\mathcal{T}}</span> to denote the vector spaces of <span class="math inline">\Omega</span> and <span class="math inline">\mathcal{T}</span>, respectively.</p>
+</div>
+<p>In conducting an experiment, a proper design of experiment is crucial for ensuring accurate and reliable results. A row-column design is a particular type of experimental design where the experimental unit is defined by the combination of two orthogonal factors, typically arranged in rows and columns. The row-column experimental structure is common in many biological applications, e.g.&nbsp;96-well plates and crop field trials. The treatments of interest are then randomly allocated with certain constraints as not to confound the treatments with nuisance factors.See <a href="#def-rowcol" class="quarto-xref">Definition&nbsp;<span>1.2</span></a> for a formal definition of a row-column design. Note that rows and columns do not have to correspond to actual physical dimensions.</p>
+<p>Generally, a row-column design can be defined as</p>
+<div id="def-rowcol" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.2 (Row-column design)</strong></span> A row-column design refers to an experiment where experimental units are defined by the Cartesian product of two sets with sizes <span class="math inline">n_r</span> and <span class="math inline">n_c</span>, denoted as <span class="math inline">\mathcal{R}</span> and <span class="math inline">\mathcal{C}</span>, respectively, such that <span class="math inline">\Omega = \mathcal{R} \times \mathcal{C}</span>. We denote <span class="math inline">F_R</span> and <span class="math inline">F_C</span> as the surjective functions that map <span class="math inline">\Omega</span> to <span class="math inline">\mathcal{R}</span> and <span class="math inline">\mathcal{C}</span>, respectively. We use <span class="math inline">V_R</span> and <span class="math inline">V_C</span> to denote vector spaces in <span class="math inline">\mathbb{R}^N</span> for row and column factors, respectively.</p>
+</div>
+<p>In a row-column design, the row and column factors are often considered as nuisance (or blocking) factors. The treatments of interest are then randomly allocated with certain constraints as to reduce confounding the treatment factors with these nuisance factors. An example of row-column design is the <em>Latin square design</em> where <span class="math inline">n_r = n_c = n_t</span> and each treatment appears exactly once in each row and column (see <a href="#exm-lsd" class="quarto-xref">Example&nbsp;<span>1.1</span></a>).</p>
+<div id="exm-lsd" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.1 (A <span class="math inline">3 \times 3</span> Latin square design)</strong></span> In a <span class="math inline">3 \times 3</span> Latin square design, we let <span class="math inline">n_t = n_c = n_r = 3</span> and the resulting random instance of a design is as shown in <a href="#fig-lsd" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> with its corresponding design elements shown in <a href="#tbl-lsd" class="quarto-xref">Table&nbsp;<span>1.1</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-lsd" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_files/figure-html/fig-lsd-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: A <span class="math inline">3 \times 3</span> Latin square design.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-lsd" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: The design elements of <a href="#fig-lsd" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> with <span class="math inline">\Omega</span> and <span class="math inline">T</span> as defined in <a href="#def-exp" class="quarto-xref">Definition&nbsp;<span>1.1</span></a> and <span class="math inline">F_R</span> and <span class="math inline">F_C</span> as defined in <a href="#def-rowcol" class="quarto-xref">Definition&nbsp;<span>1.2</span></a>. The <span class="math inline">n=9</span>-vectors <span class="math inline">\boldsymbol{x}_{R_i}</span> for <span class="math inline">i = 1, 2, 3</span>, <span class="math inline">\boldsymbol{x}_{C_j}</span> for <span class="math inline">j = 1, 2, 3</span> and <span class="math inline">\boldsymbol{x}_{T_k}</span> for <span class="math inline">k = 1, 2, 3</span> are the orthonormal basis of <span class="math inline">V_R</span>, <span class="math inline">V_C</span> and <span class="math inline">V_T</span>, respectively.
+</figcaption>
+<div aria-describedby="tbl-lsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\omega \in \Omega</span></th>
+<th style="text-align: left;"><span class="math inline">F_R(\omega)</span></th>
+<th style="text-align: left;"><span class="math inline">F_C(\omega)</span></th>
+<th style="text-align: left;"><span class="math inline">T(\omega)</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{R_1}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{R_2}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{R_3}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{C_1}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{C_2}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{C_3}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{T_1}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{T_2}</span></th>
+<th style="text-align: right;"><span class="math inline">\boldsymbol{x}_{T_3}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#tbl-lsd" class="quarto-xref">Table&nbsp;<span>1.1</span></a> shows how we use a binary method to distinguish between rows, columns, and types of treatments. For row-column designs, we typically use a design matrix to model the arrangement of treatments.</p>
+<div id="def-design-matrix" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.3</strong></span> A design matrix <span class="math inline">\boldsymbol{X}</span> is a matrix that represents the arrangement of experimental units across different treatments in an experimental design. Each row corresponds to an experimental unit, and each column corresponds a treatment level.</p>
+</div>
+<p>The last three columns of the <a href="#tbl-lsd" class="quarto-xref">Table&nbsp;<span>1.1</span></a> above can be viewed as the design matrix for <a href="#exm-lsd" class="quarto-xref">Example&nbsp;<span>1.1</span></a>, which we will discuss it in detail in the <a href="methods.html" class="quarto-xref"><span>Chapter 3</span></a>.</p>
+<p>In this thesis, the observational unit and experimental unit are considered the same, thus the response of interest for the <span class="math inline">\omega \in \Omega</span> is a random variable denoted as <span class="math inline">Y_\omega</span> and its observed value (after the experiment) denoted as <span class="math inline">y_\omega</span>. We use <span class="math inline">\boldsymbol{y} = (y_1, \ldots, y_n)^\top</span> to denote the vector of responses and use this interchangeably to denote a vector of random variable as well. In its simplest form, we assume that the response can be decomposed to the treatment and nuisance factors by assuming a linear model,</p>
+<p><span id="eq-lm"><span class="math display">Y_\omega = \tau_{T(\omega)} + e_\omega, \tag{1.1}</span></span></p>
+<p>where <span class="math inline">\tau_{T(\omega)}</span> is a constant value with respect to the treatment received for <span class="math inline">\omega</span> (referred to as the <em>average treatment effects</em>) and <span class="math inline">e_\omega</span> is a random variable associated with the remaining contribution from <span class="math inline">\omega</span>. <a href="#eq-lm" class="quarto-xref">Equation&nbsp;<span>1.1</span></a> assumes an additive structure which is fundamental in estimating the average treatment effect – if this assumption does not hold to a large extent, there is little point in conducting the experiment.</p>
+<p>Different treatments usually have varying effects on the experimental outcomes, known as treatment effects. The goal of our experimental design is to more accurately measure and estimate the impact of different treatments on the experimental results, i.e., the treatment effects. To offer precise estimation of treatment effects, one way is to seek the optimal value of some statistic criteria, for example, A-criteria, minimizing the variance of elementary treatment contrasts. <span class="citation" data-cites="butler2013optimal">Butler (<a href="references.html#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span> has show the relation between optimizing design and minimizing the value of A-criteria, and show some possible algorithms to search optimal design in feasible set. These algorithms mainly focus on comparing the arrangements of different treatments, that is, doing permutations, and calculating their A values, optimizing design by iterations.</p>
+<p>However, some undesired cluster of replications or some treatment may occur when algorithm are doing permutations along rows and columns. In an experimental design, a treatment usually has multiple replications. Specifically, clustering can refer to multiple replications of the same treatment being grouped together, or different treatments’ replications frequently being grouped together in the experimental design see an example in <a href="#fig-NBED" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>. <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> found that such clustering is considered undesirable by experimenters who worry that irregular environmental gradients might negatively impact multiple replications of the same treatment, potentially leading to biased treatment effect estimates. Williams emphasis that there is a need to design a strategy to avoid clustering and achieve even distribution of treatment replications among the experimental field. Two properties of design are introduced. Evenness of distribution of treatment replications, abbreviated as ED, and neighbour balance, abbreviated as NB. Evenness of distribution represents how multiple replications of a treatment are evenly spread across the design field, rather than being placed close to each other. Neighbour balance, on the other hand, indicates that multiple treatments are not consistently placed next to each other in the design, promoting a more diverse adjacency relationship between treatments. A good ED ensures every replications of a treatment are widely spread in experimental field, and NB helps to avoid replications of the some treatment cluster together repeatedly. Williams introduce a scoring system to analysis ED and NB for a specific design, and introduce a algorithm to optimize ED, NB and some average efficiency factor can be represented by a specific statistic criteria.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-NBED" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-NBED-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_files/figure-html/fig-NBED-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-NBED-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: Above, the figure presents an example of clustering: multiple replications of treatment 8 are grouped together, while treatments 1 and 19 are always adjacent to each other.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We offer an optimization strategy for a design problem, which we can improving ED and NB during optimizing statistic criteria for a design, and avoid unwanted clustering and self-adjacency on the resulting design.In this algorithm, we use A-criteria to evaluate the efficiency of a design. Before the algorithm, we randomly generate a design as an initial design, and calculate the A-criteria as initial value. We update design by selecting a better among its neighbours. The neighbours are pair-wise permutations of a design. Typically, we select a neighbour from all pairwise permutations of a design for iteration, but this does not ensure ED and NB. To ensure ED and NB during optimization, we add some constraints when generating the pairwise permutations, only maintain or better properties are accepted. By filtering design with bad ED and NB, we optimize the statistic criteria such as A-value of the design.</p>
+<p>In the <a href="background.html" class="quarto-xref"><span>Chapter 2</span></a>, we introduced how to model row-column designs by linear mixed, introduced the methods for calculating various statistics and the meaning behind them, and provided relevant mathematical proofs. In the <a href="methods.html" class="quarto-xref"><span>Chapter 3</span></a>, we outlined the relevant assumptions made for row-column designs. We introduced three search algorithms—random search and two cooling schedules for simulated annealing—providing detailed descriptions of their steps and discussing their convergence properties. In the <a href="results.html" class="quarto-xref"><span>Chapter 4</span></a>, we first provide details of our simulation set-up, presenting specific results with various figures, analyse the performance of different algorithms, and made comparisons among them. In the <a href="discussion.html" class="quarto-xref"><span>Chapter 5</span></a>, we outline our limitations and discussed some potential future directions.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -652,8 +927,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./acknowledgements.html" class="pagination-link" aria-label="Acknowledgements">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Acknowledgements</span>
+      <a href="./notation.html" class="pagination-link" aria-label="Notation and terminology">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Notation and terminology</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -669,7 +944,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright © 2024, Your Name</p>
+<p>Copyright © 2024, Jingning Yao</p>
 <div class="toc-actions"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/intro.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

@@ -6,7 +6,7 @@ editor:
 
 # Background {#sec-bg}
 
-Linear (mixed) models are the primarly method of analysis of experimental data with response that have an approximate Normal distribution. In this chapter, we expand on the model 
+Linear (mixed) models are the primary method of analysis of experimental data with response that have an approximate Normal distribution. In this chapter, we expand on the model 
 $$\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}$$
 to consider linear mixed models for the analysis of experimental data with a more general experimental structure.
 
@@ -102,10 +102,18 @@ $$
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
 \end{bmatrix}.
 $$ {#eq-ll}
+
+$$
+\Rightarrow (\boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*)\hat{\boldsymbol{\beta}}
+=\boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y}
+$$
+Substituting the above $\boldsymbol{C}$ leads to our conclusion
 :::
 
 :::
 
+
+@thm-blue provides the specific form for estimation of the parameters.
 :::: {#thm-blue}
 
 ## Best linear unbiased estimates and predictions
@@ -117,7 +125,7 @@ $$\begin{aligned}
 \hat{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
 \end{aligned}$${#eq-esti}
 
-where $\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}$. In this paper, we primarily discuss the treatment effect, so we provide the proof of the treatment effect.
+where $\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}$. In this paper, we primarily discuss the treatment effect, so we provide the proof for $\hat{\boldsymbol{\tau}}$.
 
 ::: proof
 By cancelling $\boldsymbol{u}$, we have
@@ -167,8 +175,7 @@ The variance parameters may be estimated using a method of moment approach, howe
 
 The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates [@pattersonRecoveryInterblockInformation1971]. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see @verbylaConditionalDerivationResidual1990 for the derivation of REML and @smithMultiplicativeMixedModels1999 for computational strategies involving the average information algorithm [@gilmourAverageInformationREML1995;@johnsonRestrictedMaximumLikelihood1995].
 
-
-### Precision of estimators
+### Variance analyse of estimators
 In linear mixed model analysis, when estimating the accuracy of parameters and variance, we typically use the Fisher information matrix to provide a method for variance analysis. For the linear mixed model @eq-lmm, we have the log-likelihood of it is then given as:
 $$
 \log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
@@ -180,23 +187,15 @@ $$
 where $\tau_i$ is the $i$-th entry of $\boldsymbol{\tau}$.
 
 ::: {#lem-fim-lm}
-The Fisher information matrix of @eq-lm is given as
+The Fisher information matrix of @eq-lm for $\boldsymbol{\tau}$ is given as
 $$
 \boldsymbol{C}_{\text{Fisher}} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
 $$
 :::
 
-And we have $\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{\text{Fisher}}^{-1})$.We will provide the specific form of this matrix and the related proof in the introduction of the A-value.
+And we have $\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{\text{Fisher}}^{-1})$. We will provide the specific form of this matrix and the related proof in the next section.
 
 ### A-criterion
-
-Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.
-
-By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of treatment effects. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
-
-We first start with a simple example, that is, we consider treatment
-factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of
-A-criterion.
 
 Now we have our estimation for the treatment factor, and experimental
 design aims to further refine our design by focusing on the precision of
@@ -206,13 +205,17 @@ differences between any two treatment levels are as small as possible.
 To achieve this, we introduce the A-value as a criterion for evaluating
 the design.
 
+
+Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects. By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of the difference of the effects between two treatments. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.
+
+Recall that in this thesis, we consider treatment factors $\boldsymbol{\tau}$ are fixed, to elucidate the influence of A-criterion. Our discussion of the A-criterion below is always based on this assumption.
 ::: {#def-A-value}
 Basing on the model formula @eq-lmm, and a estimation of treatment
 factor $\hat{\boldsymbol{\tau}}$ has $n_{\tau}$ factors. A-criterion
 measure the average predicted error variance of different treatments.
 Let
 $V_{ij}= var(\hat{\tau}_i-\hat{\tau}_j)=var(\hat{\tau}_i)+var(\hat{\tau}_j)-2cov(\hat{\tau}_i,\hat{\tau}_j)$,
-and a A-value $\mathcal{A}$ is
+and an A-value $\mathcal{A}$ is
 $$
 \mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 $${#eq-a}
@@ -224,10 +227,10 @@ $\hat{\boldsymbol{\tau}}$. In fact, it can be proof that
 
 
 ::: {#lem-cov}
-For treatment effect and its estimator @eq-esti, we have $\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
+For treatment effect and its estimator @eq-esti, we have $(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})$.
 
 ::: proof
-From @eq-ll and basing in assumption we have
+From @eq-lmm and basing on assumption @eq-dist we have
 $$
 \boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top),
 $${#eq-asp}
@@ -363,7 +366,7 @@ var(\hat{\boldsymbol{\tau}})
 &=\boldsymbol{C}^{11}
 \end{aligned}$$
 
-What is $\boldsymbol{C}^{11}$? what is the relation between $\boldsymbol{C}_{11}$ and $\boldsymbol{C}^{11}$? From @eq-iv we have $\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}$ and $\boldsymbol{S}$ is 
+what is the relation between $\boldsymbol{C}_{11}$ and $\boldsymbol{C}^{11}$? From @eq-iv we have $\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}$ and $\boldsymbol{S}$ is 
 $$
 \boldsymbol{S} = \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}
 $$
@@ -376,10 +379,7 @@ $$\begin{aligned}
 &=\boldsymbol{C}_{11}
 \end{aligned}$$
 
-So $var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}$.
-
-So we have
-$\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})$.
+So $var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}$, which means $(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})$.
 :::
 
 :::
@@ -403,7 +403,7 @@ the sum part as
 $n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}$.So
 we have
 $$
-\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
 $${#eq-an}
 same result from @butler2013model
 
@@ -435,7 +435,7 @@ true effect next to it. Therefore, it is essential to control the
 adjacency frequency of different treatments to prevent high adjacency
 for two specific treatments.
 
-Even distribution(ED) aims to ensure that different replications of the
+Even distribution (ED) aims to ensure that different replications of the
 same treatment are widely distributed across the experimental field,
 rather than being clustered in a specific area. This strategy helps to
 avoid biases caused by specific environmental conditions in certain
@@ -446,6 +446,7 @@ observations. By evenly distributing replications, environmental
 interference can be minimized, so that we can enhance the reliability of
 the experimental results.
 
+See @fig-NBED for instances where bad NB and ED occur.
 
 ### Measuring NB and ED
 
@@ -460,16 +461,15 @@ selected design matrix. Consequently, my approach considers not only
 diagonal adjacency but also the adjacent points directly above, below,
 to the left, and to the right.
 
-I use an adjacency matrix to count the number of times each treatment is
+We use an adjacency matrix to count the number of times each treatment is
 adjacent to another. This matrix serves as a crucial tool in my
 optimization process, enabling precise tracking and adjustment of
 treatment placements to achieve neighbour balance.
 
 We denote the adjacency matrix as $\mathcal{U}$, and for treatment
-$i$ and $j$ in treatment set $T$ $\mathcal{U}_{ij}$ represents the
+$i$ and $j$ in treatment set $T$, the symbol $\mathcal{U}_{ij}$ represents the
 count of times treatment $i$ is adjacent to treatment $j$. Here
-"adjacent" means treatment $j$ is located next to treatment $i$ (maybe a
-picture to show it)
+"adjacent" means treatment $j$ is located next to treatment $i$
 
 For Given design $\mathcal{D}$ and $\mathcal{D}_{r,c}$ represents the
 treatment at row $r$ and column $c$. So $\mathcal{U}_{ij}$ can be
@@ -500,7 +500,7 @@ $r$ and column $c$.
 We measure NB by taking difference of the maximum and minimum of the elements in adjacency matrix
 $\mathcal{U}$. Our NB criteria is
 $$
-C_{NB}=max\{\mathcal{U}_{ij}\}-min\{\mathcal{U}_{ij}\}  \quad i,j\in T
+C_{NB}=\max\{\mathcal{U}_{ij}\}-\min\{\mathcal{U}_{ij}\}  \quad i,j\in T
 $$
 
 #### Evaluating ED with minimum row and column span
@@ -508,18 +508,18 @@ The goal of evaluating the evenness of distribution (ED) is to find the row and 
 
 The row span for a given treatment $t \in T$ is defined as the difference between the maximum and minimum row indices where t appears in experiment field.
 $$
-RS(t)=max\{r:\mathcal{D}_{r,c}=t\}-min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
+RS(t)=\max\{r:\mathcal{D}_{r,c}=t\}-\min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 $$
 And the minimum row span of a design $\mathcal{D}$ is 
 $$
-MRS(\mathcal{D})=min\{RS(t)\},\quad t \in T
+MRS(\mathcal{D})=\min\{RS(t)\},\quad t \in T
 $$
 Same for column span
 $$
-CS(t)=max\{c:\mathcal{D}_{r,c}=t\}-min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
+CS(t)=\max\{c:\mathcal{D}_{r,c}=t\}-\min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 $$
 $$
-MCS(\mathcal{D})=min\{CS(t)\},\quad t \in T
+MCS(\mathcal{D})=\min\{CS(t)\},\quad t \in T
 $$
 So, for the changes in the design matrix $\mathcal{D}$ during the search process, we tend to accept only those changes where the Minimum Row Span ($MRS$) and Minimum Column Span ($MCS$) remain the same or become smaller.
 

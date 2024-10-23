@@ -17,7 +17,11 @@
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \ifXeTeX
+    \usepackage{mathspec} % this also loads fontspec
+  \else
+    \usepackage{unicode-math} % this also loads fontspec
+  \fi
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
@@ -83,22 +87,6 @@
 \makeatother
 
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
-\definecolor{quarto-callout-color}{HTML}{909090}
-\definecolor{quarto-callout-note-color}{HTML}{0758E5}
-\definecolor{quarto-callout-important-color}{HTML}{CC1914}
-\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
-\definecolor{quarto-callout-tip-color}{HTML}{00A047}
-\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
-\definecolor{quarto-callout-color-frame}{HTML}{acacac}
-\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
-\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
-\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
-\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
-\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
-\makeatother
-\makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
 \makeatother
 \makeatletter
@@ -136,10 +124,12 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -163,23 +153,22 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={ANU Thesis},
-  pdfauthor={Your Name},
+  pdftitle={Preliminary investigation of algorithms for optimal row-column designs},
+  pdfauthor={Jingning Yao},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\usepackage{fancyhdr}
+%\usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{multirow}
-\usepackage{amsmath}	% Advanced maths commands
-\usepackage{amssymb}	% Extra maths symbols
+%\usepackage{amsmath}	% Advanced maths commands
+%\usepackage{amssymb}	% Extra maths symbols
 \usepackage{rotating} % Rotating table
 \usepackage[toc,page]{appendix}
 \usepackage{setspace}
 \usepackage{rotating}
 \usepackage{longtable}
 \usepackage{natbib}
-\usepackage{multirow}
 
 
 \def\TODO#1{{\color{red}{\bf [TODO:} {\it{#1}}{\bf ]}}}
@@ -187,7 +176,7 @@
 %%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
 
 \usepackage{color}
-\usepackage[normalem]{ulem}
+%\usepackage[normalem]{ulem}
 
 % These are autoref macros
 \def\chapterautorefname{Chapter}
@@ -221,18 +210,21 @@
 \usepackage{multicol}        % Multi-column entries in tables
 \usepackage{booktabs} %to include pandas latex tables
 \usepackage{float}
+\usepackage{bera}
 
 
-\title{ANU Thesis}
+\title{Preliminary investigation of algorithms for optimal row-column
+designs}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{Quarto Template}
-\author{Your Name}
-\date{18th October 2024}
+\subtitle{Balancing Treatment Efficiency and Spatial Distribution in
+Experimental Designs}
+\author{Jingning Yao}
+\date{23rd October 2024}
 
 \begin{document}
   \begin{frontmatter}
@@ -243,24 +235,26 @@
   \begin{titlepage}
     \begin{flushright}%
       \vspace{50mm}
-      {\small A thesis submitted for the degree of {\it Doctor of
-  Philosophy}}
+      {\small A thesis submitted for the degree of {\it Master of
+  Mathematical Sciences (Advanced)}}
       \rule[1ex]{\textwidth}{1pt}\\
-      {\fontsize{9}{0} 18th October 2024}\\
+      {\fontsize{9}{0} 23rd October 2024}\\
       \vspace{25mm}
-      {\fontsize{40}{44}\bfseries ANU Thesis\par}
+      {\fontsize{34}{38}\bfseries Preliminary investigation of
+  algorithms for optimal row-column designs\par}
         \vspace{12mm}
     	\parbox{\textwidth}{
   	\begin{flushright}
-  		\fontsize{28}{30} Quarto Template
+  		\fontsize{28}{30} Balancing Treatment Efficiency and Spatial
+  Distribution in Experimental Designs
   	\end{flushright}}
   	    \vfill
-      {\fontsize{20}{0}\bfseries Your Name}\\
+      {\fontsize{20}{0}\bfseries Jingning Yao}\\
       \vspace{2mm}
-      {\fontsize{8}{0} Research School of Spectacular Sciences}\\
+      {\fontsize{8}{0} Mathematical Sciences Institue}\\
       \vspace{35mm}
       {\fontsize{10}{0}\bfseries supervised by}\\
-      Prof.~Jane Smith, Dr.~John Smith
+      Dr.~Emi Tanaka, A/Prof Katherine Turner
       
       \vspace{2.0cm}
   		\includegraphics[width=0.4\textwidth]{\_extensions/anu-thesis/assets/latex/ANU\_Primary\_Horizontal\_GoldBlack.eps}\\
@@ -270,15 +264,15 @@
    \normalfont
    \vspace*{\fill}
    \noindent
-   \begin{tabular}{lp{10cm}}
-     {\bf Doctor of Philosophy Thesis} & \\[2mm]
-     {\bf Author:} & Your Name\\[2mm]
-     {\bf Supervisors:} & Prof.~Jane Smith, Dr.~John Smith\\[2mm]
+   \begin{tabular}{lp{40cm}}
+     {\bf Master of Mathematical Sciences (Advanced) Thesis} & \\[2mm]
+     {\bf Author:} & Jingning Yao\\[2mm]
+     {\bf Supervisors:} & Dr.~Emi Tanaka, A/Prof Katherine Turner\\[2mm]
      
-     {\bf Project period:} & 2024-01-01 -- 2028-01-01 \\[2mm]
+     {\bf Project period:} & 2024-02-17 -- 2024-10-24 \\[2mm]
    \end{tabular}\\[2mm]
 
-  \noindent Research School of Spectacular Sciences\\
+  \noindent Mathematical Sciences Institue\\
   \noindent Australian National University
 
   \end{titlepage}
@@ -309,93 +303,14 @@
 \mainmatter
 \bookmarksetup{startatroot}
 
-\chapter*{Preface}\label{preface}
-\addcontentsline{toc}{chapter}{Preface}
+\chapter*{Declaration}\label{declaration}
+\addcontentsline{toc}{chapter}{Declaration}
 
-\markboth{Preface}{Preface}
+\markboth{Declaration}{Declaration}
 
-This thesis template is intended for honours, masters or PhD students at
-the Australian National University (ANU) who wish to write their thesis
-using the \href{https://quarto.org/}{Quarto} document format. It is
-highly recommended for students who code using Python, R or Julia and
-have many computational or analysis results in their thesis.
+The work in this thesis is my own except where otherwise stated.
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, opacityback=0, coltitle=black, leftrule=.75mm, rightrule=.15mm, opacitybacktitle=0.6, bottomtitle=1mm, left=2mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, breakable, arc=.35mm, colback=white, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, toptitle=1mm, toprule=.15mm]
-
-This thesis template is available on GitHub at
-\href{https://github.com/anuopensci/quarto-anu-thesis}{github.com/anuopensci/quarto-anu-thesis}.
-
-\end{tcolorbox}
-
-\section*{Benefits}\label{benefits}
-\addcontentsline{toc}{section}{Benefits}
-
-\markright{Benefits}
-
-The benefits of using Quarto document include:
-
-\begin{itemize}
-\tightlist
-\item
-  It allows you to write your thesis in a simple markup language called
-  \href{https://www.markdownguide.org/}{Markdown}. This means that you
-  can focus on writing your thesis without having to worry about
-  formatting.
-\item
-  The document can be output to a variety of formats including PDF,
-  HTML, Word, and LaTeX.
-\item
-  Code can be easily embedded in the document and executed. This means
-  that you can include the results of your analysis in your thesis
-  without having to manually copy and paste them. This is a good
-  reproducible and scientific practice.
-\item
-  You can easily integrate with aspects of GitHub (edit, reporting an
-  issue, etc).
-\end{itemize}
-
-The above outlined benefits can also be considered as best practice.
-Version controlling and collaborative writing (via Git and GitHub) are
-important in managing multiple versions of your thesis and in
-collaborating with your supervisory team. Embedding code in your thesis
-is a good practice in reproducible research. Making your thesis in HTML
-format can allow for interactive web elements to be embedded while PDF
-format can be for general distribution and printing.
-
-\section*{Getting started}\label{getting-started}
-\addcontentsline{toc}{section}{Getting started}
-
-\markright{Getting started}
-
-There are several systems that you are expected to know to use this
-template. These include:
-
-\begin{itemize}
-\tightlist
-\item
-  Markdown syntax for writing
-\item
-  Quarto or R Markdown syntax (note that these works for Python or Julia
-  too) for embedding code
-\item
-  (Optional) Git and GitHub for hosting
-\end{itemize}
-
-\section*{Frequently asked questions}\label{frequently-asked-questions}
-\addcontentsline{toc}{section}{Frequently asked questions}
-
-\markright{Frequently asked questions}
-
-\subsection*{What about Overleaf?}\label{what-about-overleaf}
-\addcontentsline{toc}{subsection}{What about Overleaf?}
-
-ANU has a professional account for Overleaf, which is great for those
-that use LaTeX regularly. Unfortunately, there is no equivalent system
-with track changes in Quarto. You can output the tex file from Quarto
-document and use this in Overleaf. The changes made in this tex document
-however has to be manually transferred back to the Quarto document. If
-your main output is mainly mathematical and you have little to no code
-outputs, Overleaf is probably a better choice.
+Jingning yao
 
 \bookmarksetup{startatroot}
 
@@ -404,59 +319,384 @@ outputs, Overleaf is probably a better choice.
 
 \markboth{Abstract}{Abstract}
 
+Row-Column designs are widely used in experimental design to minimize
+variance and improve estimation accuracy. However, it sometimes can lead
+to clustering of treatments, which negatively impacts design efficiency.
+we present an approach to optimizing row-column designs using the
+A-criterion, while avoiding clustering simultaneously through the
+application of random search and simulated annealing algorithm. Our
+method introduces some statistical criteria to quantify spatial
+distribution, and by incorporating these metrics into the two mentioned
+algorithms, we effectively balance the optimization between treatment
+efficiency and spatial distribution. Additionally, we compare the
+performance of the different algorithms, demonstrating their relative
+effectiveness. This work contributes to both the theory and practice of
+experimental design by offering an improved methodology for achieving
+optimal and evenly distributed arrangements.
+
 \bookmarksetup{startatroot}
 
-\chapter*{Acknowledgements}\label{acknowledgements}
-\addcontentsline{toc}{chapter}{Acknowledgements}
+\chapter*{Notation and terminology}\label{notation-and-terminology}
+\addcontentsline{toc}{chapter}{Notation and terminology}
 
-\markboth{Acknowledgements}{Acknowledgements}
+\markboth{Notation and terminology}{Notation and terminology}
 
-I would like to express my sincere gratitude to my dog, Chuckles, for
-eating my research notes multiple times. If it wasn't for you, I would
-have finished this thesis earlier.
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3043}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6957}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Notation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\boldsymbol{y}\) & Response variable vector \\
+\(\boldsymbol{u}\) & Parameter vector of blocking effects \\
+\(\hat{\boldsymbol{u}}\) & Estimated parameter vector of blocking
+effects by log-likelihood maximization \\
+\(\boldsymbol{\tau}\) & Parameter vector of treatments effects \\
+\(\hat{\boldsymbol{\tau}}\) & Estimated parameter vector of treatments
+effects by log-likelihood maximization \\
+\(\boldsymbol{\epsilon}\) & Parameter vector of model error \\
+\(\boldsymbol{Z}\) & Blocking factor matrix \\
+\(\boldsymbol{X}\) & Design matrix for treatments \\
+\(\boldsymbol{G}\) & Variance matrix for random effect \\
+\(\boldsymbol{R}\) & variance matrix for model error \\
+\(\mathcal{A}\) & The A-value \\
+\(\boldsymbol{\Lambda}\) & Variance-covariance of estimated treatments
+effects \\
+\(\mathcal{1}_n\) & A vector of length n with all elements equal to 1 \\
+\(\boldsymbol{D}\) & Transformation matrix of treatments \\
+\(\mathcal{D}\) & Design results \\
+\(\mathcal{D}_{r,c}\) & The treatment at row \(r\) and column \(c\) \\
+\(T\) & The set of treatments \\
+\(\mathcal{U}\) & Adjacency matrix \\
+\(n_r\) & Total number of rows \\
+\(n_c\) & Total number of columns \\
+\(n_{\tau}\) & Total kinds of treatments \\
+\(C_{NB}\) & Neighbour balance criteria \\
+\(MRS(\mathcal{D})\) & The minimum row span of design \(\mathcal{D}\) \\
+\(MCS(\mathcal{D})\) & The minimum column span of design
+\(\mathcal{D}\) \\
+\(\boldsymbol{G}_{diag}\) & Diagonal \(\boldsymbol{G}\) matrix \\
+\(\boldsymbol{R}_{diag}\) & Diagonal \(\boldsymbol{R}\) matrix \\
+\(\boldsymbol{I}_n\) & Identity matrix with size \(n\times n\) \\
+\(\sigma_{G_c}\) & Scaling constant for column effects \\
+\(\sigma_{G_r}\) & Scaling constant for row effects \\
+\(\sigma_{R}\) & Scaling constant for model error \\
+\(A(\boldsymbol{X})\) & A-value function maps design matrix
+\(\boldsymbol{X}\) to its A-value \\
+\(\boldsymbol{X}_{new}\) & New design matrix generated by permutation \\
+\(\mathcal{D}_{new}\) & Design results corresponding to
+\(\boldsymbol{X}_{new}\) \\
+\(\boldsymbol{P}_{ij}\) & An identity matrix with \(i\)-th row and
+\(j\)-th row swapped \\
+\(C_{NB}\) & Neighbour balance criteria of \(\mathcal{D}_{new}\) \\
+\(T_{NB}\) & Tolerance for Neighbour balance criteria \\
+\(T_{ED}\) & Tolerance for minimum row span and minimum column span \\
+\(s\) & Step length for random search \\
+\(t_{NB}\) & Tolerance for Neighbour balance criteria for pairwise
+permutation \\
+\(t_{ED}\) & Tolerance for minimum row span and minimum column span for
+pairwise permutation \\
+\(M\) & Maximum iteration number \\
+\(\{\boldsymbol{X}\}\) & Finite design searching space \\
+\(\{\boldsymbol{X}^*\}\) & A set of design matrix having optimal
+A-value \\
+\(T(t)\) & Temperature at \(t\)-th iteration \\
+\(\boldsymbol{X}_0\) & Initial design matrix \\
+\(n_p\) & Number of permutations \\
+\(\boldsymbol{G}_s\) & Variance matrix for random effect of
+simulation \\
+\(\boldsymbol{R}_s\) & variance matrix for model error of simulation \\
+\(A_{blocksdesign}\) & A-value calculated by design function in
+blocksdesign package \\
+\(T_A\) & Tolerance for A-value in simulation \\
+\(A_{\bigtriangleup}\) & Difference of A-values between two design
+matrix \\
+\(A_{op}\) & A-value calculated by design function in blocksdesign
+package in example case \\
+\(A_{rs}\) & A-value result given by random search \\
+\(\mathcal{D}_{rs}\) & Design result of random search \\
+\(C_{SAlog}\) & Neighbour balance criteria of random search \\
+\(A_{SAlog}\) & A-value result given by SA with log cooling schedule \\
+\(\mathcal{D}_{SAlog}\) & Design result of SA with log cooling
+schedule \\
+\(C_{SAlog}\) & Neighbour balance criteria of SA with log cooling
+schedule \\
+\(A_{SAexp}\) & A-value result given by SA with exp cooling schedule \\
+\(\mathcal{D}_{SAexp}\) & Design result of SA with exp cooling
+schedule \\
+\(C_{SAexp}\) & Neighbour balance criteria of SA with exp cooling
+schedule \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Terminology
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Evenness of distribution (ED) & Multiple replications of a treatment are
+evenly spread across the design field \\
+Neighbour balance (NB) & Multiple treatments are not consistently placed
+next to each other in the design \\
+Pairwise permutation & Swapping two treatments in a design matrix to
+explore new configurations \\
+\end{longtable}
 
 \bookmarksetup{startatroot}
 
 \chapter{Introduction}\label{sec-intro}
 
-In the field of experimental design, efficient methods are crucial for
-ensuring accurate and reliable results. One such method is the
-row-column design, controlling variability in experiments involving two
-factors, typically arranged in rows and columns. The row-column design
-can be considered as an extension of the Latin square design with more
-flexibility, allowing for different numbers of rows, columns, and
-treatments. This flexibility makes row-column designs applicable to a
-wider range of experimental settings.
+Experiments play a vital role in scientific research by helping to
+establish causal relationships between variables.To achieve accurate and
+reliable results in a comparative experiment, careful experimental
+design is essential. In this thesis, we formally define an experimental
+design as given in Definition~\ref{def-exp}.
 
-To offer a row-column design that gives a precise estimation of
-treatment effects, one way is to seek the optimal value of some
-statistic criteria, for example, A-criteria(links to sections),
-minimizing the variance of elementary treatment contrasts. Using linear
-mixed model and assuming fixed treatment effects and random blocking
-effect, \citet{butler2013optimal} has show the relation between
-optimizing design and minimizing the value of A-criteria, and show some
-possible algorithms to search optimal design in feasible set. These
-algorithms mainly focus on comparing the arrangements of different
-treatments, that is, doing permutations, and calculating their A values,
-optimizing design by iterations.
+\begin{definition}[Design]\protect\hypertarget{def-exp}{}\label{def-exp}
+
+A comparative experiment is an experimental study involving a set of
+experimental units, denoted as \(\Omega\), and a set of treatments,
+denoted as \(\mathcal{T}\). The experimental design is defined as a
+surjective function \(D: \Omega \rightarrow \mathcal{T}\). The sizes of
+\(\Omega\) and \(\mathcal{T}\) are denoted as \(N\) and \(n_t\),
+respectively. We use \(V_{\Omega} := \mathbb{R}^N\) and
+\(V_{\mathcal{T}}\) to denote the vector spaces of \(\Omega\) and
+\(\mathcal{T}\), respectively.
+
+\end{definition}
+
+In conducting an experiment, a proper design of experiment is crucial
+for ensuring accurate and reliable results. A row-column design is a
+particular type of experimental design where the experimental unit is
+defined by the combination of two orthogonal factors, typically arranged
+in rows and columns. The row-column experimental structure is common in
+many biological applications, e.g.~96-well plates and crop field trials.
+The treatments of interest are then randomly allocated with certain
+constraints as not to confound the treatments with nuisance factors.See
+Definition~\ref{def-rowcol} for a formal definition of a row-column
+design. Note that rows and columns do not have to correspond to actual
+physical dimensions.
+
+Generally, a row-column design can be defined as
+
+\begin{definition}[Row-column
+design]\protect\hypertarget{def-rowcol}{}\label{def-rowcol}
+
+A row-column design refers to an experiment where experimental units are
+defined by the Cartesian product of two sets with sizes \(n_r\) and
+\(n_c\), denoted as \(\mathcal{R}\) and \(\mathcal{C}\), respectively,
+such that \(\Omega = \mathcal{R} \times \mathcal{C}\). We denote \(F_R\)
+and \(F_C\) as the surjective functions that map \(\Omega\) to
+\(\mathcal{R}\) and \(\mathcal{C}\), respectively. We use \(V_R\) and
+\(V_C\) to denote vector spaces in \(\mathbb{R}^N\) for row and column
+factors, respectively.
+
+\end{definition}
+
+In a row-column design, the row and column factors are often considered
+as nuisance (or blocking) factors. The treatments of interest are then
+randomly allocated with certain constraints as to reduce confounding the
+treatment factors with these nuisance factors. An example of row-column
+design is the \emph{Latin square design} where \(n_r = n_c = n_t\) and
+each treatment appears exactly once in each row and column (see
+Example~\ref{exm-lsd}).
+
+\begin{example}[A \(3 \times 3\) Latin square
+design]\protect\hypertarget{exm-lsd}{}\label{exm-lsd}
+
+In a \(3 \times 3\) Latin square design, we let \(n_t = n_c = n_r = 3\)
+and the resulting random instance of a design is as shown in
+Figure~\ref{fig-lsd} with its corresponding design elements shown in
+Table~\ref{tbl-lsd}.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{intro_files/figure-pdf/fig-lsd-1.pdf}
+
+}
+
+\caption{\label{fig-lsd}A \(3 \times 3\) Latin square design.}
+
+\end{figure}%
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0749}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0524}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0524}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0449}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 24\tabcolsep) * \real{0.0861}}@{}}
+
+\caption{\label{tbl-lsd}The design elements of Figure~\ref{fig-lsd} with
+\(\Omega\) and \(T\) as defined in Definition~\ref{def-exp} and \(F_R\)
+and \(F_C\) as defined in Definition~\ref{def-rowcol}. The
+\(n=9\)-vectors \(\boldsymbol{x}_{R_i}\) for \(i = 1, 2, 3\),
+\(\boldsymbol{x}_{C_j}\) for \(j = 1, 2, 3\) and
+\(\boldsymbol{x}_{T_k}\) for \(k = 1, 2, 3\) are the orthonormal basis
+of \(V_R\), \(V_C\) and \(V_T\), respectively.}
+
+\tabularnewline
+
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+\(\omega \in \Omega\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_R(\omega)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_C(\omega)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(T(\omega)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{R_1}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{R_2}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{R_3}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{C_1}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{C_2}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{C_3}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{T_1}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{T_2}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\boldsymbol{x}_{T_3}\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+2 & 1 & 2 & 2 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+3 & 1 & 3 & 3 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
+4 & 2 & 1 & 2 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+5 & 2 & 2 & 3 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+6 & 2 & 3 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+7 & 3 & 1 & 3 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 \\
+8 & 3 & 2 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 \\
+9 & 3 & 3 & 2 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 \\
+
+\end{longtable}
+
+\end{example}
+
+Table~\ref{tbl-lsd} shows how we use a binary method to distinguish
+between rows, columns, and types of treatments. For row-column designs,
+we typically use a design matrix to model the arrangement of treatments.
+
+\begin{definition}[]\protect\hypertarget{def-design-matrix}{}\label{def-design-matrix}
+
+A design matrix \(\boldsymbol{X}\) is a matrix that represents the
+arrangement of experimental units across different treatments in an
+experimental design. Each row corresponds to an experimental unit, and
+each column corresponds a treatment level.
+
+\end{definition}
+
+The last three columns of the Table~\ref{tbl-lsd} above can be viewed as
+the design matrix for Example~\ref{exm-lsd}, which we will discuss it in
+detail in the Chapter~\ref{sec-methods}.
+
+In this thesis, the observational unit and experimental unit are
+considered the same, thus the response of interest for the
+\(\omega \in \Omega\) is a random variable denoted as \(Y_\omega\) and
+its observed value (after the experiment) denoted as \(y_\omega\). We
+use \(\boldsymbol{y} = (y_1, \ldots, y_n)^\top\) to denote the vector of
+responses and use this interchangeably to denote a vector of random
+variable as well. In its simplest form, we assume that the response can
+be decomposed to the treatment and nuisance factors by assuming a linear
+model,
+
+\begin{equation}\phantomsection\label{eq-lm}{Y_\omega = \tau_{T(\omega)} + e_\omega,}\end{equation}
+
+where \(\tau_{T(\omega)}\) is a constant value with respect to the
+treatment received for \(\omega\) (referred to as the \emph{average
+treatment effects}) and \(e_\omega\) is a random variable associated
+with the remaining contribution from \(\omega\). Equation~\ref{eq-lm}
+assumes an additive structure which is fundamental in estimating the
+average treatment effect -- if this assumption does not hold to a large
+extent, there is little point in conducting the experiment.
+
+Different treatments usually have varying effects on the experimental
+outcomes, known as treatment effects. The goal of our experimental
+design is to more accurately measure and estimate the impact of
+different treatments on the experimental results, i.e., the treatment
+effects. To offer precise estimation of treatment effects, one way is to
+seek the optimal value of some statistic criteria, for example,
+A-criteria, minimizing the variance of elementary treatment contrasts.
+\citet{butler2013optimal} has show the relation between optimizing
+design and minimizing the value of A-criteria, and show some possible
+algorithms to search optimal design in feasible set. These algorithms
+mainly focus on comparing the arrangements of different treatments, that
+is, doing permutations, and calculating their A values, optimizing
+design by iterations.
 
 However, some undesired cluster of replications or some treatment may
-occur when algorithm are doing permutations along rows and columns.
-\citet{piepho2018neighbor} found that such clustering is considered
-undesirable by experimenters who worry that irregular environmental
-gradients might negatively impact multiple replications of the same
-treatment, potentially leading to biased treatment effect estimates.
-Williams emphasis that there is a need to design a strategy to avoid
-clustering and achieve even distribution of treatment replications among
-the experimental field. Two properties of design are introduced. Even
-distribution of treatment replications, abbreviated as ED, and neighbour
-balance, abbreviated as NB. A good ED ensures every replications of a
-treatment are widely spread in experimental field, and NB helps to avoid
-replications of the some treatment cluster together repeatedly. Williams
-introduce a scoring system to analysis ED and NB for a specific design,
-and introduce a algorithm to optimize ED, NB and some average efficiency
-factor can be represented by a specific statistic criteria.(maybe saying
-some improvement is needed)
+occur when algorithm are doing permutations along rows and columns. In
+an experimental design, a treatment usually has multiple replications.
+Specifically, clustering can refer to multiple replications of the same
+treatment being grouped together, or different treatments' replications
+frequently being grouped together in the experimental design see an
+example in Figure~\ref{fig-NBED}. \citet{piepho2018neighbor} found that
+such clustering is considered undesirable by experimenters who worry
+that irregular environmental gradients might negatively impact multiple
+replications of the same treatment, potentially leading to biased
+treatment effect estimates. Williams emphasis that there is a need to
+design a strategy to avoid clustering and achieve even distribution of
+treatment replications among the experimental field. Two properties of
+design are introduced. Evenness of distribution of treatment
+replications, abbreviated as ED, and neighbour balance, abbreviated as
+NB. Evenness of distribution represents how multiple replications of a
+treatment are evenly spread across the design field, rather than being
+placed close to each other. Neighbour balance, on the other hand,
+indicates that multiple treatments are not consistently placed next to
+each other in the design, promoting a more diverse adjacency
+relationship between treatments. A good ED ensures every replications of
+a treatment are widely spread in experimental field, and NB helps to
+avoid replications of the some treatment cluster together repeatedly.
+Williams introduce a scoring system to analysis ED and NB for a specific
+design, and introduce a algorithm to optimize ED, NB and some average
+efficiency factor can be represented by a specific statistic criteria.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{intro_files/figure-pdf/fig-NBED-1.pdf}
+
+}
+
+\caption{\label{fig-NBED}Above, the figure presents an example of
+clustering: multiple replications of treatment 8 are grouped together,
+while treatments 1 and 19 are always adjacent to each other.}
+
+\end{figure}%
 
 We offer an optimization strategy for a design problem, which we can
 improving ED and NB during optimizing statistic criteria for a design,
@@ -467,99 +707,36 @@ initial design, and calculate the A-criteria as initial value. We update
 design by selecting a better among its neighbours. The neighbours are
 pair-wise permutations of a design. Typically, we select a neighbour
 from all pairwise permutations of a design for iteration, but this does
-not ensure ED and NB. To ensure ED and NB during optimization, we need
-to add some constraints when generating the pairwise permutations.(maybe
-explain what is the constraints) By filtering design with bad ED and NB,
-we then optimize the statistic criteria of the design.
+not ensure ED and NB. To ensure ED and NB during optimization, we add
+some constraints when generating the pairwise permutations, only
+maintain or better properties are accepted. By filtering design with bad
+ED and NB, we optimize the statistic criteria such as A-value of the
+design.
 
-In the background section, we introduced how to model row-column designs
-by linear mixed, introduced the methods for calculating various
+In the Chapter~\ref{sec-bg}, we introduced how to model row-column
+designs by linear mixed, introduced the methods for calculating various
 statistics and the meaning behind them, and provided relevant
-mathematical proofs. In the Methods section, we outlined the relevant
-assumptions made for row-column designs. We introduced three search
-algorithms---random search and two cooling schedules for simulated
-annealing---providing detailed descriptions of their steps and
-discussing their convergence properties. In the Results section, we
-first provide details of our simulation set-up, presenting specific
-results with various figures, analyze the performance of different
-algorithms, and made comparisons among them. In the Discussion section,
-we outline our limitations and discussed some potential future
-directions.
+mathematical proofs. In the Chapter~\ref{sec-methods}, we outlined the
+relevant assumptions made for row-column designs. We introduced three
+search algorithms---random search and two cooling schedules for
+simulated annealing---providing detailed descriptions of their steps and
+discussing their convergence properties. In the
+Chapter~\ref{sec-results}, we first provide details of our simulation
+set-up, presenting specific results with various figures, analyse the
+performance of different algorithms, and made comparisons among them. In
+the Chapter~\ref{sec-discuss}, we outline our limitations and discussed
+some potential future directions.
 
 \bookmarksetup{startatroot}
 
 \chapter{Background}\label{sec-bg}
 
-\section{Linear model}\label{linear-model}
-
-Suppose we have a linear model,
-
-\begin{equation}\phantomsection\label{eq-lm}{\boldsymbol{y}=\mathbf{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}}\end{equation}
-where \(\boldsymbol{y}\) is \(n\times 1\) vector of \(n\) observations,
-\(\boldsymbol{\tau}\) is a \(t\times 1\) vector of fixed effects,
-\(\boldsymbol{\epsilon}\) is the \(n\times 1\) vector for error, and
-\(\mathbf{X}\) is a design matrix has size \(n\times t\). We assume that
-\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_{n})\)
-and hence
-\(\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)\).
-
-The log-likelihood of Equation~\ref{eq-lm} is then given as:
-
-\[
-\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
-\] The \((i,j)\)-th entry of the Fisher information matrix is defined as
-
-\[
-I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
-\] where \(\tau_i\) is the \(i\)-th entry of \(\boldsymbol{\tau}\).
-
-\begin{lemma}[]\protect\hypertarget{lem-fim-lm}{}\label{lem-fim-lm}
-
-The Fisher information matrix of Equation~\ref{eq-lm} is given as \[
-\mathbf{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-\]
-
-\end{lemma}
-
-\begin{proof}
-The second derivative of the log-likelihood function
-\(\log\ell(\boldsymbol{\tau};\boldsymbol{y})\) is the Hessian matrix. We
-have \[
-\frac{\partial}{\partial\boldsymbol{\tau}}\log\ell(\boldsymbol{\tau};\boldsymbol{y})=\frac{1}{\sigma^2}\boldsymbol{X}^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})
-\] and for second derivative is \[
-\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})==-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-\] And in linear model assumption we have
-\(\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)\)
-and the Fisher information matrix is unbiased because, in the
-expectation calculation process, we do not involve the randomness of
-\(\boldsymbol{y}\). The Fisher information matrix is actually determined
-by the design matrix \(\boldsymbol{X}\) and the error variance
-\(\sigma^2\). Hence \[
-\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\mathbf{C} 
-\] So
-\(\mathbf{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}\)
-\end{proof}
-
-\begin{lemma}[]\protect\hypertarget{lem-lm-var}{}\label{lem-lm-var}
-
-The variance of the fixed effects for Equation~\ref{eq-lm} is equivalent
-to the inverse of the Fisher information matrix, i.e.
-\(var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \mathbf{C}^{-1}.\)
-
-\end{lemma}
-
-\begin{proof}
-We know that the MLE of \(\boldsymbol{\tau}\) in a linear model is
-\(\hat{\boldsymbol{\tau}}=(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{y}\).
-By assumption we have
-\(\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)\).
-So
-\(\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1})\).So
-we have
-\(var(\hat{\boldsymbol{\tau}}) = \sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\),
-which is exactly the inverse of Fisher information matrix
-\(\mathbf{C}^{-1}\).
-\end{proof}
+Linear (mixed) models are the primary method of analysis of experimental
+data with response that have an approximate Normal distribution. In this
+chapter, we expand on the model
+\[\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}\]
+to consider linear mixed models for the analysis of experimental data
+with a more general experimental structure.
 
 \section{Linear mixed model}\label{linear-mixed-model}
 
@@ -577,7 +754,8 @@ the \(n\times 1\) error vector, \(\boldsymbol{X}\) and
 \(\boldsymbol{Z}\) are design matrices of dimension \(n \times t\) and
 \(n \times q\) for treatment factors and blocking factors, respectively.
 We here assume blocking factors are random effect, with random error
-\(\boldsymbol{\epsilon}\) we have \[
+\(\boldsymbol{\epsilon}\) we have
+\begin{equation}\phantomsection\label{eq-dist}{
 \begin{bmatrix}
 \boldsymbol{u} \\
 \boldsymbol{\epsilon} 
@@ -590,89 +768,75 @@ N\left(
 \end{bmatrix}
 ,
 \begin{bmatrix}
-\boldsymbol{G} & \mathbf{0} \\
-\mathbf{0} & \boldsymbol{R}
+\boldsymbol{G} & \boldsymbol{0} \\
+\boldsymbol{0} & \boldsymbol{R}
 \end{bmatrix}
-\right),
-\] where \(\boldsymbol{G}\) is the \(q \times q\) variance matrix for
-\(\boldsymbol{u}\) and \(\boldsymbol{R}\) is \(n\times n\) variance
-matrix for \(\boldsymbol{\epsilon}\).
+\right)
+}\end{equation} where \(\boldsymbol{G}\) is the \(q \times q\) variance
+matrix for \(\boldsymbol{u}\) and \(\boldsymbol{R}\) is \(n\times n\)
+variance matrix for \(\boldsymbol{\epsilon}\).
 
-\subsection{A-criterion}\label{a-criterion}
+Throughout this thesis, we assume
+\(\boldsymbol{R} = \sigma^2\mathbf{I}_n\) and \(\boldsymbol{G}\) is a
+block diagonal matrix where each block is a scaled identity matrix. In
+practice, these structures can be more complex, e.g.
+\citet{williamsConstructionCrossoverDesigns2007} consider autoregressive
+and linear variance structures for crossover designs.
 
-Optimizing the A-value is crucial in row-column designs, for it directly
-relates to the precision of the treatment effect estimates. The A-value,
-a measure of design efficiency, quantifies how well the experimental
-design minimizes the variability when estimating treatment effects.
+In addition, we assume in this thesis that the treatment effects are
+fixed and blocking factors (i.e.~the row and column factors in
+row-column design) are random effects. It should be noted, however, that
+the treatment effects can be random effects based on the purpose of the
+experiment
+\citep{robinsonThatBLUPGood1991, butlerDesignFieldExperiments2014}.
 
-By focusing on minimizing the A-value, we aim to achieve a design that
-provides the most precise estimates of treatment effects. A lower
-A-value means that the design is more efficient, leading to smaller
-variances for the difference between treatment effect estimations.
+\subsection{Estimation of model
+parameters}\label{estimation-of-model-parameters}
 
-We first start with a simple example, that is, we consider treatment
-factors \(\boldsymbol{\tau}\) are fixed, to elucidate the influence of
-A-criterion.
+\subsubsection{Fixed and random effects}\label{fixed-and-random-effects}
 
-basing on assumption, we have
-\begin{equation}\phantomsection\label{eq-asp}{
-\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top)
-}\end{equation} So for objective function, we can write out the
-distributions
+\citet{hendersonEstimationEnvironmentalGenetic1959} first derived the
+set of equations, referred to as \emph{mixed model equations} by
+\citet{smithMultiplicativeMixedModels1999}, as a precursor to the
+estimation of fixed effects and predictions of random effects. These
+equations are derived from maximizing the joint log density of the
+response and random effects as shown in Lemma~\ref{lem-mme}.
 
-\[
-\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R}) \\
-\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})
-\]
+\begin{lemma}[Mixed model
+equations]\protect\hypertarget{lem-mme}{}\label{lem-mme}
 
-We want to give a precise estimation on \(\boldsymbol{\tau}\). As we
-mentioned, we have the distribution for response variable
-\(\boldsymbol{y}\sim\) We can use generalized least squares(GLS) by
-rewrite the model as: \[
-\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\tau} + \zeta
-\] Here
-\(\zeta = \boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(0, \boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\).
-\citet{henderson1975best} shows that the GLS estimation of
-\(\boldsymbol{\tau}\) is any solution to \[
-\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X}\hat{\boldsymbol{\tau}}_{gls}=\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}
-\] Here
-\(\boldsymbol{V}=\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\).
-So
-\(\hat{\boldsymbol{\tau}}_{gls} = (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\)
+The mixed model equations shown below are derived from maximising the
+joint log density of \(\boldsymbol{y}\) and \(\boldsymbol{u}\).
 
-\citet{henderson1959estimation} emphasis that computing matrix
-\(\boldsymbol{V}\) which is often large is difficult. So here we use
-joint log likelihood.
-
-From \citet{butler2013optimal}, we conduct a maximum log likelihood by
-following objective function: \[
-\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
-\] :::\{\#lem-joint-density-lmm\} So log of joint density is given as
-
-\[\begin{aligned}
-\mathscr{L}&=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
-&=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
-\end{aligned}\]
-
-:::
+\[\boldsymbol{C}\hat{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},\]
+where
+\(\boldsymbol{C} = \boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*\),
+\(\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} & \boldsymbol{Z} \end{bmatrix}\),
+\(\hat{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \hat{\boldsymbol{u}}^\top)^\top\)
+and
+\(\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} & \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} & \boldsymbol{G}^{-1}\end{bmatrix}\).
 
 \begin{proof}
-We have density function for
-\(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})\)
+Given the model \ref{eq-lmm} with assumption in \ref{eq-dist}, we have
+\(\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})\) and
+\(\boldsymbol{y}|\boldsymbol{u}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})\)
+with probability density functions as
+\[\begin{aligned}f_u(\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{q}|\boldsymbol{G}|}}\exp\left(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &= \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}\exp\left(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))\right).
+\end{aligned}\] Ignoring the constants, we have \[\begin{aligned}
+\log f_u(\boldsymbol{u}) &= -\frac{1}{2}\left(\log |\boldsymbol{G}|+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+\log f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &=-\frac{1}{2}\left(\log |\boldsymbol{R}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})\right).
+\end{aligned}\] The joint density of \(\boldsymbol{y}\) and
+\(\boldsymbol{u}\) is given as
 
-\[
-f_y = \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}exp(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u})))
-\] And density function for \(\boldsymbol{u}\) \[
-f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u})
-\] Ignoring constant part, we have \[
-\log f_y=-\frac{1}{2}[\ln |\boldsymbol{R}|+(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))]
-\] \[
-\log f_u = -\frac{1}{2}[\ln |\boldsymbol{G}+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}]
-\] So we have our log of joint density function.
-\end{proof}
-
-We determine that
-\(\frac{\partial\mathscr{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathscr{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}\),
+\begin{equation}\phantomsection\label{eq-density}{f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) = f_{y|u}(\boldsymbol{y}|\boldsymbol{u})f_u(\boldsymbol{u}),}\end{equation}
+and taking the log of both sides for Equation~\ref{eq-density}, we have
+the log of joint density as: \[\begin{aligned}
+\mathcal{L} :=& \log f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) \\
+=& \log f_{y|u}(\boldsymbol{y}|\boldsymbol{u})+\log f_u(\boldsymbol{u})\\
+=& -\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right).
+\end{aligned}\] We determine that
+\(\frac{\partial\mathcal{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}\),
 and write the equation into a matrix form
 \begin{equation}\phantomsection\label{eq-ll}{
 \begin{bmatrix}
@@ -680,29 +844,47 @@ and write the equation into a matrix form
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
 \end{bmatrix}
 \begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
 \end{bmatrix}=
 \begin{bmatrix}
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{y}\\
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
-\end{bmatrix}
+\end{bmatrix}.
 }\end{equation}
 
-Let \[
-\boldsymbol{C}=
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} & \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
-\end{bmatrix} 
-\quad
-\hat{\boldsymbol{\beta}}_{llm}=\begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
-\end{bmatrix}
-\quad
-\boldsymbol{W}=\begin{bmatrix}\boldsymbol{X} &\boldsymbol{Z}\end{bmatrix}
-\] By cancelling \(\boldsymbol{u}\), we have \[
+\[
+\Rightarrow (\boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*)\hat{\boldsymbol{\beta}}
+=\boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y}
+\] Substituting the above \(\boldsymbol{C}\) leads to our conclusion
+\end{proof}
+
+\end{lemma}
+
+\textbf{?@thm-blue} provides the specific form for estimation of the
+parameters. :::: \{\#thm-blue\}
+
+\section{Best linear unbiased estimates and
+predictions}\label{best-linear-unbiased-estimates-and-predictions}
+
+The solutions to the mixed models equations in Lemma~\ref{lem-mme}
+(shown below) give the best linear unbiased estimates (BLUEs) for
+\(\boldsymbol{\tau}\) and best linear unbiased predictions (BLUPs) for
+\(\boldsymbol{u}\) provided that \(\boldsymbol{G}\) and
+\(\boldsymbol{R}\) are known.
+
+\begin{equation}\phantomsection\label{eq-esti}{\begin{aligned}
+\hat{\boldsymbol{\tau}} &= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\\
+\hat{\boldsymbol{u}} &= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
+\end{aligned}}\end{equation}
+
+where
+\(\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}\).
+In this paper, we primarily discuss the treatment effect, so we provide
+the proof for \(\hat{\boldsymbol{\tau}}\).
+
+\begin{proof}
+By cancelling \(\boldsymbol{u}\), we have \[
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})\boldsymbol{Z}^\top\boldsymbol{R}^{-1}y=\boldsymbol{X}^\top\boldsymbol{R}^{-1}y\\
 \] \[
 \Rightarrow \boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]y\\
@@ -712,15 +894,12 @@ Let \[
 \(\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\),
 let
 \(\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\)
-then we have the form similar to GLS estimation for
-\(\hat{\boldsymbol{\tau}}\), which is \[
-\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
+then we have the form of estimation for \(\hat{\boldsymbol{\tau}}\),
+which is \[
+\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
 \] and the estimation of \(\boldsymbol{\tau}\) is
-\(\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}\),
-which is equivalent with GLS estimation
-
-\begin{proof}
-We only need to prove that \(\boldsymbol{P}=\boldsymbol{V}^{-1}\).
+\(\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}\),
+Now, we only need to prove that \(\boldsymbol{P}=\boldsymbol{V}^{-1}\).
 
 \[\begin{aligned}
 \boldsymbol{P}\boldsymbol{V} &=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
@@ -732,12 +911,62 @@ We only need to prove that \(\boldsymbol{P}=\boldsymbol{V}^{-1}\).
 &= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{G}^{-1}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z})\boldsymbol{G}\boldsymbol{Z}^\top\\
 &= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
 & = \boldsymbol{I}
-\end{aligned}\]
-
-So \(\hat{\boldsymbol{\tau}}_{llm}\) and
-\(\hat{\boldsymbol{\tau}}_{gls}\) are equivalent, and we denote them as
-\(\hat{\boldsymbol{\tau}}\)
+\end{aligned}\] so we have
+\(\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}=\hat{\boldsymbol{\tau}}= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\).
 \end{proof}
+
+:::
+
+\subsubsection{Variance parameters}\label{variance-parameters}
+
+In practice, the variance parameters for \(\boldsymbol{G}\) and
+\(\boldsymbol{R}\) are unknown and must be estimated from data. As a
+consequence, the solutions in \textbf{?@thm-blue} are referred to as
+Empirical-BLUEs (E-BLUE) or Empirical-BLUPs (E-BLUPs).
+
+The variance parameters may be estimated using a method of moment
+approach, however this approach can only be utilized for simple variance
+structures with balanced numbers of treatments.
+
+The modern prevalent approach to estimating variance parameters use
+maximum likelihood estimates (MLEs) or residual maximum likelihood
+(REML) estimates \citep{pattersonRecoveryInterblockInformation1971}. The
+latter approach takes into account the loss of degrees of freedom to the
+fixed effects so the estimates of variance are less biased. Interested
+readers should see \citet{verbylaConditionalDerivationResidual1990} for
+the derivation of REML and \citet{smithMultiplicativeMixedModels1999}
+for computational strategies involving the average information algorithm
+\citep{gilmourAverageInformationREML1995, johnsonRestrictedMaximumLikelihood1995}.
+
+\subsection{Variance analyse of
+estimators}\label{variance-analyse-of-estimators}
+
+In linear mixed model analysis, when estimating the accuracy of
+parameters and variance, we typically use the Fisher information matrix
+to provide a method for variance analysis. For the linear mixed model
+Equation~\ref{eq-lmm}, we have the log-likelihood of it is then given
+as: \[
+\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
+\] The \((i,j)\)-th entry of the Fisher information matrix is defined as
+\[
+I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+\] where \(\tau_i\) is the \(i\)-th entry of \(\boldsymbol{\tau}\).
+
+\begin{lemma}[]\protect\hypertarget{lem-fim-lm}{}\label{lem-fim-lm}
+
+The Fisher information matrix of Equation~\ref{eq-lm} for
+\(\boldsymbol{\tau}\) is given as \[
+\boldsymbol{C}_{\text{Fisher}} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+\]
+
+\end{lemma}
+
+And we have
+\(\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{\text{Fisher}}^{-1})\).
+We will provide the specific form of this matrix and the related proof
+in the next section.
+
+\subsection{A-criterion}\label{a-criterion}
 
 Now we have our estimation for the treatment factor, and experimental
 design aims to further refine our design by focusing on the precision of
@@ -747,28 +976,47 @@ differences between any two treatment levels are as small as possible.
 To achieve this, we introduce the A-value as a criterion for evaluating
 the design.
 
-\begin{definition}[]\protect\hypertarget{def-A-value}{}\label{def-A-value}
+Optimizing the A-value is crucial in row-column designs, for it directly
+relates to the precision of the treatment effect estimates. The A-value,
+a measure of design efficiency, quantifies how well the experimental
+design minimizes the variability when estimating treatment effects. By
+focusing on minimizing the A-value, we aim to achieve a design that
+provides the most precise estimates of the difference of the effects
+between two treatments. A lower A-value means that the design is more
+efficient, leading to smaller variances for the difference between
+treatment effect estimations.
 
-Basing on the model formula Equation~\ref{eq-lmm}, and a estimation of
-treatment factor \(\hat{\boldsymbol{\tau}}\) has \(n_{\tau}\) factors.
-A-criterion measure the average predicted error variance of different
-treatments. Let
+Recall that in this thesis, we consider treatment factors
+\(\boldsymbol{\tau}\) are fixed, to elucidate the influence of
+A-criterion. Our discussion of the A-criterion below is always based on
+this assumption. ::: \{\#def-A-value\} Basing on the model formula
+Equation~\ref{eq-lmm}, and a estimation of treatment factor
+\(\hat{\boldsymbol{\tau}}\) has \(n_{\tau}\) factors. A-criterion
+measure the average predicted error variance of different treatments.
+Let
 \(V_{ij}= var(\hat{\tau}_i-\hat{\tau}_j)=var(\hat{\tau}_i)+var(\hat{\tau}_j)-2cov(\hat{\tau}_i,\hat{\tau}_j)\),
-and a A-value \(\mathscr{A}\) is
+and an A-value \(\mathcal{A}\) is
 \begin{equation}\phantomsection\label{eq-a}{
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
-}\end{equation}
-
-\end{definition}
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
+}\end{equation} :::
 
 To discover the relationship between the A-value and the design matrix,
 I need to find the variance-covariance matrix of
 \(\hat{\boldsymbol{\tau}}\). In fact, it can be proof that
-\(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})\).
 
-(lemma and proof)
+\begin{lemma}[]\protect\hypertarget{lem-cov}{}\label{lem-cov}
 
-From Equation~\ref{eq-ll} and Equation~\ref{eq-asp}, we have
+For treatment effect and its estimator Equation~\ref{eq-esti}, we have
+\((\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})\).
+
+\begin{proof}
+From Equation~\ref{eq-lmm} and basing on assumption
+Equation~\ref{eq-dist} we have
+\begin{equation}\phantomsection\label{eq-asp}{
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top),
+}\end{equation}
+
+so also we have
 \(\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)\)
 
 We denote \[\begin{aligned}
@@ -794,7 +1042,7 @@ We denote \[\begin{aligned}
 }\end{equation} So from Equation~\ref{eq-ll} we have \[
 \begin{bmatrix}
 \hat{\boldsymbol{\tau}} \\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{u}}
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -890,30 +1138,30 @@ var(\hat{\boldsymbol{\tau}})
 &=\boldsymbol{C}^{11}
 \end{aligned}\]
 
-What is \(\boldsymbol{C}^{11}\)? what is the relation between
-\(\boldsymbol{C}_{11}\) and \(\boldsymbol{C}^{11}\)? From
-Equation~\ref{eq-iv} we have \(\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}\)
-and \(\boldsymbol{S}\) is \[
+what is the relation between \(\boldsymbol{C}_{11}\) and
+\(\boldsymbol{C}^{11}\)? From Equation~\ref{eq-iv} we have
+\(\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}\) and \(\boldsymbol{S}\) is \[
 \boldsymbol{S} = \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}
 \] And base on the complement of \(\boldsymbol{C}_{11}\), we rewrite the
-\(\boldsymbol{S}\) \[
-\]
+\(\boldsymbol{S}\)
 
-\begin{aligned}
+\[\begin{aligned}
 \boldsymbol{S}
 &=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &=\boldsymbol{C}_{11}
-\end{aligned}
+\end{aligned}\]
 
-\[
-\] So
-\(var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}\).
+So
+\(var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}\),
+which means
+\((\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})\).
+\end{proof}
 
-So we have
-\(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})\).To
-examine a specific form of \(\boldsymbol{\tau}\), in general case, we do
-linear transform on \(\boldsymbol{\tau}\):
+\end{lemma}
+
+To examine a specific form of \(\boldsymbol{\tau}\), in general case, we
+do linear transform on \(\boldsymbol{\tau}\):
 \(\hat{\boldsymbol{\pi}}=\boldsymbol{D}\hat{\boldsymbol{\tau}}\), where
 \(\boldsymbol{D}\) is some transform matrix, so we have
 \(\boldsymbol{D}(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})=\boldsymbol{\pi}-\hat{\boldsymbol{\pi}}\sim N(0,\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top)\).
@@ -925,17 +1173,17 @@ If \(\boldsymbol{D}\) is identical matrix \(\boldsymbol{I}\), then
 
 We know that A-criterion is the mean of predicted error variance of the
 parameter from Equation~\ref{eq-a} i.e.~ \[
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j<i}V_{ij}
 \] Having variance-covariance matrix
 \(\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}\), we can rewrite the
 sum part as
 \(n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}\).So
 we have \begin{equation}\phantomsection\label{eq-an}{
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
 }\end{equation} same result from \citet{butler2013model}
 
 Derivation above indicate that
-\(\mathscr{A}\propto tr(\boldsymbol{\Lambda})\), A-criterion as the mean
+\(\mathcal{A}\propto tr(\boldsymbol{\Lambda})\), A-criterion as the mean
 of predicted error variance of the parameter, we prefer it as small as
 possible to obtain a accurate result from experiment, which means the
 trace of virance-covirance matrix \(\boldsymbol{\Lambda}\) should be as
@@ -946,22 +1194,22 @@ distribution}\label{neighbor-balance-and-eveness-of-distribution}
 
 \subsection{Concepts of NB and ED}\label{concepts-of-nb-and-ed}
 
-\citet{piepho2018neighbor} emphasis the the concepts of neighbor balance
-and even distribution are crucial to mitigating biases and ensuring the
-reliability of results in row-column design.
+\citet{piepho2018neighbor} emphasis the the concepts of neighbour
+balance and even distribution are crucial to mitigating biases and
+ensuring the reliability of results in row-column design.
 
-Neighbor balance (NB) refers to the principle that, in a row-column
+Neighbour balance (NB) refers to the principle that, in a row-column
 experimental design, the frequency with which two treatments are
 adjacent or near each other should not be excessively high. High
 adjacency frequency between two treatments can lead to mutual influence,
 which may cause bias to the experimental results. For example, if the
-effect of one treatment can spread to neighboring areas, frequent
+effect of one treatment can spread to neighbouring areas, frequent
 adjacency could interfere with accurate measurement of each treatment's
 true effect next to it. Therefore, it is essential to control the
 adjacency frequency of different treatments to prevent high adjacency
 for two specific treatments.
 
-Even distribution(ED) aims to ensure that different replications of the
+Even distribution (ED) aims to ensure that different replications of the
 same treatment are widely distributed across the experimental field,
 rather than being clustered in a specific area. This strategy helps to
 avoid biases caused by specific environmental conditions in certain
@@ -972,7 +1220,7 @@ observations. By evenly distributing replications, environmental
 interference can be minimized, so that we can enhance the reliability of
 the experimental results.
 
-(maybe some example plots or pictures)
+See Figure~\ref{fig-NBED} for instances where bad NB and ED occur.
 
 \subsection{Measuring NB and ED}\label{measuring-nb-and-ed}
 
@@ -988,33 +1236,33 @@ randomly selected design matrix. Consequently, my approach considers not
 only diagonal adjacency but also the adjacent points directly above,
 below, to the left, and to the right.
 
-I use an adjacency matrix to count the number of times each treatment is
-adjacent to another. This matrix serves as a crucial tool in my
+We use an adjacency matrix to count the number of times each treatment
+is adjacent to another. This matrix serves as a crucial tool in my
 optimization process, enabling precise tracking and adjustment of
 treatment placements to achieve neighbour balance.
 
-We denote the adjacency matrix as \(\boldsymbol{A}\), and for treatment
-\(i\) and \(j\) in treatment set \(T\) \(\boldsymbol{A}_{ij}\)
+We denote the adjacency matrix as \(\mathcal{U}\), and for treatment
+\(i\) and \(j\) in treatment set \(T\), the symbol \(\mathcal{U}_{ij}\)
 represents the count of times treatment \(i\) is adjacent to treatment
 \(j\). Here ``adjacent'' means treatment \(j\) is located next to
-treatment \(i\) (maybe a picture to show it)
+treatment \(i\)
 
 For Given design \(\mathcal{D}\) and \(\mathcal{D}_{r,c}\) represents
-the treatment at row \(r\) and column \(c\). So \(\boldsymbol{A}_{ij}\)
-can be expressed as:
+the treatment at row \(r\) and column \(c\). So \(\mathcal{U}_{ij}\) can
+be expressed as:
 
 \[
-\boldsymbol{A}_{ij}=\sum_{r=1}^{R}\sum_{c=1}^{C}I_{r,c}(i) F_{r,c}(j)
+\mathcal{U}_{ij}=\sum_{r=1}^{n_r}\sum_{c=1}^{n_c}I_{r,c}(i) F_{r,c}(j)
 \] where \[
 F_{r,c}(j)=
 \sum_{m \in \{-1,0,1\}}\sum_{n \in \{-1,1\}}I_{r+m,c+n}(j)+\sum_{m \in \{-1,1\}}I_{r+m,c}(j)
-\] \(R\) and \(C\) are total number of rows and columns and
+\] \(n_r\) and \(n_c\) are total number of rows and columns and
 \(I_{r,c}(\cdot)\) is the indicator function, which takes value under
 following cases \[
 I_{r,c}(i)=
 \begin{cases}
 1 & \text{if } \mathcal{D}_{r,c}=i \\
-0 & \text{if } \mathcal{D}_{r,c}\neq i & \text{or } r<1,r>R,c<1,c>C\\
+0 & \text{if } \mathcal{D}_{r,c}\neq i \; \text{or } r<1,r>n_r,c<1,c>n_c\\
 \end{cases}
 \]
 
@@ -1023,8 +1271,8 @@ treatment \(j\) occurs at places around the position row \(r\) and
 column \(c\).
 
 We measure NB by taking difference of the maximum and minimum of the
-elements in adjacency matrix \(\boldsymbol{A}\). Our NB criteria is \[
-C_{NB}=max\{\boldsymbol{A}_{ij}\}-min\{\boldsymbol{A}_{ij}\}  \quad i,j\in T
+elements in adjacency matrix \(\mathcal{U}\). Our NB criteria is \[
+C_{NB}=\max\{\mathcal{U}_{ij}\}-\min\{\mathcal{U}_{ij}\}  \quad i,j\in T
 \]
 
 \subsubsection{Evaluating ED with minimum row and column
@@ -1039,13 +1287,13 @@ rows and columns, reducing clustering and promoting a balanced design.
 The row span for a given treatment \(t \in T\) is defined as the
 difference between the maximum and minimum row indices where t appears
 in experiment field. \[
-RS(t)=max\{r:\mathcal{D}_{r,c}=t\}-min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<R,\quad 1<c<C
+RS(t)=\max\{r:\mathcal{D}_{r,c}=t\}-\min\{r:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 \] And the minimum row span of a design \(\mathcal{D}\) is \[
-MRS(\mathcal{D})=min\{RS(t)\},\quad t \in T
+MRS(\mathcal{D})=\min\{RS(t)\},\quad t \in T
 \] Same for column span \[
-CS(t)=max\{c:\mathcal{D}_{r,c}=t\}-min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<R,\quad 1<c<C
+CS(t)=\max\{c:\mathcal{D}_{r,c}=t\}-\min\{c:\mathcal{D}_{r,c}=t\} \quad 1<r<n_r,\quad 1<c<n_c
 \] \[
-MCS(\mathcal{D})=min\{CS(t)\},\quad t \in T
+MCS(\mathcal{D})=\min\{CS(t)\},\quad t \in T
 \] So, for the changes in the design matrix \(\mathcal{D}\) during the
 search process, we tend to accept only those changes where the Minimum
 Row Span (\(MRS\)) and Minimum Column Span (\(MCS\)) remain the same or
@@ -1057,30 +1305,27 @@ become smaller.
 
 \section{Modeling row-column design}\label{modeling-row-column-design}
 
-As mentioned in previous chapter, we use a linear mixed model (LMM) to
-model the row-column design having two distinct sources of variation,
-typically referred to as ``row'' and ``column'' factors. This design
-structure appears frequently in agricultural and industrial trials,
-where treatments are applied across units organized in a grid-like
-pattern, and both row and column effects may influence the outcomes.
+As mentioned in Chapter~\ref{sec-bg}, we use a linear mixed model (LMM)
+to model the row-column design having two distinct sources of variation,
+typically referred to as ``row'' and ``column'' factors.
 
-In my assumptions, the row and column effects are treated as random
-effects, which means that they are random factors for spatial or
+Recalling the assumptions, the row and column effects are treated as
+random effects, which means that they are random factors for spatial or
 systematic factors across different rows and columns of the experiment
 field. The treatment effects, on the other hand, are treated as fixed
 effects because they represent the primary factors of interest that we
 wish to evaluate in terms of their influence on the response variable.
 
-Recalling Equation~\ref{eq-lmm}, the treatment effects are modeled as
-fixed effects, represented by the treatment design matrix
-\(\boldsymbol{X}\) with parameter vector \(\boldsymbol{\tau}\),
-measuring the influence of each treatment on the response variable. The
-matrix \(\boldsymbol{X}\) is constructed such that each row corresponds
-to an experimental unit, and indicators in each column indicates whether
-a treatment is applied or not.
+In Equation~\ref{eq-lmm}, the treatment effects are modelled as fixed
+effects, represented by the treatment design matrix \(\boldsymbol{X}\)
+with parameter vector \(\boldsymbol{\tau}\), measuring the influence of
+each treatment on the response variable. The matrix \(\boldsymbol{X}\)
+is constructed such that each row corresponds to an experimental unit,
+and indicators in each column indicates whether a treatment is applied
+or not.
 
-The random effects are modeled through the matrix \(\boldsymbol{Z}\) and
-parameter vector \(\boldsymbol{u}\). Matrix \(\boldsymbol{Z}\) is
+The random effects are modelled through the matrix \(\boldsymbol{Z}\)
+and parameter vector \(\boldsymbol{u}\). Matrix \(\boldsymbol{Z}\) is
 designed to capture the row and column structure of the experimental
 field, in which entries represent the position of each experimental unit
 located in some specific rows and columns. The parameters in vector
@@ -1090,18 +1335,19 @@ variance-covariance matrix \(\boldsymbol{G}\).
 
 With \(\boldsymbol{y}\) as the vector of observed responses and
 \(\boldsymbol{\epsilon}\) as error term, a row-column design can be
-modeled by Equation~\ref{eq-lmm} . where \(\boldsymbol{X\tau}\)
+modelled by Equation~\ref{eq-lmm} . where \(\boldsymbol{X\tau}\)
 represents the fixed treatment effects and \(\boldsymbol{Zu}\) captures
 the random variations basing on rows and columns.
 
 \subsection{Random effects matrix}\label{random-effects-matrix}
 
-The design matrix for the random effects, which is row and column in my
-linear mixed model follows a binary indicator structure. For example, we
-a have a \(4\times 4\) experiment field, having \(4\) rows, \(4\)
-columns and \(16\) units. Then random effects matrix should be a
-\(16 \times 8\) matrix containing binary indicator as the one presented.
-\[
+The design matrix for the random effects, which is row and column in
+linear mixed model, follows a binary indicator structure, denoted as
+\(\boldsymbol{Z}\). For example, we a have a \(4\times 4\) experiment
+field, having \(4\) rows, \(4\) columns and \(16\) units. Then random
+effects matrix should be a \(16 \times 8\) matrix containing binary
+indicator as the one presented. \[
+\boldsymbol{Z}_{\text{example}}=
 \begin{bmatrix}
 \begin{array}{cccc|cccc}
 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
@@ -1123,25 +1369,25 @@ columns and \(16\) units. Then random effects matrix should be a
 \end{array}
 \end{bmatrix}
 \] Each row corresponds to a specific experimental unit, while the
-columns represent the row and column factors in the experimental
-layout.In this matrix, the first set of columns represents the column
-effects, while the second set of columns represents the row effects.
-Each entry in this matrix is binary, where a value of 1 indicates that
-the experimental unit belongs to a specific row or column, and a 0
-indicates otherwise. For example, the first row of the matrix has a 1 in
-both first and fifth columns, meaning that the corresponding unit of it
-is in the first column and the first row. This structure ensures that
-each unit is uniquely associated with one row and one column, and we can
+columns represent the row and column factors in the experimental layout.
+In this matrix, the first set of columns represents the column effects,
+while the second set of columns represents the row effects. Each entry
+in this matrix is binary, where a value of 1 indicates that the
+experimental unit belongs to a specific row or column, and a 0 indicates
+otherwise. For example, the first row of the matrix has a 1 in both
+first and fifth columns, meaning that the corresponding unit of it is in
+the first column and the first row. This structure ensures that each
+unit is uniquely associated with one row and one column, and we can
 model the random effects accordingly.
 
-In a more general case, suppose we have a \(m\times n\) row-column
-experiment field. We should have a random effect matrix with \(mn\) rows
-and \(m+n\) columns with binary numbers. In this paper, we assume that
-the row effects and column effects are independent with each other.
-However, in more complex experimental design cases, they may be
+In a more general case, suppose we have a \(n_r\times n_c\) row-column
+experiment field. We should have a random effect matrix with \(n_rn_c\)
+rows and \(n_r+n_c\) columns with binary numbers. In this thesis, we
+assume that the row effects and column effects are independent with each
+other. However, in more complex experimental design cases, they may be
 potentially correlated. The design of the random effects matrix, which
 separates the row and column effects as independent variables,
-simplifies the modeling process and the analysis of potential
+simplifies the modelling process and the analysis of potential
 correlations between these effects in more advanced settings. This
 structure allows for easier identification and analysis of interactions
 between row and column effects, making the model flexible and adaptable
@@ -1153,16 +1399,15 @@ treatments}\label{design-matrix-for-treatments}
 The design matrix for the treatment effects is constructed to capture
 the influence of each treatment on the response variable. In a
 row-column experimental design, each experimental unit is assigned a
-specific treatment.The entries in design matrix represents these
+specific treatment. The entries in design matrix represents these
 assignments using binary indicators. Like random effects matrix each row
 in the matrix corresponds to an experimental unit, while each column
 represents a different treatment. Here we still use \(4\times 4\)
 experiment field as example, and suppose we have \(4\) different
 treatments for each have \(4\) replications, needing \(16\) experiment
 unite. An example design matrix \(\boldsymbol{X}\) for treatments should
-be a \(16\times 4\) matrix with binary indicators as shown below
-
-\[
+be a \(16\times 4\) matrix with binary indicators as shown below \[
+\boldsymbol{X}_{\text{example}}=
 \begin{bmatrix}
 1 & 0 & 0 & 0\\
 0 & 1 & 0 & 0\\
@@ -1209,16 +1454,16 @@ Equation~\ref{eq-an}, for calculating A value we need the covariance
 matrix for the random effects, matrix \(\boldsymbol{G}\), covariance
 matrix for the error term, matrix \(\boldsymbol{R}\), transformation
 matrix \(\boldsymbol{D}\), random effect matrix \(\boldsymbol{Z}\) and
-treatment design matrix \(\boldsymbol{X}\). We need some basic setup for
-these matrices.
+treatment design matrix \(\boldsymbol{X}\). We need some basic set-up
+for these matrices.
 
-Assume that we now have a row-column matrix with \(n_r\) rows, \(n_r\)
+Assume that we now have a row-column matrix with \(n_r\) rows, \(n_c\)
 columns and \(n_rn_c\) plots.
 
 For the covariance matrix for the random effects, matrix
 \(\boldsymbol{G}\), which captures the variability introduced by the row
-and column effects. I assume it is a \((R+C)\times(R+C)\) diagonal
-matrix, that is, it has following form,
+and column effects. I assume it is a \((n_r+n_c)\times(n_r+n_c)\)
+diagonal matrix, that is, it has following form,
 
 \[
 \boldsymbol{G}_{diag} =
@@ -1233,7 +1478,7 @@ the rows and columns are independent of each other, meaning there is no
 correlation between different row and column effects in the design.
 
 Similarly, for the covariance matrix for the error term, matrix
-\(\boldsymbol{R}\), I assume that it is also diagonal, indicating that
+\(\boldsymbol{R}\), we assume that it is also diagonal, indicating that
 the residual errors are uncorrelated across different experimental
 units. In this case we have \[
 \boldsymbol{R}_{diag} = \sigma_{R}^2\boldsymbol{I}_{n_rn_c}
@@ -1303,7 +1548,7 @@ Now we proof the existence of minimum value of \(\boldsymbol{X}\), where
 Recalling Equation~\ref{eq-an}
 
 \[
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
 \] This expression is well-defined for all valid design matrices
 \(\boldsymbol{X}\). So function \(A(\boldsymbol{X})\) is well-defined.
 
@@ -1335,24 +1580,16 @@ with the best A-value will be selected.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/methods/method1.png}
+\includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/methods/method1.png}
 
 }
 
-\caption{Method been used}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-usedmethod}Method been used}
 
 \end{figure}%
 
 These approach separates the optimization of ED and NB from the A-value,
-while I try to merge these two process into one algorithm. I use
+while we try to merge these two process into one algorithm. We use
 pairwise permutation among treatments to change treatment design during
 iterations. And to avoid design with bad ED and NB, I am using some
 criteria to filter the permutation, only maintain or better properties
@@ -1363,19 +1600,11 @@ optimization requirements is achieved.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/methods/method2.png}
+\includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/methods/method2.png}
 
 }
 
-\caption{Attempting method}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-mymethod}Attempting method}
 
 \end{figure}%
 
@@ -1426,9 +1655,9 @@ respectively. \(\boldsymbol{X}_{new}\) can be written as \[
  \vdots & \vdots & \cdots & \vdots & & \vdots & \ddots & \vdots \\ 
  0 & 0 & \cdots & 0 & \cdots & 0 & \cdots & 1
  \end{array}\right] 
-\] It is a identity matrix with \(i\)th row and \(j\)th row swapped.
+\] It is an identity matrix with \(i\)-th row and \(j\)-th row swapped.
 
-When performing permutations on the design matrix, I apply checks based
+When performing permutations on the design matrix, we apply checks based
 on the metrics of evenness of distribution (ED) and neighbour balance
 (NB). The goal is to ensure that only the permutations which improve or
 at least maintain desirable values for ED and NB are accepted, while
@@ -1456,7 +1685,7 @@ permutations, which speeds up the algorithm during the random selection
 process. For instance, we set tolerance for ED and NB as \(T_{ED}\) and
 \(T_{NB}\), which are none negative numbers. Current design matrix
 \(\boldsymbol{X}\) corresponding design \(\mathcal{D}\) has ED and NB
-value\(C_{NB}\), \(MRS(\mathcal{D})\) and \(MCS(\mathcal{D})\). New
+value \(C_{NB}\), \(MRS(\mathcal{D})\) and \(MCS(\mathcal{D})\). New
 design matrix \(\boldsymbol{X}_{new}\) mentioned above is accepted when
 \begin{equation}\phantomsection\label{eq-accp}{\begin{aligned}
 &(C_{NB}'\leq C_{NB}+T_{NB}) \\
@@ -1507,7 +1736,7 @@ and \(mcs({\boldsymbol{X}})\), and NB criteria is denote as
     Generate a random permutation matrix \(\boldsymbol{P}\) by selecting
     two different treatments.
   \item
-    Apply permutation: \(\boldsymbol{X_{new} = X P}\).
+    Apply permutation: \(\boldsymbol{X_{new} = \boldsymbol{P}X}\).
   \item
     Calculate new values of ED and NB, \(mrs({\boldsymbol{X}_{new}})\),
     \(mcs({\boldsymbol{X}_{new}})\) and
@@ -1541,6 +1770,40 @@ counter \(k\). Maximum number of iteration is \(M\). And denote the
 A-value for a random design matrix \(\boldsymbol{X}\) is
 \(A(\boldsymbol{X})\). Current design matrix during the iteration we
 have is denoted as \(\boldsymbol{X}_c\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Initialization}: Start with a random design matrix
+  \(\boldsymbol{X}_0\), set the iteration counter `\(k = 0\), maximum
+  number of iteration as \(M\) and step-length \(s\). A-value for the
+  current design is \(A_c = A(\boldsymbol{X}_0)\).
+\item
+  \textbf{Iteration}: For each iteration \(k\), where \(k < M\):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generate \(s\) random permutations \(\{\boldsymbol{X}_i\}\),
+    \(i=1,2,\cdots,s\) of the current design matrix \(X_c\).
+  \item
+    Calculate the A-value \(A(\boldsymbol{X}_i)\)for each permutation
+    \(\boldsymbol{X}_i\).
+  \item
+    Compare the A-values for all \(s\) permutations with the current
+    design \(X_c\).
+  \item
+    Select the permutation with the smallest A-value,
+    \(\boldsymbol{X}_j\), among the \(s\) candidates.
+  \item
+    If \(A(\boldsymbol{X}_j) < A(\boldsymbol{X}_c)\) update the current
+    design matrix: \(\boldsymbol{X}_c = \boldsymbol{X}_j\); otherwise,
+    retain the current design.
+  \end{itemize}
+\item
+  \textbf{Termination}: Repeat this process until the maximum number of
+  iterations \(M\) is reached.
+\end{enumerate}
 
 \subsection{Simulated annealing}\label{simulated-annealing}
 
@@ -1620,7 +1883,7 @@ following elements.
   space \(\{\boldsymbol{X}\}\).
 \item
   All possible permutations have equal possibility to be chose, and the
-  sum of the possibility it equal to \(1\).
+  sum of the possibility is equal to \(1\).
 \item
   A nonincreasing function \(T:N\rightarrow (0, \infty)\), \(T(t)\) is
   called the temperature at \(t\)-th iteration.
@@ -1644,7 +1907,7 @@ determined as follows: \[
 P(\boldsymbol{X}(t+1)=\boldsymbol{X}_j|\boldsymbol{X}(t)=\boldsymbol{X}_i)
 =\begin{cases}
 1 & \text{if } A(\boldsymbol{X}_j)<A(\boldsymbol{X}_i) \\
-\frac{1}{n_p}\exp(-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))/T(t) & \text{if } A(\boldsymbol{X}_j)>A(\boldsymbol{X}_i)\\
+\frac{1}{n_p}\exp(\frac{-(A(\boldsymbol{X}_j)-A(\boldsymbol{X}_i))}{T(t)}) & \text{if } A(\boldsymbol{X}_j)>A(\boldsymbol{X}_i)\\
 \end{cases}
 \]
 
@@ -1712,6 +1975,39 @@ these observations to determine an initial temperature. Several studies
 have explored methods for autonomously selecting this initial
 temperature.
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Initialization}: Start with a random design matrix
+  \(\boldsymbol{X}_0\), set the iteration counter `\(k = 0\), maximum
+  number of iteration as \(M\), A-value for the current design is
+  \(A_c = A(\boldsymbol{X}_0)\), initial temperature \(T_0\) and a type
+  of cooling schedule \(T(t)\).
+\item
+  \textbf{Iteration}: For each iteration \(k\), \(k<M\):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Randomly pick one permutation \(\boldsymbol{X}_{new}\) among all
+    neighbours of current design \(\boldsymbol{X}_c\).
+  \item
+    Calculate the A-value \(A(\boldsymbol{X}_{new})\) for permutation
+    \(\boldsymbol{X}_{new}\) and compare it with
+    \(A(\boldsymbol{X}_c)\).
+  \item
+    If \(A(\boldsymbol{X}_{new}) < A(\boldsymbol{X}_c)\), update
+    \(\boldsymbol{X}_c=\boldsymbol{X}_{new}\).
+  \item
+    If \(A(\boldsymbol{X}_{new}) > A(\boldsymbol{X}_c)\), update
+    \(\boldsymbol{X}_c=\boldsymbol{X}_{new}\) with probability
+    \(\exp[-(A(\boldsymbol{X}_{new}) - A(\boldsymbol{X}_c))/T(t)]\).
+  \end{itemize}
+\item
+  \textbf{Termination}: Repeat this process until the maximum number of
+  iterations \(M\) is reached.
+\end{enumerate}
+
 \bookmarksetup{startatroot}
 
 \chapter{Results}\label{sec-results}
@@ -1773,7 +2069,7 @@ For the SA algorithm, we need to set the initial temperature \(T_0\).It
 actually depends on the acceptance rate for higher A-values at the start
 of the iteration process. As mentioned in the previous section, we
 typically aim for an initial acceptance rate of around 0.8. That is we
-hope \$\exp(-A\_\{\bigtriangleup\}/T\_0) \approx 0.8 \$. We often lack
+hope \(\exp(-A_{\bigtriangleup}/T_0) \approx 0.8\). We often lack
 precise information on \(A_{\bigtriangleup}\) before the algorithm, we
 set the initial temperature based on an empirical estimate. We set
 \(T_0=1\). Some adaptive algorithms for setting the initial temperature
@@ -1794,7 +2090,7 @@ For the cases when treatment number cannot evenly divide the product of
 rows and columns, suppose \(n_{plot}=n_r\times n_c\) and treatment
 number is \(n_{\tau}\), we set base replication number as
 \(\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor\), and randomly pick
-\(n_{plot}\quad mod\quad n_{\tau}\) treatments assign
+\((n_{plot}\mod n_{\tau})\) treatments assign
 \(\lfloor \frac{n_{plot}}{n_{\tau}} \rfloor+1\) replication to these
 treatments. This approach ensures that the number of each treatment is
 as close as possible to one another.
@@ -1817,19 +2113,12 @@ assignment as follow
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/block-design-visualization.png}
+\includegraphics{results_files/figure-pdf/fig-blockdesign-1.pdf}
 
 }
 
-\caption{blocksdesign out put}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-blockdesign}Detailed assignment for treatments given
+by design function in blocksdesign package}
 
 \end{figure}%
 
@@ -1840,25 +2129,17 @@ iteration stops at \(549\)-th step with output A-value
 \(A_{rs}=0.050478\) and NB criteria \(C_{NB}(\mathcal{D}_{rs})=4\) and
 ED criteria \(MRS(\mathcal{D}_{rs})=5\) and \(MCS(\mathcal{D}_{rs})=7\).
 The changes in the A-value over iterations and the specific design are
-shown in the figure below.
+shown in Figure~\ref{fig-AvIRS} and Figure~\ref{fig-RS}.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/random selection example.png}
+\includegraphics{results_files/figure-pdf/fig-AvIRS-1.pdf}
 
 }
 
-\caption{A v.s. Iteration (Random search)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-AvIRS}A v.s. Iteration (Random search)}
 
 \end{figure}%
 
@@ -1866,19 +2147,12 @@ shown in the figure below.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/Random search design visualization.png}
+\includegraphics{results_files/figure-pdf/fig-RS-1.pdf}
 
 }
 
-\caption{Random search out put design}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-RS}Detailed assignment for treatments given by
+random search}
 
 \end{figure}%
 
@@ -1896,25 +2170,18 @@ For SA using the log cooling schedule Equation~\ref{eq-logcol},Unlike
 random selection, the algorithm accepts higher A-values with a certain
 probability, causing fluctuations in A-values throughout the iterations,
 resulting in rises and falls rather than a steady decline. Details can
-be seen in the figure below.
+be seen in the Figure~\ref{fig-AvISAlog} and Figure~\ref{fig-SAlog}.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{D:/Mater Advanced project/Master project/outputs/Rplots/SA_SLOW example.png}
+\includegraphics{results_files/figure-pdf/fig-AvISAlog-1.pdf}
 
 }
 
-\caption{A v.s. Iteration (SA with log cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-AvISAlog}A v.s. Iteration (SA with log cooling
+schedule)}
 
 \end{figure}%
 
@@ -1922,26 +2189,19 @@ be seen in the figure below.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA_SLOW visualization.png}
+\includegraphics{results_files/figure-pdf/fig-SAlog-1.pdf}
 
 }
 
-\caption{SA with log cooling schedule out put design}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-SAlog}Detailed assignment for treatments given by SA
+with log cooling schedule}
 
 \end{figure}%
 
 As it indicate in the plot, the process went through all iterations,
 reaching maximum iteration number \(M\). At the 2000th iteration, the
 A-value is \(A_{SAlog}=0.050609\) with NB criteria
-\(C_{SAlog}(\mathcal{D}_{rs})=5\) and ED criteria
+\(C_{SAlog}(\mathcal{D}_{SAlog})=5\) and ED criteria
 \(MRS(\mathcal{D}_{SAlog})=7\) and \(MCS(\mathcal{D}_{SAlog})=6\).
 
 Compared to random selection, the optimization of the A-value in SA is
@@ -1966,25 +2226,19 @@ decrease in exponential cooling, the algorithm initially shows
 fluctuations in A-values at the beginning of the iterations. However, as
 the number of iterations increases, the acceptance rate for larger
 A-values declines quickly, and algorithm tend to avoid accepting higher
-A-values.Details are shown in the figure below
+A-values.Details are shown in the Figure~\ref{fig-SAexp} and
+Figure~\ref{fig-SAlog}
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA_F example.png}
+\includegraphics{results_files/figure-pdf/fig-AvISAexp-1.pdf}
 
 }
 
-\caption{A v.s. Iteration (SA with exp cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-AvISAexp}A v.s. Iteration (SA with exp cooling
+schedule)}
 
 \end{figure}%
 
@@ -1992,19 +2246,12 @@ A-values.Details are shown in the figure below
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA_F visualization.png}
+\includegraphics{results_files/figure-pdf/fig-SAexp-1.pdf}
 
 }
 
-\caption{A v.s. Iteration (SA with exp cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-SAexp}Detailed assignment for treatments given by SA
+with exp cooling schedule}
 
 \end{figure}%
 
@@ -2041,25 +2288,19 @@ reach the maximum number of iterations, we can use runtime as a measure
 of computational efficiency.
 
 For random selection, many simulations did not reach the maximum number
-of iterations, which can be observed in the figure.
+of iterations, which can be observed in
+Figure~\ref{fig-iteration-ditribution-RS}.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/RS_eva/RS-iternum-distribution.png}
+\includegraphics{results_files/figure-pdf/fig-iteration-ditribution-RS-1.pdf}
 
 }
 
-\caption{\#rows v.s. runtime (random selection)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-iteration-ditribution-RS}Proportion of Iteration
+number for random selection}
 
 \end{figure}%
 
@@ -2073,19 +2314,13 @@ three replications for each combination as the final result.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/RS_eva/RS-row-vs-runtime.png}
+\includegraphics{results_files/figure-pdf/fig-RvTRS-1.pdf}
 
 }
 
-\caption{\#rows v.s. runtime (random selection)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-RvTRS}The above plot shows the average runtime by
+the number of rows with the color indicating the number of columns and
+facetted by the number of treatments t for Random Selection algorithm.}
 
 \end{figure}%
 
@@ -2104,25 +2339,19 @@ However, by observing the vertical axis of different subplots, we can
 see that as the number of treatments increases, the range of runtime
 fluctuations also increases. To demonstrate this, we present the
 relationship between the number of treatments and runtime under
-different rows and columns.
+different rows and columns as Figure~\ref{fig-TvTRS} shows.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/RS_eva/RS-trt-vs-runtime.png}
+\includegraphics{results_files/figure-pdf/fig-TvTRS-1.pdf}
 
 }
 
-\caption{\#treatment v.s. runtime (random selection)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvTRS}The above plot shows the average runtime by
+the number of treatments with the color indicating the number of rows,
+facetted by the number of columns for Random Selection algorithm.}
 
 \end{figure}%
 
@@ -2137,28 +2366,10 @@ slow convergence of log cooling and the limitation of a maximum number
 of iterations, the algorithm often runs until the maximum number of
 iterations is reached. This makes it difficult to observe the
 relationship between the number of treatments and runtime, as runtime is
-often related to the maximum number of iterations. See the image below
-for details.
+often related to the maximum number of iterations. See
+Figure~\ref{fig-iteration-ditribution-SAlog} below for details.
 
-\begin{figure}
-
-\centering{
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Slow-eva/SA-Slow-iternum-distribution.png}
-
-}
-
-\caption{Iteration number distribution (SA with log cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
-
-\end{figure}%
+\includegraphics{results_files/figure-pdf/unnamed-chunk-12-1.pdf}
 
 In the figure, we can see that only when the number of rows and columns
 is small, meaning the design space is limited, SA with log cooling can
@@ -2172,26 +2383,21 @@ number of rows, columns, and treatments on the efficiency of the
 algorithm.
 
 We first look at the influence of the number of rows on the distance.
-Similar to the analysis method used for random selection, we provide the
-following figure.
+Similar to the analysis method used for random selection, we provide
+Figure~\ref{fig-RvDSAlog}.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Slow-eva/SA-Slow-row-vs-diff.png}
+\includegraphics{results_files/figure-pdf/fig-RvDSAlog-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference (SA with exp cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-RvDSAlog}The above plot shows the difference between
+\(A_{SAlog}\) and \(A_{op}\) by the number of rows with the color
+indicating the number of columns and facetted by the number of
+treatments for SA log Cooling algorithm.}
 
 \end{figure}%
 
@@ -2207,19 +2413,14 @@ the figure below.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Slow-eva/SA-Slow-trt-vs-diff.png}
+\includegraphics{results_files/figure-pdf/fig-TvDSAlog-1.pdf}
 
 }
 
-\caption{\#treatment v.s. difference (SA with exp cooling schedule)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvDSAlog}The above plot shows the difference between
+\(A_{SAlog}\) and \(A_{op}\) by the number of treatments, with the color
+indicating the number of rows and facetted by the number of columns for
+SA with log cooling algorithm.}
 
 \end{figure}%
 
@@ -2231,33 +2432,37 @@ However, this does not necessarily mean that the absolute distance to
 the optimal value decreases.
 
 For SA with exponential cooling, we also examine the distribution of the
-iteration numbers. ::: \{\#fig-align style=``text-align: center''\}
-\begin{center}
-\includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Fast-eva/SA-Fast-iternum-distribution.png}
-\end{center}
-:::
-
-It can be seen that most of the simulations did not reach the maximum
-number of iterations, so we can use runtime to compare the effects of
-rows, columns, and treatment numbers on the algorithm.
+iteration numbers.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Fast-eva/SA-Fast-row-vs-runtime.png}
+\includegraphics{results_files/figure-pdf/fig-iteration-ditribution-SAlog-1.pdf}
 
 }
 
-\caption{\#rows v.s. runtime (random selection)}
+\caption{\label{fig-iteration-ditribution-SAlog}Proportion of Iteration
+number for SA with exp cooling schedule}
 
 \end{figure}%
 
+It can be seen that most of the simulations did not reach the maximum
+number of iterations, so we can use runtime to compare the effects of
+rows, columns, and treatment numbers on the algorithm. Details in
+Figure~\ref{fig-RvTSAexp}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{results_files/figure-pdf/fig-RvTSAexp-1.pdf}
+
 }
 
-\caption{\label{fig-align}}
+\caption{\label{fig-RvTSAexp}The above plot shows the runtime by the
+number of rows with the color indicating the number of columns and
+facetted by the number of treatments for SA with exp cooling algorithm.}
 
 \end{figure}%
 
@@ -2274,19 +2479,14 @@ runtime.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/SA-Fast-eva/SA-Fast-trt-vs-runtime.png}
+\includegraphics{results_files/figure-pdf/fig-TvTSAexp-1.pdf}
 
 }
 
-\caption{\#rows v.s. runtime (random selection)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvTSAexp}The above plot shows the runtime by the
+number of treatments with the color indicating the number of rows and
+facetted by the number of columns for the filtered `SA exp Cooling'
+algorithm.}
 
 \end{figure}%
 
@@ -2329,19 +2529,13 @@ relative difference, that is \(d = (A_{op}-A_{result})/A_{op}\).
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/r-vs-D.png}
+\includegraphics{results_files/figure-pdf/fig-RvD-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-RvD}The average relative difference between
+\(A_{op}\) and \(A_{result}\) by the number of rows for different
+algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2349,19 +2543,13 @@ relative difference, that is \(d = (A_{op}-A_{result})/A_{op}\).
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/c-vs-D.png}
+\includegraphics{results_files/figure-pdf/fig-CvD-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-CvD}The average relative difference between
+\(A_{op}\) and \(A_{result}\) by the number of columns for different
+algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2369,19 +2557,13 @@ relative difference, that is \(d = (A_{op}-A_{result})/A_{op}\).
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/trt-vs-D.png}
+\includegraphics{results_files/figure-pdf/fig-TvD-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvD}The average relative difference between
+\(A_{op}\) and \(A_{result}\) by the number of treatments for different
+algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2395,25 +2577,19 @@ increases, the relative difference also increases. However, the
 difference is negatively correlated with the treatment number. As
 mentioned earlier, a smaller relative difference does not necessarily
 mean that the absolute distance to the optimal value decreases. We can
-use the figure below to support this point.
+use the Figure~\ref{fig-TvDabs} below to support this point.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/trt-vs-ABS-D.png}
+\includegraphics{results_files/figure-pdf/fig-TvDabs-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvDabs}The average absolute difference between
+\(A_{op}\) and \(A_{result}\) by the number of treatments for different
+algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2423,25 +2599,19 @@ actually positively correlated with the treatment number.
 \subsubsection{Comparing with runtime}\label{comparing-with-runtime}
 
 Now, let's see what the comparison looks like from the perspective of
-runtime. We present the following figure to illustrate this.
+runtime. We present Figure~\ref{fig-RvT}, Figure~\ref{fig-CvT}, and
+Figure~\ref{fig-TvT} to illustrate this.
 
 \begin{figure}
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/r-vs-t.png}
+\includegraphics{results_files/figure-pdf/fig-RvT-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-RvT}the average runtime by the number of rows for
+different algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2449,19 +2619,12 @@ runtime. We present the following figure to illustrate this.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/c-vs-t.png}
+\includegraphics{results_files/figure-pdf/fig-CvT-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-CvT}The average runtime by the number of columns for
+different algorithms, with the lines representing different algorithms.}
 
 \end{figure}%
 
@@ -2469,19 +2632,13 @@ runtime. We present the following figure to illustrate this.
 
 \centering{
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.7\textwidth,height=\textheight]{../thesis/images/Rplots/means/trt-vs-t.png}
+\includegraphics{results_files/figure-pdf/fig-TvT-1.pdf}
 
 }
 
-\caption{\#rows v.s. difference)}
-
-\end{figure}%
-
-}
-
-\caption{\label{fig-align}}
+\caption{\label{fig-TvT}The average runtime by the number of treatments
+for different algorithms, with the lines representing different
+algorithms.}
 
 \end{figure}%
 
@@ -2612,7 +2769,7 @@ F(X) = \bar{f}_A^{RC} + \lambda \cdot f(X)
 \] here \(\lambda < 0\)
 
 Or use A-criteria : \[
-G(x) = t\mathscr{A} + (1-t)\cdot f(X)
+G(x) = t\mathcal{A} + (1-t)\cdot f(X)
 \] here \(0\leq t \leq 1\) and we minimize it
 
 Usually we have such mathematical programming of inequality constrained
@@ -2710,7 +2867,7 @@ This thesis was written using \href{https://quarto.org/}{Quarto 1.4.550}
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       Australia/Sydney
- date     2024-10-18
+ date     2024-10-23
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 - Packages -------------------------------------------------------------------

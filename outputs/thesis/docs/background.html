@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ANU Thesis - 2&nbsp; Background</title>
+<title>Preliminary investigation of algorithms for optimal row-column designs - 2&nbsp; Background</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ANU Thesis</a> 
+      <a href="./">Preliminary investigation of algorithms for optimal row-column designs</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/anuopensci/quarto-anu-thesis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -184,7 +184,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Declaration</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,8 +195,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Acknowledgements</span></a>
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation and terminology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -264,10 +264,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linear-model" id="toc-linear-model" class="nav-link active" data-scroll-target="#linear-model"><span class="header-section-number">2.1</span> Linear model</a></li>
-  <li><a href="#linear-mixed-model" id="toc-linear-mixed-model" class="nav-link" data-scroll-target="#linear-mixed-model"><span class="header-section-number">2.2</span> Linear mixed model</a>
+  <li><a href="#linear-mixed-model" id="toc-linear-mixed-model" class="nav-link active" data-scroll-target="#linear-mixed-model"><span class="header-section-number">2.1</span> Linear mixed model</a>
   <ul class="collapse">
-  <li><a href="#a-criterion" id="toc-a-criterion" class="nav-link" data-scroll-target="#a-criterion"><span class="header-section-number">2.2.1</span> A-criterion</a></li>
+  <li><a href="#estimation-of-model-parameters" id="toc-estimation-of-model-parameters" class="nav-link" data-scroll-target="#estimation-of-model-parameters"><span class="header-section-number">2.1.1</span> Estimation of model parameters</a></li>
+  </ul></li>
+  <li><a href="#best-linear-unbiased-estimates-and-predictions" id="toc-best-linear-unbiased-estimates-and-predictions" class="nav-link" data-scroll-target="#best-linear-unbiased-estimates-and-predictions"><span class="header-section-number">2.2</span> Best linear unbiased estimates and predictions</a>
+  <ul class="collapse">
+  <li><a href="#variance-analyse-of-estimators" id="toc-variance-analyse-of-estimators" class="nav-link" data-scroll-target="#variance-analyse-of-estimators"><span class="header-section-number">2.2.1</span> Variance analyse of estimators</a></li>
+  <li><a href="#a-criterion" id="toc-a-criterion" class="nav-link" data-scroll-target="#a-criterion"><span class="header-section-number">2.2.2</span> A-criterion</a></li>
   </ul></li>
   <li><a href="#neighbor-balance-and-eveness-of-distribution" id="toc-neighbor-balance-and-eveness-of-distribution" class="nav-link" data-scroll-target="#neighbor-balance-and-eveness-of-distribution"><span class="header-section-number">2.3</span> Neighbor balance and eveness of distribution</a>
   <ul class="collapse">
@@ -304,43 +308,12 @@ window.Quarto = {
 </header>
 
 
-<section id="linear-model" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">2.1</span> Linear model</h2>
-<p>Suppose we have a linear model,</p>
-<p><span id="eq-lm"><span class="math display">\boldsymbol{y}=\mathbf{X}\boldsymbol{\tau} + \boldsymbol{\epsilon} \tag{2.1}</span></span> where <span class="math inline">\boldsymbol{y}</span> is <span class="math inline">n\times 1</span> vector of <span class="math inline">n</span> observations, <span class="math inline">\boldsymbol{\tau}</span> is a <span class="math inline">t\times 1</span> vector of fixed effects, <span class="math inline">\boldsymbol{\epsilon}</span> is the <span class="math inline">n\times 1</span> vector for error, and <span class="math inline">\mathbf{X}</span> is a design matrix has size <span class="math inline">n\times t</span>. We assume that <span class="math inline">\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I}_{n})</span> and hence <span class="math inline">\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)</span>.</p>
-<p>The log-likelihood of <a href="#eq-lm" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-lm</span></a> is then given as:</p>
-<p><span class="math display">
-\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
-</span> The <span class="math inline">(i,j)</span>-th entry of the Fisher information matrix is defined as</p>
-<p><span class="math display">
-I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
-</span> where <span class="math inline">\tau_i</span> is the <span class="math inline">i</span>-th entry of <span class="math inline">\boldsymbol{\tau}</span>.</p>
-<div id="lem-fim-lm" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2.1</strong></span> The Fisher information matrix of <a href="#eq-lm" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-lm</span></a> is given as <span class="math display">
-\mathbf{C} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-</span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>The second derivative of the log-likelihood function <span class="math inline">\log\ell(\boldsymbol{\tau};\boldsymbol{y})</span> is the Hessian matrix. We have <span class="math display">
-\frac{\partial}{\partial\boldsymbol{\tau}}\log\ell(\boldsymbol{\tau};\boldsymbol{y})=\frac{1}{\sigma^2}\boldsymbol{X}^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})
-</span> and for second derivative is <span class="math display">
-\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})==-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}
-</span> And in linear model assumption we have <span class="math inline">\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)</span> and the Fisher information matrix is unbiased because, in the expectation calculation process, we do not involve the randomness of <span class="math inline">\boldsymbol{y}</span>. The Fisher information matrix is actually determined by the design matrix <span class="math inline">\boldsymbol{X}</span> and the error variance <span class="math inline">\sigma^2</span>. Hence <span class="math display">
-\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)=-\frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X} = -\mathbf{C}
-</span> So <span class="math inline">\mathbf{C} = \frac{1}{\sigma^2}\boldsymbol{X}^\top\boldsymbol{X}</span></p>
-</div>
-<div id="lem-lm-var" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2.2</strong></span> The variance of the fixed effects for <a href="#eq-lm" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-lm</span></a> is equivalent to the inverse of the Fisher information matrix, i.e. <span class="math inline">var(\hat{\boldsymbol{\tau}})=\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1} = \mathbf{C}^{-1}.</span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We know that the MLE of <span class="math inline">\boldsymbol{\tau}</span> in a linear model is <span class="math inline">\hat{\boldsymbol{\tau}}=(\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{y}</span>. By assumption we have <span class="math inline">\boldsymbol{y} \sim N(\mathbf{X}\boldsymbol{\tau}, \sigma^2\mathbf{I}_n)</span>. So <span class="math inline">\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1})</span>.So we have <span class="math inline">var(\hat{\boldsymbol{\tau}}) = \sigma^2(\boldsymbol{X}^\top\boldsymbol{X})^{-1}</span>, which is exactly the inverse of Fisher information matrix <span class="math inline">\mathbf{C}^{-1}</span>.</p>
-</div>
-</section>
-<section id="linear-mixed-model" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="linear-mixed-model"><span class="header-section-number">2.2</span> Linear mixed model</h2>
+<p>Linear (mixed) models are the primary method of analysis of experimental data with response that have an approximate Normal distribution. In this chapter, we expand on the model <span class="math display">\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau} + \boldsymbol{\epsilon}</span> to consider linear mixed models for the analysis of experimental data with a more general experimental structure.</p>
+<section id="linear-mixed-model" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="linear-mixed-model"><span class="header-section-number">2.1</span> Linear mixed model</h2>
 <p>Linear mixed model extends linear model by incorporating additionally incorporating random effects into the model that effectively give greater flexibility and capability to incorporate known correlated structures into the model. We now consider a linear mixed model <span id="eq-lmm"><span class="math display">
 \boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}
-\tag{2.2}</span></span> here <span class="math inline">\boldsymbol{y}</span> is <span class="math inline">n\times 1</span> vector for <span class="math inline">n</span> observations, <span class="math inline">\boldsymbol{\tau}</span> is a <span class="math inline">t\times1</span> parameter vector of treatment factors, <span class="math inline">\boldsymbol{u}</span> is a <span class="math inline">q \times1</span> parameter vector of blocking effects, and <span class="math inline">\boldsymbol{\epsilon}</span> is the <span class="math inline">n\times 1</span> error vector, <span class="math inline">\boldsymbol{X}</span> and <span class="math inline">\boldsymbol{Z}</span> are design matrices of dimension <span class="math inline">n \times t</span> and <span class="math inline">n \times q</span> for treatment factors and blocking factors, respectively. We here assume blocking factors are random effect, with random error <span class="math inline">\boldsymbol{\epsilon}</span> we have <span class="math display">
+\tag{2.1}</span></span> here <span class="math inline">\boldsymbol{y}</span> is <span class="math inline">n\times 1</span> vector for <span class="math inline">n</span> observations, <span class="math inline">\boldsymbol{\tau}</span> is a <span class="math inline">t\times1</span> parameter vector of treatment factors, <span class="math inline">\boldsymbol{u}</span> is a <span class="math inline">q \times1</span> parameter vector of blocking effects, and <span class="math inline">\boldsymbol{\epsilon}</span> is the <span class="math inline">n\times 1</span> error vector, <span class="math inline">\boldsymbol{X}</span> and <span class="math inline">\boldsymbol{Z}</span> are design matrices of dimension <span class="math inline">n \times t</span> and <span class="math inline">n \times q</span> for treatment factors and blocking factors, respectively. We here assume blocking factors are random effect, with random error <span class="math inline">\boldsymbol{\epsilon}</span> we have <span id="eq-dist"><span class="math display">
 \begin{bmatrix}
 \boldsymbol{u} \\
 \boldsymbol{\epsilon}
@@ -353,87 +326,74 @@ N\left(
 \end{bmatrix}
 ,
 \begin{bmatrix}
-\boldsymbol{G} &amp; \mathbf{0} \\
-\mathbf{0} &amp; \boldsymbol{R}
+\boldsymbol{G} &amp; \boldsymbol{0} \\
+\boldsymbol{0} &amp; \boldsymbol{R}
 \end{bmatrix}
-\right),
-</span> where <span class="math inline">\boldsymbol{G}</span> is the <span class="math inline">q \times q</span> variance matrix for <span class="math inline">\boldsymbol{u}</span> and <span class="math inline">\boldsymbol{R}</span> is <span class="math inline">n\times n</span> variance matrix for <span class="math inline">\boldsymbol{\epsilon}</span>.</p>
-<section id="a-criterion" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="a-criterion"><span class="header-section-number">2.2.1</span> A-criterion</h3>
-<p>Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects.</p>
-<p>By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of treatment effects. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.</p>
-<p>We first start with a simple example, that is, we consider treatment factors <span class="math inline">\boldsymbol{\tau}</span> are fixed, to elucidate the influence of A-criterion.</p>
-<p>basing on assumption, we have <span id="eq-asp"><span class="math display">
-\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top)
-\tag{2.3}</span></span> So for objective function, we can write out the distributions</p>
-<p><span class="math display">
-\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R}) \\
-\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})
-</span></p>
-<p>We want to give a precise estimation on <span class="math inline">\boldsymbol{\tau}</span>. As we mentioned, we have the distribution for response variable <span class="math inline">\boldsymbol{y}\sim</span> We can use generalized least squares(GLS) by rewrite the model as: <span class="math display">
-\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\tau} + \zeta
-</span> Here <span class="math inline">\zeta = \boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(0, \boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)</span>. <span class="citation" data-cites="henderson1975best">Henderson (<a href="#ref-henderson1975best" role="doc-biblioref">1975</a>)</span> shows that the GLS estimation of <span class="math inline">\boldsymbol{\tau}</span> is any solution to <span class="math display">
-\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X}\hat{\boldsymbol{\tau}}_{gls}=\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}
-</span> Here <span class="math inline">\boldsymbol{V}=\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top</span>. So <span class="math inline">\hat{\boldsymbol{\tau}}_{gls} = (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}</span></p>
-<p><span class="citation" data-cites="henderson1959estimation">Henderson et al. (<a href="#ref-henderson1959estimation" role="doc-biblioref">1959</a>)</span> emphasis that computing matrix <span class="math inline">\boldsymbol{V}</span> which is often large is difficult. So here we use joint log likelihood.</p>
-<p>From <span class="citation" data-cites="butler2013optimal">David Butler (<a href="#ref-butler2013optimal" role="doc-biblioref">2013</a>)</span>, we conduct a maximum log likelihood by following objective function: <span class="math display">
-\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})
-</span> :::{#lem-joint-density-lmm} So log of joint density is given as</p>
-<p><span class="math display">\begin{aligned}
-\mathscr{L}&amp;=\log f_Y(\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R})+\log f_u(\boldsymbol{u};\boldsymbol{G})\\
-&amp;=-\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)
-\end{aligned}</span></p>
-<p>:::</p>
+\right)
+\tag{2.2}</span></span> where <span class="math inline">\boldsymbol{G}</span> is the <span class="math inline">q \times q</span> variance matrix for <span class="math inline">\boldsymbol{u}</span> and <span class="math inline">\boldsymbol{R}</span> is <span class="math inline">n\times n</span> variance matrix for <span class="math inline">\boldsymbol{\epsilon}</span>.</p>
+<p>Throughout this thesis, we assume <span class="math inline">\boldsymbol{R} = \sigma^2\mathbf{I}_n</span> and <span class="math inline">\boldsymbol{G}</span> is a block diagonal matrix where each block is a scaled identity matrix. In practice, these structures can be more complex, e.g. <span class="citation" data-cites="williamsConstructionCrossoverDesigns2007">Williams and John (<a href="references.html#ref-williamsConstructionCrossoverDesigns2007" role="doc-biblioref">2007</a>)</span> consider autoregressive and linear variance structures for crossover designs.</p>
+<p>In addition, we assume in this thesis that the treatment effects are fixed and blocking factors (i.e.&nbsp;the row and column factors in row-column design) are random effects. It should be noted, however, that the treatment effects can be random effects based on the purpose of the experiment <span class="citation" data-cites="robinsonThatBLUPGood1991 butlerDesignFieldExperiments2014">(<a href="references.html#ref-robinsonThatBLUPGood1991" role="doc-biblioref">Robinson 1991</a>; <a href="references.html#ref-butlerDesignFieldExperiments2014" role="doc-biblioref">D. G. Butler, Smith, and Cullis 2014</a>)</span>.</p>
+<section id="estimation-of-model-parameters" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="estimation-of-model-parameters"><span class="header-section-number">2.1.1</span> Estimation of model parameters</h3>
+<section id="fixed-and-random-effects" class="level4" data-number="2.1.1.1">
+<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="fixed-and-random-effects"><span class="header-section-number">2.1.1.1</span> Fixed and random effects</h4>
+<p><span class="citation" data-cites="hendersonEstimationEnvironmentalGenetic1959">Henderson et al. (<a href="references.html#ref-hendersonEstimationEnvironmentalGenetic1959" role="doc-biblioref">1959</a>)</span> first derived the set of equations, referred to as <em>mixed model equations</em> by <span class="citation" data-cites="smithMultiplicativeMixedModels1999">Smith (<a href="references.html#ref-smithMultiplicativeMixedModels1999" role="doc-biblioref">1999</a>)</span>, as a precursor to the estimation of fixed effects and predictions of random effects. These equations are derived from maximizing the joint log density of the response and random effects as shown in <a href="#lem-mme" class="quarto-xref">Lemma&nbsp;<span>2.1</span></a>.</p>
+<div id="lem-mme" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2.1 (Mixed model equations)</strong></span> The mixed model equations shown below are derived from maximising the joint log density of <span class="math inline">\boldsymbol{y}</span> and <span class="math inline">\boldsymbol{u}</span>.</p>
+<p><span class="math display">\boldsymbol{C}\hat{\boldsymbol{\beta}} = \boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y},</span> where <span class="math inline">\boldsymbol{C} = \boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*</span>, <span class="math inline">\boldsymbol{W} = \begin{bmatrix}\boldsymbol{X} &amp; \boldsymbol{Z} \end{bmatrix}</span>, <span class="math inline">\hat{\boldsymbol{\beta}} = (\hat{\boldsymbol{\tau}}^\top, \hat{\boldsymbol{u}}^\top)^\top</span> and <span class="math inline">\boldsymbol{G}^* = \begin{bmatrix}\boldsymbol{0}_{p\times p} &amp; \boldsymbol{0}_{p\times q} \\ \boldsymbol{0}_{q\times p} &amp; \boldsymbol{G}^{-1}\end{bmatrix}</span>.</p>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We have density function for <span class="math inline">\boldsymbol{y}|\boldsymbol{u};\boldsymbol{\tau},\boldsymbol{R}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})</span></p>
-<p><span class="math display">
-f_y = \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}exp(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u})))
-</span> And density function for <span class="math inline">\boldsymbol{u}</span> <span class="math display">
-f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u})
-</span> Ignoring constant part, we have <span class="math display">
-\log f_y=-\frac{1}{2}[\ln |\boldsymbol{R}|+(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))]
-</span> <span class="math display">
-\log f_u = -\frac{1}{2}[\ln |\boldsymbol{G}+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}]
-</span> So we have our log of joint density function.</p>
-</div>
-<p>We determine that <span class="math inline">\frac{\partial\mathscr{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathscr{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}</span>, and write the equation into a matrix form <span id="eq-ll"><span class="math display">
+<p><span class="proof-title"><em>Proof</em>. </span>Given the model <a href="#eq-lmm" class="quarto-xref"><span>2.1</span></a> with assumption in <a href="#eq-dist" class="quarto-xref"><span>2.2</span></a>, we have <span class="math inline">\boldsymbol{u}\sim N(\boldsymbol{0},\boldsymbol{G})</span> and <span class="math inline">\boldsymbol{y}|\boldsymbol{u}\sim N(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u},\boldsymbol{R})</span> with probability density functions as <span class="math display">\begin{aligned}f_u(\boldsymbol{u}) &amp;= \frac{1}{\sqrt{(2\pi)^{q}|\boldsymbol{G}|}}\exp\left(-\frac{1}{2}\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &amp;= \frac{1}{\sqrt{(2\pi)^{n}|\boldsymbol{R}|}}\exp\left(-\frac{1}{2}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-(\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}))\right).
+\end{aligned}</span> Ignoring the constants, we have <span class="math display">\begin{aligned}
+\log f_u(\boldsymbol{u}) &amp;= -\frac{1}{2}\left(\log |\boldsymbol{G}|+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right)\\
+\log f_{y|u}(\boldsymbol{y}|\boldsymbol{u}) &amp;=-\frac{1}{2}\left(\log |\boldsymbol{R}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top\boldsymbol{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})\right).
+\end{aligned}</span> The joint density of <span class="math inline">\boldsymbol{y}</span> and <span class="math inline">\boldsymbol{u}</span> is given as</p>
+<p><span id="eq-density"><span class="math display">f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) = f_{y|u}(\boldsymbol{y}|\boldsymbol{u})f_u(\boldsymbol{u}), \tag{2.3}</span></span> and taking the log of both sides for <a href="#eq-density" class="quarto-xref">Equation&nbsp;<span>2.3</span></a>, we have the log of joint density as: <span class="math display">\begin{aligned}
+\mathcal{L} :=&amp; \log f_{y,u}(\boldsymbol{y}, \boldsymbol{u}) \\
+=&amp; \log f_{y|u}(\boldsymbol{y}|\boldsymbol{u})+\log f_u(\boldsymbol{u})\\
+=&amp; -\frac{1}{2}\left(\log|\boldsymbol{R}|+\log|\boldsymbol{G}|+(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})^\top \mathbf{R}^{-1}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}-\boldsymbol{Z}\boldsymbol{u})+\boldsymbol{u}^\top\boldsymbol{G}^{-1}\boldsymbol{u}\right).
+\end{aligned}</span> We determine that <span class="math inline">\frac{\partial\mathcal{L}}{\partial\boldsymbol{\tau}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{u}}=\boldsymbol{0}</span>, and write the equation into a matrix form <span id="eq-ll"><span class="math display">
 \begin{bmatrix}
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} &amp; \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} &amp; \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
 \end{bmatrix}
 \begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{\tau}}\\
+\hat{\boldsymbol{u}}
 \end{bmatrix}=
 \begin{bmatrix}
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{y}\\
 \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{y}
-\end{bmatrix}
+\end{bmatrix}.
 \tag{2.4}</span></span></p>
-<p>Let <span class="math display">
-\boldsymbol{C}=
-\begin{bmatrix}
-\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X} &amp; \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}\\
-\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{X} &amp; \boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+ \boldsymbol{G}^{-1}
-\end{bmatrix}
-\quad
-\hat{\boldsymbol{\beta}}_{llm}=\begin{bmatrix}
-\hat{\boldsymbol{\tau}}_{llm}\\
-\hat{\boldsymbol{u}}_{llm}
-\end{bmatrix}
-\quad
-\boldsymbol{W}=\begin{bmatrix}\boldsymbol{X} &amp;\boldsymbol{Z}\end{bmatrix}
-</span> By cancelling <span class="math inline">\boldsymbol{u}</span>, we have <span class="math display">
+<p><span class="math display">
+\Rightarrow (\boldsymbol{W}^\top\boldsymbol{R}^{-1}\boldsymbol{W} + \boldsymbol{G}^*)\hat{\boldsymbol{\beta}}
+=\boldsymbol{W}\boldsymbol{R}^{-1}\boldsymbol{y}
+</span> Substituting the above <span class="math inline">\boldsymbol{C}</span> leads to our conclusion</p>
+</div>
+</div>
+<p><span class="quarto-unresolved-ref">?thm-blue</span> provides the specific form for estimation of the parameters. :::: {#thm-blue}</p>
+</section>
+</section>
+</section>
+<section id="best-linear-unbiased-estimates-and-predictions" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="best-linear-unbiased-estimates-and-predictions"><span class="header-section-number">2.2</span> Best linear unbiased estimates and predictions</h2>
+<p>The solutions to the mixed models equations in <a href="#lem-mme" class="quarto-xref">Lemma&nbsp;<span>2.1</span></a> (shown below) give the best linear unbiased estimates (BLUEs) for <span class="math inline">\boldsymbol{\tau}</span> and best linear unbiased predictions (BLUPs) for <span class="math inline">\boldsymbol{u}</span> provided that <span class="math inline">\boldsymbol{G}</span> and <span class="math inline">\boldsymbol{R}</span> are known.</p>
+<p><span id="eq-esti"><span class="math display">\begin{aligned}
+\hat{\boldsymbol{\tau}} &amp;= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}\\
+\hat{\boldsymbol{u}} &amp;= \boldsymbol{G}\boldsymbol{Z}^\top\boldsymbol{V}^{-1}(\boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\tau}}),
+\end{aligned} \tag{2.5}</span></span></p>
+<p>where <span class="math inline">\boldsymbol{V} = \boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top + \boldsymbol{R}</span>. In this paper, we primarily discuss the treatment effect, so we provide the proof for <span class="math inline">\hat{\boldsymbol{\tau}}</span>.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By cancelling <span class="math inline">\boldsymbol{u}</span>, we have <span class="math display">
 \boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{X}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})\boldsymbol{Z}^\top\boldsymbol{R}^{-1}y=\boldsymbol{X}^\top\boldsymbol{R}^{-1}y\\
 </span> <span class="math display">
 \Rightarrow \boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top[\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}]y\\
 </span> <span class="math display">
 \Rightarrow \boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\boldsymbol{\tau}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
-</span> where <span class="math inline">\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}</span>, let <span class="math inline">\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}</span> then we have the form similar to GLS estimation for <span class="math inline">\hat{\boldsymbol{\tau}}</span>, which is <span class="math display">
-\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
-</span> and the estimation of <span class="math inline">\boldsymbol{\tau}</span> is <span class="math inline">\hat{\boldsymbol{\tau}}_{llm}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}</span>, which is equivalent with GLS estimation</p>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We only need to prove that <span class="math inline">\boldsymbol{P}=\boldsymbol{V}^{-1}</span>.</p>
+</span> where <span class="math inline">\boldsymbol{P}=\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}</span>, let <span class="math inline">\boldsymbol{C}_{11}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}</span> then we have the form of estimation for <span class="math inline">\hat{\boldsymbol{\tau}}</span>, which is <span class="math display">
+\boldsymbol{C}_{11}\hat{\boldsymbol{\tau}}=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}
+</span> and the estimation of <span class="math inline">\boldsymbol{\tau}</span> is <span class="math inline">\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}</span>, Now, we only need to prove that <span class="math inline">\boldsymbol{P}=\boldsymbol{V}^{-1}</span>.</p>
 <p><span class="math display">\begin{aligned}
 \boldsymbol{P}\boldsymbol{V} &amp;=(\boldsymbol{R}^{-1}-\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top\boldsymbol{R}^{-1})(\boldsymbol{R}+\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top)\\
 &amp;= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top - \boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}\boldsymbol{Z}^\top \\
@@ -444,18 +404,44 @@ f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^
 &amp;= \boldsymbol{I} + \boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top -\boldsymbol{R}^{-1}\boldsymbol{Z}(\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z}+\boldsymbol{G}^{-1})^{-1}(\boldsymbol{G}^{-1}+\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\boldsymbol{Z})\boldsymbol{G}\boldsymbol{Z}^\top\\
 &amp;= \boldsymbol{I}+\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top-\boldsymbol{R}^{-1}\boldsymbol{Z}\boldsymbol{G}\boldsymbol{Z}^\top\\
 &amp; = \boldsymbol{I}
-\end{aligned}</span></p>
-<p>So <span class="math inline">\hat{\boldsymbol{\tau}}_{llm}</span> and <span class="math inline">\hat{\boldsymbol{\tau}}_{gls}</span> are equivalent, and we denote them as <span class="math inline">\hat{\boldsymbol{\tau}}</span></p>
+\end{aligned}</span> so we have <span class="math inline">\hat{\boldsymbol{\tau}}=\boldsymbol{C}_{11}^{-1}\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{y}=\hat{\boldsymbol{\tau}}= (\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^\top\boldsymbol{V}^{-1}\boldsymbol{y}</span>.</p>
 </div>
+<p>:::</p>
+<section id="variance-parameters" class="level4" data-number="2.2.0.1">
+<h4 data-number="2.2.0.1" class="anchored" data-anchor-id="variance-parameters"><span class="header-section-number">2.2.0.1</span> Variance parameters</h4>
+<p>In practice, the variance parameters for <span class="math inline">\boldsymbol{G}</span> and <span class="math inline">\boldsymbol{R}</span> are unknown and must be estimated from data. As a consequence, the solutions in <span class="quarto-unresolved-ref">?thm-blue</span> are referred to as Empirical-BLUEs (E-BLUE) or Empirical-BLUPs (E-BLUPs).</p>
+<p>The variance parameters may be estimated using a method of moment approach, however this approach can only be utilized for simple variance structures with balanced numbers of treatments.</p>
+<p>The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates <span class="citation" data-cites="pattersonRecoveryInterblockInformation1971">(<a href="references.html#ref-pattersonRecoveryInterblockInformation1971" role="doc-biblioref">Patterson and Thompson 1971</a>)</span>. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see <span class="citation" data-cites="verbylaConditionalDerivationResidual1990">Verbyla (<a href="references.html#ref-verbylaConditionalDerivationResidual1990" role="doc-biblioref">1990</a>)</span> for the derivation of REML and <span class="citation" data-cites="smithMultiplicativeMixedModels1999">Smith (<a href="references.html#ref-smithMultiplicativeMixedModels1999" role="doc-biblioref">1999</a>)</span> for computational strategies involving the average information algorithm <span class="citation" data-cites="gilmourAverageInformationREML1995 johnsonRestrictedMaximumLikelihood1995">(<a href="references.html#ref-gilmourAverageInformationREML1995" role="doc-biblioref">Gilmour, Thompson, and Cullis 1995</a>; <a href="references.html#ref-johnsonRestrictedMaximumLikelihood1995" role="doc-biblioref">Johnson and Thompson 1995</a>)</span>.</p>
+</section>
+<section id="variance-analyse-of-estimators" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="variance-analyse-of-estimators"><span class="header-section-number">2.2.1</span> Variance analyse of estimators</h3>
+<p>In linear mixed model analysis, when estimating the accuracy of parameters and variance, we typically use the Fisher information matrix to provide a method for variance analysis. For the linear mixed model <a href="#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>, we have the log-likelihood of it is then given as: <span class="math display">
+\log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
+</span> The <span class="math inline">(i,j)</span>-th entry of the Fisher information matrix is defined as <span class="math display">
+I_{ij}(\boldsymbol{\tau})=-\mathbb{E}\left(\frac{\partial^2}{\partial\tau_i\partial\tau_j}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+</span> where <span class="math inline">\tau_i</span> is the <span class="math inline">i</span>-th entry of <span class="math inline">\boldsymbol{\tau}</span>.</p>
+<div id="lem-fim-lm" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2.2</strong></span> The Fisher information matrix of <a href="intro.html#eq-lm" class="quarto-xref">Equation&nbsp;<span>1.1</span></a> for <span class="math inline">\boldsymbol{\tau}</span> is given as <span class="math display">
+\boldsymbol{C}_{\text{Fisher}} = -\mathbb{E}\left(\frac{\partial^2}{\partial\boldsymbol{\tau}\partial\boldsymbol{\tau}^\top}\log\ell(\boldsymbol{\tau};\boldsymbol{y})\right)
+</span></p>
+</div>
+<p>And we have <span class="math inline">\boldsymbol{\tau}\sim N(\hat{\boldsymbol{\tau}},\boldsymbol{C}_{\text{Fisher}}^{-1})</span>. We will provide the specific form of this matrix and the related proof in the next section.</p>
+</section>
+<section id="a-criterion" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="a-criterion"><span class="header-section-number">2.2.2</span> A-criterion</h3>
 <p>Now we have our estimation for the treatment factor, and experimental design aims to further refine our design by focusing on the precision of these estimates. Specifically, we aim to optimize the design so that the treatment effects are estimated with minimal variance, ensuring that the differences between any two treatment levels are as small as possible. To achieve this, we introduce the A-value as a criterion for evaluating the design.</p>
-<div id="def-A-value" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> Basing on the model formula <a href="#eq-lmm" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-lmm</span></a>, and a estimation of treatment factor <span class="math inline">\hat{\boldsymbol{\tau}}</span> has <span class="math inline">n_{\tau}</span> factors. A-criterion measure the average predicted error variance of different treatments. Let <span class="math inline">V_{ij}= var(\hat{\tau}_i-\hat{\tau}_j)=var(\hat{\tau}_i)+var(\hat{\tau}_j)-2cov(\hat{\tau}_i,\hat{\tau}_j)</span>, and a A-value <span class="math inline">\mathscr{A}</span> is <span id="eq-a"><span class="math display">
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j&lt;i}V_{ij}
-\tag{2.5}</span></span></p>
-</div>
-<p>To discover the relationship between the A-value and the design matrix, I need to find the variance-covariance matrix of <span class="math inline">\hat{\boldsymbol{\tau}}</span>. In fact, it can be proof that <span class="math inline">\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})</span>.</p>
-<p>(lemma and proof)</p>
-<p>From <a href="#eq-ll" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-ll</span></a> and <a href="#eq-asp" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-asp</span></a>, we have <span class="math inline">\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)</span></p>
+<p>Optimizing the A-value is crucial in row-column designs, for it directly relates to the precision of the treatment effect estimates. The A-value, a measure of design efficiency, quantifies how well the experimental design minimizes the variability when estimating treatment effects. By focusing on minimizing the A-value, we aim to achieve a design that provides the most precise estimates of the difference of the effects between two treatments. A lower A-value means that the design is more efficient, leading to smaller variances for the difference between treatment effect estimations.</p>
+<p>Recall that in this thesis, we consider treatment factors <span class="math inline">\boldsymbol{\tau}</span> are fixed, to elucidate the influence of A-criterion. Our discussion of the A-criterion below is always based on this assumption. ::: {#def-A-value} Basing on the model formula <a href="#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>, and a estimation of treatment factor <span class="math inline">\hat{\boldsymbol{\tau}}</span> has <span class="math inline">n_{\tau}</span> factors. A-criterion measure the average predicted error variance of different treatments. Let <span class="math inline">V_{ij}= var(\hat{\tau}_i-\hat{\tau}_j)=var(\hat{\tau}_i)+var(\hat{\tau}_j)-2cov(\hat{\tau}_i,\hat{\tau}_j)</span>, and an A-value <span class="math inline">\mathcal{A}</span> is <span id="eq-a"><span class="math display">
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j&lt;i}V_{ij}
+\tag{2.6}</span></span> :::</p>
+<p>To discover the relationship between the A-value and the design matrix, I need to find the variance-covariance matrix of <span class="math inline">\hat{\boldsymbol{\tau}}</span>. In fact, it can be proof that</p>
+<div id="lem-cov" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2.3</strong></span> For treatment effect and its estimator <a href="#eq-esti" class="quarto-xref">Equation&nbsp;<span>2.5</span></a>, we have <span class="math inline">(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})</span>.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>From <a href="#eq-lmm" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> and basing on assumption <a href="#eq-dist" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> we have <span id="eq-asp"><span class="math display">
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\tau}+\boldsymbol{Z}\boldsymbol{u}+\boldsymbol{\epsilon}\sim N(\boldsymbol{X}\boldsymbol{\tau},\boldsymbol{R}+\boldsymbol{ZGZ}^\top),
+\tag{2.7}</span></span></p>
+<p>so also we have <span class="math inline">\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{X}^\top\boldsymbol{R}^{-1}(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)(\boldsymbol{X}^\top\boldsymbol{R}^{-1})^\top)</span></p>
 <p>We denote <span class="math display">\begin{aligned}
 \boldsymbol{M} &amp;= \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X}\\
 \boldsymbol{N} &amp;= \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z}\\
@@ -473,10 +459,10 @@ f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^
 \boldsymbol{S}^{-1} &amp; -\boldsymbol{S}^{-1} \boldsymbol{N} \boldsymbol{K}^{-1} \\
 -\boldsymbol{K}^{-1} \boldsymbol{J} \boldsymbol{S}^{-1} &amp; \boldsymbol{K}^{-1} + \boldsymbol{K}^{-1} \boldsymbol{J} \boldsymbol{S}^{-1} \boldsymbol{N} \boldsymbol{K}^{-1}
 \end{bmatrix}
-\tag{2.6}</span></span> So from <a href="#eq-ll" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-ll</span></a> we have <span class="math display">
+\tag{2.8}</span></span> So from <a href="#eq-ll" class="quarto-xref">Equation&nbsp;<span>2.4</span></a> we have <span class="math display">
 \begin{bmatrix}
 \hat{\boldsymbol{\tau}} \\
-\hat{\boldsymbol{u}}_{llm}
+\hat{\boldsymbol{u}}
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -496,7 +482,7 @@ f_u = \frac{1}{\sqrt{(2\pi)^{l}|\boldsymbol{G}|}}exp(-\frac{1}{2}\boldsymbol{u}^
 &amp;\boldsymbol{U}_1 = \boldsymbol{C}^{11}\boldsymbol{X}^\top\boldsymbol{R}^{-1}+\boldsymbol{C}^{12}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}\\
 &amp;\boldsymbol{U}_2 = \boldsymbol{C}^{21}\boldsymbol{X}^\top\boldsymbol{R}^{-1}+\boldsymbol{C}^{22}\boldsymbol{Z}^\top\boldsymbol{R}^{-1}
 \end{aligned}</span></p>
-<p>From <a href="#eq-ll" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-ll</span></a> and <a href="#eq-asp" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-asp</span></a>, we have <span class="math inline">\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{U}_1(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)\boldsymbol{U}_1^\top)</span></p>
+<p>From <a href="#eq-ll" class="quarto-xref">Equation&nbsp;<span>2.4</span></a> and <a href="#eq-asp" class="quarto-xref">Equation&nbsp;<span>2.7</span></a>, we have <span class="math inline">\hat{\boldsymbol{\tau}}\sim N(\boldsymbol{\tau},\boldsymbol{U}_1(\boldsymbol{R}+\boldsymbol{ZGZ}^\top)\boldsymbol{U}_1^\top)</span></p>
 <p>And we have following results</p>
 <p><span class="math display">\begin{aligned}
 \begin{bmatrix}
@@ -566,90 +552,108 @@ var(\hat{\boldsymbol{\tau}})
 &amp;=\boldsymbol{C}^{11}-\boldsymbol{C}^{12}(\boldsymbol{G}^{-1})^\top(\boldsymbol{C}^{12})^\top+\boldsymbol{C}^{12}(\boldsymbol{G}^{-1})^\top(\boldsymbol{C}^{12})^\top\\
 &amp;=\boldsymbol{C}^{11}
 \end{aligned}</span></p>
-What is <span class="math inline">\boldsymbol{C}^{11}</span>? what is the relation between <span class="math inline">\boldsymbol{C}_{11}</span> and <span class="math inline">\boldsymbol{C}^{11}</span>? From <a href="#eq-iv" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-iv</span></a> we have <span class="math inline">\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}</span> and <span class="math inline">\boldsymbol{S}</span> is <span class="math display">
+<p>what is the relation between <span class="math inline">\boldsymbol{C}_{11}</span> and <span class="math inline">\boldsymbol{C}^{11}</span>? From <a href="#eq-iv" class="quarto-xref">Equation&nbsp;<span>2.8</span></a> we have <span class="math inline">\boldsymbol{C}^{11}=\boldsymbol{S}^{-1}</span> and <span class="math inline">\boldsymbol{S}</span> is <span class="math display">
 \boldsymbol{S} = \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{X} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{X}
-</span> And base on the complement of <span class="math inline">\boldsymbol{C}_{11}</span>, we rewrite the <span class="math inline">\boldsymbol{S}</span> <span class="math display">
-</span>
-<span class="math display">\begin{aligned}
+</span> And base on the complement of <span class="math inline">\boldsymbol{C}_{11}</span>, we rewrite the <span class="math inline">\boldsymbol{S}</span></p>
+<p><span class="math display">\begin{aligned}
 \boldsymbol{S}
 &amp;=\boldsymbol{X}^\top(\boldsymbol{R}^{-1} - \boldsymbol{X}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} (\boldsymbol{Z}^\top \boldsymbol{R}^{-1} \boldsymbol{Z} + \boldsymbol{G}^{-1})^{-1} \boldsymbol{Z}^\top \boldsymbol{R}^{-1})\boldsymbol{X}\\
 &amp;=\boldsymbol{X}^\top\boldsymbol{P}\boldsymbol{X}\\
 &amp;=\boldsymbol{C}_{11}
-\end{aligned}</span>
-<p><span class="math display">
-</span> So <span class="math inline">var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}</span>.</p>
-<p>So we have <span class="math inline">\boldsymbol{\tau}-\hat{\boldsymbol{\tau}}\sim N(0,\boldsymbol{C}_{11}^{-1})</span>.To examine a specific form of <span class="math inline">\boldsymbol{\tau}</span>, in general case, we do linear transform on <span class="math inline">\boldsymbol{\tau}</span>: <span class="math inline">\hat{\boldsymbol{\pi}}=\boldsymbol{D}\hat{\boldsymbol{\tau}}</span>, where <span class="math inline">\boldsymbol{D}</span> is some transform matrix, so we have <span class="math inline">\boldsymbol{D}(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})=\boldsymbol{\pi}-\hat{\boldsymbol{\pi}}\sim N(0,\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top)</span>. We denote <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top</span>. If <span class="math inline">\boldsymbol{D}</span> is identical matrix <span class="math inline">\boldsymbol{I}</span>, then <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span> and <span class="math inline">\hat{\boldsymbol{\pi}}=\hat{\boldsymbol{\tau}}</span>.</p>
-<p>We know that A-criterion is the mean of predicted error variance of the parameter from <a href="#eq-a" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-a</span></a> i.e.&nbsp; <span class="math display">
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j&lt;i}V_{ij}
+\end{aligned}</span></p>
+<p>So <span class="math inline">var(\hat{\boldsymbol{\tau}})=\boldsymbol{C}^{11}=\boldsymbol{C}_{11}^{-1}</span>, which means <span class="math inline">(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})\sim N(0,\boldsymbol{C}_{11}^{-1})</span>.</p>
+</div>
+</div>
+<p>To examine a specific form of <span class="math inline">\boldsymbol{\tau}</span>, in general case, we do linear transform on <span class="math inline">\boldsymbol{\tau}</span>: <span class="math inline">\hat{\boldsymbol{\pi}}=\boldsymbol{D}\hat{\boldsymbol{\tau}}</span>, where <span class="math inline">\boldsymbol{D}</span> is some transform matrix, so we have <span class="math inline">\boldsymbol{D}(\boldsymbol{\tau}-\hat{\boldsymbol{\tau}})=\boldsymbol{\pi}-\hat{\boldsymbol{\pi}}\sim N(0,\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top)</span>. We denote <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{D}\boldsymbol{C}_{11}^{-}\boldsymbol{D}^\top</span>. If <span class="math inline">\boldsymbol{D}</span> is identical matrix <span class="math inline">\boldsymbol{I}</span>, then <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span> and <span class="math inline">\hat{\boldsymbol{\pi}}=\hat{\boldsymbol{\tau}}</span>.</p>
+<p>We know that A-criterion is the mean of predicted error variance of the parameter from <a href="#eq-a" class="quarto-xref">Equation&nbsp;<span>2.6</span></a> i.e.&nbsp; <span class="math display">
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}\sum_{i}\sum_{j&lt;i}V_{ij}
 </span> Having variance-covariance matrix <span class="math inline">\boldsymbol{\Lambda}=\boldsymbol{C}_{11}^{-1}</span>, we can rewrite the sum part as <span class="math inline">n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}</span>.So we have <span id="eq-an"><span class="math display">
-\mathscr{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathbb{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathbb{1}_{n_{\tau}}]
-\tag{2.7}</span></span> same result from <span class="citation" data-cites="butler2013model">DG Butler, Smith, and Cullis (<a href="#ref-butler2013model" role="doc-biblioref">2013</a>)</span></p>
-<p>Derivation above indicate that <span class="math inline">\mathscr{A}\propto tr(\boldsymbol{\Lambda})</span>, A-criterion as the mean of predicted error variance of the parameter, we prefer it as small as possible to obtain a accurate result from experiment, which means the trace of virance-covirance matrix <span class="math inline">\boldsymbol{\Lambda}</span> should be as small as possible. And this is our goal on optimal experimental design.</p>
+\mathcal{A}=\frac{1}{n_{\tau}(n_{\tau}-1)}[n_{\tau}tr(\boldsymbol{\Lambda})-\mathcal{1}_{n_{\tau}}^\top\boldsymbol{\Lambda}\mathcal{1}_{n_{\tau}}]
+\tag{2.9}</span></span> same result from <span class="citation" data-cites="butler2013model">D. Butler, Smith, and Cullis (<a href="references.html#ref-butler2013model" role="doc-biblioref">2013</a>)</span></p>
+<p>Derivation above indicate that <span class="math inline">\mathcal{A}\propto tr(\boldsymbol{\Lambda})</span>, A-criterion as the mean of predicted error variance of the parameter, we prefer it as small as possible to obtain a accurate result from experiment, which means the trace of virance-covirance matrix <span class="math inline">\boldsymbol{\Lambda}</span> should be as small as possible. And this is our goal on optimal experimental design.</p>
 </section>
 </section>
 <section id="neighbor-balance-and-eveness-of-distribution" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="neighbor-balance-and-eveness-of-distribution"><span class="header-section-number">2.3</span> Neighbor balance and eveness of distribution</h2>
 <section id="concepts-of-nb-and-ed" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="concepts-of-nb-and-ed"><span class="header-section-number">2.3.1</span> Concepts of NB and ED</h3>
-<p><span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> emphasis the the concepts of neighbor balance and even distribution are crucial to mitigating biases and ensuring the reliability of results in row-column design.</p>
-<p>Neighbor balance (NB) refers to the principle that, in a row-column experimental design, the frequency with which two treatments are adjacent or near each other should not be excessively high. High adjacency frequency between two treatments can lead to mutual influence, which may cause bias to the experimental results. For example, if the effect of one treatment can spread to neighboring areas, frequent adjacency could interfere with accurate measurement of each treatment’s true effect next to it. Therefore, it is essential to control the adjacency frequency of different treatments to prevent high adjacency for two specific treatments.</p>
-<p>Even distribution(ED) aims to ensure that different replications of the same treatment are widely distributed across the experimental field, rather than being clustered in a specific area. This strategy helps to avoid biases caused by specific environmental conditions in certain parts of the experiment field. If replications of one treatment are over concentrated in one area, unique environmental factors in that area might affect the treatment’s performance, leading to biased observations. By evenly distributing replications, environmental interference can be minimized, so that we can enhance the reliability of the experimental results.</p>
-<p>(maybe some example plots or pictures)</p>
+<p><span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span> emphasis the the concepts of neighbour balance and even distribution are crucial to mitigating biases and ensuring the reliability of results in row-column design.</p>
+<p>Neighbour balance (NB) refers to the principle that, in a row-column experimental design, the frequency with which two treatments are adjacent or near each other should not be excessively high. High adjacency frequency between two treatments can lead to mutual influence, which may cause bias to the experimental results. For example, if the effect of one treatment can spread to neighbouring areas, frequent adjacency could interfere with accurate measurement of each treatment’s true effect next to it. Therefore, it is essential to control the adjacency frequency of different treatments to prevent high adjacency for two specific treatments.</p>
+<p>Even distribution (ED) aims to ensure that different replications of the same treatment are widely distributed across the experimental field, rather than being clustered in a specific area. This strategy helps to avoid biases caused by specific environmental conditions in certain parts of the experiment field. If replications of one treatment are over concentrated in one area, unique environmental factors in that area might affect the treatment’s performance, leading to biased observations. By evenly distributing replications, environmental interference can be minimized, so that we can enhance the reliability of the experimental results.</p>
+<p>See <a href="intro.html#fig-NBED" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> for instances where bad NB and ED occur.</p>
 </section>
 <section id="measuring-nb-and-ed" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="measuring-nb-and-ed"><span class="header-section-number">2.3.2</span> Measuring NB and ED</h3>
 <section id="evaluating-nb-with-adjacency-matrix" class="level4" data-number="2.3.2.1">
 <h4 data-number="2.3.2.1" class="anchored" data-anchor-id="evaluating-nb-with-adjacency-matrix"><span class="header-section-number">2.3.2.1</span> Evaluating NB with adjacency matrix</h4>
-<p>In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, there is a assumption that they are optimizing a binary design, which means each treatment appears only once in each row and column. Under this assumption, their balancing mechanism considers diagonal adjacency, Knight moves, and even more distant points to ensure an optimal balance. In my optimization process, I begin with a randomly selected design matrix. Consequently, my approach considers not only diagonal adjacency but also the adjacent points directly above, below, to the left, and to the right.</p>
-<p>I use an adjacency matrix to count the number of times each treatment is adjacent to another. This matrix serves as a crucial tool in my optimization process, enabling precise tracking and adjustment of treatment placements to achieve neighbour balance.</p>
-<p>We denote the adjacency matrix as <span class="math inline">\boldsymbol{A}</span>, and for treatment <span class="math inline">i</span> and <span class="math inline">j</span> in treatment set <span class="math inline">T</span> <span class="math inline">\boldsymbol{A}_{ij}</span> represents the count of times treatment <span class="math inline">i</span> is adjacent to treatment <span class="math inline">j</span>. Here “adjacent” means treatment <span class="math inline">j</span> is located next to treatment <span class="math inline">i</span> (maybe a picture to show it)</p>
-<p>For Given design <span class="math inline">\mathcal{D}</span> and <span class="math inline">\mathcal{D}_{r,c}</span> represents the treatment at row <span class="math inline">r</span> and column <span class="math inline">c</span>. So <span class="math inline">\boldsymbol{A}_{ij}</span> can be expressed as:</p>
+<p>In <span class="citation" data-cites="piepho2018neighbor">Piepho, Michel, and Williams (<a href="references.html#ref-piepho2018neighbor" role="doc-biblioref">2018</a>)</span>, there is a assumption that they are optimizing a binary design, which means each treatment appears only once in each row and column. Under this assumption, their balancing mechanism considers diagonal adjacency, Knight moves, and even more distant points to ensure an optimal balance. In my optimization process, I begin with a randomly selected design matrix. Consequently, my approach considers not only diagonal adjacency but also the adjacent points directly above, below, to the left, and to the right.</p>
+<p>We use an adjacency matrix to count the number of times each treatment is adjacent to another. This matrix serves as a crucial tool in my optimization process, enabling precise tracking and adjustment of treatment placements to achieve neighbour balance.</p>
+<p>We denote the adjacency matrix as <span class="math inline">\mathcal{U}</span>, and for treatment <span class="math inline">i</span> and <span class="math inline">j</span> in treatment set <span class="math inline">T</span>, the symbol <span class="math inline">\mathcal{U}_{ij}</span> represents the count of times treatment <span class="math inline">i</span> is adjacent to treatment <span class="math inline">j</span>. Here “adjacent” means treatment <span class="math inline">j</span> is located next to treatment <span class="math inline">i</span></p>
+<p>For Given design <span class="math inline">\mathcal{D}</span> and <span class="math inline">\mathcal{D}_{r,c}</span> represents the treatment at row <span class="math inline">r</span> and column <span class="math inline">c</span>. So <span class="math inline">\mathcal{U}_{ij}</span> can be expressed as:</p>
 <p><span class="math display">
-\boldsymbol{A}_{ij}=\sum_{r=1}^{R}\sum_{c=1}^{C}I_{r,c}(i) F_{r,c}(j)
+\mathcal{U}_{ij}=\sum_{r=1}^{n_r}\sum_{c=1}^{n_c}I_{r,c}(i) F_{r,c}(j)
 </span> where <span class="math display">
 F_{r,c}(j)=
 \sum_{m \in \{-1,0,1\}}\sum_{n \in \{-1,1\}}I_{r+m,c+n}(j)+\sum_{m \in \{-1,1\}}I_{r+m,c}(j)
-</span> <span class="math inline">R</span> and <span class="math inline">C</span> are total number of rows and columns and <span class="math inline">I_{r,c}(\cdot)</span> is the indicator function, which takes value under following cases <span class="math display">
+</span> <span class="math inline">n_r</span> and <span class="math inline">n_c</span> are total number of rows and columns and <span class="math inline">I_{r,c}(\cdot)</span> is the indicator function, which takes value under following cases <span class="math display">
 I_{r,c}(i)=
 \begin{cases}
 1 &amp; \text{if } \mathcal{D}_{r,c}=i \\
-0 &amp; \text{if } \mathcal{D}_{r,c}\neq i &amp; \text{or } r&lt;1,r&gt;R,c&lt;1,c&gt;C\\
+0 &amp; \text{if } \mathcal{D}_{r,c}\neq i \; \text{or } r&lt;1,r&gt;n_r,c&lt;1,c&gt;n_c\\
 \end{cases}
 </span></p>
 <p>The function <span class="math inline">F_{r,c}(j)</span> here is actually counting the times that treatment <span class="math inline">j</span> occurs at places around the position row <span class="math inline">r</span> and column <span class="math inline">c</span>.</p>
-<p>We measure NB by taking difference of the maximum and minimum of the elements in adjacency matrix <span class="math inline">\boldsymbol{A}</span>. Our NB criteria is <span class="math display">
-C_{NB}=max\{\boldsymbol{A}_{ij}\}-min\{\boldsymbol{A}_{ij}\}  \quad i,j\in T
+<p>We measure NB by taking difference of the maximum and minimum of the elements in adjacency matrix <span class="math inline">\mathcal{U}</span>. Our NB criteria is <span class="math display">
+C_{NB}=\max\{\mathcal{U}_{ij}\}-\min\{\mathcal{U}_{ij}\}  \quad i,j\in T
 </span></p>
 </section>
 <section id="evaluating-ed-with-minimum-row-and-column-span" class="level4" data-number="2.3.2.2">
 <h4 data-number="2.3.2.2" class="anchored" data-anchor-id="evaluating-ed-with-minimum-row-and-column-span"><span class="header-section-number">2.3.2.2</span> Evaluating ED with minimum row and column span</h4>
 <p>The goal of evaluating the evenness of distribution (ED) is to find the row and column spans for treatments across the entire design matrix. We would like this value as large as possible This ensures that the treatments <span class="math inline">t\in T</span> is distributed as evenly as possible within the rows and columns, reducing clustering and promoting a balanced design.</p>
 <p>The row span for a given treatment <span class="math inline">t \in T</span> is defined as the difference between the maximum and minimum row indices where t appears in experiment field. <span class="math display">
-RS(t)=max\{r:\mathcal{D}_{r,c}=t\}-min\{r:\mathcal{D}_{r,c}=t\} \quad 1&lt;r&lt;R,\quad 1&lt;c&lt;C
+RS(t)=\max\{r:\mathcal{D}_{r,c}=t\}-\min\{r:\mathcal{D}_{r,c}=t\} \quad 1&lt;r&lt;n_r,\quad 1&lt;c&lt;n_c
 </span> And the minimum row span of a design <span class="math inline">\mathcal{D}</span> is <span class="math display">
-MRS(\mathcal{D})=min\{RS(t)\},\quad t \in T
+MRS(\mathcal{D})=\min\{RS(t)\},\quad t \in T
 </span> Same for column span <span class="math display">
-CS(t)=max\{c:\mathcal{D}_{r,c}=t\}-min\{c:\mathcal{D}_{r,c}=t\} \quad 1&lt;r&lt;R,\quad 1&lt;c&lt;C
+CS(t)=\max\{c:\mathcal{D}_{r,c}=t\}-\min\{c:\mathcal{D}_{r,c}=t\} \quad 1&lt;r&lt;n_r,\quad 1&lt;c&lt;n_c
 </span> <span class="math display">
-MCS(\mathcal{D})=min\{CS(t)\},\quad t \in T
+MCS(\mathcal{D})=\min\{CS(t)\},\quad t \in T
 </span> So, for the changes in the design matrix <span class="math inline">\mathcal{D}</span> during the search process, we tend to accept only those changes where the Minimum Row Span (<span class="math inline">MRS</span>) and Minimum Column Span (<span class="math inline">MCS</span>) remain the same or become smaller.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-butler2013optimal" class="csl-entry" role="listitem">
-Butler, David. 2013. <span>“On the Optimal Design of Experiments Under the Linear Mixed Model.”</span>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-butlerDesignFieldExperiments2014" class="csl-entry" role="listitem">
+Butler, David Geoffrey, Alison B Smith, and Brian R Cullis. 2014. <span>“On the <span>Design</span> of <span>Field Experiments</span> with <span>Correlated Treatment Effects</span>.”</span> <em>Journal of Agricultural, Biological, and Environmental Statistics</em> 19 (4): 547–57. <a href="https://doi.org/10.1007/s13253-014-0191-0">https://doi.org/10.1007/s13253-014-0191-0</a>.
 </div>
 <div id="ref-butler2013model" class="csl-entry" role="listitem">
 Butler, DG, AB Smith, and BR Cullis. 2013. <span>“On Model Based Design of Comparative Experiments.”</span> preparation.
 </div>
-<div id="ref-henderson1975best" class="csl-entry" role="listitem">
-Henderson, Charles R. 1975. <span>“Best Linear Unbiased Estimation and Prediction Under a Selection Model.”</span> <em>Biometrics</em>, 423–47.
+<div id="ref-gilmourAverageInformationREML1995" class="csl-entry" role="listitem">
+Gilmour, Arthur R, Robin Thompson, and Brian R Cullis. 1995. <span>“Average <span>Information REML</span>: <span>An Efficient Algorithm</span> for <span>Variance Parameter Estimation</span> in <span>Linear Mixed Models</span>.”</span> <em>Biometrics</em> 51 (4): 1440–50. <a href="https://doi.org/10.2307/2533274">https://doi.org/10.2307/2533274</a>.
 </div>
-<div id="ref-henderson1959estimation" class="csl-entry" role="listitem">
-Henderson, Charles R, Oscar Kempthorne, Shayle R Searle, and CM Von Krosigk. 1959. <span>“The Estimation of Environmental and Genetic Trends from Records Subject to Culling.”</span> <em>Biometrics</em> 15 (2): 192–218.
+<div id="ref-hendersonEstimationEnvironmentalGenetic1959" class="csl-entry" role="listitem">
+Henderson, Charles Roy, Oscar Kempthorne, Shayle Roy Searle, and C. M. Krosigk. 1959. <span>“The <span>Estimation</span> of <span>Environmental</span> and <span>Genetic Trends</span> from <span>Records Subject</span> to <span>Culling</span>.”</span> <em>Biometrics</em> 15 (2): 192–218.
+</div>
+<div id="ref-johnsonRestrictedMaximumLikelihood1995" class="csl-entry" role="listitem">
+Johnson, D L, and Robin Thompson. 1995. <span>“Restricted <span>Maximum Likelihood Estimation</span> of <span>Variance Components</span> for <span>Univariate Animal Models Using Sparse Matrix Techniques</span> and <span>Average Information</span>.”</span> <em>Journal of Dairy Science</em> 78 (2): 449–56. <a href="https://doi.org/10.3168/jds.S0022-0302(95)76654-1">https://doi.org/10.3168/jds.S0022-0302(95)76654-1</a>.
+</div>
+<div id="ref-pattersonRecoveryInterblockInformation1971" class="csl-entry" role="listitem">
+Patterson, H. Desmond, and Robin Thompson. 1971. <span>“Recovery of Inter-Block Information When Block Sizes Are Unequal.”</span> <em>Biometrika</em> 58 (3): 545–54. <a href="https://doi.org/10.1093/biomet/58.3.545">https://doi.org/10.1093/biomet/58.3.545</a>.
 </div>
 <div id="ref-piepho2018neighbor" class="csl-entry" role="listitem">
 Piepho, Hans-Peter, Volker Michel, and Emlyn Williams. 2018. <span>“Neighbor Balance and Evenness of Distribution of Treatment Replications in Row-Column Designs.”</span> <em>Biometrical Journal</em> 60 (6): 1172–89.
+</div>
+<div id="ref-robinsonThatBLUPGood1991" class="csl-entry" role="listitem">
+Robinson, G K. 1991. <span>“That <span>BLUP</span> Is a <span>Good Thing</span> : <span>The Estimation</span> of <span>Random Effects</span>.”</span> <em>Statistical Science</em> 6: 15–32. <a href="http://www.jstor.org/stable/2245695">http://www.jstor.org/stable/2245695</a>.
+</div>
+<div id="ref-smithMultiplicativeMixedModels1999" class="csl-entry" role="listitem">
+Smith, Alison B. 1999. <span>“Multiplicative Mixed Models for the Analysis of Multi-Environment Trial Data.”</span> PhD thesis, Department of Statistics: The University of Adelaide.
+</div>
+<div id="ref-verbylaConditionalDerivationResidual1990" class="csl-entry" role="listitem">
+Verbyla, Arūnas P. 1990. <span>“A Conditional Derivation of Residual Maximum Likelihood.”</span> <em>Australian &amp; New Zealand Journal of Statistics</em> 32 (June): 227–30. <a href="https://doi.org/10.1111/j.1467-842X.1990.tb01015.x">https://doi.org/10.1111/j.1467-842X.1990.tb01015.x</a>.
+</div>
+<div id="ref-williamsConstructionCrossoverDesigns2007" class="csl-entry" role="listitem">
+Williams, E. R., and J. A. John. 2007. <span>“Construction of Crossover Designs with Correlated Errors.”</span> <em>Australian &amp; New Zealand Journal of Statistics</em> 49 (1): 61–68. <a href="https://doi.org/10.1111/j.1467-842X.2006.00463.x">https://doi.org/10.1111/j.1467-842X.2006.00463.x</a>.
 </div>
 </div>
 </section>
@@ -1063,7 +1067,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright © 2024, Your Name</p>
+<p>Copyright © 2024, Jingning Yao</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/anuopensci/quarto-anu-thesis/edit/main/background.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/anuopensci/quarto-anu-thesis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
