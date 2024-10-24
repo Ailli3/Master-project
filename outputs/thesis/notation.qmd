@@ -4,7 +4,7 @@
 |---------------------|------------------------------------------------|
 | $\boldsymbol{y}$                          | Response variable vector               |
 | $\boldsymbol{u}$                        | Parameter vector of blocking effects      |
-| $\hat{\boldsymbol{u}}$            | Estimated parameter vector of blocking effects maximization|
+| $\hat{\boldsymbol{u}}$            | Estimated parameter vector of blocking effects |
 | $\boldsymbol{\tau}$                         | Parameter vector of treatments effects       |
 | $\hat{\boldsymbol{\tau}}$     | Estimated parameter vector of treatments effects |
 | $\boldsymbol{\epsilon}$     | Parameter vector of model error            |
@@ -70,3 +70,5 @@
 | Evenness of distribution (ED) |  Multiple replications of a treatment are evenly spread across the design field |
 | Neighbour balance (NB) | Multiple treatments are not consistently placed next to each other in the design |
 | Pairwise permutation  |  Swapping two treatments in a design matrix to explore new configurations |
+| SA with log cooling | Simulated annealing algorithm using logarithmic cooling schedule |
+| SA with exp cooling | Simulated annealing algorithm using exponential cooling |

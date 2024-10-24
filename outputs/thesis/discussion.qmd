@@ -42,19 +42,19 @@ Or use A-criteria :
 $$
 G(x) = t\mathcal{A} + (1-t)\cdot f(X)
 $$
-here $0\leq t \leq 1$ and we minimize it
+here $0\leq t \leq 1$ and we minimize it.
 
 Usually we have such mathematical programming of inequality constrained optimization problem: we minimize objective function $f_0(x)$  with inequality constrains $f_i(x)\leq 0, i\in I=\{1,2,\cdots,m\}$.And we have a well-known penalty function for this problem is
 $$
 F (x, \rho) = f_0(x) + \rho \sum_{i\in I}\max\{f_i(x),0\}
 $$
-and a corresponding constrained penalty optimization problem is to minimize penalty function $F_2 (x, \rho)$, detailed information in @meng2013exactness
+and a corresponding constrained penalty optimization problem is to minimize penalty function $F_2 (x, \rho)$, detailed information in @meng2013exactness.
 
 ### Algorithm improvment
 
 #### SA-based multiobjective optimization algorithms
 
-When discussing the A-value, NB statistic, and ED statistic, our goal is actually to find a process that can simultaneously optimize all three, or finding a balance between three statistic criteria.SA is often used in combinatorial optimization problems, as we are using it here to optimize the arrangement of treatment plots. @suman2006survey claim that in recent studies, SA has been applied in many multi-objective optimization problems, because of its simplicity and capability of producing a Pareto set of solutions in single run with very little computational cost.
+When discussing the A-value, NB statistic, and ED statistic, our goal is actually to find a process that can simultaneously optimize all three, or finding a balance between three statistic criteria.SA is often used in combinatorial optimization problems, as we are using it here to optimize the arrangement of treatment plots. @suman2006survey claims that in recent studies, SA has been applied in many multi-objective optimization problems, because of its simplicity and capability of producing a Pareto set of solutions in single run with very little computational cost.
 
 We say a solution is non-dominated if none of its objective values can be improved without worsening at least one other objective. The Pareto set (or Pareto front) is a set of non-dominated solutions in a multi-objective optimization problem.  @suman2006survey introduce several SA for multi-objective optimization.
 

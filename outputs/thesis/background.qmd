@@ -47,15 +47,15 @@ where $\boldsymbol{G}$ is the $q \times q$ variance matrix for
 $\boldsymbol{u}$ and $\boldsymbol{R}$ is $n\times n$ variance matrix for
 $\boldsymbol{\epsilon}$.
 
-Throughout this thesis, we assume $\boldsymbol{R} = \sigma^2\mathbf{I}_n$ and $\boldsymbol{G}$ is a block diagonal matrix where each block is a scaled identity matrix. In practice, these structures can be more complex, e.g. @williamsConstructionCrossoverDesigns2007 consider autoregressive and linear variance structures for crossover designs. 
+Throughout this thesis, we assume $\boldsymbol{R} = \sigma^2\mathbf{I}_n$ and $\boldsymbol{G}$ is a block diagonal matrix where each block is a scaled identity matrix. In practice, these structures can be more complex, e.g. @williams2007construction consider autoregressive and linear variance structures for crossover designs. 
 
-In addition, we assume in this thesis that the treatment effects are fixed and blocking factors (i.e. the row and column factors in row-column design) are random effects. It should be noted, however, that the treatment effects can be random effects based on the purpose of the experiment [@robinsonThatBLUPGood1991;@butlerDesignFieldExperiments2014].
+In addition, we assume in this thesis that the treatment effects are fixed and blocking factors (i.e. the row and column factors in row-column design) are random effects. It should be noted, however, that the treatment effects can be random effects based on the purpose of the experiment [@robinson1991blup;@butler2014design].
 
 ### Estimation of model parameters
 
 #### Fixed and random effects 
 
-@hendersonEstimationEnvironmentalGenetic1959 first derived the set of equations, referred to as _mixed model equations_ by @smithMultiplicativeMixedModels1999, as a precursor to the estimation of fixed effects and predictions of random effects. These equations are derived from maximizing the joint log density of the response and random effects as shown in @lem-mme.
+@henderson1959estimation first derived the set of equations, referred to as _mixed model equations_ by @smith1999multiplicative, as a precursor to the estimation of fixed effects and predictions of random effects. These equations are derived from maximizing the joint log density of the response and random effects as shown in @lem-mme.
 
 ::: {#lem-mme}
 
@@ -173,9 +173,9 @@ In practice, the variance parameters for $\boldsymbol{G}$ and $\boldsymbol{R}$ a
 
 The variance parameters may be estimated using a method of moment approach, however this approach can only be utilized for simple variance structures with balanced numbers of treatments. 
 
-The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates [@pattersonRecoveryInterblockInformation1971]. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see @verbylaConditionalDerivationResidual1990 for the derivation of REML and @smithMultiplicativeMixedModels1999 for computational strategies involving the average information algorithm [@gilmourAverageInformationREML1995;@johnsonRestrictedMaximumLikelihood1995].
+The modern prevalent approach to estimating variance parameters use maximum likelihood estimates (MLEs) or residual maximum likelihood (REML) estimates [@patterson1971recovery]. The latter approach takes into account the loss of degrees of freedom to the fixed effects so the estimates of variance are less biased. Interested readers should see @verbyla1990conditional for the derivation of REML and @smith1999multiplicative for computational strategies involving the average information algorithm [@gilmour1995average;@johnson1995restricted].
 
-### Variance analyse of estimators
+### Variance analyze of estimators
 In linear mixed model analysis, when estimating the accuracy of parameters and variance, we typically use the Fisher information matrix to provide a method for variance analysis. For the linear mixed model @eq-lmm, we have the log-likelihood of it is then given as:
 $$
 \log\ell(\boldsymbol{\tau};\boldsymbol{y}) = -\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau})^\top(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\tau}).
