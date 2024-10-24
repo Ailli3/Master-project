@@ -32,8 +32,8 @@
  \normalfont
  \vspace*{\fill}
  \noindent
- \begin{tabular}{lp{40cm}}
-   $if(degree)${\bf $degree$ Thesis} & \\[2mm]$endif$
+ $if(degree)${\bf $degree$ Thesis}\\[2mm]$endif$
+ \begin{tabular}{lp{10cm}}
    $if(author)${\bf Author:} & $author$\\[2mm]$endif$
    $if(supervisor)${\bf Supervisors:} & $for(supervisor)$$supervisor$$sep$, $endfor$\\[2mm]$endif$
    $if(url)${\bf URL:} & $url$\\[2mm]$endif$
